@@ -7,7 +7,6 @@
 <title>AL | Fachriansyah Alfigo</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <style>
@@ -26,7 +25,90 @@ body {
   overflow-x: hidden;
 }
 
-/* SPACE BACKGROUND */
+/* ================= INTRO ================= */
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background:
+    radial-gradient(circle, #182c55 0%, #090d20 45%, #03040a 100%);
+  transition: opacity 1s ease, visibility 1s ease;
+}
+
+#intro.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.intro-logo {
+  font-family: Orbitron;
+  font-size: clamp(80px, 18vw, 150px);
+  color: #ff426f;
+  text-shadow: 0 0 20px #ff245b, 0 0 70px #ff245b;
+  animation: logoEntrance 1.5s ease both, logoPulse 3s 1.5s infinite;
+}
+
+.intro-title {
+  font-family: Orbitron;
+  letter-spacing: 5px;
+  text-align: center;
+  margin-top: 15px;
+  animation: fadeUp 1.5s .5s both;
+}
+
+.intro-subtitle {
+  color: #68c9ff;
+  margin-top: 12px;
+  letter-spacing: 4px;
+  animation: fadeUp 1.5s .8s both;
+}
+
+#enterBtn {
+  margin-top: 40px;
+  padding: 15px 35px;
+  border: 1px solid #68c9ff;
+  border-radius: 40px;
+  color: white;
+  background: #102447;
+  font-family: Orbitron;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 0 25px #2878d088;
+  animation: fadeUp 1.5s 1.1s both, buttonGlow 2s infinite alternate;
+  transition: .3s;
+}
+
+#enterBtn:hover {
+  transform: scale(1.08);
+  background: #2878d0;
+}
+
+@keyframes logoEntrance {
+  from { opacity: 0; transform: scale(.3) rotate(-30deg); }
+  to { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes logoPulse {
+  50% { text-shadow: 0 0 35px #ff245b, 0 0 90px #ff245b; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes buttonGlow {
+  to { box-shadow: 0 0 35px #68c9ff; }
+}
+
+/* ================= SPACE BACKGROUND ================= */
+
 #space {
   position: fixed;
   inset: 0;
@@ -81,7 +163,8 @@ body {
   to { transform: translate(100px, -50px) scale(1.2); }
 }
 
-/* FLYING ROBOT */
+/* ================= FLYING CHARACTER ================= */
+
 .ironman-emoji {
   position: fixed;
   z-index: 1;
@@ -102,35 +185,19 @@ body {
 }
 
 @keyframes ironmanFlight {
-  0% {
-    left: -120px;
-    top: 75%;
-    transform: rotate(-15deg);
-  }
-  25% {
-    top: 45%;
-    transform: rotate(5deg);
-  }
-  50% {
-    top: 20%;
-    transform: rotate(-5deg);
-  }
-  75% {
-    top: 40%;
-    transform: rotate(10deg);
-  }
-  100% {
-    left: 110%;
-    top: 65%;
-    transform: rotate(-10deg);
-  }
+  0% { left: -120px; top: 75%; transform: rotate(-15deg); }
+  25% { top: 45%; transform: rotate(5deg); }
+  50% { top: 20%; transform: rotate(-5deg); }
+  75% { top: 40%; transform: rotate(10deg); }
+  100% { left: 110%; top: 65%; transform: rotate(-10deg); }
 }
 
-/* SPACE DECORATIONS */
+/* ================= SPACE OBJECTS ================= */
+
 .space-decorations {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
   overflow: hidden;
 }
@@ -216,9 +283,9 @@ body {
 }
 
 @keyframes satelliteMove {
-  0% { transform: translateX(0) rotate(0deg); }
+  0% { transform: translateX(0) rotate(0); }
   50% { transform: translateX(-50px) rotate(25deg); }
-  100% { transform: translateX(0) rotate(0deg); }
+  100% { transform: translateX(0) rotate(0); }
 }
 
 @keyframes twinkle {
@@ -226,7 +293,8 @@ body {
   to { opacity: 1; transform: scale(1.3); }
 }
 
-/* METEORS */
+/* ================= METEORS ================= */
+
 .meteor {
   position: fixed;
   width: 120px;
@@ -249,7 +317,8 @@ body {
   100% { transform: translate(-500px,500px) rotate(-35deg); opacity: 0; }
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
+
 header {
   position: fixed;
   top: 0;
@@ -287,7 +356,8 @@ nav a {
 
 nav a:hover { color: #68c9ff; }
 
-/* SECTIONS */
+/* ================= CONTENT ================= */
+
 section {
   min-height: 85vh;
   padding: 120px 9% 70px;
@@ -352,7 +422,8 @@ h1 span {
   color: #68c9ff;
 }
 
-/* CARDS */
+/* ================= FLOATING CARDS ================= */
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -366,12 +437,22 @@ h1 span {
   border-radius: 18px;
   backdrop-filter: blur(12px);
   transition: .3s;
+  animation: cardFloat 5s ease-in-out infinite;
 }
 
+.card:nth-child(2n) { animation-delay: 1s; }
+.card:nth-child(3n) { animation-delay: 2s; }
+
 .card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-12px) scale(1.02);
   border-color: #68c9ff;
-  box-shadow: 0 0 25px #2878d033;
+  box-shadow: 0 0 25px #2878d055;
+  animation-play-state: paused;
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
 }
 
 .card h3 {
@@ -387,7 +468,8 @@ h1 span {
   line-height: 1.6;
 }
 
-/* SOLAR SYSTEM */
+/* ================= SOLAR SYSTEM ================= */
+
 .planets {
   display: flex;
   flex-wrap: wrap;
@@ -414,7 +496,8 @@ h1 span {
   to { transform: translateY(-18px); }
 }
 
-/* BMX GALLERY */
+/* ================= GALLERY ================= */
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -428,11 +511,18 @@ h1 span {
   border-radius: 16px;
   border: 1px solid #ffffff33;
   transition: .3s;
+  animation: cardFloat 6s ease-in-out infinite;
 }
 
-.gallery img:hover { transform: scale(1.03); }
+.gallery img:nth-child(2) { animation-delay: 1s; }
+.gallery img:nth-child(3) { animation-delay: 2s; }
 
-/* CONTACT */
+.gallery img:hover {
+  transform: scale(1.04);
+}
+
+/* ================= CONTACT ================= */
+
 .contact-card {
   display: block;
   text-decoration: none;
@@ -455,7 +545,21 @@ h1 span {
 
 .contact-card p { overflow-wrap: anywhere; }
 
-/* FOOTER */
+/* ================= SCROLL REVEAL ================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(45px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ================= FOOTER ================= */
+
 footer {
   position: relative;
   z-index: 2;
@@ -465,7 +569,8 @@ footer {
   border-top: 1px solid #ffffff20;
 }
 
-/* MOBILE */
+/* ================= MOBILE ================= */
+
 @media(max-width: 650px) {
   header {
     padding: 15px 5%;
@@ -482,14 +587,31 @@ footer {
   }
 
   .ironman-emoji { font-size: 55px; }
-
   .space-item { opacity: .55; }
+}
+
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- INTRO OPENING -->
+<div id="intro">
+  <div class="intro-logo">AL.</div>
+  <h2 class="intro-title">FACHRIANSYAH ALFIGO</h2>
+  <p class="intro-subtitle">WELCOME TO MY UNIVERSE</p>
+  <button id="enterBtn">ENTER MY UNIVERSE 🚀</button>
+</div>
+
+<!-- SPACE BACKGROUND -->
 <div id="space">
   <div class="stars"></div>
   <div class="nebula red"></div>
@@ -500,10 +622,10 @@ footer {
 <div class="meteor two"></div>
 <div class="meteor three"></div>
 
-<!-- KARAKTER TERBANG -->
+<!-- FLYING CHARACTER -->
 <div class="ironman-emoji">🤖</div>
 
-<!-- DEKORASI LUAR ANGKASA -->
+<!-- SPACE DECORATIONS -->
 <div class="space-decorations">
   <span class="space-item planet-one">🪐</span>
   <span class="space-item rocket">🚀</span>
@@ -516,6 +638,7 @@ footer {
   <span class="space-item planet-three">🪐</span>
 </div>
 
+<!-- HEADER -->
 <header>
   <div class="logo">AL.</div>
   <nav>
@@ -530,21 +653,24 @@ footer {
 
 <!-- HOME -->
 <section class="hero" id="home">
-  <div class="eyebrow">WELCOME TO MY UNIVERSE</div>
-  <h1>HELLO, I'M<br><span>FACHRIANSYAH ALFIGO</span></h1>
-  <p>
+  <div class="eyebrow reveal">WELCOME TO MY UNIVERSE</div>
+  <h1 class="reveal">
+    HELLO, I'M<br>
+    <span>FACHRIANSYAH ALFIGO</span>
+  </h1>
+  <p class="reveal">
     A creative mind exploring multimedia, digital technology,
     creativity, and new experiences.
   </p>
-  <a href="#about" class="btn">EXPLORE MY WORLD ↗</a>
+  <a href="#about" class="btn reveal">EXPLORE MY WORLD ↗</a>
 </section>
 
 <!-- ABOUT -->
 <section id="about">
-  <h2 class="section-title">ABOUT ME</h2>
+  <h2 class="section-title reveal">ABOUT ME</h2>
 
   <div class="grid">
-    <div class="card">
+    <div class="card reveal">
       <h3>👨‍🚀 Identity</h3>
       <p>
         I'm Fachriansyah Alfigo, a multimedia and digital
@@ -552,7 +678,7 @@ footer {
       </p>
     </div>
 
-    <div class="card">
+    <div class="card reveal">
       <h3>🌌 Interests</h3>
       <p>
         Technology, digital media, website development,
@@ -560,7 +686,7 @@ footer {
       </p>
     </div>
 
-    <div class="card">
+    <div class="card reveal">
       <h3>🚀 My Vision</h3>
       <p>
         Keep learning, create meaningful projects,
@@ -572,10 +698,10 @@ footer {
 
 <!-- EXPERIENCE -->
 <section id="education">
-  <h2 class="section-title">MY JOURNEY & EXPERIENCE</h2>
+  <h2 class="section-title reveal">MY JOURNEY & EXPERIENCE</h2>
 
   <div class="grid">
-    <div class="card">
+    <div class="card reveal">
       <h3>🎓 Education Journey</h3>
       <p>
         My educational journey has helped me develop new knowledge,
@@ -585,7 +711,7 @@ footer {
       </p>
     </div>
 
-    <div class="card">
+    <div class="card reveal">
       <h3>💻 Website Development</h3>
       <p>
         I have explored website creation using WordPress, Joomla,
@@ -595,7 +721,7 @@ footer {
       </p>
     </div>
 
-    <div class="card">
+    <div class="card reveal">
       <h3>🎨 Digital Creativity</h3>
       <p>
         I enjoy exploring graphic design, digital content,
@@ -605,7 +731,7 @@ footer {
       </p>
     </div>
 
-    <div class="card">
+    <div class="card reveal">
       <h3>🚴 BMX Experience</h3>
       <p>
         BMX is one of my personal interests. It has introduced me
@@ -614,7 +740,7 @@ footer {
       </p>
     </div>
 
-    <div class="card">
+    <div class="card reveal">
       <h3>🤝 Communication & Teamwork</h3>
       <p>
         I continue developing my communication skills, learning
@@ -623,7 +749,7 @@ footer {
       </p>
     </div>
 
-    <div class="card">
+    <div class="card reveal">
       <h3>🚀 Future Goals</h3>
       <p>
         I want to keep improving my skills in multimedia,
@@ -634,54 +760,54 @@ footer {
     </div>
   </div>
 
-  <h2 class="section-title" style="margin-top:65px">
+  <h2 class="section-title reveal" style="margin-top:65px">
     MY SOLAR SYSTEM
   </h2>
 
   <div class="planets">
-    <div class="planet" title="About">🌍</div>
-    <div class="planet" title="Education">🪐</div>
-    <div class="planet" title="Creativity">☀️</div>
-    <div class="planet" title="Future">🌙</div>
+    <div class="planet reveal" title="About">🌍</div>
+    <div class="planet reveal" title="Education">🪐</div>
+    <div class="planet reveal" title="Creativity">☀️</div>
+    <div class="planet reveal" title="Future">🌙</div>
   </div>
 </section>
 
 <!-- BMX -->
 <section id="bmx">
-  <h2 class="section-title">BMX & MY PASSION</h2>
+  <h2 class="section-title reveal">BMX & MY PASSION</h2>
 
-  <p style="font-size:20px;color:#c3cfe2;margin-bottom:25px">
+  <p class="reveal" style="font-size:20px;color:#c3cfe2;margin-bottom:25px">
     A place for passion, freedom, and unforgettable moments.
   </p>
 
   <div class="gallery">
-    <img src="IMG-20261104-WA0006.jpg" alt="BMX moment 1">
-    <img src="IMG-20261104-WA0009.jpg" alt="BMX moment 2">
-    <img src="IMG-20261104-WA0011.jpg" alt="BMX moment 3">
+    <img class="reveal" src="IMG-20261104-WA0006.jpg" alt="BMX moment 1">
+    <img class="reveal" src="IMG-20261104-WA0009.jpg" alt="BMX moment 2">
+    <img class="reveal" src="IMG-20261104-WA0011.jpg" alt="BMX moment 3">
   </div>
 </section>
 
 <!-- SKILLS -->
 <section id="skills">
-  <h2 class="section-title">MY SKILLS</h2>
+  <h2 class="section-title reveal">MY SKILLS</h2>
 
   <div class="grid">
-    <div class="card">
+    <div class="card reveal">
       <h3>💻 Web Development</h3>
       <p>Exploring website design and development.</p>
     </div>
 
-    <div class="card">
+    <div class="card reveal">
       <h3>🎨 Creativity</h3>
       <p>Visual ideas, digital design, and creative thinking.</p>
     </div>
 
-    <div class="card">
+    <div class="card reveal">
       <h3>🎬 Multimedia</h3>
       <p>Exploring digital media and content creation.</p>
     </div>
 
-    <div class="card">
+    <div class="card reveal">
       <h3>🤝 Communication</h3>
       <p>Sharing ideas and learning to work with others.</p>
     </div>
@@ -690,15 +816,15 @@ footer {
 
 <!-- CONTACT -->
 <section id="contact">
-  <h2 class="section-title">LET'S CONNECT</h2>
+  <h2 class="section-title reveal">LET'S CONNECT</h2>
 
-  <p style="color:#c3cfe2;font-size:20px;margin-bottom:30px">
+  <p class="reveal" style="color:#c3cfe2;font-size:20px;margin-bottom:30px">
     Have a project, idea, or collaboration in mind?
     Feel free to contact me.
   </p>
 
   <div class="grid">
-    <a class="card contact-card"
+    <a class="card contact-card reveal"
        href="https://instagram.com/a.figo19"
        target="_blank" rel="noopener">
       <i class="fa-brands fa-instagram"></i>
@@ -706,7 +832,7 @@ footer {
       <p>@a.figo19</p>
     </a>
 
-    <a class="card contact-card"
+    <a class="card contact-card reveal"
        href="https://wa.me/6283139998411"
        target="_blank" rel="noopener">
       <i class="fa-brands fa-whatsapp"></i>
@@ -714,7 +840,7 @@ footer {
       <p>+62 831-3999-8411</p>
     </a>
 
-    <a class="card contact-card"
+    <a class="card contact-card reveal"
        href="mailto:masfigo41@gmail.com">
       <i class="fa-solid fa-envelope"></i>
       <h3>Email</h3>
@@ -729,6 +855,31 @@ footer {
 </footer>
 
 <script>
+/* INTRO BUTTON */
+const intro = document.getElementById("intro");
+const enterBtn = document.getElementById("enterBtn");
+
+enterBtn.addEventListener("click", () => {
+  intro.classList.add("hide");
+});
+
+/* SCROLL REVEAL */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+      observer.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.12
+});
+
+document.querySelectorAll(".reveal").forEach(element => {
+  observer.observe(element);
+});
+
+/* FOOTER YEAR */
 document.getElementById("year").textContent =
   new Date().getFullYear();
 </script>
