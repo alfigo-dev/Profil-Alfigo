@@ -29,40 +29,18 @@ body{
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer}
 
-/* BACKGROUND */
+/* SPACE BACKGROUND */
 #space{
   position:fixed;
   inset:0;
   z-index:-5;
   overflow:hidden;
-  background:#050711;
+  background:
+    radial-gradient(ellipse at 20% 30%,#351329 0%,transparent 40%),
+    radial-gradient(ellipse at 80% 70%,#10264a 0%,transparent 45%),
+    #050711;
 }
-.avengers-bg{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  background-image:
-    linear-gradient(90deg,rgba(5,7,17,.96),rgba(5,7,17,.55) 48%,rgba(5,7,17,.2)),
-    linear-gradient(0deg,#050711 0%,transparent 55%),
-    url("https://images7.alphacoders.com/995/thumb-1920-995858.jpg");
-  background-size:cover;
-  background-position:center;
-  opacity:.72;
-}
-.nebula{
-  position:absolute;
-  width:600px;height:600px;
-  border-radius:50%;
-  filter:blur(100px);
-  opacity:.18;
-  animation:nebula 12s ease-in-out infinite alternate;
-}
-.nebula.red{background:#a7194b;top:10%;left:-20%}
-.nebula.blue{background:#1266bb;right:-20%;bottom:0}
-@keyframes nebula{
-  to{transform:translate(70px,-50px) scale(1.2)}
-}
+
 .stars{
   position:absolute;
   inset:0;
@@ -72,24 +50,100 @@ button{font:inherit;cursor:pointer}
     radial-gradient(2px 2px at 40% 80%,white,transparent),
     radial-gradient(1px 1px at 90% 20%,white,transparent);
   background-size:250px 250px;
-  animation:stars 35s linear infinite;
+  animation:starsMove 35s linear infinite;
 }
-@keyframes stars{to{transform:translateY(-250px)}}
+@keyframes starsMove{
+  to{transform:translateY(-250px)}
+}
+
+.nebula{
+  position:absolute;
+  width:550px;
+  height:550px;
+  border-radius:50%;
+  filter:blur(110px);
+  opacity:.2;
+  animation:nebulaMove 15s ease-in-out infinite alternate;
+}
+.nebula.red{background:#a7194b;top:5%;left:-20%}
+.nebula.blue{background:#1266bb;right:-20%;bottom:0}
+@keyframes nebulaMove{
+  to{transform:translate(80px,-60px) scale(1.2)}
+}
+
+/* METEORS */
 .meteor{
   position:absolute;
-  width:130px;height:2px;
+  width:140px;
+  height:2px;
   background:linear-gradient(90deg,transparent,var(--cyan),white);
   transform:rotate(-35deg);
-  animation:shoot 5s linear infinite;
   opacity:0;
+  animation:meteorMove 6s linear infinite;
 }
-.meteor:nth-child(4){top:20%;left:80%;animation-delay:1s}
-.meteor:nth-child(5){top:60%;left:60%;animation-delay:3s}
-@keyframes shoot{
+.meteor.one{top:20%;left:80%;animation-delay:1s}
+.meteor.two{top:65%;left:70%;animation-delay:3s}
+.meteor.three{top:40%;left:100%;animation-delay:4.5s}
+@keyframes meteorMove{
   0%{transform:translate(0,0) rotate(-35deg);opacity:0}
   10%{opacity:1}
-  40%{transform:translate(-500px,300px) rotate(-35deg);opacity:0}
+  60%{transform:translate(-650px,380px) rotate(-35deg);opacity:0}
   100%{opacity:0}
+}
+
+/* IRON MAN FLYING */
+.ironman-flight{
+  position:absolute;
+  top:12%;
+  right:-500px;
+  width:420px;
+  height:300px;
+  z-index:1;
+  pointer-events:none;
+  animation:ironmanFly 13s linear infinite;
+}
+
+.ironman-image{
+  position:absolute;
+  inset:0;
+  background-image:url("https://images.unsplash.com/photo-1535223289827-42f1e9919769");
+  background-size:contain;
+  background-position:center;
+  background-repeat:no-repeat;
+  filter:drop-shadow(0 0 18px #2878d0);
+  transform:rotate(-13deg);
+}
+
+.flight-trail{
+  position:absolute;
+  width:270px;
+  height:7px;
+  top:62%;
+  left:-190px;
+  background:linear-gradient(90deg,transparent,#2878d0,#68c9ff,white);
+  filter:blur(6px);
+  transform:rotate(-13deg);
+}
+
+@keyframes ironmanFly{
+  0%{
+    right:-500px;
+    top:12%;
+    transform:rotate(-5deg) scale(.8);
+    opacity:0;
+  }
+  10%{opacity:1}
+  50%{
+    top:35%;
+    transform:rotate(-13deg) scale(1);
+  }
+  90%{opacity:1}
+  100%{
+    right:110%;
+    top:8%;
+    transform:rotate(-8deg) scale(.75);
+    opacity:0;
+  }
 }
 
 /* INTRO */
@@ -110,11 +164,12 @@ button{font:inherit;cursor:pointer}
   font-family:Orbitron;
   font-size:clamp(65px,15vw,120px);
   font-weight:900;
-  color:white;
   text-shadow:0 0 20px var(--blue),0 0 45px var(--red);
   animation:pulse 2s infinite alternate;
 }
-@keyframes pulse{to{text-shadow:0 0 35px var(--cyan),0 0 70px var(--red)}}
+@keyframes pulse{
+  to{text-shadow:0 0 35px var(--cyan),0 0 70px var(--red)}
+}
 .intro-content h2{
   font-family:Orbitron;
   letter-spacing:5px;
@@ -132,9 +187,12 @@ button{font:inherit;cursor:pointer}
   letter-spacing:2px;
   transition:.3s;
 }
-.main-btn:hover{transform:scale(1.06);box-shadow:0 0 25px var(--blue)}
+.main-btn:hover{
+  transform:scale(1.06);
+  box-shadow:0 0 25px var(--blue);
+}
 
-/* NAVBAR */
+/* HEADER */
 header{
   position:fixed;
   top:0;left:0;width:100%;
@@ -151,7 +209,6 @@ header{
   font-family:Orbitron;
   font-size:27px;
   font-weight:900;
-  color:white;
   text-shadow:0 0 15px var(--red);
 }
 nav{display:flex;gap:25px}
@@ -203,16 +260,23 @@ section{padding:110px 8%;position:relative}
   background:#0a1830aa;
   transition:.3s;
 }
-.outline-btn:hover{background:var(--blue);box-shadow:0 0 20px var(--blue)}
+.outline-btn:hover{
+  background:var(--blue);
+  box-shadow:0 0 20px var(--blue);
+}
 
-/* SECTION TITLE */
+/* TITLES */
 .section-title{
   font-family:Orbitron;
   font-size:clamp(25px,4vw,40px);
   margin-bottom:15px;
 }
 .section-title span{color:var(--cyan)}
-.section-subtitle{color:var(--muted);font-size:18px;margin-bottom:45px}
+.section-subtitle{
+  color:var(--muted);
+  font-size:18px;
+  margin-bottom:45px;
+}
 
 /* CARDS */
 .cards{
@@ -234,8 +298,17 @@ section{padding:110px 8%;position:relative}
   box-shadow:0 10px 35px #2878d030;
 }
 .card .symbol{font-size:30px;margin-bottom:15px}
-.card h3{font-family:Orbitron;font-size:17px;margin-bottom:12px;color:var(--cyan)}
-.card p{color:var(--muted);font-size:18px;line-height:1.5}
+.card h3{
+  font-family:Orbitron;
+  font-size:17px;
+  margin-bottom:12px;
+  color:var(--cyan);
+}
+.card p{
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.5;
+}
 
 /* SOLAR SYSTEM */
 .solar-section{text-align:center}
@@ -256,7 +329,9 @@ section{padding:110px 8%;position:relative}
   z-index:2;
   animation:sunGlow 3s infinite alternate;
 }
-@keyframes sunGlow{to{box-shadow:0 0 60px #ff9c25,0 0 120px #ff5c23}}
+@keyframes sunGlow{
+  to{box-shadow:0 0 60px #ff9c25,0 0 120px #ff5c23}
+}
 .orbit{
   position:absolute;
   border:1px solid #ffffff35;
@@ -270,14 +345,13 @@ section{padding:110px 8%;position:relative}
 @keyframes rotate{to{transform:rotate(360deg)}}
 .planet{
   position:absolute;
-  top:50%;left:50%;
+  top:0;left:50%;
   width:42px;height:42px;
   border:0;border-radius:50%;
   transform:translate(-50%,-50%);
   cursor:pointer;
 }
-.orbit .planet{top:0;left:50%;transform:translate(-50%,-50%)}
-.planet.p1{background:linear-gradient(135deg,#a7a7a7,#555);box-shadow:0 0 15px #aaa}
+.planet.p1{background:linear-gradient(135deg,#aaa,#555);box-shadow:0 0 15px #aaa}
 .planet.p2{background:linear-gradient(135deg,#e4a36b,#7c392c);box-shadow:0 0 15px #e4a36b}
 .planet.p3{background:linear-gradient(135deg,#55baff,#1255aa);box-shadow:0 0 18px #55baff}
 .planet.p4{background:linear-gradient(135deg,#d4a071,#6b3d2b);box-shadow:0 0 15px #d4a071}
@@ -291,7 +365,11 @@ section{padding:110px 8%;position:relative}
   border:1px solid #68c9ff55;
   border-radius:16px;
 }
-.planet-info h3{font-family:Orbitron;color:var(--cyan);margin-bottom:10px}
+.planet-info h3{
+  font-family:Orbitron;
+  color:var(--cyan);
+  margin-bottom:10px;
+}
 .planet-info p{color:var(--muted);font-size:18px}
 
 /* BMX GALLERY */
@@ -308,7 +386,10 @@ section{padding:110px 8%;position:relative}
   border:1px solid #ffffff30;
   transition:.4s;
 }
-.gallery img:hover{transform:scale(1.025);box-shadow:0 0 25px #2878d080}
+.gallery img:hover{
+  transform:scale(1.025);
+  box-shadow:0 0 25px #2878d080;
+}
 .gallery-caption{color:var(--muted);margin-top:10px}
 
 /* TIMELINE */
@@ -327,8 +408,16 @@ section{padding:110px 8%;position:relative}
   border-radius:50%;
   box-shadow:0 0 15px var(--cyan);
 }
-.timeline-item h3{font-family:Orbitron;color:var(--cyan);font-size:17px}
-.timeline-item p{color:var(--muted);font-size:18px;margin-top:8px}
+.timeline-item h3{
+  font-family:Orbitron;
+  color:var(--cyan);
+  font-size:17px;
+}
+.timeline-item p{
+  color:var(--muted);
+  font-size:18px;
+  margin-top:8px;
+}
 
 /* FOOTER */
 footer{
@@ -366,12 +455,11 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
 }
 .guide-message.show{display:block}
 
-/* RESPONSIVE */
+/* MOBILE */
 @media(max-width:800px){
   header{padding:15px 5%}
   nav{gap:12px}
   nav a{font-size:13px}
-  .avengers-bg{background-position:58% center;opacity:.48}
   section{padding:100px 6%}
   .solar-system{width:90vw;height:90vw}
   .orbit.one{width:27vw;height:27vw}
@@ -379,6 +467,7 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
   .orbit.three{width:60vw;height:60vw}
   .orbit.four{width:78vw;height:78vw}
   .planet{width:30px;height:30px}
+  .ironman-flight{width:270px;height:200px}
 }
 @media(max-width:480px){
   nav{gap:9px}
@@ -386,17 +475,32 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
   .brand{font-size:22px}
   .hero p{font-size:18px}
 }
+
+/* REDUCE MOTION ACCESSIBILITY */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+  }
+}
 </style>
 </head>
 
 <body>
+
 <div id="space">
-  <div class="avengers-bg"></div>
+  <div class="stars"></div>
   <div class="nebula red"></div>
   <div class="nebula blue"></div>
-  <div class="stars"></div>
-  <div class="meteor"></div>
-  <div class="meteor"></div>
+  <div class="meteor one"></div>
+  <div class="meteor two"></div>
+  <div class="meteor three"></div>
+
+  <div class="ironman-flight" aria-hidden="true">
+    <div class="flight-trail"></div>
+    <div class="ironman-image"></div>
+  </div>
 </div>
 
 <div id="intro">
@@ -464,16 +568,16 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
   <div class="solar-system">
     <div class="sun"></div>
     <div class="orbit one">
-      <button class="planet p1" onclick="showPlanet('About Me','I am Fachriansyah Alfigo, someone who enjoys learning and exploring new things.')"></button>
+      <button class="planet p1" aria-label="About Me" onclick="showPlanet('About Me','I am Fachriansyah Alfigo, someone who enjoys learning and exploring new things.')"></button>
     </div>
     <div class="orbit two">
-      <button class="planet p2" onclick="showPlanet('Education','I study Multimedia and Digital Management at STMM Yogyakarta.')"></button>
+      <button class="planet p2" aria-label="Education" onclick="showPlanet('Education','I study Multimedia and Digital Management at STMM Yogyakarta.')"></button>
     </div>
     <div class="orbit three">
-      <button class="planet p3" onclick="showPlanet('BMX Journey','BMX is one of my passions. It has taught me discipline, courage, and consistency.')"></button>
+      <button class="planet p3" aria-label="BMX Journey" onclick="showPlanet('BMX Journey','BMX is one of my passions. It has taught me discipline, courage, and consistency.')"></button>
     </div>
     <div class="orbit four">
-      <button class="planet p4" onclick="showPlanet('My Skills','Creativity, communication, digital media, teamwork, and willingness to learn.')"></button>
+      <button class="planet p4" aria-label="My Skills" onclick="showPlanet('My Skills','Creativity, communication, digital media, teamwork, and willingness to learn.')"></button>
     </div>
   </div>
 
@@ -486,7 +590,6 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
 <section id="bmx">
   <div class="section-title">MY BMX <span>JOURNEY</span></div>
   <p class="section-subtitle">A passion that has become part of my story.</p>
-
   <div class="gallery">
     <div>
       <img src="IMG-20261104-WA0006.jpg" alt="BMX journey photo 1">
@@ -555,7 +658,7 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
   <p style="margin-top:8px">© <span id="year"></span> All Rights Reserved.</p>
 </footer>
 
-<button class="guide" onclick="toggleGuide()">✦</button>
+<button class="guide" onclick="toggleGuide()" aria-label="Open guide">✦</button>
 <div class="guide-message" id="guideMessage">
   Welcome to my universe! Explore the planets and discover my story.
 </div>
@@ -576,5 +679,6 @@ function toggleGuide(){
 
 document.getElementById('year').textContent=new Date().getFullYear();
 </script>
+
 </body>
 </html>
