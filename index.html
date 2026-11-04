@@ -1,541 +1,162 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cosmic Legends | Messi x Ronaldo</title>
+<title>Fachriansyah Alfigo | Personal Portfolio</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Inter:wght@300;400;600;800&display=swap');
-
-* {
- margin:0;
- padding:0;
- box-sizing:border-box;
-}
-
-html { scroll-behavior:smooth; }
-
-body {
- background:#050713;
- color:white;
- font-family:Inter,sans-serif;
- overflow-x:hidden;
-}
-
-#universe {
- position:fixed;
- inset:0;
- z-index:-2;
- background:
- radial-gradient(ellipse at 50% 100%,#19234b 0%,transparent 55%),
- radial-gradient(ellipse at 15% 20%,#171747 0%,transparent 40%),
- #050713;
-}
-
-.stars,.meteors {
- position:fixed;
- inset:0;
- pointer-events:none;
- overflow:hidden;
- z-index:-1;
-}
-
-.star {
- position:absolute;
- background:white;
- border-radius:50%;
- animation:twinkle 2s infinite alternate;
-}
-
-@keyframes twinkle {
- from {opacity:.2;transform:scale(.7)}
- to {opacity:1;transform:scale(1.5)}
-}
-
-.meteor {
- position:absolute;
- width:130px;
- height:2px;
- background:linear-gradient(90deg,white,transparent);
- transform:rotate(-35deg);
- animation:shoot 5s linear infinite;
- opacity:0;
-}
-
-@keyframes shoot {
- 0% {transform:translate(0,0) rotate(-35deg);opacity:0}
- 10% {opacity:1}
- 100% {transform:translate(-600px,600px) rotate(-35deg);opacity:0}
-}
-
-.planet {
- position:fixed;
- border-radius:50%;
- pointer-events:none;
- z-index:-1;
-}
-
-.sun {
- width:90px;height:90px;
- right:8%;top:18%;
- background:radial-gradient(circle,#fff8bd,#ffb347,#ff6a22);
- box-shadow:0 0 50px #ff9d42,0 0 100px #ff6a2270;
- animation:pulse 4s infinite alternate;
-}
-
-@keyframes pulse {
- to {box-shadow:0 0 80px #ffb347,0 0 150px #ff6a2280}
-}
-
-.moon {
- width:65px;height:65px;
- left:7%;top:55%;
- background:radial-gradient(circle at 30% 30%,#fff,#9299b7,#343a60);
- box-shadow:0 0 35px #8795ce66;
-}
-
-.saturn {
- width:85px;height:85px;
- right:10%;top:65%;
- background:radial-gradient(circle at 30% 30%,#ffe8b0,#b28b58,#473b43);
-}
-
-.saturn:after {
- content:"";
- position:absolute;
- width:140px;height:30px;
- border:5px solid #d9bd83;
- border-radius:50%;
- left:-28px;top:27px;
- transform:rotate(-25deg);
- opacity:.8;
-}
-
-header {
- display:flex;
- justify-content:space-between;
- align-items:center;
- padding:25px 8%;
- position:absolute;
- width:100%;
- z-index:10;
-}
-
-.logo {
- font-family:Orbitron;
- font-weight:800;
- letter-spacing:3px;
- color:#e8c77a;
-}
-
-nav a {
- color:#c4c9dc;
- text-decoration:none;
- margin-left:22px;
- font-size:12px;
- transition:.3s;
-}
-
-nav a:hover {color:#e8c77a}
-
-.hero {
- min-height:100vh;
- display:flex;
- flex-direction:column;
- justify-content:center;
- align-items:center;
- text-align:center;
- padding:130px 7% 60px;
- position:relative;
-}
-
-.tag {
- color:#d7b76d;
- letter-spacing:5px;
- font-size:11px;
- margin-bottom:25px;
-}
-
-h1 {
- font-family:Orbitron;
- font-size:clamp(35px,7vw,85px);
- line-height:1.15;
- background:linear-gradient(90deg,#fff,#d9b66b,#8da9ff);
- -webkit-background-clip:text;
- color:transparent;
-}
-
-.hero p {
- color:#aab1cc;
- max-width:550px;
- line-height:1.8;
- margin:22px 0 30px;
-}
-
-.btn {
- padding:14px 30px;
- border:1px solid #d9b66b;
- color:#f4d68c;
- text-decoration:none;
- letter-spacing:2px;
- font-size:11px;
- border-radius:30px;
- transition:.3s;
-}
-
-.btn:hover {
- background:#d9b66b;
- color:#080b19;
- box-shadow:0 0 30px #d9b66b66;
-}
-
-.section {
- padding:100px 8%;
- position:relative;
-}
-
-.section-title {
- font-family:Orbitron;
- text-align:center;
- font-size:clamp(24px,4vw,42px);
- margin-bottom:15px;
-}
-
-.subtitle {
- text-align:center;
- color:#929bb8;
- margin-bottom:55px;
- font-size:13px;
-}
-
-.players {
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:30px;
- max-width:1000px;
- margin:auto;
-}
-
-.player-card {
- position:relative;
- overflow:hidden;
- border:1px solid #ffffff1c;
- border-radius:20px;
- background:linear-gradient(145deg,#151b35,#080b19);
- transition:.4s;
-}
-
-.player-card:hover {
- transform:translateY(-10px);
- border-color:#d9b66b;
- box-shadow:0 15px 50px #0008;
-}
-
-.player-card img {
- width:100%;
- height:370px;
- object-fit:cover;
- object-position:top;
- display:block;
-}
-
-.player-info {padding:25px}
-
-.player-info h3 {
- font-family:Orbitron;
- font-size:25px;
- color:#f1d38a;
-}
-
-.player-info p {
- color:#9ba5c2;
- font-size:13px;
- line-height:1.8;
- margin:12px 0;
-}
-
-.number {
- font-family:Orbitron;
- font-size:50px;
- color:#ffffff15;
- position:absolute;
- right:20px;
- top:20px;
-}
-
-.stats {
- display:grid;
- grid-template-columns:repeat(4,1fr);
- gap:15px;
- max-width:1000px;
- margin:auto;
-}
-
-.stat {
- background:#11172c;
- border:1px solid #ffffff17;
- border-radius:15px;
- padding:30px 10px;
- text-align:center;
-}
-
-.stat h3 {
- font-family:Orbitron;
- color:#e6c477;
- font-size:30px;
-}
-
-.stat p {
- font-size:11px;
- color:#9da8c8;
- margin-top:10px;
-}
-
-.timeline {
- max-width:750px;
- margin:auto;
- border-left:2px solid #d6b46c;
- padding-left:30px;
-}
-
-.event {
- margin-bottom:35px;
- position:relative;
-}
-
-.event:before {
- content:"";
- position:absolute;
- left:-38px;
- top:5px;
- width:13px;
- height:13px;
- border-radius:50%;
- background:#e8c77a;
- box-shadow:0 0 15px #e8c77a;
-}
-
-.event h3 {
- color:#e8c77a;
- font-family:Orbitron;
- font-size:17px;
-}
-
-.event p {
- color:#aab1cc;
- font-size:13px;
- line-height:1.8;
- margin-top:8px;
-}
-
-footer {
- padding:45px 20px;
- text-align:center;
- border-top:1px solid #ffffff16;
- color:#8992ae;
- font-size:12px;
- letter-spacing:2px;
-}
-
-.reveal {
- opacity:0;
- transform:translateY(35px);
- transition:opacity .8s,transform .8s;
-}
-
-.reveal.show {
- opacity:1;
- transform:translateY(0);
-}
-
-@media(max-width:700px) {
- header {padding:20px 5%}
- nav a {margin-left:10px;font-size:10px}
- .logo {font-size:13px}
- .players {grid-template-columns:1fr}
- .stats {grid-template-columns:repeat(2,1fr)}
- .player-card img {height:330px}
- .section {padding:80px 6%}
- .sun {width:55px;height:55px}
- .saturn {width:55px;height:55px}
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
+body{font-family:Arial,sans-serif;background:#070b14;color:#f5f7ff;line-height:1.7}
+:root{--blue:#258cff;--muted:#aab5c8}
+nav{position:fixed;top:0;width:100%;z-index:10;background:#070b14eF;border-bottom:1px solid #ffffff15;padding:18px 8%;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:20px;font-weight:800;letter-spacing:2px}
+.logo span{color:var(--blue)}
+nav a{color:white;text-decoration:none;margin-left:22px;font-size:13px}
+nav a:hover{color:var(--blue)}
+section{padding:110px 9%;scroll-margin-top:65px}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:space-between;gap:45px;background:radial-gradient(circle at 80% 40%,#12345c 0%,#070b14 48%)}
+.hero-text{max-width:650px}
+.tag{color:var(--blue);letter-spacing:4px;font-size:12px;font-weight:bold}
+h1{font-size:clamp(42px,7vw,76px);line-height:1.08;margin:20px 0}
+h1 span{color:var(--blue)}
+.hero p,.about p{color:var(--muted);font-size:16px}
+.btn{display:inline-block;margin-top:28px;padding:13px 25px;background:var(--blue);color:white;text-decoration:none;border-radius:7px;font-weight:bold}
+.hero-photo{width:min(360px,100%);height:430px;border-radius:18px;overflow:hidden;border:1px solid #258cff88;box-shadow:0 0 45px #258cff30}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.section-title{font-size:36px;margin-bottom:12px}
+.section-title span{color:var(--blue)}
+.subtitle{color:var(--muted);margin-bottom:35px}
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:45px;align-items:center}
+.info{padding:25px;background:#101a2b;border:1px solid #ffffff12;border-radius:12px}
+.info p{margin:10px 0;color:var(--muted)}
+.info strong{color:white}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:#101a2b;border:1px solid #ffffff12;border-radius:12px;padding:25px;transition:.3s}
+.card:hover{transform:translateY(-7px);border-color:var(--blue)}
+.card h3{color:var(--blue);margin-bottom:12px}
+.card p{color:var(--muted);font-size:14px}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.gallery img{width:100%;height:280px;object-fit:cover;border-radius:12px;border:1px solid #ffffff20;display:block;transition:.3s}
+.gallery img:hover{transform:scale(1.025);border-color:var(--blue)}
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.value{padding:22px;text-align:center;background:#101a2b;border-radius:10px;border-bottom:3px solid var(--blue)}
+footer{text-align:center;padding:30px;color:#77849a;border-top:1px solid #ffffff15;font-size:13px}
+@media(max-width:800px){
+ nav{padding:15px 5%;flex-wrap:wrap;gap:12px}
+ nav a{margin-left:10px;font-size:11px}
+ section{padding:90px 6%}
+ .hero{flex-direction:column-reverse;justify-content:center;text-align:center;padding-top:130px}
+ .hero-photo{height:340px;width:270px}
+ .about-grid{grid-template-columns:1fr}
+ .cards,.gallery,.values{grid-template-columns:1fr}
+ .gallery img{height:300px}
 }
 </style>
 </head>
 
 <body>
 
-<div id="universe"></div>
-<div class="stars" id="stars"></div>
-<div class="meteors" id="meteors"></div>
-
-<div class="planet sun"></div>
-<div class="planet moon"></div>
-<div class="planet saturn"></div>
-
-<header>
- <div class="logo">COSMIC LEGENDS</div>
- <nav>
-  <a href="#home">HOME</a>
-  <a href="#players">PLAYERS</a>
-  <a href="#stats">STATS</a>
-  <a href="#legacy">LEGACY</a>
- </nav>
-</header>
+<nav>
+ <div class="logo">FACHRI<span>.</span></div>
+ <div>
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#education">Education</a>
+  <a href="#bmx">BMX</a>
+ </div>
+</nav>
 
 <section class="hero" id="home">
- <div class="tag">THE UNIVERSE OF FOOTBALL</div>
- <h1>TWO LEGENDS.<br>ONE UNIVERSE.</h1>
- <p>
- Two extraordinary careers. Two different journeys.
- One beautiful game that changed football history forever.
- </p>
- <a href="#players" class="btn">EXPLORE LEGENDS ↓</a>
-</section>
-
-<section class="section" id="players">
- <h2 class="section-title reveal">THE ICONS</h2>
- <p class="subtitle reveal">Two names. A timeless legacy.</p>
-
- <div class="players">
-
-  <div class="player-card reveal">
-   <div class="number">10</div>
-   <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=900" alt="Football stadium">
-   <div class="player-info">
-    <h3>LIONEL MESSI</h3>
-    <p>ARGENTINA · FORWARD</p>
-    <p>
-     The magician. A player celebrated for his
-     extraordinary vision, creativity, dribbling
-     and incredible football intelligence.
-    </p>
-   </div>
-  </div>
-
-  <div class="player-card reveal">
-   <div class="number">07</div>
-   <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=900" alt="Football stadium">
-   <div class="player-info">
-    <h3>CRISTIANO RONALDO</h3>
-    <p>PORTUGAL · FORWARD</p>
-    <p>
-     The phenomenon. Known for his powerful
-     finishing, athletic ability, determination
-     and remarkable consistency.
-    </p>
-   </div>
-  </div>
-
+ <div class="hero-text">
+  <div class="tag">PERSONAL PORTFOLIO</div>
+  <h1>Fachriansyah<br><span>Alfigo.</span></h1>
+  <p>Exploring creativity, technology, and new opportunities. A former BMX Racing athlete with a passion for digital multimedia and continuous learning.</p>
+  <a class="btn" href="#about">Discover My Story</a>
+ </div>
+ <div class="hero-photo">
+  <img src="IMG-20261104-WA0009.jpg" alt="Foto Fachriansyah Alfigo">
  </div>
 </section>
 
-<section class="section" id="stats">
- <h2 class="section-title reveal">THE NUMBERS</h2>
- <p class="subtitle reveal">A glimpse into their legendary achievements</p>
-
- <div class="stats">
-  <div class="stat reveal">
-   <h3>8</h3>
-   <p>MESSI BALLON D'OR</p>
+<section id="about">
+ <div class="about-grid">
+  <div>
+   <div class="tag">GET TO KNOW ME</div>
+   <h2 class="section-title">About <span>Me</span></h2>
+   <p class="subtitle">A journey of passion, discipline, and growth.</p>
+   <p>Saya adalah seseorang yang tertarik pada dunia multimedia, teknologi digital, dan kreativitas. Pengalaman sebagai atlet BMX Racing mengajarkan saya tentang disiplin, kerja keras, konsistensi, dan keberanian untuk terus berkembang.</p>
+   <p style="margin-top:15px;color:#aab5c8">Saat ini saya berfokus mengembangkan kemampuan di bidang multimedia digital serta mempelajari berbagai hal baru untuk membangun masa depan.</p>
   </div>
-  <div class="stat reveal">
-   <h3>5</h3>
-   <p>RONALDO BALLON D'OR</p>
-  </div>
-  <div class="stat reveal">
-   <h3>2022</h3>
-   <p>MESSI WORLD CUP</p>
-  </div>
-  <div class="stat reveal">
-   <h3>2016</h3>
-   <p>RONALDO EURO</p>
+  <div class="info">
+   <h3>Personal Profile</h3>
+   <p><strong>Nama:</strong> Fachriansyah Alfigo</p>
+   <p><strong>Bidang:</strong> Multimedia & Digital</p>
+   <p><strong>Minat:</strong> Technology, Design, Creativity</p>
+   <p><strong>Pengalaman:</strong> Former BMX Racing Athlete</p>
   </div>
  </div>
 </section>
 
-<section class="section" id="legacy">
- <h2 class="section-title reveal">LEGENDARY JOURNEY</h2>
- <p class="subtitle reveal">Moments that shaped football history</p>
-
- <div class="timeline">
-
-  <div class="event reveal">
-   <h3>2004 · MESSI</h3>
-   <p>Made his official first-team debut for FC Barcelona.</p>
+<section id="education">
+ <div class="tag">MY BACKGROUND</div>
+ <h2 class="section-title">Education & <span>Interests</span></h2>
+ <p class="subtitle">Learning, exploring, and building new perspectives.</p>
+ <div class="cards">
+  <div class="card">
+   <h3>Higher Education</h3>
+   <p>Manajemen Multimedia dan Digital. Mempelajari perkembangan multimedia, komunikasi, dan teknologi digital.</p>
   </div>
-
-  <div class="event reveal">
-   <h3>2003 · RONALDO</h3>
-   <p>Joined Manchester United and began his rise on the world stage.</p>
+  <div class="card">
+   <h3>High School</h3>
+   <p>Homeschooling HSPG Yogyakarta.</p>
   </div>
-
-  <div class="event reveal">
-   <h3>2009 · THE RIVALRY</h3>
-   <p>Ronaldo joined Real Madrid, creating an iconic era of competition with Messi at Barcelona.</p>
+  <div class="card">
+   <h3>Creative Interests</h3>
+   <p>Web development, digital design, multimedia, dan eksplorasi teknologi baru.</p>
   </div>
+ </div>
+</section>
 
-  <div class="event reveal">
-   <h3>2016 · RONALDO</h3>
-   <p>Led Portugal to its first major international title at Euro 2016.</p>
-  </div>
+<section id="bmx">
+ <div class="tag">MY JOURNEY</div>
+ <h2 class="section-title">BMX <span>Racing</span></h2>
+ <p class="subtitle">A meaningful chapter that shaped my mindset.</p>
+ <p style="color:#aab5c8;margin-bottom:30px">Saya pernah menjalani perjalanan sebagai atlet BMX Racing dan mendapatkan pengalaman berkompetisi di tingkat daerah, nasional, hingga internasional. Dunia BMX mengajarkan saya arti disiplin, fokus, mental yang kuat, dan semangat untuk terus berkembang. Kini saya telah mengakhiri perjalanan kompetitif tersebut, tetapi nilai-nilai yang saya pelajari tetap menjadi bagian dari diri saya.</p>
 
-  <div class="event reveal">
-   <h3>2022 · MESSI</h3>
-   <p>Won the FIFA World Cup with Argentina in Qatar.</p>
-  </div>
+ <div class="gallery">
+  <img src="IMG-20261104-WA0006.jpg" alt="Dokumentasi perjalanan BMX pertama">
+  <img src="IMG-20261104-WA0009.jpg" alt="Dokumentasi perjalanan BMX kedua">
+  <img src="IMG-20261104-WA0011.jpg" alt="Dokumentasi perjalanan BMX ketiga">
+ </div>
+</section>
 
+<section id="skills">
+ <div class="tag">WHAT I EXPLORE</div>
+ <h2 class="section-title">Skills & <span>Interests</span></h2>
+ <p class="subtitle">Areas I enjoy learning and developing.</p>
+ <div class="cards">
+  <div class="card"><h3>Digital Multimedia</h3><p>Exploring multimedia content, digital communication, and creative media.</p></div>
+  <div class="card"><h3>Creative Design</h3><p>Interested in visual concepts, layouts, and creative presentation.</p></div>
+  <div class="card"><h3>Technology</h3><p>Learning about websites, digital platforms, and emerging technologies.</p></div>
+ </div>
+</section>
+
+<section id="values">
+ <div class="tag">MY PRINCIPLES</div>
+ <h2 class="section-title">Personal <span>Values</span></h2>
+ <p class="subtitle">Principles that guide my journey.</p>
+ <div class="values">
+  <div class="value">Discipline</div>
+  <div class="value">Determination</div>
+  <div class="value">Continuous Growth</div>
  </div>
 </section>
 
 <footer>
- COSMIC LEGENDS · MESSI × RONALDO
- <p style="margin-top:12px">A TRIBUTE TO FOOTBALL GREATNESS</p>
+ © 2026 Fachriansyah Alfigo. Personal Portfolio.
 </footer>
-
-<script>
-// Generate stars
-const stars = document.getElementById("stars");
-
-for(let i=0;i<150;i++){
- const star=document.createElement("div");
- star.className="star";
- star.style.left=Math.random()*100+"%";
- star.style.top=Math.random()*100+"%";
- star.style.width=Math.random()*3+1+"px";
- star.style.height=star.style.width;
- star.style.animationDelay=Math.random()*3+"s";
- stars.appendChild(star);
-}
-
-// Generate meteors
-const meteors=document.getElementById("meteors");
-
-function createMeteor(){
- const meteor=document.createElement("div");
- meteor.className="meteor";
- meteor.style.left=(40+Math.random()*80)+"%";
- meteor.style.top=(Math.random()*60)+"%";
- meteors.appendChild(meteor);
- setTimeout(()=>meteor.remove(),5000);
-}
-
-setInterval(createMeteor,1800);
-
-// Reveal animations
-const observer=new IntersectionObserver(entries=>{
- entries.forEach(entry=>{
-  if(entry.isIntersecting){
-   entry.target.classList.add("show");
-  }
- });
-},{threshold:0.15});
-
-document.querySelectorAll(".reveal").forEach(el=>{
- observer.observe(el);
-});
-</script>
 
 </body>
 </html>
