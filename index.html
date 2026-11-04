@@ -3,442 +3,209 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AL — Multiverse Experience</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL — Beyond The Universe</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+:root{--cyan:#6cecff;--purple:#a58bff;--glass:rgba(8,18,43,.82);--line:rgba(108,236,255,.25)}
 *{box-sizing:border-box}
-body{margin:0;background:#02030a;color:white;font-family:Arial,sans-serif;overflow:hidden}
-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0}
-body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;background:linear-gradient(90deg,#02040be8,transparent 75%),linear-gradient(0deg,#02040b 0%,transparent 45%)}
-header{position:fixed;top:0;left:0;right:0;padding:25px 6%;display:flex;justify-content:space-between;z-index:5}
-.logo{font-weight:900;letter-spacing:5px;color:#d8c18c}
-.logo small{display:block;font-size:9px;letter-spacing:3px;color:#9daec9;margin-top:7px}
-.status{font-size:9px;letter-spacing:3px;color:#a7bad7}
-.hero{position:fixed;left:8%;top:27%;z-index:3;max-width:550px}
-.tag{font-size:10px;letter-spacing:5px;color:#d7bd7f}
-h1{font-size:clamp(48px,8vw,100px);line-height:.88;letter-spacing:-5px;margin:22px 0;font-weight:900}
-h1 span{color:#d7bd7f}
-p{font-size:14px;line-height:1.9;color:#aebbd0;max-width:430px}
-.buttons{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
-button{cursor:pointer;background:#111b2c;border:1px solid #9aabc866;color:white;padding:14px 19px;letter-spacing:2px;font-size:9px;transition:.25s}
-button:hover{background:#d8c18c;color:#050811}
-.primary{background:#d8c18c;color:#080b12}
-nav{position:fixed;z-index:5;bottom:25px;left:50%;transform:translateX(-50%);display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:95%}
-nav button{padding:11px 14px;background:#07101cdd}
-.panel{display:none;position:fixed;z-index:8;right:6%;top:17%;width:min(420px,88%);max-height:70vh;overflow:auto;background:#07101cee;border:1px solid #b9c9e455;padding:26px;box-shadow:0 0 70px #000}
-.panel.show{display:block;animation:in .4s ease}
-@keyframes in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
-.panel h2{color:#e3c98d;font-size:27px}
-.panel p{font-size:13px}
-.close{float:right}
-.line{padding:12px 0;border-bottom:1px solid #ffffff20;font-size:12px;color:#b5c4d9}
-.line b{float:right;color:#e2c88e}
-#hint{position:fixed;bottom:92px;left:50%;transform:translateX(-50%);z-index:3;color:#899bb8;font-size:9px;letter-spacing:3px;white-space:nowrap}
-@media(max-width:650px){
- header{padding:18px 5%}.status{font-size:7px}
- .hero{left:7%;right:7%;top:25%}
- h1{font-size:57px}
- .hero p{font-size:12px}
- nav{bottom:12px;gap:5px}
- nav button{font-size:8px;padding:9px}
- #hint{font-size:7px;bottom:85px}
- .panel{top:12%;right:5%;width:90%}
-}
+html{scroll-behavior:smooth}
+body{margin:0;background:#030611;color:#eef8ff;font-family:Rajdhani,sans-serif;overflow-x:hidden}
+button{font:inherit;cursor:pointer}
+a{text-decoration:none;color:inherit}
+#space{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at 50% 100%,#18285d,#080d26 55%,#02040c)}
+#stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 10% 20%,white 98%,transparent),radial-gradient(1px 1px at 40% 70%,#8beaff 98%,transparent),radial-gradient(2px 2px at 80% 30%,white 98%,transparent);background-size:190px 180px,240px 230px,300px 270px;animation:stars 70s linear infinite}
+@keyframes stars{to{background-position:500px 700px,-400px 600px,700px -500px}}
+.nebula{position:absolute;width:55vw;height:55vw;border-radius:50%;filter:blur(75px);opacity:.16;background:#5946db}
+.nebula.a{left:-25%;top:15%}.nebula.b{right:-25%;bottom:-15%;background:#087da9}
+.meteor{position:absolute;width:130px;height:2px;background:linear-gradient(90deg,transparent,#c5f8ff,transparent);transform:rotate(-35deg);animation:meteor 6s linear infinite;opacity:0}
+.meteor:nth-child(2){top:20%;left:75%;animation-delay:1s}
+.meteor:nth-child(3){top:65%;left:30%;animation-delay:3s}
+@keyframes meteor{8%{opacity:1}35%{transform:translate(-380px,250px) rotate(-35deg);opacity:0}100%{opacity:0}}
+#intro{position:fixed;inset:0;z-index:20;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,#172956,#030611 70%);transition:1s}
+#intro.hide{opacity:0;visibility:hidden}
+.logo{font:800 clamp(6rem,24vw,12rem) Orbitron;color:white;letter-spacing:-.13em;text-shadow:0 0 25px var(--cyan),0 0 80px #7755ff;animation:pulse 2s infinite alternate}
+@keyframes pulse{to{filter:brightness(1.6);transform:scale(1.04)}}
+.eyebrow{font:600 .68rem Orbitron;letter-spacing:.23em;color:var(--cyan);text-transform:uppercase}
+.intro-title{font:700 clamp(1.1rem,4vw,2rem) Orbitron;letter-spacing:.1em}
+.intro-sub{color:#a9bad5}
+.btn{display:inline-block;padding:13px 22px;border:1px solid #68eaff99;background:linear-gradient(120deg,#1b709655,#6953b544);color:white;border-radius:4px;font:600 .72rem Orbitron;letter-spacing:.12em;cursor:pointer;transition:.25s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 0 28px #51dfff66}
+header{position:fixed;z-index:10;inset:0 0 auto;display:flex;justify-content:space-between;align-items:center;padding:17px 5%;background:linear-gradient(#050816ed,transparent);backdrop-filter:blur(7px)}
+.brand{font:800 1.35rem Orbitron;letter-spacing:-.1em;color:white;text-shadow:0 0 15px var(--cyan)}
+.brand small{font-size:.55rem;letter-spacing:.2em;color:var(--cyan);margin-left:8px}
+nav{display:flex;gap:clamp(9px,2.5vw,28px)}
+nav a{font:600 .65rem Orbitron;letter-spacing:.08em;color:#c8d9ef}
+nav a:hover{color:var(--cyan)}
+#sound{background:#10203d;border:1px solid var(--line);color:var(--cyan);padding:8px;border-radius:20px}
+.section{max-width:1350px;margin:auto;padding:105px clamp(20px,8vw,110px);scroll-margin-top:60px}
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:25px;padding-top:120px}
+.hero h1{font:800 clamp(2.7rem,7vw,6.3rem)/.98 Orbitron;letter-spacing:-.07em;margin:20px 0}
+.hero h1 span{color:var(--cyan);text-shadow:0 0 30px #4adfff66}
+.desc{font-size:1.25rem;line-height:1.5;color:#b9cbe5;max-width:580px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.art{height:430px;display:grid;place-items:center;position:relative}
+.planet{width:min(62vw,300px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 28% 25%,#b6f7ff,#3678bd 32%,#17265b 70%,#050918 80%);box-shadow:inset -35px -15px 55px #02040c,0 0 70px #399bff77;position:relative;animation:float 6s ease-in-out infinite}
+.planet:after{content:"";position:absolute;inset:35% -22%;border:9px solid #a4eaff99;border-left-color:#b99cff88;border-radius:50%;transform:rotate(-22deg);filter:drop-shadow(0 0 12px #5cdfff)}
+@keyframes float{50%{transform:translateY(-18px)}}
+.moon{position:absolute;top:12%;right:7%;width:55px;height:55px;border-radius:50%;background:radial-gradient(circle at 30% 30%,white,#7786a9 60%,#263456);box-shadow:0 0 22px #b8dfff77}
+.rocket{position:absolute;right:8%;bottom:8%;font-size:3.2rem;transform:rotate(-35deg);filter:drop-shadow(0 0 15px var(--cyan));animation:float 3s infinite}
+.section-head{margin-bottom:30px}
+.section-head h2{font:700 clamp(1.6rem,4vw,2.8rem) Orbitron;margin:10px 0}
+.section-head p{color:#a9bad5;font-size:1.1rem}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(13px);box-shadow:0 15px 50px #0005}
+.system{min-height:510px;display:grid;place-items:center;position:relative;overflow:hidden}
+.sun{width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,#fff9bd,#ffb32c 48%,#ff5725);box-shadow:0 0 40px #ff9c35,0 0 100px #ff6c2955;z-index:2}
+.orbit{position:absolute;width:var(--size);height:var(--size);border:1px solid #9fcaff33;border-radius:50%;animation:spin var(--speed) linear infinite}
+.orbit button{position:absolute;left:0;top:50%;width:var(--ps);height:var(--ps);margin-top:calc(var(--ps)/-2);border:0;border-radius:50%;background:var(--color);box-shadow:0 0 18px var(--color);cursor:pointer;animation:counter var(--speed) linear infinite}
+.orbit button:hover{filter:brightness(1.7);scale:1.4}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes counter{to{transform:rotate(-360deg)}}
+.planet-name{position:absolute;top:calc(50% + var(--size)/2 + 10px);font:600 .6rem Orbitron;color:#d5edff;white-space:nowrap}
+.hint{position:absolute;bottom:15px;color:#91a9ca;font-size:.85rem}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.card{padding:22px;min-height:165px;transition:.3s}
+.card:hover{transform:translateY(-5px);border-color:#68eaff88}
+.card .emoji{font-size:1.8rem}
+.card h3{font:600 .95rem Orbitron;color:var(--cyan);margin:13px 0 8px}
+.card p{color:#b8c9df;line-height:1.5;margin:0}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.photo{height:230px;position:relative;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111d3b;cursor:pointer;padding:0;color:white}
+.photo img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.photo:hover img{transform:scale(1.08)}
+.photo span{position:absolute;bottom:0;left:0;right:0;padding:30px 12px 12px;background:linear-gradient(transparent,#020611dd);font:600 .7rem Orbitron}
+.timeline{border-left:1px solid #68eaff88;margin-left:8px;padding-left:24px;display:grid;gap:22px}
+.event{position:relative}
+.event:before{content:"";position:absolute;left:-30px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 15px var(--cyan)}
+.event h3{font:600 .9rem Orbitron;margin:0 0 6px}
+.event p{color:#a9bad5;margin:0;line-height:1.5}
+.skills{display:flex;gap:10px;flex-wrap:wrap}
+.skill{padding:10px 15px;border:1px solid #5b9ed866;background:#10213d99;border-radius:30px;color:#d7edff;font-weight:600}
+footer{text-align:center;padding:35px 20px;border-top:1px solid var(--line);color:#8197b9}
+#popup{display:none;position:fixed;inset:0;z-index:30;background:#02040bdd;place-items:center;padding:20px}
+#popup.show{display:grid}
+.popcard{width:min(550px,100%);padding:28px;position:relative}
+.popcard h2{font:700 1.35rem Orbitron;color:var(--cyan)}
+.popcard p{font-size:1.1rem;color:#c1d0e7;line-height:1.6}
+.close{position:absolute;right:14px;top:10px;border:0;background:none;color:white;font-size:1.6rem}
+#warp{position:fixed;inset:0;z-index:25;pointer-events:none;opacity:0;transform:scale(.1);background:radial-gradient(circle,#e4ffff,#467bff 20%,#080b24 70%);transition:.6s}
+#warp.active{opacity:1;transform:scale(2.5)}
+.alien{position:fixed;right:16px;bottom:15px;z-index:8;background:#08162cdd;border:1px solid #68eaff77;color:white;border-radius:30px;padding:9px 13px;cursor:pointer}
+.alien b{font-size:1.2rem}
+.alien small{font:600 .6rem Orbitron;color:var(--cyan);margin-left:6px}
+#toast{position:fixed;z-index:40;bottom:70px;left:50%;transform:translate(-50%,15px);opacity:0;background:#10203d;border:1px solid var(--line);padding:12px 17px;border-radius:8px;color:#e4fbff;transition:.3s;text-align:center;max-width:90%;width:max-content}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:800px){header{padding:14px}nav{gap:10px}nav a{font-size:.52rem}.hero{grid-template-columns:1fr;padding-top:130px}.art{height:310px}.cards{grid-template-columns:1fr 1fr}.photos{grid-template-columns:1fr 1fr}.photo{height:180px}.system{min-height:390px}.orbit{width:var(--mobile);height:var(--mobile)}}
+@media(max-width:480px){nav a:nth-child(3){display:none}.hero h1{font-size:2.65rem}.cards,.photos{grid-template-columns:1fr}.photo{height:225px}.system{min-height:335px}.sun{width:65px;height:65px}.orbit{width:var(--mobile);height:var(--mobile)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<canvas id="space"></canvas>
+<div id="space"><div id="stars"></div><div class="nebula a"></div><div class="nebula b"></div><i class="meteor"></i><i class="meteor"></i></div>
+
+<div id="intro">
+ <div>
+  <div class="eyebrow">A PERSONAL UNIVERSE</div>
+  <div class="logo">AL</div>
+  <div class="intro-title">BEYOND THE UNIVERSE</div>
+  <p class="intro-sub">Every explorer has a universe of their own.</p>
+  <button class="btn" id="launch">✦ LAUNCH MISSION ✦</button>
+ </div>
+</div>
+<div id="warp"></div>
 
 <header>
- <div class="logo">AL / MULTIVERSE<small>THE INFINITE EXPERIENCE</small></div>
- <div class="status">● SYSTEM ONLINE · 2026</div>
+ <a class="brand" href="#home">AL<small>SPACE</small></a>
+ <nav><a href="#home">HOME</a><a href="#universe">UNIVERSE</a><a href="#profile">PROFILE</a><a href="#bmx">BMX</a></nav>
+ <button id="sound">♫ SOUND OFF</button>
 </header>
 
-<section class="hero" id="hero">
- <div class="tag">A NEW WORLD IS WAITING</div>
- <h1>ENTER<br>THE <span>UNKNOWN.</span></h1>
- <p>Beyond the stars, beyond imagination. Welcome to the universe of Fachriansyah Alfigo — a journey through creativity, technology and infinite possibilities.</p>
- <div class="buttons">
-  <button class="primary" onclick="openPanel('about')">DISCOVER MY STORY ↗</button>
-  <button onclick="fly()">START EXPLORING</button>
+<main>
+<section class="section hero" id="home">
+ <div>
+  <div class="eyebrow">EXPLORER ID · AL-2006</div>
+  <h1>BEYOND<br>THE <span>UNIVERSE.</span></h1>
+  <p class="desc">Welcome to my universe. A space where creativity, technology, and determination meet. Explore my journey beyond the ordinary.</p>
+  <div class="actions"><a class="btn" href="#universe">EXPLORE MY UNIVERSE ↗</a><a class="btn" href="#profile">MEET THE EXPLORER</a></div>
+ </div>
+ <div class="art"><div class="planet"></div><div class="moon"></div><div class="rocket">🚀</div></div>
+</section>
+
+<section class="section" id="universe">
+ <div class="section-head"><div class="eyebrow">NAVIGATION SYSTEM / 01</div><h2>EXPLORE THE UNIVERSE</h2><p>Select a planet to discover a part of my story.</p></div>
+ <div class="system glass">
+  <div class="sun"></div>
+  <div class="orbit" style="--size:155px;--speed:12s;--ps:13px;--color:#a9d9ff"><button style="--ps:13px;--color:#a9d9ff;--speed:12s" data-topic="about" aria-label="About"></button><span class="planet-name">ABOUT</span></div>
+  <div class="orbit" style="--size:235px;--speed:19s;--ps:18px;--color:#9e83ff"><button style="--ps:18px;--color:#9e83ff;--speed:19s" data-topic="education" aria-label="Education"></button><span class="planet-name">EDUCATION</span></div>
+  <div class="orbit" style="--size:315px;--speed:27s;--ps:21px;--color:#ff9d73"><button style="--ps:21px;--color:#ff9d73;--speed:27s" data-topic="bmx" aria-label="BMX"></button><span class="planet-name">BMX JOURNEY</span></div>
+  <div class="orbit" style="--size:395px;--speed:36s;--ps:16px;--color:#79e5c0"><button style="--ps:16px;--color:#79e5c0;--speed:36s" data-topic="skills" aria-label="Skills"></button><span class="planet-name">SKILLS</span></div>
+  <div class="hint">✦ TAP A PLANET TO OPEN ITS STORY ✦</div>
  </div>
 </section>
 
-<section class="panel" id="panel">
- <button class="close" onclick="closePanel()">CLOSE ✕</button>
- <div class="tag" id="tag">MULTIVERSE DATABASE</div>
- <h2 id="heading">WELCOME</h2>
- <div id="content"></div>
+<section class="section" id="profile">
+ <div class="section-head"><div class="eyebrow">EXPLORER PROFILE / 02</div><h2>THE PERSON BEHIND AL</h2><p>A little introduction from this side of the galaxy.</p></div>
+ <div class="cards">
+  <article class="glass card"><div class="emoji">🧑‍🚀</div><h3>IDENTITY</h3><p>Fachriansyah Alfigo. A curious explorer who enjoys learning, creating, and discovering new possibilities.</p></article>
+  <article class="glass card"><div class="emoji">🎓</div><h3>EDUCATION</h3><p>Studying Manajemen Multimedia dan Digital, with a background at Homeschooling HSPG Yogyakarta.</p></article>
+  <article class="glass card"><div class="emoji">💡</div><h3>INTERESTS</h3><p>Web development, digital multimedia, creative design, technology, and communication.</p></article>
+ </div>
 </section>
 
-<div id="hint">DRAG TO ROTATE THE COSMIC VIEW</div>
+<section class="section" id="bmx">
+ <div class="section-head"><div class="eyebrow">HALL OF MEMORIES / 03</div><h2>THE BMX CHAPTER</h2><p>Before exploring digital worlds, I learned focus, courage, and consistency on the track.</p></div>
+ <div class="photos">
+  <button class="photo" data-photo="IMG-20261104-WA0006.jpg"><img src="IMG-20261104-WA0006.jpg" alt="BMX memory one" onerror="this.style.display='none';this.parentElement.querySelector('span').textContent='ADD PHOTO: IMG-20261104-WA0006.jpg'"><span>THE JOURNEY</span></button>
+  <button class="photo" data-photo="IMG-20261104-WA0009.jpg"><img src="IMG-20261104-WA0009.jpg" alt="BMX memory two" onerror="this.style.display='none';this.parentElement.querySelector('span').textContent='ADD PHOTO: IMG-20261104-WA0009.jpg'"><span>THE EXPERIENCE</span></button>
+  <button class="photo" data-photo="IMG-20261104-WA0011.jpg"><img src="IMG-20261104-WA0011.jpg" alt="BMX memory three" onerror="this.style.display='none';this.parentElement.querySelector('span').textContent='ADD PHOTO: IMG-20261104-WA0011.jpg'"><span>THE MEMORIES</span></button>
+ </div>
+ <div class="glass" style="padding:22px;margin-top:18px;color:#c1d0e7;line-height:1.65">BMX racing has been an important chapter in my life. I had the opportunity to compete at regional, national, and international levels. That experience taught me discipline, determination, and how to keep moving forward. Today, those lessons continue to inspire my journey in the digital world.</div>
+</section>
 
-<nav>
- <button onclick="openPanel('about')">MY STORY</button>
- <button onclick="openPanel('education')">EDUCATION</button>
- <button onclick="openPanel('bmx')">BMX JOURNEY</button>
- <button onclick="openPanel('iron')">STARK WORLD</button>
- <button onclick="openPanel('thor')">ASGARD</button>
- <button onclick="openPanel('avengers')">HEROES</button>
-</nav>
+<section class="section" id="skills">
+ <div class="section-head"><div class="eyebrow">EQUIPMENT & ABILITIES / 04</div><h2>MY TOOLKIT</h2><p>Things I enjoy exploring and developing.</p></div>
+ <div class="skills"><span class="skill">Web Development</span><span class="skill">Digital Multimedia</span><span class="skill">Creative Design</span><span class="skill">Digital Technology</span><span class="skill">Communication</span><span class="skill">Creative Thinking</span><span class="skill">Discipline</span><span class="skill">Continuous Learning</span></div>
+</section>
 
-<script type="importmap">
-{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
-</script>
+<section class="section">
+ <div class="section-head"><div class="eyebrow">MISSION LOG / 05</div><h2>ALWAYS MOVING FORWARD</h2></div>
+ <div class="timeline">
+  <div class="event"><h3>THE BMX ERA</h3><p>Building discipline and determination through racing experiences.</p></div>
+  <div class="event"><h3>A NEW DIRECTION</h3><p>Carrying lessons from sport into new interests and opportunities.</p></div>
+  <div class="event"><h3>THE DIGITAL UNIVERSE</h3><p>Exploring multimedia, technology, design, and web development.</p></div>
+  <div class="event"><h3>THE NEXT MISSION</h3><p>Keep learning, keep creating, and discover what comes next.</p></div>
+ </div>
+</section>
+</main>
 
-<script type="module">
-import * as THREE from 'three';
-import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
-import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
-import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
+<footer><div class="brand">AL <small>BEYOND THE UNIVERSE</small></div><p>Designed as a universe of ideas, experience, and possibilities.</p><small>© <span id="year"></span> Fachriansyah Alfigo · All systems operational</small></footer>
+<button class="alien" id="alien"><b>👽</b><small>ALIEN GUIDE</small></button>
+<div id="toast"></div>
+<div id="popup"><div class="popcard glass"><button class="close" id="close">×</button><div class="eyebrow">PLANET DATA RECEIVED</div><h2 id="popTitle">MISSION FILE</h2><p id="popText"></p><button class="btn" id="ok">CONTINUE EXPLORING</button></div></div>
 
-const scene=new THREE.Scene();
-scene.background=new THREE.Color(0x02030a);
-scene.fog=new THREE.FogExp2(0x02030a,.00065);
-
-const camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,4000);
-camera.position.set(0,55,180);
-
-const renderer=new THREE.WebGLRenderer({canvas:document.querySelector('#space'),antialias:true});
-renderer.setSize(innerWidth,innerHeight);
-renderer.setPixelRatio(Math.min(devicePixelRatio,1.8));
-renderer.toneMapping=THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure=1.25;
-
-const composer=new EffectComposer(renderer);
-composer.addPass(new RenderPass(scene,camera));
-const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),1.1,.55,.15);
-composer.addPass(bloom);
-
-scene.add(new THREE.AmbientLight(0x8294bb,1.4));
-const sunLight=new THREE.PointLight(0xffb85e,3000,1300);
-sunLight.position.set(-100,60,-130);
-scene.add(sunLight);
-
-function glow(color,size){
- const material=new THREE.SpriteMaterial({
-  map:new THREE.TextureLoader().load(
-   'https://threejs.org/examples/textures/sprites/glow.png'
-  ),
-  color,transparent:true,blending:THREE.AdditiveBlending,
-  depthWrite:false
- });
- const sprite=new THREE.Sprite(material);
- sprite.scale.set(size,size,1);
- return sprite;
-}
-
-// Deep space starfield
-const starGeometry=new THREE.BufferGeometry();
-const positions=[];
-for(let i=0;i<9000;i++){
- positions.push(
-  (Math.random()-.5)*2400,
-  (Math.random()-.5)*1300,
-  (Math.random()-.5)*2400
- );
-}
-starGeometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));
-const stars=new THREE.Points(starGeometry,new THREE.PointsMaterial({
- color:0xddeaff,size:1.4,transparent:true,opacity:.9
-}));
-scene.add(stars);
-
-// Giant cinematic planet
-const planetGroup=new THREE.Group();
-planetGroup.position.set(105,15,-160);
-scene.add(planetGroup);
-
-const planet=new THREE.Mesh(
- new THREE.SphereGeometry(55,96,96),
- new THREE.MeshStandardMaterial({
-  color:0x274b85,roughness:.85,metalness:.1
- })
-);
-planetGroup.add(planet);
-
-const planetGlow=glow(0x367dff,180);
-planetGlow.position.set(0,0,0);
-planetGroup.add(planetGlow);
-
-const atmosphere=new THREE.Mesh(
- new THREE.SphereGeometry(57,96,96),
- new THREE.MeshBasicMaterial({
-  color:0x498dff,transparent:true,opacity:.12,
-  side:THREE.BackSide
- })
-);
-planetGroup.add(atmosphere);
-
-// Ring
-const ring=new THREE.Mesh(
- new THREE.TorusGeometry(85,1.1,5,180),
- new THREE.MeshBasicMaterial({color:0x9ab9e8,transparent:true,opacity:.45})
-);
-ring.rotation.x=1.25;
-planetGroup.add(ring);
-
-// Sun
-const sun=new THREE.Mesh(
- new THREE.SphereGeometry(18,64,64),
- new THREE.MeshBasicMaterial({color:0xffc46e})
-);
-sun.position.set(-115,30,-190);
-scene.add(sun);
-const sunGlow=glow(0xff9c35,150);
-sunGlow.position.copy(sun.position);
-scene.add(sunGlow);
-
-// Asteroid field
-const asteroids=new THREE.Group();
-for(let i=0;i<1000;i++){
- const rock=new THREE.Mesh(
-  new THREE.IcosahedronGeometry(.4+Math.random()*1.4,0),
-  new THREE.MeshStandardMaterial({color:0x737e91,roughness:1})
- );
- const a=Math.random()*Math.PI*2;
- const r=115+Math.random()*28;
- rock.position.set(Math.cos(a)*r,(Math.random()-.5)*12,Math.sin(a)*r-160);
- rock.rotation.set(Math.random()*3,Math.random()*3,Math.random()*3);
- asteroids.add(rock);
-}
-scene.add(asteroids);
-
-// Moving meteor trails
-const meteors=[];
-for(let i=0;i<20;i++){
- const meteor=new THREE.Group();
- const core=new THREE.Mesh(
-  new THREE.SphereGeometry(.8,12,12),
-  new THREE.MeshBasicMaterial({color:0xffffff})
- );
- meteor.add(core);
- const tail=glow(0x6bbdff,12);
- tail.position.z=4;
- meteor.add(tail);
- meteor.position.set(
-  (Math.random()-.5)*600,
-  (Math.random()-.5)*300,
-  -Math.random()*800
- );
- scene.add(meteor);
- meteors.push(meteor);
-}
-
-// Original futuristic armor character
-function createArmor(x,z,primary,secondary){
- const g=new THREE.Group();
- g.position.set(x,0,z);
- scene.add(g);
-
- const gold=new THREE.MeshStandardMaterial({color:secondary,metalness:.85,roughness:.22});
- const red=new THREE.MeshStandardMaterial({color:primary,metalness:.9,roughness:.2});
- const energy=new THREE.MeshBasicMaterial({color:0x66dfff});
-
- const body=new THREE.Mesh(new THREE.BoxGeometry(5,8,3),red);
- body.position.y=8;
- g.add(body);
-
- const chest=new THREE.Mesh(new THREE.BoxGeometry(3,4,.3),gold);
- chest.position.set(0,8,1.6);
- g.add(chest);
-
- const reactor=new THREE.Mesh(new THREE.CircleGeometry(.85,40),energy);
- reactor.position.set(0,8,1.85);
- g.add(reactor);
-
- const head=new THREE.Mesh(new THREE.SphereGeometry(1.7,32,32),gold);
- head.scale.set(1,.9,.8);
- head.position.y=14;
- g.add(head);
-
- const eyeMat=new THREE.MeshBasicMaterial({color:0x8deaff});
- [-.7,.7].forEach(x=>{
-  const eye=new THREE.Mesh(new THREE.BoxGeometry(.55,.16,.12),eyeMat);
-  eye.position.set(x,14.1,1.35);
-  g.add(eye);
- });
-
- [-1,1].forEach(side=>{
-  const arm=new THREE.Mesh(new THREE.BoxGeometry(1.5,6,1.8),red);
-  arm.position.set(side*3.3,8,0);
-  g.add(arm);
-  const leg=new THREE.Mesh(new THREE.BoxGeometry(2,6,2),gold);
-  leg.position.set(side*1.3,2,0);
-  g.add(leg);
- });
- const aura=glow(0x4daeff,35);
- aura.position.y=8;
- g.add(aura);
- return g;
-}
-const armor=createArmor(-120,15,0x9d252e,0xc9a34e);
-const thunderHero=createArmor(180,-35,0x34516d,0xc6d4e3);
-
-// Lightning effect
-const lightningGroup=new THREE.Group();
-scene.add(lightningGroup);
-function makeLightning(){
- const pts=[];
- let x=0,y=0,z=0;
- pts.push(new THREE.Vector3(x,y,z));
- for(let i=0;i<18;i++){
-  x+=(Math.random()-.5)*8;
-  y-=4;
-  z+=(Math.random()-.5)*5;
-  pts.push(new THREE.Vector3(x,y,z));
- }
- const line=new THREE.Line(
-  new THREE.BufferGeometry().setFromPoints(pts),
-  new THREE.LineBasicMaterial({color:0x83cfff})
- );
- return line;
-}
-const lightning=makeLightning();
-lightning.position.set(180,38,-35);
-lightningGroup.add(lightning);
-
-// Spaceship
-const ship=new THREE.Group();
-const silver=new THREE.MeshStandardMaterial({color:0xc8d8ec,metalness:.9,roughness:.2});
-const hull=new THREE.Mesh(new THREE.ConeGeometry(3,13,6),silver);
-hull.rotation.x=-Math.PI/2;
-ship.add(hull);
-const cockpit=new THREE.Mesh(
- new THREE.SphereGeometry(1.8,32,32),
- new THREE.MeshPhysicalMaterial({
-  color:0x43bfff,metalness:.5,roughness:.1,
-  transparent:true,opacity:.85
- })
-);
-cockpit.position.set(0,1,1);
-ship.add(cockpit);
-[-1,1].forEach(s=>{
- const wing=new THREE.Mesh(new THREE.BoxGeometry(8,.4,4),silver);
- wing.position.set(s*4,-.5,-1);
- ship.add(wing);
-});
-const engine=glow(0x38bfff,10);
-engine.position.z=8;
-ship.add(engine);
-ship.position.set(0,0,40);
-scene.add(ship);
-
-let targetLookX=0,targetLookY=0;
-let dragging=false,lastX=0,lastY=0;
-let autopilot=false,destination=null;
-const velocity=new THREE.Vector3();
-
-canvas.addEventListener('pointerdown',e=>{
- dragging=true;lastX=e.clientX;lastY=e.clientY;
-});
-window.addEventListener('pointerup',()=>dragging=false);
-window.addEventListener('pointermove',e=>{
- if(!dragging)return;
- targetLookX+=(e.clientX-lastX)*.003;
- targetLookY+=(e.clientY-lastY)*.002;
- targetLookY=THREE.MathUtils.clamp(targetLookY,-.6,.6);
- lastX=e.clientX;lastY=e.clientY;
-});
-window.addEventListener('keydown',e=>{
- const step=5;
- if(e.key==='w'||e.key==='ArrowUp')ship.position.z-=step;
- if(e.key==='s'||e.key==='ArrowDown')ship.position.z+=step;
- if(e.key==='a'||e.key==='ArrowLeft')ship.position.x-=step;
- if(e.key==='d'||e.key==='ArrowRight')ship.position.x+=step;
- if(e.key==='Escape')closePanel();
-});
-
-function fly(){
- document.querySelector('#hero').style.display='none';
- velocity.z=-1;
-}
+<script>
+const $=s=>document.querySelector(s),intro=$('#intro'),warp=$('#warp'),popup=$('#popup');
+function toast(t){let x=$('#toast');x.textContent=t;x.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>x.classList.remove('show'),2600)}
+$('#launch').onclick=()=>{intro.classList.add('hide');warp.classList.add('active');setTimeout(()=>warp.classList.remove('active'),700);toast('MISSION STARTED · WELCOME TO AL UNIVERSE')};
 const data={
- about:['FACHRIANSYAH ALFIGO',`
- <p>Welcome to my universe. Aku Fachriansyah Alfigo, tertarik pada dunia multimedia, teknologi digital, dan kreativitas.</p>
- <div class="line">IDENTITY <b>Fachriansyah Alfigo</b></div>
- <div class="line">FIELD <b>Multimedia & Digital</b></div>
- <div class="line">LOCATION <b>Yogyakarta, Indonesia</b></div>`],
- education:['EDUCATION',`
- <p>Perjalanan akademik dan pengembangan diri.</p>
- <div class="line">INSTITUTION <b>STMM Yogyakarta</b></div>
- <div class="line">PROGRAM <b>Manajemen Multimedia dan Digital</b></div>
- <div class="line">PREVIOUS <b>Homeschooling HSPG Yogyakarta</b></div>`],
- bmx:['BMX JOURNEY',`
- <p>BMX Racing merupakan bagian dari perjalanan dan pengalaman kompetitifku.</p>
- <div class="line">SPORT <b>BMX Racing</b></div>
- <div class="line">EXPERIENCE <b>Regional</b></div>
- <div class="line">EXPERIENCE <b>Nasional</b></div>
- <div class="line">EXPERIENCE <b>Internasional</b></div>`],
- iron:['STARK TECHNOLOGY',`
- <p>Explore a futuristic technology universe inspired by armored superheroes.</p>
- <div class="line">THEME <b>Advanced Armor</b></div>
- <div class="line">FOCUS <b>Technology & Innovation</b></div>`],
- thor:['ASGARD REALM',`
- <p>Explore the realm of thunder and cosmic mythology.</p>
- <div class="line">THEME <b>Thunder Guardian</b></div>
- <div class="line">WORLD <b>Asgard Inspired</b></div>`],
- avengers:['HEROES UNIVERSE',`
- <p>Jelajahi karakter superhero dari dunia film dan komik.</p>
- <div class="line">IRON MAN <b>Technology</b></div>
- <div class="line">THOR <b>Thunder</b></div>
- <div class="line">CAPTAIN AMERICA <b>Leadership</b></div>
- <div class="line">HULK <b>Strength</b></div>`]
+about:['ABOUT THE EXPLORER','Fachriansyah Alfigo — a curious explorer interested in creativity, digital technology, and discovering new possibilities.'],
+education:['EDUCATION','Currently studying Manajemen Multimedia dan Digital. Previous education: Homeschooling HSPG Yogyakarta.'],
+bmx:['BMX JOURNEY','I used to compete in BMX racing at regional, national, and international levels. The experience taught me discipline, determination, and resilience.'],
+skills:['SKILLS & INTERESTS','Web development, digital multimedia, creative design, digital technology, communication, and continuous learning.']
 };
-function openPanel(id){
- const d=data[id];if(!d)return;
- document.querySelector('#tag').textContent='MULTIVERSE DATABASE';
- document.querySelector('#heading').textContent=d[0];
- document.querySelector('#content').innerHTML=d[1];
- document.querySelector('#panel').classList.add('show');
-}
-function closePanel(){
- document.querySelector('#panel').classList.remove('show');
-}
-function animate(){
- requestAnimationFrame(animate);
- const t=performance.now()*.001;
- stars.rotation.y+=.00008;
- planet.rotation.y+=.0008;
- ring.rotation.z+=.0003;
- asteroids.rotation.y+=.00035;
- armor.position.y=3+Math.sin(t*1.4)*2;
- thunderHero.position.y=3+Math.sin(t*1.2+2)*2;
- lightning.visible=Math.sin(t*5)>-.5;
- meteors.forEach(m=>{
-  m.position.x-=.4;
-  m.position.y-=.1;
-  m.position.z+=.3;
-  if(m.position.x<-350){
-   m.position.x=350;
-   m.position.y=(Math.random()-.5)*300;
-   m.position.z=-Math.random()*800;
-  }
- });
- ship.position.add(velocity);
- velocity.multiplyScalar(.97);
- const desired=new THREE.Vector3(
-  ship.position.x+Math.sin(targetLookX)*100,
-  ship.position.y+35+targetLookY*60,
-  ship.position.z+95
- );
- camera.position.lerp(desired,.025);
- camera.lookAt(
-  ship.position.x+Math.sin(targetLookX)*80,
-  ship.position.y,
-  ship.position.z-70
- );
- composer.render();
-}
-animate();
-
-window.addEventListener('resize',()=>{
- camera.aspect=innerWidth/innerHeight;
- camera.updateProjectionMatrix();
- renderer.setSize(innerWidth,innerHeight);
- composer.setSize(innerWidth,innerHeight);
- bloom.setSize(innerWidth,innerHeight);
-});
+function show(title,text){$('#popTitle').textContent=title;$('#popText').textContent=text;popup.classList.add('show')}
+document.querySelectorAll('[data-topic]').forEach(p=>p.onclick=()=>{let d=data[p.dataset.topic];warp.classList.add('active');setTimeout(()=>warp.classList.remove('active'),600);setTimeout(()=>show(...d),160)});
+document.querySelectorAll('[data-photo]').forEach(p=>p.onclick=()=>show('BMX MEMORY','A moment from my BMX journey. Photo file: '+p.dataset.photo));
+function close(){popup.classList.remove('show')}
+$('#close').onclick=close;$('#ok').onclick=close;
+popup.onclick=e=>{if(e.target===popup)close()};
+document.onkeydown=e=>{if(e.key==='Escape')close()};
+document.querySelectorAll('nav a,.actions a').forEach(a=>a.addEventListener('click',()=>$('.brand').animate([{transform:'scale(1)'},{transform:'scale(1.3)',filter:'brightness(2)'},{transform:'scale(1)'}],{duration:650})));
+let ctx,osc,gain,on=false;
+$('#sound').onclick=async()=>{try{if(!on){ctx=new(window.AudioContext||window.webkitAudioContext)();osc=ctx.createOscillator();gain=ctx.createGain();osc.type='sine';osc.frequency.value=55;gain.gain.value=.018;osc.connect(gain);gain.connect(ctx.destination);osc.start();on=true;$('#sound').textContent='♫ SOUND ON'}else{osc.stop();await ctx.close();on=false;$('#sound').textContent='♫ SOUND OFF'}}catch(e){toast('Sound is not available in this browser.')}};
+let msgs=['Welcome, Explorer! I am your guide around the AL universe. 👽','Try clicking the planets. Each one contains a different mission.','BMX taught this explorer discipline. The digital universe is the next adventure.','Keep exploring. There is always something new to learn!'],mi=0;
+$('#alien').onclick=()=>toast(msgs[mi++%msgs.length]);
+$('#year').textContent=new Date().getFullYear();
 </script>
 </body>
 </html>
