@@ -4,159 +4,472 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fachriansyah Alfigo | Personal Portfolio</title>
+<title>AL | Fachriansyah Alfigo</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
-body{font-family:Arial,sans-serif;background:#070b14;color:#f5f7ff;line-height:1.7}
-:root{--blue:#258cff;--muted:#aab5c8}
-nav{position:fixed;top:0;width:100%;z-index:10;background:#070b14eF;border-bottom:1px solid #ffffff15;padding:18px 8%;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:20px;font-weight:800;letter-spacing:2px}
-.logo span{color:var(--blue)}
-nav a{color:white;text-decoration:none;margin-left:22px;font-size:13px}
-nav a:hover{color:var(--blue)}
-section{padding:110px 9%;scroll-margin-top:65px}
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:space-between;gap:45px;background:radial-gradient(circle at 80% 40%,#12345c 0%,#070b14 48%)}
-.hero-text{max-width:650px}
-.tag{color:var(--blue);letter-spacing:4px;font-size:12px;font-weight:bold}
-h1{font-size:clamp(42px,7vw,76px);line-height:1.08;margin:20px 0}
-h1 span{color:var(--blue)}
-.hero p,.about p{color:var(--muted);font-size:16px}
-.btn{display:inline-block;margin-top:28px;padding:13px 25px;background:var(--blue);color:white;text-decoration:none;border-radius:7px;font-weight:bold}
-.hero-photo{width:min(360px,100%);height:430px;border-radius:18px;overflow:hidden;border:1px solid #258cff88;box-shadow:0 0 45px #258cff30}
-.hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
-.section-title{font-size:36px;margin-bottom:12px}
-.section-title span{color:var(--blue)}
-.subtitle{color:var(--muted);margin-bottom:35px}
-.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:45px;align-items:center}
-.info{padding:25px;background:#101a2b;border:1px solid #ffffff12;border-radius:12px}
-.info p{margin:10px 0;color:var(--muted)}
-.info strong{color:white}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.card{background:#101a2b;border:1px solid #ffffff12;border-radius:12px;padding:25px;transition:.3s}
-.card:hover{transform:translateY(-7px);border-color:var(--blue)}
-.card h3{color:var(--blue);margin-bottom:12px}
-.card p{color:var(--muted);font-size:14px}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.gallery img{width:100%;height:280px;object-fit:cover;border-radius:12px;border:1px solid #ffffff20;display:block;transition:.3s}
-.gallery img:hover{transform:scale(1.025);border-color:var(--blue)}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+ --cyan:#00eaff;
+ --blue:#258cff;
+ --purple:#a855f7;
+ --white:#f4faff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ background:#030611;color:var(--white);
+ font-family:Poppins,sans-serif;overflow-x:hidden;
+}
+#space{
+ position:fixed;inset:0;z-index:-5;
+ background:radial-gradient(ellipse at 50% 40%,#102b55 0%,#070d20 45%,#02040c 100%);
+}
+.stars{
+ position:fixed;inset:-100px;z-index:-4;
+ background-image:
+ radial-gradient(2px 2px at 20px 30px,#fff,transparent),
+ radial-gradient(1px 1px at 90px 100px,#00eaff,transparent),
+ radial-gradient(2px 2px at 160px 170px,#fff,transparent),
+ radial-gradient(1px 1px at 230px 50px,#a855f7,transparent),
+ radial-gradient(2px 2px at 300px 130px,#fff,transparent);
+ background-size:350px 250px;
+ animation:starMove 35s linear infinite;
+}
+@keyframes starMove{to{transform:translateY(250px)}}
+.shooting{
+ position:fixed;top:15%;left:-100px;width:100px;height:2px;
+ background:linear-gradient(90deg,transparent,#fff,var(--cyan));
+ box-shadow:0 0 15px var(--cyan);
+ transform:rotate(-25deg);animation:meteor 7s linear infinite;
+ z-index:-2;
+}
+@keyframes meteor{
+ 0%{left:-120px;top:15%;opacity:0}
+ 5%{opacity:1}
+ 30%{left:110%;top:45%;opacity:0}
+ 100%{left:110%;opacity:0}
+}
+.planet{
+ position:fixed;border-radius:50%;z-index:-3;
+ filter:drop-shadow(0 0 25px #258cff88);
+ animation:float 8s ease-in-out infinite;
+}
+.planet.one{
+ width:180px;height:180px;right:-55px;top:20%;
+ background:radial-gradient(circle at 30% 30%,#a6f8ff,#1673be 35%,#11184c 75%);
+ box-shadow:inset -25px -20px 35px #02040c;
+}
+.planet.two{
+ width:95px;height:95px;left:5%;bottom:10%;
+ background:radial-gradient(circle at 30% 30%,#ffb4ff,#8a3cff 45%,#20104d);
+ animation-delay:-3s;
+}
+@keyframes float{50%{transform:translateY(-25px) rotate(15deg)}}
+.ring{
+ position:fixed;width:220px;height:65px;right:-75px;top:23%;
+ border:4px solid #a8dfff99;border-radius:50%;
+ transform:rotate(-25deg);z-index:-2;
+ box-shadow:0 0 15px var(--cyan);
+}
+.alien{
+ position:fixed;right:20px;bottom:20px;font-size:48px;
+ animation:alienFloat 3s ease-in-out infinite;z-index:3;
+ filter:drop-shadow(0 0 12px var(--cyan));
+}
+@keyframes alienFloat{50%{transform:translateY(-15px) rotate(8deg)}}
+.rocket{
+ position:fixed;right:7%;top:65%;font-size:48px;
+ transform:rotate(-35deg);z-index:-1;
+ filter:drop-shadow(0 0 15px #00eaff);
+ animation:rocketFly 9s ease-in-out infinite;
+}
+@keyframes rocketFly{
+ 0%,100%{translate:0 0}
+ 50%{translate:-35px -45px}
+}
+nav{
+ position:fixed;top:15px;left:50%;transform:translateX(-50%);
+ width:min(1100px,94%);z-index:20;
+ display:flex;align-items:center;justify-content:space-between;
+ padding:13px 22px;border:1px solid #00eaff55;
+ border-radius:18px;background:#030918d9;
+ backdrop-filter:blur(15px);
+ box-shadow:0 0 25px #00eaff20;
+}
+.brand{
+ font-family:Orbitron,sans-serif;font-size:25px;font-weight:800;
+ color:var(--cyan);text-shadow:0 0 15px var(--cyan);
+}
+.navlinks{display:flex;gap:23px}
+.navlinks a{
+ text-decoration:none;color:white;font-size:12px;
+ font-weight:600;transition:.3s;cursor:pointer;
+}
+.navlinks a:hover,.navlinks a.active{color:var(--cyan);text-shadow:0 0 12px var(--cyan)}
+section{padding:120px 8%;scroll-margin-top:70px}
+.hero{
+ min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;
+ align-items:center;gap:45px;
+}
+.eyebrow{
+ color:var(--cyan);font-family:Orbitron,sans-serif;
+ font-size:12px;letter-spacing:4px;
+}
+h1{
+ font-family:Orbitron,sans-serif;
+ font-size:clamp(36px,6vw,76px);line-height:1.15;
+ margin:22px 0;
+ text-shadow:0 0 25px #258cff66;
+}
+h1 span{
+ background:linear-gradient(90deg,#fff,var(--cyan),#a855f7);
+ background-clip:text;color:transparent;
+}
+.hero p,.description{color:#c1d2e9;line-height:1.9;font-size:14px}
+.glowbtn{
+ display:inline-block;margin-top:28px;padding:14px 27px;
+ border:1px solid var(--cyan);border-radius:8px;
+ color:var(--cyan);text-decoration:none;font-weight:700;
+ box-shadow:0 0 15px #00eaff44,inset 0 0 12px #00eaff15;
+ transition:.3s;cursor:pointer;background:#00eaff0a;
+}
+.glowbtn:hover{
+ color:#00101b;background:var(--cyan);
+ box-shadow:0 0 30px var(--cyan);transform:translateY(-4px);
+}
+.portrait{
+ width:100%;max-width:390px;height:480px;margin:auto;
+ border:2px solid var(--cyan);border-radius:25px;
+ overflow:hidden;box-shadow:0 0 35px #00eaff55;
+ position:relative;animation:portraitFloat 5s ease-in-out infinite;
+}
+.portrait img{width:100%;height:100%;object-fit:cover}
+@keyframes portraitFloat{50%{transform:translateY(-12px)}}
+.section-title{
+ font-family:Orbitron,sans-serif;font-size:clamp(25px,4vw,38px);
+ margin-bottom:15px;text-shadow:0 0 15px #258cff66;
+}
+.section-title span{color:var(--cyan)}
+.section-head{text-align:center;margin-bottom:40px}
+.grid{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+}
+.panel{
+ background:linear-gradient(145deg,#10203bdb,#070d1bdf);
+ border:1px solid #258cff66;border-radius:16px;
+ padding:25px;transition:.35s;
+ box-shadow:0 0 20px #258cff12;
+}
+.panel:hover{
+ transform:translateY(-8px);border-color:var(--cyan);
+ box-shadow:0 0 25px #00eaff30;
+}
+.panel .symbol{font-size:32px;margin-bottom:15px}
+.panel h3{color:var(--cyan);margin-bottom:12px}
+.panel p{color:#b8c8df;font-size:13px;line-height:1.8}
+.gallery{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+}
+.photo{
+ position:relative;height:290px;overflow:hidden;
+ border:1px solid #00eaff77;border-radius:15px;
+ cursor:pointer;box-shadow:0 0 15px #00eaff20;
+}
+.photo img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.photo:hover img{transform:scale(1.1)}
+.photo-label{
+ position:absolute;bottom:0;left:0;width:100%;
+ padding:15px;background:linear-gradient(transparent,#020611ee);
+ color:white;font-weight:700;
+}
 .values{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.value{padding:22px;text-align:center;background:#101a2b;border-radius:10px;border-bottom:3px solid var(--blue)}
-footer{text-align:center;padding:30px;color:#77849a;border-top:1px solid #ffffff15;font-size:13px}
+.value{
+ text-align:center;padding:25px 10px;
+ border:1px solid #258cff77;border-radius:12px;
+ background:#101d36cc;color:var(--cyan);
+ font-family:Orbitron,sans-serif;font-size:13px;
+}
+footer{
+ text-align:center;padding:35px 15px;color:#8294ae;
+ border-top:1px solid #ffffff18;font-size:12px;
+}
+.overlay{
+ position:fixed;inset:0;z-index:100;
+ background:#020611eF;display:none;
+ align-items:center;justify-content:center;padding:20px;
+ backdrop-filter:blur(12px);
+}
+.overlay.show{display:flex}
+.popup{
+ width:min(570px,100%);padding:30px;
+ border:1px solid var(--cyan);border-radius:18px;
+ background:linear-gradient(145deg,#102344,#050a17);
+ box-shadow:0 0 40px #00eaff55;
+ position:relative;animation:pop .35s ease;
+}
+@keyframes pop{
+ from{opacity:0;transform:scale(.8) translateY(20px)}
+ to{opacity:1;transform:scale(1) translateY(0)}
+}
+.close{
+ position:absolute;right:17px;top:10px;
+ color:var(--cyan);font-size:28px;cursor:pointer;
+}
+.popup h2{
+ font-family:Orbitron,sans-serif;color:var(--cyan);
+ margin:10px 0 15px;
+}
+.popup p{color:#d2e1f5;line-height:1.9;font-size:14px}
+.popup img{
+ width:100%;max-height:300px;object-fit:cover;
+ border-radius:12px;margin-bottom:15px;
+}
+.al-logo{
+ position:fixed;inset:0;z-index:200;
+ display:none;align-items:center;justify-content:center;
+ background:#020611ed;backdrop-filter:blur(10px);
+}
+.al-logo.show{display:flex;animation:fade .5s}
+.al-mark{
+ font-family:Orbitron,sans-serif;font-size:100px;font-weight:800;
+ color:white;text-shadow:0 0 15px var(--cyan),0 0 50px var(--blue);
+ animation:logoPulse 1.1s ease-in-out;
+}
+@keyframes logoPulse{
+ 0%{transform:scale(.2) rotate(-30deg);opacity:0}
+ 60%{transform:scale(1.2) rotate(5deg);opacity:1}
+ 100%{transform:scale(1)}
+}
+@keyframes fade{from{opacity:0}to{opacity:1}}
 @media(max-width:800px){
- nav{padding:15px 5%;flex-wrap:wrap;gap:12px}
- nav a{margin-left:10px;font-size:11px}
- section{padding:90px 6%}
- .hero{flex-direction:column-reverse;justify-content:center;text-align:center;padding-top:130px}
- .hero-photo{height:340px;width:270px}
- .about-grid{grid-template-columns:1fr}
- .cards,.gallery,.values{grid-template-columns:1fr}
- .gallery img{height:300px}
+ nav{padding:12px;flex-direction:column;gap:12px}
+ .navlinks{gap:13px;flex-wrap:wrap;justify-content:center}
+ .navlinks a{font-size:10px}
+ section{padding:115px 6% 75px}
+ .hero{grid-template-columns:1fr;text-align:center;gap:30px}
+ .portrait{height:360px;max-width:290px}
+ .grid,.gallery,.values{grid-template-columns:1fr}
+ .photo{height:320px}
+ .planet.one{width:120px;height:120px}
+ .rocket{right:3%;font-size:35px}
+ .alien{font-size:35px}
+ .al-mark{font-size:75px}
 }
 </style>
 </head>
 
 <body>
+<div id="space"></div>
+<div class="stars"></div>
+<div class="shooting"></div>
+<div class="planet one"></div>
+<div class="planet two"></div>
+<div class="ring"></div>
+<div class="rocket">🚀</div>
+<div class="alien">👽</div>
 
 <nav>
- <div class="logo">FACHRI<span>.</span></div>
- <div>
-  <a href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#education">Education</a>
+ <div class="brand">AL<span style="color:white">.</span></div>
+ <div class="navlinks">
+  <a href="#home" class="active">HOME</a>
+  <a href="#about">ABOUT</a>
+  <a href="#education">EDUCATION</a>
   <a href="#bmx">BMX</a>
+  <a href="#skills">SKILLS</a>
  </div>
 </nav>
 
 <section class="hero" id="home">
- <div class="hero-text">
-  <div class="tag">PERSONAL PORTFOLIO</div>
-  <h1>Fachriansyah<br><span>Alfigo.</span></h1>
-  <p>Exploring creativity, technology, and new opportunities. A former BMX Racing athlete with a passion for digital multimedia and continuous learning.</p>
-  <a class="btn" href="#about">Discover My Story</a>
+ <div>
+  <div class="eyebrow">WELCOME TO MY UNIVERSE</div>
+  <h1>FACHRIANSYAH<br><span>ALFIGO.</span></h1>
+  <p>Dream Bigger. Explore Further.</p>
+  <p style="margin-top:15px">
+   A creative mind, a curious soul, and a former BMX Racing athlete
+   with a passion for technology, multimedia, and the future.
+  </p>
+  <a class="glowbtn" href="#about">✦ EXPLORE MY WORLD →</a>
  </div>
- <div class="hero-photo">
-  <img src="IMG-20261104-WA0009.jpg" alt="Foto Fachriansyah Alfigo">
+ <div class="portrait">
+  <img src="IMG-20261104-WA0009.jpg" alt="Fachriansyah Alfigo">
  </div>
 </section>
 
 <section id="about">
- <div class="about-grid">
-  <div>
-   <div class="tag">GET TO KNOW ME</div>
-   <h2 class="section-title">About <span>Me</span></h2>
-   <p class="subtitle">A journey of passion, discipline, and growth.</p>
-   <p>Saya adalah seseorang yang tertarik pada dunia multimedia, teknologi digital, dan kreativitas. Pengalaman sebagai atlet BMX Racing mengajarkan saya tentang disiplin, kerja keras, konsistensi, dan keberanian untuk terus berkembang.</p>
-   <p style="margin-top:15px;color:#aab5c8">Saat ini saya berfokus mengembangkan kemampuan di bidang multimedia digital serta mempelajari berbagai hal baru untuk membangun masa depan.</p>
+ <div class="section-head">
+  <div class="eyebrow">DISCOVER MY STORY</div>
+  <h2 class="section-title">ABOUT <span>ME</span></h2>
+  <p class="description">Every person has a universe of their own.</p>
+ </div>
+ <div class="grid">
+  <div class="panel">
+   <div class="symbol">🌌</div>
+   <h3>Who Am I?</h3>
+   <p>Saya Fachriansyah Alfigo, seseorang yang tertarik pada kreativitas, multimedia, teknologi, dan pengalaman baru.</p>
+   <button class="glowbtn" onclick="openPopup('who')">EXPLORE →</button>
   </div>
-  <div class="info">
-   <h3>Personal Profile</h3>
-   <p><strong>Nama:</strong> Fachriansyah Alfigo</p>
-   <p><strong>Bidang:</strong> Multimedia & Digital</p>
-   <p><strong>Minat:</strong> Technology, Design, Creativity</p>
-   <p><strong>Pengalaman:</strong> Former BMX Racing Athlete</p>
+  <div class="panel">
+   <div class="symbol">🚀</div>
+   <h3>My Journey</h3>
+   <p>Perjalanan hidup yang dibangun melalui pengalaman, tantangan, dan kemauan untuk terus berkembang.</p>
+   <button class="glowbtn" onclick="openPopup('journey')">EXPLORE →</button>
+  </div>
+  <div class="panel">
+   <div class="symbol">✨</div>
+   <h3>My Vision</h3>
+   <p>Terus belajar, menciptakan sesuatu yang bermakna, dan membuka peluang baru di dunia digital.</p>
+   <button class="glowbtn" onclick="openPopup('vision')">EXPLORE →</button>
   </div>
  </div>
 </section>
 
 <section id="education">
- <div class="tag">MY BACKGROUND</div>
- <h2 class="section-title">Education & <span>Interests</span></h2>
- <p class="subtitle">Learning, exploring, and building new perspectives.</p>
- <div class="cards">
-  <div class="card">
+ <div class="section-head">
+  <div class="eyebrow">MY LEARNING ORBIT</div>
+  <h2 class="section-title">EDUCATION <span>& INTERESTS</span></h2>
+ </div>
+ <div class="grid">
+  <div class="panel">
+   <div class="symbol">🎓</div>
    <h3>Higher Education</h3>
-   <p>Manajemen Multimedia dan Digital. Mempelajari perkembangan multimedia, komunikasi, dan teknologi digital.</p>
+   <p>Manajemen Multimedia dan Digital.</p>
+   <button class="glowbtn" onclick="openPopup('college')">DETAIL →</button>
   </div>
-  <div class="card">
+  <div class="panel">
+   <div class="symbol">📚</div>
    <h3>High School</h3>
    <p>Homeschooling HSPG Yogyakarta.</p>
+   <button class="glowbtn" onclick="openPopup('school')">DETAIL →</button>
   </div>
-  <div class="card">
-   <h3>Creative Interests</h3>
-   <p>Web development, digital design, multimedia, dan eksplorasi teknologi baru.</p>
+  <div class="panel">
+   <div class="symbol">🪐</div>
+   <h3>Creative Exploration</h3>
+   <p>Multimedia, digital design, website, dan teknologi.</p>
+   <button class="glowbtn" onclick="openPopup('interest')">DETAIL →</button>
   </div>
  </div>
 </section>
 
 <section id="bmx">
- <div class="tag">MY JOURNEY</div>
- <h2 class="section-title">BMX <span>Racing</span></h2>
- <p class="subtitle">A meaningful chapter that shaped my mindset.</p>
- <p style="color:#aab5c8;margin-bottom:30px">Saya pernah menjalani perjalanan sebagai atlet BMX Racing dan mendapatkan pengalaman berkompetisi di tingkat daerah, nasional, hingga internasional. Dunia BMX mengajarkan saya arti disiplin, fokus, mental yang kuat, dan semangat untuk terus berkembang. Kini saya telah mengakhiri perjalanan kompetitif tersebut, tetapi nilai-nilai yang saya pelajari tetap menjadi bagian dari diri saya.</p>
-
+ <div class="section-head">
+  <div class="eyebrow">A CHAPTER OF MY LIFE</div>
+  <h2 class="section-title">BMX <span>RACING JOURNEY</span></h2>
+  <p class="description">Click each photograph to explore its story.</p>
+ </div>
  <div class="gallery">
-  <img src="IMG-20261104-WA0006.jpg" alt="Dokumentasi perjalanan BMX pertama">
-  <img src="IMG-20261104-WA0009.jpg" alt="Dokumentasi perjalanan BMX kedua">
-  <img src="IMG-20261104-WA0011.jpg" alt="Dokumentasi perjalanan BMX ketiga">
+  <div class="photo" onclick="openPopup('photo1')">
+   <img src="IMG-20261104-WA0006.jpg" alt="BMX Racing memory 1">
+   <div class="photo-label">01 — BMX MEMORY ↗</div>
+  </div>
+  <div class="photo" onclick="openPopup('photo2')">
+   <img src="IMG-20261104-WA0009.jpg" alt="BMX Racing memory 2">
+   <div class="photo-label">02 — THE JOURNEY ↗</div>
+  </div>
+  <div class="photo" onclick="openPopup('photo3')">
+   <img src="IMG-20261104-WA0011.jpg" alt="BMX Racing memory 3">
+   <div class="photo-label">03 — THE EXPERIENCE ↗</div>
+  </div>
+ </div>
+ <div class="panel" style="margin-top:25px">
+  <h3>Beyond The Finish Line</h3>
+  <p>Saya pernah menjalani perjalanan sebagai atlet BMX Racing dan berkompetisi di tingkat daerah, nasional, hingga internasional. Pengalaman tersebut membentuk disiplin, fokus, keberanian, dan mental untuk menghadapi tantangan. Kini perjalanan kompetitif itu telah menjadi bagian dari masa lalu, tetapi pelajarannya tetap saya bawa.</p>
+  <button class="glowbtn" onclick="openPopup('bmx')">MY BMX STORY →</button>
  </div>
 </section>
 
 <section id="skills">
- <div class="tag">WHAT I EXPLORE</div>
- <h2 class="section-title">Skills & <span>Interests</span></h2>
- <p class="subtitle">Areas I enjoy learning and developing.</p>
- <div class="cards">
-  <div class="card"><h3>Digital Multimedia</h3><p>Exploring multimedia content, digital communication, and creative media.</p></div>
-  <div class="card"><h3>Creative Design</h3><p>Interested in visual concepts, layouts, and creative presentation.</p></div>
-  <div class="card"><h3>Technology</h3><p>Learning about websites, digital platforms, and emerging technologies.</p></div>
+ <div class="section-head">
+  <div class="eyebrow">MY SKILL CONSTELLATION</div>
+  <h2 class="section-title">SKILLS <span>& INTERESTS</span></h2>
+ </div>
+ <div class="grid">
+  <div class="panel"><div class="symbol">💻</div><h3>Web Development</h3><p>Exploring website creation and digital platforms.</p></div>
+  <div class="panel"><div class="symbol">🎨</div><h3>Creative Design</h3><p>Interested in visual design, creative concepts, and presentation.</p></div>
+  <div class="panel"><div class="symbol">🌐</div><h3>Digital Multimedia</h3><p>Learning about digital content, communication, and multimedia technology.</p></div>
  </div>
 </section>
 
 <section id="values">
- <div class="tag">MY PRINCIPLES</div>
- <h2 class="section-title">Personal <span>Values</span></h2>
- <p class="subtitle">Principles that guide my journey.</p>
+ <div class="section-head">
+  <div class="eyebrow">MY INNER COMPASS</div>
+  <h2 class="section-title">PERSONAL <span>VALUES</span></h2>
+ </div>
  <div class="values">
-  <div class="value">Discipline</div>
-  <div class="value">Determination</div>
-  <div class="value">Continuous Growth</div>
+  <div class="value">DISCIPLINE</div>
+  <div class="value">DETERMINATION</div>
+  <div class="value">CONTINUOUS GROWTH</div>
  </div>
 </section>
 
 <footer>
- © 2026 Fachriansyah Alfigo. Personal Portfolio.
+ <div class="brand">AL.</div>
+ <p>FACHRIANSYAH ALFIGO</p>
+ <p>© 2026 — MY UNIVERSE, MY JOURNEY.</p>
 </footer>
 
+<div class="overlay" id="popup" onclick="if(event.target===this)closePopup()">
+ <div class="popup">
+  <span class="close" onclick="closePopup()">×</span>
+  <div id="popupContent"></div>
+ </div>
+</div>
+
+<div class="al-logo" id="alLogo">
+ <div class="al-mark">AL.</div>
+</div>
+
+<script>
+const content={
+ who:["WHO AM I?","Fachriansyah Alfigo adalah pribadi yang memiliki rasa ingin tahu tinggi dan ketertarikan pada dunia kreativitas, teknologi, serta multimedia. Saya percaya setiap pengalaman memiliki sesuatu untuk diajarkan."],
+ journey:["MY JOURNEY","Perjalanan saya tidak selalu berjalan lurus. Dari pengalaman sebagai atlet BMX hingga mempelajari dunia multimedia digital, setiap tahap memberi perspektif baru tentang disiplin, usaha, dan perkembangan diri."],
+ vision:["MY VISION","Saya ingin terus berkembang, memperluas pengetahuan, dan menghasilkan karya yang menggabungkan kreativitas dengan teknologi. Bagi saya, masa depan selalu punya ruang untuk dieksplorasi."],
+ college:["HIGHER EDUCATION","Saya mempelajari Manajemen Multimedia dan Digital. Bidang ini memberi kesempatan untuk mengenal pengelolaan multimedia, komunikasi digital, kreativitas, dan perkembangan teknologi."],
+ school:["HIGH SCHOOL","Saya menempuh pendidikan di Homeschooling HSPG Yogyakarta. Pengalaman pendidikan ini menjadi salah satu bagian dari perjalanan belajar saya."],
+ interest:["CREATIVE EXPLORATION","Saya tertarik mempelajari web development, desain kreatif, teknologi digital, dan berbagai bentuk komunikasi multimedia."],
+ bmx:["BMX RACING JOURNEY","Saya pernah mengikuti kompetisi BMX Racing di tingkat daerah, nasional, hingga internasional. Dari olahraga ini saya belajar tentang disiplin, fokus, konsistensi, dan keberanian. Walaupun kini tidak lagi aktif berkompetisi, pengalaman tersebut tetap menjadi bagian penting dari perjalanan hidup saya."],
+ photo1:["BMX MEMORY — 01","Salah satu dokumentasi perjalanan saya di dunia BMX Racing. Setiap pengalaman menjadi bagian dari proses belajar dan perkembangan diri."],
+ photo2:["BMX MEMORY — 02","Foto ini menjadi pengingat perjalanan, pengalaman, dan proses yang pernah saya jalani dalam BMX Racing."],
+ photo3:["BMX MEMORY — 03","Sebuah kenangan dari perjalanan BMX Racing yang mengajarkan saya untuk terus menghargai proses dan pengalaman."]
+};
+
+function openPopup(key){
+ const item=content[key];
+ if(!item)return;
+ const photos={
+  photo1:"IMG-20261104-WA0006.jpg",
+  photo2:"IMG-20261104-WA0009.jpg",
+  photo3:"IMG-20261104-WA0011.jpg"
+ };
+ let html="";
+ if(photos[key])html+='<img src="'+photos[key]+'" alt="BMX memory">';
+ html+='<div class="eyebrow">AL SPACE ARCHIVE</div>';
+ html+='<h2>'+item[0]+'</h2><p>'+item[1]+'</p>';
+ document.getElementById("popupContent").innerHTML=html;
+ document.getElementById("popup").classList.add("show");
+}
+function closePopup(){
+ document.getElementById("popup").classList.remove("show");
+}
+document.querySelectorAll('.navlinks a').forEach(link=>{
+ link.addEventListener('click',function(e){
+  e.preventDefault();
+  const target=this.getAttribute('href');
+  const logo=document.getElementById('alLogo');
+  logo.classList.remove('show');
+  void logo.offsetWidth;
+  logo.classList.add('show');
+  setTimeout(()=>{
+   logo.classList.remove('show');
+   document.querySelector(target).scrollIntoView({behavior:'smooth'});
+  },1100);
+  document.querySelectorAll('.navlinks a').forEach(a=>a.classList.remove('active'));
+  this.classList.add('active');
+ });
+});
+document.addEventListener('keydown',e=>{
+ if(e.key==="Escape")closePopup();
+});
+</script>
 </body>
 </html>
