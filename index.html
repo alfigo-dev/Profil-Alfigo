@@ -4,7 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AL — Fachriansyah Alfigo</title>
+<title>AL | Fachriansyah Alfigo</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -36,11 +37,10 @@ button{font:inherit;cursor:pointer}
   z-index:-5;
   overflow:hidden;
   background:
-    radial-gradient(ellipse at 20% 30%,#351329 0%,transparent 40%),
-    radial-gradient(ellipse at 80% 70%,#10264a 0%,transparent 45%),
+    radial-gradient(ellipse at 15% 25%,#42132d 0%,transparent 45%),
+    radial-gradient(ellipse at 85% 70%,#102c55 0%,transparent 45%),
     #050711;
 }
-
 .stars{
   position:absolute;
   inset:0;
@@ -50,12 +50,11 @@ button{font:inherit;cursor:pointer}
     radial-gradient(2px 2px at 40% 80%,white,transparent),
     radial-gradient(1px 1px at 90% 20%,white,transparent);
   background-size:250px 250px;
-  animation:starsMove 35s linear infinite;
+  animation:stars 35s linear infinite;
 }
-@keyframes starsMove{
+@keyframes stars{
   to{transform:translateY(-250px)}
 }
-
 .nebula{
   position:absolute;
   width:550px;
@@ -91,59 +90,55 @@ button{font:inherit;cursor:pointer}
   100%{opacity:0}
 }
 
-/* IRON MAN FLYING */
+/* IRON MAN FLIGHT */
 .ironman-flight{
-  position:absolute;
+  position:fixed;
   top:12%;
-  right:-500px;
-  width:420px;
-  height:300px;
-  z-index:1;
+  right:-450px;
+  width:390px;
+  z-index:2;
   pointer-events:none;
-  animation:ironmanFly 13s linear infinite;
+  animation:ironmanFly 14s linear infinite;
 }
-
-.ironman-image{
-  position:absolute;
-  inset:0;
-  background-image:url("https://images.unsplash.com/photo-1535223289827-42f1e9919769");
-  background-size:contain;
-  background-position:center;
-  background-repeat:no-repeat;
+.ironman-flight img{
+  display:block;
+  width:100%;
+  height:auto;
+  object-fit:contain;
   filter:drop-shadow(0 0 18px #2878d0);
-  transform:rotate(-13deg);
+  animation:ironmanTilt 2s ease-in-out infinite alternate;
 }
-
-.flight-trail{
+.ironman-glow{
   position:absolute;
-  width:270px;
-  height:7px;
-  top:62%;
-  left:-190px;
+  width:230px;
+  height:12px;
+  left:-145px;
+  top:65%;
+  border-radius:50%;
   background:linear-gradient(90deg,transparent,#2878d0,#68c9ff,white);
-  filter:blur(6px);
-  transform:rotate(-13deg);
+  filter:blur(9px);
+  transform:rotate(-12deg);
 }
-
 @keyframes ironmanFly{
   0%{
-    right:-500px;
+    right:-450px;
     top:12%;
-    transform:rotate(-5deg) scale(.8);
     opacity:0;
   }
-  10%{opacity:1}
-  50%{
-    top:35%;
-    transform:rotate(-13deg) scale(1);
-  }
-  90%{opacity:1}
+  8%{opacity:1}
+  25%{top:25%}
+  50%{top:38%}
+  75%{top:23%}
+  92%{opacity:1}
   100%{
     right:110%;
-    top:8%;
-    transform:rotate(-8deg) scale(.75);
+    top:10%;
     opacity:0;
   }
+}
+@keyframes ironmanTilt{
+  from{transform:rotate(-8deg) translateY(-5px)}
+  to{transform:rotate(-15deg) translateY(7px)}
 }
 
 /* INTRO */
@@ -195,7 +190,9 @@ button{font:inherit;cursor:pointer}
 /* HEADER */
 header{
   position:fixed;
-  top:0;left:0;width:100%;
+  top:0;
+  left:0;
+  width:100%;
   z-index:20;
   padding:18px 7%;
   display:flex;
@@ -220,14 +217,18 @@ nav a{
 }
 nav a:hover{color:var(--cyan)}
 
-/* HERO */
+/* SECTIONS */
 section{padding:110px 8%;position:relative}
 .hero{
   min-height:100vh;
   display:flex;
   align-items:center;
 }
-.hero-content{max-width:720px}
+.hero-content{
+  max-width:720px;
+  position:relative;
+  z-index:3;
+}
 .eyebrow{
   color:var(--cyan);
   letter-spacing:5px;
@@ -322,7 +323,8 @@ section{padding:110px 8%;position:relative}
   justify-content:center;
 }
 .sun{
-  width:85px;height:85px;
+  width:85px;
+  height:85px;
   border-radius:50%;
   background:radial-gradient(circle,#fff8bd,#ff9c25 60%,#e64b19);
   box-shadow:0 0 35px #ff9c25,0 0 90px #ff5c23;
@@ -345,9 +347,12 @@ section{padding:110px 8%;position:relative}
 @keyframes rotate{to{transform:rotate(360deg)}}
 .planet{
   position:absolute;
-  top:0;left:50%;
-  width:42px;height:42px;
-  border:0;border-radius:50%;
+  top:0;
+  left:50%;
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:50%;
   transform:translate(-50%,-50%);
   cursor:pointer;
 }
@@ -402,8 +407,10 @@ section{padding:110px 8%;position:relative}
 .timeline-item:before{
   content:"";
   position:absolute;
-  left:-7px;top:4px;
-  width:12px;height:12px;
+  left:-7px;
+  top:4px;
+  width:12px;
+  height:12px;
   background:var(--cyan);
   border-radius:50%;
   box-shadow:0 0 15px var(--cyan);
@@ -431,20 +438,23 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
 /* GUIDE */
 .guide{
   position:fixed;
-  bottom:22px;right:20px;
+  bottom:22px;
+  right:20px;
   z-index:30;
   border:1px solid var(--cyan);
   background:#101b31;
   color:white;
   border-radius:50%;
-  width:55px;height:55px;
+  width:55px;
+  height:55px;
   font-size:25px;
   box-shadow:0 0 20px #2878d060;
 }
 .guide-message{
   display:none;
   position:fixed;
-  right:20px;bottom:90px;
+  right:20px;
+  bottom:90px;
   z-index:30;
   width:230px;
   background:#101b31;
@@ -467,7 +477,7 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
   .orbit.three{width:60vw;height:60vw}
   .orbit.four{width:78vw;height:78vw}
   .planet{width:30px;height:30px}
-  .ironman-flight{width:270px;height:200px}
+  .ironman-flight{width:260px}
 }
 @media(max-width:480px){
   nav{gap:9px}
@@ -476,7 +486,7 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
   .hero p{font-size:18px}
 }
 
-/* REDUCE MOTION ACCESSIBILITY */
+/* REDUCE MOTION */
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{
     animation-duration:.01ms!important;
@@ -489,6 +499,7 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
 
 <body>
 
+<!-- SPACE -->
 <div id="space">
   <div class="stars"></div>
   <div class="nebula red"></div>
@@ -496,22 +507,27 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
   <div class="meteor one"></div>
   <div class="meteor two"></div>
   <div class="meteor three"></div>
-
-  <div class="ironman-flight" aria-hidden="true">
-    <div class="flight-trail"></div>
-    <div class="ironman-image"></div>
-  </div>
 </div>
 
+<!-- IRON MAN -->
+<div class="ironman-flight" aria-hidden="true">
+  <div class="ironman-glow"></div>
+  <img src="ironman.png" alt="Iron Man sedang terbang">
+</div>
+
+<!-- INTRO -->
 <div id="intro">
   <div class="intro-content">
     <div class="intro-logo">AL</div>
     <h2>FACHRIANSYAH ALFIGO</h2>
     <p>MY PERSONAL UNIVERSE</p>
-    <button class="main-btn" onclick="enterUniverse()">ENTER MY UNIVERSE ↗</button>
+    <button class="main-btn" onclick="enterUniverse()">
+      ENTER MY UNIVERSE ↗
+    </button>
   </div>
 </div>
 
+<!-- NAVIGATION -->
 <header>
   <a href="#home" class="brand">AL</a>
   <nav>
@@ -524,10 +540,16 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
 </header>
 
 <main>
+
+<!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-content">
     <div class="eyebrow">WELCOME TO MY WORLD</div>
-    <h1>HELLO, I'M<br><span>FACHRIANSYAH</span><br>ALFIGO.</h1>
+    <h1>
+      HELLO, I'M<br>
+      <span>FACHRIANSYAH</span><br>
+      ALFIGO.
+    </h1>
     <p>
       A multimedia and digital enthusiast with a passion for creativity,
       technology, sports, and exploring new possibilities.
@@ -539,20 +561,24 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
   </div>
 </section>
 
+<!-- ABOUT -->
 <section id="about">
   <div class="section-title">ABOUT <span>ME</span></div>
   <p class="section-subtitle">A little introduction about who I am.</p>
+
   <div class="cards">
     <div class="card">
       <div class="symbol">🚀</div>
       <h3>IDENTITY</h3>
       <p>My name is Fachriansyah Alfigo. I enjoy learning, creating, and exploring new experiences.</p>
     </div>
+
     <div class="card">
       <div class="symbol">🎓</div>
       <h3>EDUCATION</h3>
       <p>Studying Multimedia and Digital Management at STMM Yogyakarta.</p>
     </div>
+
     <div class="card">
       <div class="symbol">🏁</div>
       <h3>INTEREST</h3>
@@ -561,23 +587,38 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
   </div>
 </section>
 
+<!-- SOLAR SYSTEM -->
 <section class="solar-section" id="universe">
   <div class="section-title">MY <span>UNIVERSE</span></div>
-  <p class="section-subtitle">Explore the planets to discover different parts of my journey.</p>
+  <p class="section-subtitle">
+    Explore the planets to discover different parts of my journey.
+  </p>
 
   <div class="solar-system">
     <div class="sun"></div>
+
     <div class="orbit one">
-      <button class="planet p1" aria-label="About Me" onclick="showPlanet('About Me','I am Fachriansyah Alfigo, someone who enjoys learning and exploring new things.')"></button>
+      <button class="planet p1" aria-label="About Me"
+        onclick="showPlanet('About Me','I am Fachriansyah Alfigo, someone who enjoys learning and exploring new things.')">
+      </button>
     </div>
+
     <div class="orbit two">
-      <button class="planet p2" aria-label="Education" onclick="showPlanet('Education','I study Multimedia and Digital Management at STMM Yogyakarta.')"></button>
+      <button class="planet p2" aria-label="Education"
+        onclick="showPlanet('Education','I study Multimedia and Digital Management at STMM Yogyakarta.')">
+      </button>
     </div>
+
     <div class="orbit three">
-      <button class="planet p3" aria-label="BMX Journey" onclick="showPlanet('BMX Journey','BMX is one of my passions. It has taught me discipline, courage, and consistency.')"></button>
+      <button class="planet p3" aria-label="BMX Journey"
+        onclick="showPlanet('BMX Journey','BMX is one of my passions. It has taught me discipline, courage, and consistency.')">
+      </button>
     </div>
+
     <div class="orbit four">
-      <button class="planet p4" aria-label="My Skills" onclick="showPlanet('My Skills','Creativity, communication, digital media, teamwork, and willingness to learn.')"></button>
+      <button class="planet p4" aria-label="My Skills"
+        onclick="showPlanet('My Skills','Creativity, communication, digital media, teamwork, and willingness to learn.')">
+      </button>
     </div>
   </div>
 
@@ -587,18 +628,22 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
   </div>
 </section>
 
+<!-- BMX -->
 <section id="bmx">
   <div class="section-title">MY BMX <span>JOURNEY</span></div>
   <p class="section-subtitle">A passion that has become part of my story.</p>
+
   <div class="gallery">
     <div>
       <img src="IMG-20261104-WA0006.jpg" alt="BMX journey photo 1">
       <p class="gallery-caption">BMX Moment 01</p>
     </div>
+
     <div>
       <img src="IMG-20261104-WA0009.jpg" alt="BMX journey photo 2">
       <p class="gallery-caption">BMX Moment 02</p>
     </div>
+
     <div>
       <img src="IMG-20261104-WA0011.jpg" alt="BMX journey photo 3">
       <p class="gallery-caption">BMX Moment 03</p>
@@ -606,20 +651,24 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
   </div>
 </section>
 
+<!-- SKILLS -->
 <section id="skills">
   <div class="section-title">MY <span>SKILLS</span></div>
   <p class="section-subtitle">Things I enjoy learning and developing.</p>
+
   <div class="cards">
     <div class="card">
       <div class="symbol">💻</div>
       <h3>DIGITAL MEDIA</h3>
       <p>Interested in websites, multimedia, and digital content.</p>
     </div>
+
     <div class="card">
       <div class="symbol">🎨</div>
       <h3>CREATIVITY</h3>
       <p>Enjoy developing ideas and turning them into creative projects.</p>
     </div>
+
     <div class="card">
       <div class="symbol">🤝</div>
       <h3>COMMUNICATION</h3>
@@ -628,37 +677,48 @@ footer strong{font-family:Orbitron;color:var(--cyan)}
   </div>
 </section>
 
+<!-- TIMELINE -->
 <section id="journey">
   <div class="section-title">MY <span>TIMELINE</span></div>
   <p class="section-subtitle">A continuous journey of learning and growth.</p>
+
   <div class="timeline">
     <div class="timeline-item">
       <h3>THE BMX CHAPTER</h3>
       <p>Building experience through BMX and developing discipline through sports.</p>
     </div>
+
     <div class="timeline-item">
       <h3>THE EDUCATION CHAPTER</h3>
       <p>Exploring multimedia and digital management at STMM Yogyakarta.</p>
     </div>
+
     <div class="timeline-item">
       <h3>THE DIGITAL CHAPTER</h3>
       <p>Creating projects, learning new technologies, and developing creative skills.</p>
     </div>
+
     <div class="timeline-item">
       <h3>THE NEXT CHAPTER</h3>
       <p>Continuing to grow, explore, and create new possibilities.</p>
     </div>
   </div>
 </section>
+
 </main>
 
+<!-- FOOTER -->
 <footer>
   <strong>AL — FACHRIANSYAH ALFIGO</strong>
   <p style="margin-top:10px">Every journey has a universe of its own.</p>
-  <p style="margin-top:8px">© <span id="year"></span> All Rights Reserved.</p>
+  <p style="margin-top:8px">
+    © <span id="year"></span> All Rights Reserved.
+  </p>
 </footer>
 
+<!-- GUIDE -->
 <button class="guide" onclick="toggleGuide()" aria-label="Open guide">✦</button>
+
 <div class="guide-message" id="guideMessage">
   Welcome to my universe! Explore the planets and discover my story.
 </div>
