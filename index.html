@@ -4,61 +4,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080a17">
 <title>AL | Cinematic Universe</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 :root{
- --red:#e63268;
- --blue:#24c9ff;
- --purple:#9b65ff;
- --bg:#070914;
- --white:#f7f8ff;
- --muted:#aab2c8;
+ --red:#ed376e;
+ --burgundy:#a51f50;
+ --blue:#35caff;
+ --purple:#9b6cff;
+ --bg:#080a17;
+ --white:#fff;
+ --muted:#b9bfd1;
+ --glass:rgba(22,25,48,.75);
 }
 *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
-body{
- background:var(--bg);color:var(--white);
- font-family:Inter,sans-serif;overflow-x:hidden;
-}
-body:before{
- content:"";position:fixed;inset:0;z-index:-3;
- background:
- radial-gradient(circle at 15% 20%,#54152e66,transparent 35%),
- radial-gradient(circle at 85% 35%,#073b6466,transparent 35%),
- radial-gradient(circle at 50% 90%,#49216b55,transparent 40%),
- #070914;
-}
+body{background:var(--bg);color:var(--white);font-family:Inter,sans-serif;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
 button{font-family:inherit}
-#stars{position:fixed;inset:0;z-index:-2;pointer-events:none}
-.star{
- position:absolute;background:white;border-radius:50%;
- animation:twinkle 3s infinite alternate;
+#stars{position:fixed;inset:0;z-index:-3;pointer-events:none}
+.star{position:absolute;background:white;border-radius:50%;animation:twinkle 3s infinite alternate}
+@keyframes twinkle{to{opacity:.2;box-shadow:0 0 10px white}}
+body:before{
+ content:"";position:fixed;inset:0;z-index:-4;
+ background:
+ radial-gradient(ellipse at 10% 20%,#8e1b4b66,transparent 40%),
+ radial-gradient(ellipse at 90% 25%,#075b9566,transparent 40%),
+ radial-gradient(ellipse at 50% 100%,#582a8766,transparent 45%),
+ #080a17;
 }
-@keyframes twinkle{from{opacity:.15}to{opacity:1;box-shadow:0 0 9px white}}
-.nebula{
- position:fixed;width:400px;height:400px;border-radius:50%;
- filter:blur(100px);opacity:.17;z-index:-1;pointer-events:none;
- animation:float 12s infinite alternate ease-in-out;
-}
-.n1{background:var(--red);top:10%;left:-200px}
-.n2{background:var(--blue);right:-200px;top:40%}
-.n3{background:var(--purple);bottom:-200px;left:35%}
-@keyframes float{to{transform:translate(100px,70px) scale(1.3)}}
+.nebula{position:fixed;width:420px;height:420px;border-radius:50%;filter:blur(100px);opacity:.23;z-index:-2;pointer-events:none;animation:nebulaFloat 12s ease-in-out infinite alternate}
+.n1{background:#ed286a;top:5%;left:-230px}
+.n2{background:#008fff;right:-230px;top:35%}
+.n3{background:#9b4dff;bottom:-230px;left:35%}
+@keyframes nebulaFloat{to{transform:translate(100px,80px) scale(1.2)}}
 
 .meteor{
- position:fixed;top:-100px;left:70%;width:3px;height:130px;
+ position:fixed;z-index:-1;top:-150px;left:75%;width:3px;height:150px;
  background:linear-gradient(transparent,var(--blue),white);
- transform:rotate(42deg);z-index:-1;
- opacity:0;animation:meteor 6s linear infinite;
- filter:drop-shadow(0 0 9px var(--blue));
+ transform:rotate(42deg);opacity:0;
+ filter:drop-shadow(0 0 10px var(--blue));
+ animation:meteor 7s linear infinite;
 }
-.meteor:nth-child(2){left:35%;animation-delay:3s}
-.meteor:nth-child(3){left:85%;animation-delay:7s}
+.meteor:nth-of-type(2){left:35%;animation-delay:2.5s}
+.meteor:nth-of-type(3){left:90%;animation-delay:5s}
 @keyframes meteor{
  0%{transform:translate(0,0) rotate(42deg);opacity:0}
  10%{opacity:1}
@@ -68,261 +61,194 @@ button{font-family:inherit}
 
 /* INTRO */
 #intro{
- position:fixed;inset:0;z-index:1000;
+ position:fixed;inset:0;z-index:9999;
  display:flex;align-items:center;justify-content:center;
- text-align:center;flex-direction:column;
- background:radial-gradient(circle,#28142d,#070914 70%);
+ flex-direction:column;text-align:center;
+ background:radial-gradient(circle at center,#30152f,#080a17 70%);
  transition:1s;
 }
 #intro.hide{opacity:0;visibility:hidden}
 .intro-logo{
  width:115px;height:115px;border-radius:30px;
- display:grid;place-items:center;margin-bottom:25px;
- font:800 45px Orbitron;
+ display:grid;place-items:center;margin-bottom:28px;
+ font:900 45px Orbitron;
+ background:linear-gradient(135deg,#ed376e33,#35caff33);
  border:2px solid var(--red);
- background:linear-gradient(135deg,#e6326833,#24c9ff22);
- box-shadow:0 0 30px #e6326877,0 0 80px #24c9ff33;
- animation:pulse 2s infinite;
+ box-shadow:0 0 35px #ed376e88,0 0 90px #35caff33;
+ animation:logoPulse 2s infinite;
 }
-@keyframes pulse{50%{box-shadow:0 0 60px #e63268,0 0 100px #24c9ff55}}
-#intro h1{font:800 clamp(22px,5vw,42px) Orbitron;margin-bottom:12px}
+@keyframes logoPulse{50%{box-shadow:0 0 65px #ed376e,0 0 100px #35caff66}}
+#intro h1{font:900 clamp(22px,5vw,43px) Orbitron;margin-bottom:14px}
 #intro h1 span{color:var(--red)}
-#intro p{color:var(--muted);letter-spacing:4px;font-size:11px}
-.enter{
- margin-top:35px;padding:15px 27px;border:0;border-radius:5px;
- background:linear-gradient(100deg,var(--red),#8d2f9c);
- color:white;font-weight:800;letter-spacing:2px;cursor:pointer;
- box-shadow:0 0 25px #e6326866;transition:.3s;
+#intro p{font-size:10px;letter-spacing:4px;color:var(--muted)}
+.enter-btn{
+ margin-top:35px;padding:16px 28px;border:1px solid #ff8bb0;
+ background:linear-gradient(110deg,#b51f50,#ed376e);
+ border-radius:5px;color:white;font-weight:800;letter-spacing:2px;
+ cursor:pointer;box-shadow:0 0 25px #ed376e66;transition:.3s;
 }
-.enter:hover{transform:scale(1.07);box-shadow:0 0 40px var(--red)}
+.enter-btn:hover{transform:scale(1.07);box-shadow:0 0 45px #ed376e}
 
-/* NAV */
+/* NAVIGATION */
 header{
- position:fixed;top:0;width:100%;z-index:100;
- padding:18px 7%;display:flex;justify-content:space-between;
- align-items:center;background:#070914b8;
- backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12;
+ position:fixed;top:0;left:0;width:100%;z-index:1000;
+ padding:18px 7%;display:flex;align-items:center;
+ justify-content:space-between;
+ background:#080a17c9;backdrop-filter:blur(18px);
+ border-bottom:1px solid #ffffff15;
 }
 .logo{
- font:800 23px Orbitron;
+ font:900 25px Orbitron;
  background:linear-gradient(90deg,var(--red),white,var(--blue));
- -webkit-background-clip:text;color:transparent;
+ -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-nav{display:flex;gap:22px;align-items:center}
-nav a{font-size:11px;color:#c5c9d7;transition:.3s}
+nav{display:flex;align-items:center;gap:20px}
+nav a{font-size:10px;font-weight:700;letter-spacing:1px;color:#cbd0df;transition:.3s}
 nav a:hover{color:var(--blue)}
-.menu{display:none;background:none;border:0;color:white;font-size:23px}
+.menu-btn{display:none;background:none;border:0;color:white;font-size:23px;cursor:pointer}
 
 section{padding:110px 9%;scroll-margin-top:70px}
+
+/* HERO */
 .hero{
  min-height:100vh;display:flex;align-items:center;
- justify-content:space-between;gap:40px;padding-top:130px;
+ justify-content:space-between;gap:40px;padding-top:135px;
 }
 .hero-content{max-width:650px}
-.eyebrow{
- color:var(--blue);font:600 11px Orbitron;
- letter-spacing:4px;margin-bottom:20px;
+.eyebrow{font:700 11px Orbitron;color:var(--blue);letter-spacing:4px;margin-bottom:22px}
+.hero h1{font:900 clamp(38px,7vw,78px) Orbitron;line-height:1.15;margin-bottom:22px}
+.gradient-text{
+ background:linear-gradient(100deg,#ff5e96,white,#40d2ff);
+ -webkit-background-clip:text;background-clip:text;color:transparent;
 }
-.hero h1{
- font:800 clamp(38px,7vw,78px) Orbitron;
- line-height:1.15;margin-bottom:22px;
-}
-.hero h1 span{
- background:linear-gradient(90deg,var(--red),white,var(--blue));
- -webkit-background-clip:text;color:transparent;
-}
-.hero p{color:var(--muted);line-height:1.9;max-width:550px}
-.hero-buttons{display:flex;gap:15px;flex-wrap:wrap;margin-top:32px}
+.hero p{color:var(--muted);line-height:1.9;font-size:14px;max-width:550px}
+.hero-buttons{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
 .btn{
- padding:14px 23px;border-radius:4px;font-size:12px;
- font-weight:800;letter-spacing:1px;transition:.3s;
+ display:inline-flex;align-items:center;gap:10px;padding:14px 22px;
+ border-radius:5px;font-size:11px;font-weight:800;letter-spacing:1px;transition:.3s;
 }
-.primary{background:linear-gradient(100deg,#d92d60,#a63d9b)}
-.outline{border:1px solid var(--blue);color:var(--blue)}
-.btn:hover{transform:translateY(-5px);box-shadow:0 0 25px #24c9ff44}
-.hero-visual{
- width:min(380px,90vw);aspect-ratio:1;position:relative;
- display:grid;place-items:center;
-}
+.btn-primary{background:linear-gradient(110deg,#b51f50,#ed376e);border:1px solid #ff8bb0}
+.btn-outline{border:1px solid var(--blue);color:var(--blue)}
+.btn:hover{transform:translateY(-5px);box-shadow:0 0 25px #35caff44}
+.hero-visual{width:min(390px,90vw);aspect-ratio:1;position:relative;display:grid;place-items:center}
 .reactor{
- width:65%;aspect-ratio:1;border-radius:50%;
- border:2px solid var(--blue);
- display:grid;place-items:center;position:relative;
- background:radial-gradient(circle,#24c9ff2c,#e6326818,transparent 70%);
- box-shadow:0 0 40px #24c9ff55,inset 0 0 40px #e6326833;
- animation:reactor 5s linear infinite;
+ width:65%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
+ position:relative;border:2px solid var(--blue);
+ background:radial-gradient(circle,#35caff30,#ed376e18,transparent 70%);
+ box-shadow:0 0 45px #35caff66,inset 0 0 45px #ed376e33;
+ animation:reactor 16s linear infinite;
 }
 .reactor:before,.reactor:after{
- content:"";position:absolute;inset:-25px;border:1px solid #e63268;
+ content:"";position:absolute;inset:-25px;border:1px solid var(--red);
  border-radius:50%;transform:rotateX(65deg);
 }
-.reactor:after{inset:-45px;border-color:#24c9ff;transform:rotateY(65deg)}
-@keyframes reactor{to{transform:rotate(360deg)}}
+.reactor:after{inset:-48px;border-color:var(--blue);transform:rotateY(65deg)}
 .reactor i{font-size:75px;color:white;text-shadow:0 0 30px var(--blue)}
-.float-emoji{
- position:absolute;font-size:36px;
- animation:levitate 4s ease-in-out infinite;
- filter:drop-shadow(0 0 12px var(--blue));
-}
-.e1{top:5%;right:10%}.e2{bottom:12%;left:3%;animation-delay:1s}
-.e3{top:45%;right:-5%;animation-delay:2s}
-@keyframes levitate{50%{transform:translateY(-25px) rotate(10deg)}}
+@keyframes reactor{to{transform:rotate(360deg)}}
+.space-icon{position:absolute;font-size:35px;filter:drop-shadow(0 0 12px var(--blue));animation:levitate 4s ease-in-out infinite}
+.space-icon:nth-child(1){top:5%;right:10%}
+.space-icon:nth-child(2){bottom:12%;left:2%;animation-delay:1s}
+.space-icon:nth-child(3){top:43%;right:-5%;animation-delay:2s}
+@keyframes levitate{50%{transform:translateY(-24px) rotate(10deg)}}
 
-/* SECTIONS */
+/* HEADINGS AND CARDS */
 .section-head{text-align:center;margin-bottom:55px}
-.section-head small{color:var(--red);font:600 11px Orbitron;letter-spacing:4px}
-.section-head h2{font:800 clamp(25px,4vw,42px) Orbitron;margin:15px 0}
-.section-head h2 span{color:var(--blue)}
-.section-head p{color:var(--muted);font-size:13px;line-height:1.8}
+.section-head small{font:700 11px Orbitron;letter-spacing:4px;color:var(--red)}
+.section-head h2{font:900 clamp(26px,4vw,43px) Orbitron;margin:15px 0}
+.section-head p{font-size:13px;color:var(--muted);line-height:1.8}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .card{
- background:linear-gradient(145deg,#1a1930cc,#10182bcc);
- border:1px solid #ffffff18;border-radius:12px;padding:27px;
- transition:.35s;position:relative;overflow:hidden;
+ padding:28px;border:1px solid #ffffff20;border-radius:13px;
+ background:linear-gradient(145deg,rgba(66,26,65,.68),rgba(12,35,61,.75));
+ position:relative;overflow:hidden;transition:.35s;
 }
-.card:before{
- content:"";position:absolute;inset:0;
- background:linear-gradient(120deg,#e6326810,transparent,#24c9ff10);
- pointer-events:none;
+.card:after{
+ content:"";position:absolute;top:0;left:-100%;width:70%;height:100%;
+ background:linear-gradient(100deg,transparent,#ffffff12,transparent);
+ transform:skewX(-20deg);transition:.6s;
 }
-.card:hover{transform:translateY(-9px);border-color:var(--blue);box-shadow:0 15px 40px #24c9ff1a}
+.card:hover:after{left:130%}
+.card:hover{transform:translateY(-9px);border-color:var(--blue);box-shadow:0 15px 40px #35caff20}
 .card i{font-size:28px;color:var(--blue);margin-bottom:20px}
-.card h3{font:700 16px Orbitron;margin-bottom:13px}
-.card p{color:var(--muted);font-size:13px;line-height:1.8}
+.card h3{font:700 15px Orbitron;margin-bottom:13px}
+.card p{font-size:13px;line-height:1.8;color:var(--muted)}
 
 /* ABOUT */
 .about-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:35px;align-items:center}
 .about-symbol{
- min-height:300px;border-radius:15px;display:grid;place-items:center;
- background:radial-gradient(circle,#e6326833,#24c9ff16,transparent);
- border:1px solid #ffffff20;
+ min-height:310px;display:grid;place-items:center;border-radius:15px;
+ background:radial-gradient(circle,#ed376e55,#35caff20,transparent);
+ border:1px solid #ffffff25;position:relative;overflow:hidden;
 }
-.about-symbol strong{font:800 90px Orbitron;color:transparent;
- -webkit-text-stroke:2px var(--blue);text-shadow:0 0 30px #24c9ff66}
-.about-text h3{font:700 25px Orbitron;margin-bottom:18px}
-.about-text p{color:var(--muted);font-size:14px;line-height:2;margin-bottom:15px}
+.about-symbol:before{content:"";position:absolute;width:230px;height:230px;border:1px solid #35caff88;border-radius:50%;animation:reactor 15s linear infinite}
+.about-symbol strong{font:900 90px Orbitron;color:transparent;-webkit-text-stroke:2px var(--blue);text-shadow:0 0 30px #35caff66}
+.about-text h3{font:800 24px Orbitron;margin-bottom:18px}
+.about-text p{font-size:14px;line-height:2;color:var(--muted);margin-bottom:15px}
 .stats{display:flex;gap:25px;margin-top:25px;flex-wrap:wrap}
-.stat strong{display:block;font:800 25px Orbitron;color:var(--red)}
+.stat strong{display:block;font:900 26px Orbitron;color:var(--red)}
 .stat span{font-size:11px;color:var(--muted)}
 
 /* JOURNEY */
 .timeline{max-width:750px;margin:auto;position:relative}
-.timeline:before{
- content:"";position:absolute;left:12px;top:0;bottom:0;width:2px;
- background:linear-gradient(var(--red),var(--blue));
-}
-.timeline-item{padding:0 0 35px 45px;position:relative}
-.timeline-item:before{
- content:"";position:absolute;left:4px;top:5px;width:18px;height:18px;
- border-radius:50%;background:var(--red);box-shadow:0 0 15px var(--red);
-}
-.timeline-item small{color:var(--blue);font:600 11px Orbitron}
-.timeline-item h3{margin:10px 0;font:700 17px Orbitron}
-.timeline-item p{font-size:13px;color:var(--muted);line-height:1.8}
+.timeline:before{content:"";position:absolute;left:12px;top:0;bottom:0;width:2px;background:linear-gradient(var(--red),white,var(--blue))}
+.timeline-item{padding:0 0 38px 45px;position:relative}
+.timeline-item:before{content:"";position:absolute;left:4px;top:5px;width:18px;height:18px;border-radius:50%;background:var(--red);box-shadow:0 0 18px var(--red)}
+.timeline-item small{font:700 11px Orbitron;color:var(--blue)}
+.timeline-item h3{font:700 17px Orbitron;margin:10px 0}
+.timeline-item p{font-size:13px;line-height:1.8;color:var(--muted)}
 
 /* SOLAR SYSTEM */
-.solar-wrap{
- min-height:450px;display:flex;align-items:center;
- justify-content:center;position:relative;overflow:hidden;
-}
-.solar{
- position:relative;width:300px;height:300px;flex-shrink:0;
-}
-.sun{
- position:absolute;width:55px;height:55px;left:50%;top:50%;
- transform:translate(-50%,-50%);border-radius:50%;
- background:radial-gradient(circle,#fff6a3,#ff9d32,#ed4b20);
- box-shadow:0 0 30px #ffb342,0 0 80px #ff7c3555;
-}
-.orbit{
- position:absolute;left:50%;top:50%;border:1px solid #ffffff38;
- border-radius:50%;transform:translate(-50%,-50%);
- animation:orbit 12s linear infinite;
-}
-.o1{width:110px;height:110px}.o2{width:180px;height:180px}
-.o3{width:250px;height:250px}
-@keyframes orbit{to{transform:translate(-50%,-50%) rotate(360deg)}}
-.planet{
- position:absolute;top:50%;left:0;width:13px;height:13px;
- border-radius:50%;cursor:pointer;border:0;
- transform:translate(-50%,-50%);
-}
-.p1{background:#b7a18c}.p2{background:#e9a66c}
-.p3{background:#35aaff}.p4{background:#e75d43}
-.planet-info{
- text-align:center;max-width:550px;margin:25px auto 0;
- background:#14182ac9;border:1px solid #ffffff20;
- padding:22px;border-radius:12px;
-}
-.planet-info h3{font:700 18px Orbitron;color:var(--blue);margin-bottom:9px}
-.planet-info p{font-size:13px;color:var(--muted);line-height:1.7}
+.solar-wrap{min-height:360px;display:flex;align-items:center;justify-content:center}
+.solar{width:300px;height:300px;position:relative;flex-shrink:0}
+.sun{position:absolute;width:55px;height:55px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#fff6a3,#ff9d32,#ed4b20);box-shadow:0 0 35px #ffb342,0 0 85px #ff7c3566}
+.orbit{position:absolute;left:50%;top:50%;border:1px solid #ffffff44;border-radius:50%;transform:translate(-50%,-50%)}
+.o1{width:110px;height:110px}.o2{width:180px;height:180px}.o3{width:250px;height:250px}
+.planet{position:absolute;top:50%;left:0;width:14px;height:14px;border-radius:50%;transform:translate(-50%,-50%);border:0;cursor:pointer}
+.p1{background:#b7a18c}.p2{background:#e9a66c}.p3{background:#35aaff}
+.planet-info{max-width:550px;margin:15px auto 0;padding:23px;text-align:center;background:var(--glass);border:1px solid #ffffff20;border-radius:12px}
+.planet-info h3{font:700 18px Orbitron;color:var(--blue);margin-bottom:10px}
+.planet-info p{font-size:13px;color:var(--muted);line-height:1.8}
 
 /* BMX */
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.gallery img{
- width:100%;height:290px;object-fit:cover;border-radius:12px;
- border:1px solid #ffffff22;transition:.4s;
-}
-.gallery img:hover{transform:scale(1.035);border-color:var(--blue);box-shadow:0 0 25px #24c9ff44}
+.gallery-item{overflow:hidden;border-radius:13px;border:1px solid #ffffff25;background:#11172a}
+.gallery img{width:100%;height:290px;object-fit:cover;display:block;transition:.5s}
+.gallery-item:hover img{transform:scale(1.07)}
+.gallery-caption{padding:15px;font:700 11px Orbitron;color:var(--blue)}
 
-/* PROJECTS */
-.project-card{padding:0}
-.project-top{
- height:150px;display:grid;place-items:center;
- background:linear-gradient(135deg,#8c214d,#182c59);
- font:800 28px Orbitron;color:white;
-}
-.project-card:nth-child(2) .project-top{background:linear-gradient(135deg,#102d52,#6c2674)}
-.project-info{padding:24px}
-.project-info h3{font:700 16px Orbitron;margin-bottom:12px}
-.project-info p{color:var(--muted);font-size:13px;line-height:1.8}
+/* PERSONAL HIGHLIGHTS */
+.highlight-card{min-height:190px}
+.highlight-card i{font-size:30px}
+.highlight-card h3{font-size:14px}
 
 /* SKILLS */
-.skill{margin-bottom:22px}
-.skill-title{display:flex;justify-content:space-between;font-size:12px;margin-bottom:9px}
-.bar{height:7px;background:#ffffff15;border-radius:10px;overflow:hidden}
-.bar span{
- display:block;height:100%;width:var(--w);
- background:linear-gradient(90deg,var(--red),var(--blue));
- border-radius:10px;box-shadow:0 0 12px var(--blue);
-}
+.skill-list{max-width:750px;margin:auto}
+.skill{margin-bottom:24px}
+.skill-title{display:flex;justify-content:space-between;font-size:12px;margin-bottom:10px}
+.bar{height:7px;border-radius:10px;background:#ffffff19;overflow:hidden}
+.bar span{display:block;height:100%;width:var(--w);background:linear-gradient(90deg,var(--red),white,var(--blue));border-radius:10px;box-shadow:0 0 12px var(--blue)}
 
 /* CONTACT */
-.contact-box{
- max-width:750px;margin:auto;text-align:center;
- padding:45px 25px;border:1px solid #ffffff20;border-radius:15px;
- background:linear-gradient(135deg,#46152e55,#102c4c66);
-}
+.contact-box{max-width:750px;margin:auto;text-align:center;padding:45px 25px;border:1px solid #ffffff25;border-radius:15px;background:linear-gradient(135deg,#54172e66,#102d5066)}
 .contact-box h3{font:800 25px Orbitron;margin-bottom:15px}
 .contact-box p{font-size:13px;color:var(--muted);line-height:1.8}
-.socials{display:flex;justify-content:center;gap:15px;flex-wrap:wrap;margin-top:28px}
-.socials a{
- padding:13px 17px;border:1px solid #ffffff25;border-radius:7px;
- color:var(--blue);font-size:12px;transition:.3s;
-}
-.socials a:hover{background:#24c9ff18;border-color:var(--blue);transform:translateY(-4px)}
-footer{text-align:center;padding:30px;color:var(--muted);font-size:11px;border-top:1px solid #ffffff15}
+.socials{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:28px}
+.socials a{padding:14px 18px;border:1px solid #ffffff30;border-radius:7px;color:var(--blue);font-size:12px;transition:.3s}
+.socials a:hover{background:#35caff18;border-color:var(--blue);transform:translateY(-4px)}
+footer{text-align:center;padding:30px;color:var(--muted);font-size:11px;border-top:1px solid #ffffff18}
 footer span{color:var(--red)}
-.top{
- position:fixed;bottom:25px;right:25px;width:45px;height:45px;
- border:0;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--blue));
- color:white;cursor:pointer;z-index:50;
-}
+.top-btn{position:fixed;bottom:25px;right:25px;width:45px;height:45px;border:0;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--blue));color:white;cursor:pointer;z-index:50}
 .reveal{opacity:0;transform:translateY(35px);transition:.8s}
 .reveal.show{opacity:1;transform:translateY(0)}
 
-@media(max-width:850px){
+@media(max-width:900px){
  header{padding:17px 5%}
- .menu{display:block}
- nav{
-  display:none;position:absolute;top:65px;left:0;width:100%;
-  padding:25px;background:#090b18f5;
-  flex-direction:column;gap:23px;border-bottom:1px solid #ffffff20;
- }
+ .menu-btn{display:block}
+ nav{display:none;position:absolute;top:65px;left:0;width:100%;padding:25px;background:#090b18f5;flex-direction:column;gap:22px}
  nav.open{display:flex}
  .hero{flex-direction:column;text-align:center;padding-top:140px}
  .hero-content{display:flex;align-items:center;flex-direction:column}
- .hero-visual{margin-top:20px}
+ .hero-visual{margin-top:25px}
  .about-layout{grid-template-columns:1fr}
  .grid{grid-template-columns:repeat(2,1fr)}
  .gallery{grid-template-columns:repeat(2,1fr)}
@@ -330,57 +256,62 @@ footer span{color:var(--red)}
 @media(max-width:550px){
  section{padding:85px 6%}
  .grid,.gallery{grid-template-columns:1fr}
- .gallery img{height:260px}
- .hero h1{font-size:38px}
+ .gallery img{height:270px}
+ .hero h1{font-size:37px}
  .solar{transform:scale(.85)}
  .stats{justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
 }
 </style>
 </head>
 
 <body>
 <div id="stars"></div>
-<div class="nebula n1"></div><div class="nebula n2"></div><div class="nebula n3"></div>
-<div class="meteor"></div><div class="meteor"></div><div class="meteor"></div>
+<div class="nebula n1"></div>
+<div class="nebula n2"></div>
+<div class="nebula n3"></div>
+<div class="meteor"></div>
+<div class="meteor"></div>
+<div class="meteor"></div>
 
 <div id="intro">
  <div class="intro-logo">AL</div>
  <h1>WELCOME TO <span>MY UNIVERSE</span></h1>
  <p>ONE UNIVERSE. INFINITE POSSIBILITIES.</p>
- <button class="enter" onclick="enterUniverse()">ENTER MY UNIVERSE <i class="fas fa-rocket"></i></button>
+ <button class="enter-btn" onclick="enterUniverse()">ENTER MY UNIVERSE <i class="fas fa-rocket"></i></button>
 </div>
 
 <header>
- <a class="logo" href="#home">AL<span style="color:white">.</span></a>
- <button class="menu" onclick="document.querySelector('nav').classList.toggle('open')">
-  <i class="fas fa-bars"></i>
- </button>
+ <a class="logo" href="#home">AL.</a>
+ <button class="menu-btn" aria-label="Buka menu" onclick="document.querySelector('nav').classList.toggle('open')"><i class="fas fa-bars"></i></button>
  <nav>
-  <a href="#home">HOME</a><a href="#about">ABOUT</a>
-  <a href="#journey">JOURNEY</a><a href="#universe">UNIVERSE</a>
-  <a href="#bmx">BMX</a><a href="#projects">PROJECTS</a>
-  <a href="#skills">SKILLS</a><a href="#contact">CONTACT</a>
+  <a href="#home">HOME</a>
+  <a href="#about">ABOUT</a>
+  <a href="#journey">JOURNEY</a>
+  <a href="#universe">UNIVERSE</a>
+  <a href="#bmx">BMX</a>
+  <a href="#highlights">HIGHLIGHTS</a>
+  <a href="#skills">SKILLS</a>
+  <a href="#contact">CONTACT</a>
  </nav>
 </header>
 
 <section class="hero" id="home">
  <div class="hero-content">
   <div class="eyebrow">✦ THE AL CINEMATIC UNIVERSE ✦</div>
-  <h1>HELLO,<br> I'M <span>FACHRIANSYAH ALFIGO.</span></h1>
-  <p>
-   Welcome to my universe. A personal space where creativity,
-   technology, passion, and imagination come together.
-   Every journey has a beginning. This is mine.
-  </p>
+  <h1>HELLO,<br>I'M <span class="gradient-text">FACHRIANSYAH ALFIGO.</span></h1>
+  <p>Welcome to my universe. A personal space where creativity, technology, passion, and imagination come together. Every journey has a beginning. This is mine.</p>
   <div class="hero-buttons">
-   <a href="#about" class="btn primary">DISCOVER MY STORY ↗</a>
-   <a href="#projects" class="btn outline">EXPLORE PROJECTS</a>
+   <a href="#about" class="btn btn-primary">DISCOVER MY STORY ↗</a>
+   <a href="#highlights" class="btn btn-outline">EXPLORE MY WORLD</a>
   </div>
  </div>
  <div class="hero-visual">
-  <span class="float-emoji e1">🪐</span>
-  <span class="float-emoji e2">🛰️</span>
-  <span class="float-emoji e3">🤖</span>
+  <span class="space-icon">🪐</span>
+  <span class="space-icon">🛰️</span>
+  <span class="space-icon">🤖</span>
   <div class="reactor"><i class="fas fa-bolt"></i></div>
  </div>
 </section>
@@ -388,23 +319,15 @@ footer span{color:var(--red)}
 <section id="about">
  <div class="section-head reveal">
   <small>THE ORIGIN STORY</small>
-  <h2>ABOUT <span>ME</span></h2>
+  <h2>ABOUT <span class="gradient-text">ME</span></h2>
   <p>Every great journey begins with curiosity.</p>
  </div>
  <div class="about-layout reveal">
   <div class="about-symbol"><strong>AL</strong></div>
   <div class="about-text">
    <h3>THE PERSON BEHIND THE UNIVERSE.</h3>
-   <p>
-    I'm Fachriansyah Alfigo, a multimedia and digital management
-    student who enjoys exploring technology, creative design,
-    and digital experiences.
-   </p>
-   <p>
-    I believe that learning is a continuous journey.
-    Through personal projects and new experiences, I keep
-    developing my skills and discovering new possibilities.
-   </p>
+   <p>I'm Fachriansyah Alfigo, a multimedia and digital management student who enjoys exploring technology, creative design, and digital experiences.</p>
+   <p>I believe learning is a continuous journey. Through personal interests, new experiences, and creative exploration, I keep developing my skills and discovering new possibilities.</p>
    <div class="stats">
     <div class="stat"><strong>∞</strong><span>IDEAS</span></div>
     <div class="stat"><strong>01</strong><span>JOURNEY</span></div>
@@ -417,29 +340,25 @@ footer span{color:var(--red)}
 <section id="journey">
  <div class="section-head reveal">
   <small>CHAPTERS OF MY LIFE</small>
-  <h2>MY <span>JOURNEY</span></h2>
+  <h2>MY <span class="gradient-text">JOURNEY</span></h2>
   <p>Small steps. New experiences. Bigger dreams.</p>
  </div>
  <div class="timeline reveal">
   <div class="timeline-item">
-   <small>CHAPTER 01</small>
-   <h3>THE BEGINNING</h3>
-   <p>Starting my educational journey and building curiosity about the digital world.</p>
+   <small>CHAPTER 01</small><h3>THE BEGINNING</h3>
+   <p>Building curiosity about the world, learning, and discovering personal interests.</p>
   </div>
   <div class="timeline-item">
-   <small>CHAPTER 02</small>
-   <h3>DISCOVERING MULTIMEDIA</h3>
+   <small>CHAPTER 02</small><h3>DISCOVERING MULTIMEDIA</h3>
    <p>Exploring creative communication, visual design, and digital media.</p>
   </div>
   <div class="timeline-item">
-   <small>CHAPTER 03</small>
-   <h3>BUILDING DIGITAL PROJECTS</h3>
-   <p>Developing website concepts and learning how ideas become digital experiences.</p>
+   <small>CHAPTER 03</small><h3>CREATIVE EXPLORATION</h3>
+   <p>Learning to turn ideas into digital concepts and personal creative experiences.</p>
   </div>
   <div class="timeline-item">
-   <small>CHAPTER 04</small>
-   <h3>THE NEXT CHAPTER</h3>
-   <p>Continuing to learn, experiment, and create something more meaningful.</p>
+   <small>CHAPTER 04</small><h3>THE NEXT CHAPTER</h3>
+   <p>Continuing to learn, experiment, and build a future full of possibilities.</p>
   </div>
  </div>
 </section>
@@ -447,15 +366,15 @@ footer span{color:var(--red)}
 <section id="universe">
  <div class="section-head reveal">
   <small>EXPLORE THE COSMOS</small>
-  <h2>MY <span>UNIVERSE</span></h2>
-  <p>Choose a planet and discover a little piece of the solar system.</p>
+  <h2>MY <span class="gradient-text">UNIVERSE</span></h2>
+  <p>Choose a planet and discover a little piece of our solar system.</p>
  </div>
  <div class="solar-wrap reveal">
   <div class="solar">
    <div class="sun"></div>
-   <div class="orbit o1"><button class="planet p1" onclick="planet('Mercury','The smallest planet in our solar system, orbiting closest to the Sun.')"></button></div>
-   <div class="orbit o2"><button class="planet p2" onclick="planet('Venus','A bright world with a thick atmosphere and extreme temperatures.')"></button></div>
-   <div class="orbit o3"><button class="planet p3" onclick="planet('Earth','Our home planet. The only world currently known to support life.')"></button></div>
+   <div class="orbit o1"><button class="planet p1" aria-label="Mercury" onclick="planet('Mercury','The smallest planet in our solar system, orbiting closest to the Sun.')"></button></div>
+   <div class="orbit o2"><button class="planet p2" aria-label="Venus" onclick="planet('Venus','A bright world with a thick atmosphere and extreme temperatures.')"></button></div>
+   <div class="orbit o3"><button class="planet p3" aria-label="Earth" onclick="planet('Earth','Our home planet, the only world currently known to support life.')"></button></div>
   </div>
  </div>
  <div class="planet-info reveal">
@@ -467,36 +386,37 @@ footer span{color:var(--red)}
 <section id="bmx">
  <div class="section-head reveal">
   <small>BEYOND THE DIGITAL WORLD</small>
-  <h2>MY <span>BMX LIFE</span></h2>
+  <h2>MY <span class="gradient-text">BMX LIFE</span></h2>
   <p>A hobby that represents freedom, passion, and creativity.</p>
  </div>
  <div class="gallery reveal">
-  <img src="IMG-20261104-WA0006.jpg" alt="BMX moment 1">
-  <img src="IMG-20261104-WA0009.jpg" alt="BMX moment 2">
-  <img src="IMG-20261104-WA0011.jpg" alt="BMX moment 3">
+  <div class="gallery-item"><img src="IMG-20261104-WA0006.jpg" alt="BMX photo one"><div class="gallery-caption">BMX MOMENT 01</div></div>
+  <div class="gallery-item"><img src="IMG-20261104-WA0009.jpg" alt="BMX photo two"><div class="gallery-caption">BMX MOMENT 02</div></div>
+  <div class="gallery-item"><img src="IMG-20261104-WA0011.jpg" alt="BMX photo three"><div class="gallery-caption">BMX MOMENT 03</div></div>
  </div>
 </section>
 
-<section id="projects">
+<section id="highlights">
  <div class="section-head reveal">
-  <small>MY DIGITAL CREATIONS</small>
-  <h2>FEATURED <span>PROJECTS</span></h2>
-  <p>Ideas transformed into digital experiences.</p>
+  <small>MY PERSONAL UNIVERSE</small>
+  <h2>PERSONAL <span class="gradient-text">HIGHLIGHTS</span></h2>
+  <p>A collection of interests, creativity, and personal experiences.</p>
  </div>
  <div class="grid">
-  <article class="card project-card reveal">
-   <div class="project-top">NYAMPLENG</div>
-   <div class="project-info">
-    <h3>NYAMPLENG JOGJA</h3>
-    <p>A tourism website concept introducing destinations, culinary experiences, and places to explore in Yogyakarta.</p>
-   </div>
+  <article class="card highlight-card reveal">
+   <i class="fas fa-laptop-code"></i>
+   <h3>DIGITAL EXPLORER</h3>
+   <p>Exploring the digital world, technology, and new creative possibilities.</p>
   </article>
-  <article class="card project-card reveal">
-   <div class="project-top">LEGENDS</div>
-   <div class="project-info">
-    <h3>THE LEGENDS OF FOOTBALL</h3>
-    <p>A football-themed website concept celebrating legendary players, their careers, achievements, and stories.</p>
-   </div>
+  <article class="card highlight-card reveal">
+   <i class="fas fa-bicycle"></i>
+   <h3>BMX LIFESTYLE</h3>
+   <p>A passion for BMX, freedom, and expressing creativity beyond the screen.</p>
+  </article>
+  <article class="card highlight-card reveal">
+   <i class="fas fa-camera"></i>
+   <h3>CREATIVE MOMENTS</h3>
+   <p>Capturing moments, discovering inspiration, and creating personal memories.</p>
   </article>
  </div>
 </section>
@@ -504,30 +424,30 @@ footer span{color:var(--red)}
 <section id="skills">
  <div class="section-head reveal">
   <small>MY CAPABILITIES</small>
-  <h2>SKILLS & <span>ABILITIES</span></h2>
+  <h2>SKILLS & <span class="gradient-text">ABILITIES</span></h2>
   <p>Skills grow through practice and experience.</p>
  </div>
  <div class="grid">
-  <div class="card reveal"><i class="fas fa-code"></i><h3>WEB DEVELOPMENT</h3><p>Exploring website structure, styling, and interactive experiences.</p></div>
-  <div class="card reveal"><i class="fas fa-pen-nib"></i><h3>CREATIVE DESIGN</h3><p>Creating visual concepts and exploring creative ideas.</p></div>
-  <div class="card reveal"><i class="fas fa-photo-film"></i><h3>MULTIMEDIA</h3><p>Understanding digital media and visual communication.</p></div>
-  <div class="card reveal"><i class="fas fa-comments"></i><h3>COMMUNICATION</h3><p>Sharing ideas and expressing thoughts clearly.</p></div>
-  <div class="card reveal"><i class="fas fa-lightbulb"></i><h3>CREATIVE THINKING</h3><p>Exploring different approaches to solve problems.</p></div>
-  <div class="card reveal"><i class="fas fa-rocket"></i><h3>LEARNING MINDSET</h3><p>Always curious and ready to explore new possibilities.</p></div>
+  <article class="card reveal"><i class="fas fa-code"></i><h3>WEB DEVELOPMENT</h3><p>Exploring website structure, styling, and interactive experiences.</p></article>
+  <article class="card reveal"><i class="fas fa-pen-nib"></i><h3>CREATIVE DESIGN</h3><p>Creating visual concepts and exploring creative ideas.</p></article>
+  <article class="card reveal"><i class="fas fa-photo-film"></i><h3>MULTIMEDIA</h3><p>Understanding digital media and visual communication.</p></article>
+  <article class="card reveal"><i class="fas fa-comments"></i><h3>COMMUNICATION</h3><p>Sharing ideas and expressing thoughts clearly.</p></article>
+  <article class="card reveal"><i class="fas fa-lightbulb"></i><h3>CREATIVE THINKING</h3><p>Exploring different approaches to solve problems.</p></article>
+  <article class="card reveal"><i class="fas fa-rocket"></i><h3>LEARNING MINDSET</h3><p>Always curious and ready to explore new possibilities.</p></article>
  </div>
 </section>
 
 <section id="contact">
  <div class="section-head reveal">
   <small>TRANSMISSION CENTER</small>
-  <h2>LET'S <span>CONNECT</span></h2>
+  <h2>LET'S <span class="gradient-text">CONNECT</span></h2>
  </div>
  <div class="contact-box reveal">
   <h3>READY FOR THE NEXT CHAPTER?</h3>
-  <p>Have an idea, project, or just want to connect? Let's start a conversation.</p>
+  <p>Have an idea or just want to connect? Let's start a conversation.</p>
   <div class="socials">
-   <a href="https://instagram.com/a.figo19" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-   <a href="https://wa.me/6283139998411" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+   <a href="https://instagram.com/a.figo19" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a>
+   <a href="https://wa.me/6283139998411" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a>
    <a href="mailto:masfigo41@gmail.com"><i class="fas fa-envelope"></i> Email</a>
   </div>
  </div>
@@ -538,24 +458,23 @@ footer span{color:var(--red)}
  <p style="margin-top:8px">ONE UNIVERSE. INFINITE POSSIBILITIES. ✦</p>
 </footer>
 
-<button class="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
- <i class="fas fa-arrow-up"></i>
-</button>
+<button class="top-btn" aria-label="Kembali ke atas" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
 
 <script>
 function enterUniverse(){
  document.getElementById('intro').classList.add('hide');
 }
 const stars=document.getElementById('stars');
-for(let i=0;i<130;i++){
- const s=document.createElement('span');
- s.className='star';
- s.style.left=Math.random()*100+'%';
- s.style.top=Math.random()*100+'%';
+for(let i=0;i<150;i++){
+ const star=document.createElement('span');
+ star.className='star';
+ star.style.left=Math.random()*100+'%';
+ star.style.top=Math.random()*100+'%';
  const size=Math.random()*2.5+1;
- s.style.width=size+'px';s.style.height=size+'px';
- s.style.animationDelay=Math.random()*4+'s';
- stars.appendChild(s);
+ star.style.width=size+'px';
+ star.style.height=size+'px';
+ star.style.animationDelay=Math.random()*4+'s';
+ stars.appendChild(star);
 }
 function planet(name,description){
  document.getElementById('planet-name').textContent=name.toUpperCase();
@@ -563,7 +482,10 @@ function planet(name,description){
 }
 const observer=new IntersectionObserver(entries=>{
  entries.forEach(entry=>{
-  if(entry.isIntersecting)entry.target.classList.add('show');
+  if(entry.isIntersecting){
+   entry.target.classList.add('show');
+   observer.unobserve(entry.target);
+  }
  });
 },{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
