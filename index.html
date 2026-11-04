@@ -4,806 +4,208 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#030611">
 <title>AL — Beyond The Universe</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
- --cyan:#00eaff;
- --blue:#258cff;
- --purple:#a855f7;
- --pink:#ff48d7;
- --green:#55ffb0;
- --dark:#030611;
- --glass:rgba(9,22,46,.82);
-}
-*{margin:0;padding:0;box-sizing:border-box}
+:root{--cyan:#6cecff;--purple:#a58bff;--glass:rgba(8,18,43,.82);--line:rgba(108,236,255,.25)}
+*{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
- background:var(--dark);color:#f5f8ff;
- font-family:Poppins,sans-serif;overflow-x:hidden;
-}
-button{font-family:inherit}
-#universe-bg{
- position:fixed;inset:0;z-index:-10;
- background:
- radial-gradient(ellipse at 50% 45%,#122c59 0%,#071226 40%,#02040b 100%);
-}
-#stars{
- position:fixed;inset:-50%;z-index:-8;
- width:200%;height:200%;
- background-image:
- radial-gradient(1px 1px at 30px 50px,#fff,transparent),
- radial-gradient(2px 2px at 130px 170px,#9befff,transparent),
- radial-gradient(1px 1px at 230px 80px,#fff,transparent),
- radial-gradient(2px 2px at 300px 230px,#c69cff,transparent);
- background-size:350px 300px;
- animation:starDrift 55s linear infinite;
- pointer-events:none;
-}
-@keyframes starDrift{
- to{transform:translate3d(150px,300px,0)}
-}
-#nebula{
- position:fixed;inset:0;z-index:-9;pointer-events:none;
- background:
- radial-gradient(ellipse at 15% 25%,#1749a322,transparent 35%),
- radial-gradient(ellipse at 85% 75%,#a02cff22,transparent 35%);
- animation:nebulaMove 12s ease-in-out infinite alternate;
-}
-@keyframes nebulaMove{
- to{transform:scale(1.2) rotate(5deg);filter:hue-rotate(35deg)}
-}
-.meteor{
- position:fixed;z-index:-5;width:120px;height:2px;
- background:linear-gradient(90deg,transparent,#fff,var(--cyan));
- box-shadow:0 0 15px var(--cyan);
- transform:rotate(-30deg);
- animation:meteorFly 8s linear infinite;
- pointer-events:none;
-}
-.meteor.m2{animation-delay:4s;top:45%;left:-150px}
-.meteor.m1{top:15%;left:-150px}
-@keyframes meteorFly{
- 0%{transform:translate(0,0) rotate(-30deg);opacity:0}
- 5%{opacity:1}
- 35%{transform:translate(120vw,65vh) rotate(-30deg);opacity:0}
- 100%{opacity:0}
-}
-.decor-planet{
- position:fixed;border-radius:50%;z-index:-4;
- pointer-events:none;animation:planetFloat 10s ease-in-out infinite;
-}
-.decor-planet.p1{
- width:145px;height:145px;right:-45px;top:22%;
- background:radial-gradient(circle at 30% 25%,#b3ffff,#167ad2 42%,#090e37 80%);
- box-shadow:inset -20px -15px 30px #000,0 0 30px #178cff66;
-}
-.decor-planet.p2{
- width:75px;height:75px;left:3%;bottom:12%;
- background:radial-gradient(circle at 30% 25%,#ffd5ff,#a23cff 55%,#250d50);
- box-shadow:0 0 30px #a855f766;
- animation-delay:-4s;
-}
-@keyframes planetFloat{50%{transform:translateY(-25px) rotate(20deg)}}
-.planet-ring{
- position:fixed;right:-75px;top:25%;z-index:-3;
- width:210px;height:65px;border:4px solid #b8eaff88;
- border-radius:50%;transform:rotate(-25deg);
- box-shadow:0 0 18px #00eaff77;pointer-events:none;
-}
-.rocket{
- position:fixed;right:5%;top:68%;z-index:2;
- font-size:48px;transform:rotate(-35deg);
- filter:drop-shadow(0 0 12px var(--cyan));
- animation:rocketFloat 7s ease-in-out infinite;
- pointer-events:none;
-}
-.rocket:after{
- content:"";position:absolute;left:0;top:75%;
- width:45px;height:30px;
- background:linear-gradient(180deg,#fff,#00eaff,#a855f7,transparent);
- filter:blur(9px);border-radius:50%;
- animation:flame 0.2s infinite alternate;
-}
-@keyframes rocketFloat{
- 50%{transform:translate(-40px,-50px) rotate(-35deg)}
-}
-@keyframes flame{to{opacity:.5;transform:scale(.7)}}
-.alien{
- position:fixed;right:18px;bottom:20px;z-index:30;
- font-size:43px;cursor:pointer;
- filter:drop-shadow(0 0 13px var(--cyan));
- animation:alienFloat 3s ease-in-out infinite;
-}
-@keyframes alienFloat{50%{transform:translateY(-13px) rotate(7deg)}}
-.alien-hint{
- position:fixed;right:70px;bottom:35px;z-index:30;
- background:#07172b;border:1px solid var(--cyan);
- border-radius:10px;padding:9px 12px;font-size:11px;
- color:var(--cyan);animation:hint 3s infinite;
-}
-@keyframes hint{50%{box-shadow:0 0 15px #00eaff66}}
-nav{
- position:fixed;top:14px;left:50%;transform:translateX(-50%);
- width:min(1120px,95%);padding:13px 22px;
- z-index:40;display:flex;align-items:center;
- justify-content:space-between;gap:15px;
- background:#030a19dc;border:1px solid #00eaff55;
- border-radius:16px;backdrop-filter:blur(18px);
- box-shadow:0 0 24px #00eaff20;
-}
-.logo{
- font-family:Orbitron,sans-serif;font-weight:900;
- font-size:25px;color:var(--cyan);
- text-shadow:0 0 14px var(--cyan);
-}
-.logo span{color:white}
-.navlinks{display:flex;align-items:center;gap:20px}
-.navlinks a{
- text-decoration:none;color:#dcecff;font-size:11px;
- font-weight:600;transition:.3s;cursor:pointer;
-}
-.navlinks a:hover,.navlinks a.active{
- color:var(--cyan);text-shadow:0 0 12px var(--cyan);
-}
-.sound-btn{
- border:1px solid #00eaff66;background:#00eaff12;
- color:var(--cyan);padding:9px 12px;border-radius:8px;
- cursor:pointer;font-size:11px;
-}
-section{padding:115px 8%;scroll-margin-top:65px}
-.hero{
- min-height:100vh;display:grid;
- grid-template-columns:1.1fr .9fr;align-items:center;gap:45px;
-}
-.eyebrow{
- font-family:Orbitron,sans-serif;font-size:11px;
- letter-spacing:4px;color:var(--cyan);
-}
-.hero h1{
- font-family:Orbitron,sans-serif;
- font-size:clamp(35px,6vw,76px);line-height:1.15;
- margin:22px 0;text-shadow:0 0 25px #258cff66;
-}
-.gradient{
- background:linear-gradient(90deg,#fff,var(--cyan),#bd73ff);
- color:transparent;background-clip:text;
-}
-.hero p,.description{
- color:#b9cbe3;font-size:14px;line-height:1.9;
-}
-.btn{
- display:inline-block;padding:13px 23px;margin-top:25px;
- color:var(--cyan);border:1px solid var(--cyan);
- border-radius:8px;background:#00eaff0d;
- text-decoration:none;font-weight:700;font-size:12px;
- cursor:pointer;transition:.3s;
- box-shadow:0 0 14px #00eaff33;
-}
-.btn:hover{
- background:var(--cyan);color:#00101c;
- box-shadow:0 0 30px var(--cyan);transform:translateY(-4px);
-}
-.portrait{
- max-width:390px;width:100%;height:460px;margin:auto;
- overflow:hidden;border-radius:22px;border:2px solid var(--cyan);
- box-shadow:0 0 35px #00eaff55;
- animation:portraitMove 5s ease-in-out infinite;
-}
-.portrait img{width:100%;height:100%;object-fit:cover}
-@keyframes portraitMove{50%{transform:translateY(-12px)}}
-.section-head{text-align:center;margin-bottom:38px}
-.section-title{
- font-family:Orbitron,sans-serif;
- font-size:clamp(24px,4vw,38px);margin:12px 0;
-}
-.section-title span{color:var(--cyan)}
-.grid{
- display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
-}
-.panel{
- padding:24px;border:1px solid #258cff55;
- border-radius:15px;background:linear-gradient(145deg,#102343dd,#050b19ed);
- box-shadow:0 0 18px #258cff12;transition:.3s;
-}
-.panel:hover{
- transform:translateY(-7px);border-color:var(--cyan);
- box-shadow:0 0 25px #00eaff25;
-}
-.panel h3{color:var(--cyan);margin:10px 0}
-.panel p{font-size:13px;line-height:1.8;color:#b9cbe3}
-.symbol{font-size:30px}
-.solar-system{
- position:relative;width:min(620px,94vw);height:450px;
- margin:20px auto;display:flex;align-items:center;justify-content:center;
-}
-.sun{
- width:76px;height:76px;border-radius:50%;
- background:radial-gradient(circle,#fff,#ffe36c 40%,#ff8c00 80%);
- box-shadow:0 0 35px #ffba31,0 0 85px #ff8c00;
- animation:sunPulse 2s infinite alternate;z-index:2;
-}
-@keyframes sunPulse{to{box-shadow:0 0 60px #fff28b,0 0 110px #ff8c00}}
-.orbit{
- position:absolute;border:1px solid #00eaff55;
- border-radius:50%;animation:orbitSpin 17s linear infinite;
-}
-.o1{width:160px;height:160px}
-.o2{width:250px;height:250px;animation-duration:23s}
-.o3{width:350px;height:350px;animation-duration:31s}
-.o4{width:445px;height:445px;animation-duration:40s}
-@keyframes orbitSpin{to{transform:rotate(360deg)}}
-.space-planet{
- position:absolute;left:0;top:50%;transform:translate(-50%,-50%);
- border:0;border-radius:50%;cursor:pointer;
- transition:filter .3s,scale .3s;
-}
-.space-planet:hover{scale:1.4;filter:brightness(1.6)}
-.pa{width:25px;height:25px;background:radial-gradient(circle at 30% 25%,#fff,#00aaff 50%,#092060);box-shadow:0 0 18px #00eaff}
-.pe{width:35px;height:35px;background:radial-gradient(circle at 30% 25%,#fff1b2,#ff9e36 50%,#7b250c);box-shadow:0 0 18px #ffad43}
-.pb{width:31px;height:31px;background:radial-gradient(circle at 30% 25%,#fff,#bd55ff 50%,#30105b);box-shadow:0 0 18px #c45aff}
-.ps{width:39px;height:39px;background:radial-gradient(circle at 30% 25%,#e5ffd5,#48d878 50%,#07512c);box-shadow:0 0 18px #50ff9a}
-.planet-caption{
- position:absolute;left:0;top:calc(50% + 20px);
- transform:translateX(-50%);font:9px Orbitron,sans-serif;
- color:white;text-shadow:0 0 8px var(--cyan);white-space:nowrap;
-}
-.solar-note{text-align:center;color:#aac3e3;font-size:12px}
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.photo{
- height:280px;position:relative;overflow:hidden;
- border-radius:14px;border:1px solid #00eaff77;
- cursor:pointer;box-shadow:0 0 18px #00eaff20;
-}
-.photo img{width:100%;height:100%;object-fit:cover;transition:.5s}
-.photo:hover img{transform:scale(1.1)}
-.photo-label{
- position:absolute;bottom:0;left:0;width:100%;
- padding:17px 12px;background:linear-gradient(transparent,#020611ee);
- font-weight:700;font-size:12px;
-}
-.timeline{
- max-width:750px;margin:auto;position:relative;
- border-left:2px solid var(--cyan);padding-left:30px;
-}
-.timeline-item{position:relative;margin-bottom:28px}
-.timeline-item:before{
- content:"";position:absolute;left:-38px;top:6px;
- width:13px;height:13px;border-radius:50%;
- background:var(--cyan);box-shadow:0 0 15px var(--cyan);
-}
-.timeline-item h3{color:var(--cyan);font-size:15px}
-.timeline-item p{color:#b9cbe3;font-size:13px;line-height:1.8;margin-top:5px}
-.stats{
- display:grid;grid-template-columns:repeat(3,1fr);gap:15px;
-}
-.stat{
- text-align:center;padding:24px 10px;
- background:#10203bba;border:1px solid #258cff55;border-radius:12px;
-}
-.stat strong{display:block;font:20px Orbitron,sans-serif;color:var(--cyan)}
-.stat span{font-size:11px;color:#b9cbe3}
-.values{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.value{
- text-align:center;padding:23px 10px;border-radius:12px;
- border:1px solid #00eaff66;color:var(--cyan);
- background:#0b1930;font:12px Orbitron,sans-serif;
-}
-footer{
- text-align:center;padding:40px 15px;
- border-top:1px solid #ffffff1b;color:#8ba2c2;font-size:12px;
-}
-footer .logo{margin-bottom:12px}
-.overlay{
- position:fixed;inset:0;z-index:100;display:none;
- align-items:center;justify-content:center;
- padding:18px;background:#020611ed;backdrop-filter:blur(12px);
-}
-.overlay.show{display:flex}
-.popup{
- width:min(560px,100%);max-height:85vh;overflow:auto;
- padding:28px;border:1px solid var(--cyan);border-radius:17px;
- background:linear-gradient(145deg,#102343,#040a17);
- box-shadow:0 0 45px #00eaff55;position:relative;
- animation:popupIn .3s ease;
-}
-@keyframes popupIn{
- from{opacity:0;transform:scale(.8) translateY(20px)}
- to{opacity:1;transform:scale(1)}
-}
-.close{
- position:absolute;right:17px;top:10px;
- color:var(--cyan);font-size:29px;cursor:pointer;
-}
-.popup h2{font:700 22px Orbitron,sans-serif;color:var(--cyan);margin:12px 0}
-.popup p{font-size:13px;line-height:1.9;color:#d4e3f5}
-.popup img{width:100%;max-height:310px;object-fit:cover;border-radius:10px;margin-bottom:15px}
-.popup .eyebrow{font-size:9px}
-.al-intro{
- position:fixed;inset:0;z-index:500;
- display:flex;align-items:center;justify-content:center;
- background:radial-gradient(circle,#12315d,#02040c 70%);
- transition:opacity .7s,visibility .7s;
-}
-.al-intro.done{opacity:0;visibility:hidden}
-.intro-logo{
- font:900 clamp(75px,18vw,150px) Orbitron,sans-serif;
- color:white;text-shadow:0 0 15px var(--cyan),0 0 50px var(--blue);
- animation:introZoom 2s ease;
-}
-.intro-logo span{color:var(--cyan)}
-.intro-sub{
- position:absolute;top:calc(50% + 100px);
- color:var(--cyan);font:10px Orbitron,sans-serif;letter-spacing:5px;
-}
-@keyframes introZoom{
- 0%{transform:scale(.1) rotate(-30deg);opacity:0}
- 60%{transform:scale(1.2);opacity:1}
- 100%{transform:scale(1)}
-}
-.logo-screen{
- position:fixed;inset:0;z-index:400;display:none;
- align-items:center;justify-content:center;background:#020611ed;
-}
-.logo-screen.show{display:flex;animation:fade .25s}
-.logo-screen b{
- font:900 100px Orbitron,sans-serif;color:white;
- text-shadow:0 0 15px var(--cyan),0 0 50px var(--blue);
- animation:introZoom .8s;
-}
-@keyframes fade{from{opacity:0}to{opacity:1}}
-.warp{
- position:fixed;inset:0;z-index:300;pointer-events:none;
- opacity:0;background:radial-gradient(circle,#fff 0%,#00eaff 10%,#10105a 35%,#020611 80%);
-}
-.warp.active{animation:warp .9s ease}
-@keyframes warp{
- 0%{opacity:0;transform:scale(.1)}
- 45%{opacity:1;transform:scale(1.5)}
- 100%{opacity:0;transform:scale(5)}
-}
-.companion{
- position:fixed;bottom:83px;right:18px;z-index:35;
- display:none;max-width:240px;padding:14px;
- border:1px solid var(--cyan);border-radius:13px;
- background:#07172bf2;box-shadow:0 0 20px #00eaff33;
- font-size:12px;line-height:1.7;
-}
-.companion.show{display:block;animation:popupIn .3s}
-.companion button{
- margin-top:8px;background:transparent;color:var(--cyan);
- border:1px solid var(--cyan);padding:6px 10px;border-radius:6px;
- cursor:pointer;font-size:10px;
-}
-@media(max-width:800px){
- nav{flex-wrap:wrap;justify-content:center;padding:10px}
- .navlinks{order:3;width:100%;justify-content:center;gap:12px;flex-wrap:wrap}
- .navlinks a{font-size:9px}
- .logo{font-size:20px}
- .sound-btn{font-size:9px;padding:7px}
- section{padding:120px 6% 75px}
- .hero{grid-template-columns:1fr;text-align:center;gap:30px}
- .portrait{height:350px;max-width:285px}
- .grid,.gallery,.values{grid-template-columns:1fr}
- .photo{height:310px}
- .solar-system{height:355px}
- .o1{width:130px;height:130px}
- .o2{width:205px;height:205px}
- .o3{width:280px;height:280px}
- .o4{width:345px;height:345px}
- .sun{width:60px;height:60px}
- .stats{grid-template-columns:1fr}
- .planet-caption{font-size:8px}
- .decor-planet.p1{width:95px;height:95px}
- .rocket{font-size:35px}
- .alien{font-size:35px}
-}
-@media(prefers-reduced-motion:reduce){
- *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
-}
+body{margin:0;background:#030611;color:#eef8ff;font-family:Rajdhani,sans-serif;overflow-x:hidden}
+button{font:inherit;cursor:pointer}
+a{text-decoration:none;color:inherit}
+#space{position:fixed;inset:0;z-index:-2;background:radial-gradient(ellipse at 50% 100%,#18285d,#080d26 55%,#02040c)}
+#stars{position:absolute;inset:0;background-image:radial-gradient(1px 1px at 10% 20%,white 98%,transparent),radial-gradient(1px 1px at 40% 70%,#8beaff 98%,transparent),radial-gradient(2px 2px at 80% 30%,white 98%,transparent);background-size:190px 180px,240px 230px,300px 270px;animation:stars 70s linear infinite}
+@keyframes stars{to{background-position:500px 700px,-400px 600px,700px -500px}}
+.nebula{position:absolute;width:55vw;height:55vw;border-radius:50%;filter:blur(75px);opacity:.16;background:#5946db}
+.nebula.a{left:-25%;top:15%}.nebula.b{right:-25%;bottom:-15%;background:#087da9}
+.meteor{position:absolute;width:130px;height:2px;background:linear-gradient(90deg,transparent,#c5f8ff,transparent);transform:rotate(-35deg);animation:meteor 6s linear infinite;opacity:0}
+.meteor:nth-child(2){top:20%;left:75%;animation-delay:1s}
+.meteor:nth-child(3){top:65%;left:30%;animation-delay:3s}
+@keyframes meteor{8%{opacity:1}35%{transform:translate(-380px,250px) rotate(-35deg);opacity:0}100%{opacity:0}}
+#intro{position:fixed;inset:0;z-index:20;display:grid;place-items:center;text-align:center;background:radial-gradient(circle,#172956,#030611 70%);transition:1s}
+#intro.hide{opacity:0;visibility:hidden}
+.logo{font:800 clamp(6rem,24vw,12rem) Orbitron;color:white;letter-spacing:-.13em;text-shadow:0 0 25px var(--cyan),0 0 80px #7755ff;animation:pulse 2s infinite alternate}
+@keyframes pulse{to{filter:brightness(1.6);transform:scale(1.04)}}
+.eyebrow{font:600 .68rem Orbitron;letter-spacing:.23em;color:var(--cyan);text-transform:uppercase}
+.intro-title{font:700 clamp(1.1rem,4vw,2rem) Orbitron;letter-spacing:.1em}
+.intro-sub{color:#a9bad5}
+.btn{display:inline-block;padding:13px 22px;border:1px solid #68eaff99;background:linear-gradient(120deg,#1b709655,#6953b544);color:white;border-radius:4px;font:600 .72rem Orbitron;letter-spacing:.12em;cursor:pointer;transition:.25s}
+.btn:hover{transform:translateY(-3px);box-shadow:0 0 28px #51dfff66}
+header{position:fixed;z-index:10;inset:0 0 auto;display:flex;justify-content:space-between;align-items:center;padding:17px 5%;background:linear-gradient(#050816ed,transparent);backdrop-filter:blur(7px)}
+.brand{font:800 1.35rem Orbitron;letter-spacing:-.1em;color:white;text-shadow:0 0 15px var(--cyan)}
+.brand small{font-size:.55rem;letter-spacing:.2em;color:var(--cyan);margin-left:8px}
+nav{display:flex;gap:clamp(9px,2.5vw,28px)}
+nav a{font:600 .65rem Orbitron;letter-spacing:.08em;color:#c8d9ef}
+nav a:hover{color:var(--cyan)}
+#sound{background:#10203d;border:1px solid var(--line);color:var(--cyan);padding:8px;border-radius:20px}
+.section{max-width:1350px;margin:auto;padding:105px clamp(20px,8vw,110px);scroll-margin-top:60px}
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:25px;padding-top:120px}
+.hero h1{font:800 clamp(2.7rem,7vw,6.3rem)/.98 Orbitron;letter-spacing:-.07em;margin:20px 0}
+.hero h1 span{color:var(--cyan);text-shadow:0 0 30px #4adfff66}
+.desc{font-size:1.25rem;line-height:1.5;color:#b9cbe5;max-width:580px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:25px}
+.art{height:430px;display:grid;place-items:center;position:relative}
+.planet{width:min(62vw,300px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 28% 25%,#b6f7ff,#3678bd 32%,#17265b 70%,#050918 80%);box-shadow:inset -35px -15px 55px #02040c,0 0 70px #399bff77;position:relative;animation:float 6s ease-in-out infinite}
+.planet:after{content:"";position:absolute;inset:35% -22%;border:9px solid #a4eaff99;border-left-color:#b99cff88;border-radius:50%;transform:rotate(-22deg);filter:drop-shadow(0 0 12px #5cdfff)}
+@keyframes float{50%{transform:translateY(-18px)}}
+.moon{position:absolute;top:12%;right:7%;width:55px;height:55px;border-radius:50%;background:radial-gradient(circle at 30% 30%,white,#7786a9 60%,#263456);box-shadow:0 0 22px #b8dfff77}
+.rocket{position:absolute;right:8%;bottom:8%;font-size:3.2rem;transform:rotate(-35deg);filter:drop-shadow(0 0 15px var(--cyan));animation:float 3s infinite}
+.section-head{margin-bottom:30px}
+.section-head h2{font:700 clamp(1.6rem,4vw,2.8rem) Orbitron;margin:10px 0}
+.section-head p{color:#a9bad5;font-size:1.1rem}
+.glass{background:var(--glass);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(13px);box-shadow:0 15px 50px #0005}
+.system{min-height:510px;display:grid;place-items:center;position:relative;overflow:hidden}
+.sun{width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,#fff9bd,#ffb32c 48%,#ff5725);box-shadow:0 0 40px #ff9c35,0 0 100px #ff6c2955;z-index:2}
+.orbit{position:absolute;width:var(--size);height:var(--size);border:1px solid #9fcaff33;border-radius:50%;animation:spin var(--speed) linear infinite}
+.orbit button{position:absolute;left:0;top:50%;width:var(--ps);height:var(--ps);margin-top:calc(var(--ps)/-2);border:0;border-radius:50%;background:var(--color);box-shadow:0 0 18px var(--color);cursor:pointer;animation:counter var(--speed) linear infinite}
+.orbit button:hover{filter:brightness(1.7);scale:1.4}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes counter{to{transform:rotate(-360deg)}}
+.planet-name{position:absolute;top:calc(50% + var(--size)/2 + 10px);font:600 .6rem Orbitron;color:#d5edff;white-space:nowrap}
+.hint{position:absolute;bottom:15px;color:#91a9ca;font-size:.85rem}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.card{padding:22px;min-height:165px;transition:.3s}
+.card:hover{transform:translateY(-5px);border-color:#68eaff88}
+.card .emoji{font-size:1.8rem}
+.card h3{font:600 .95rem Orbitron;color:var(--cyan);margin:13px 0 8px}
+.card p{color:#b8c9df;line-height:1.5;margin:0}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.photo{height:230px;position:relative;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111d3b;cursor:pointer;padding:0;color:white}
+.photo img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.photo:hover img{transform:scale(1.08)}
+.photo span{position:absolute;bottom:0;left:0;right:0;padding:30px 12px 12px;background:linear-gradient(transparent,#020611dd);font:600 .7rem Orbitron}
+.timeline{border-left:1px solid #68eaff88;margin-left:8px;padding-left:24px;display:grid;gap:22px}
+.event{position:relative}
+.event:before{content:"";position:absolute;left:-30px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--cyan);box-shadow:0 0 15px var(--cyan)}
+.event h3{font:600 .9rem Orbitron;margin:0 0 6px}
+.event p{color:#a9bad5;margin:0;line-height:1.5}
+.skills{display:flex;gap:10px;flex-wrap:wrap}
+.skill{padding:10px 15px;border:1px solid #5b9ed866;background:#10213d99;border-radius:30px;color:#d7edff;font-weight:600}
+footer{text-align:center;padding:35px 20px;border-top:1px solid var(--line);color:#8197b9}
+#popup{display:none;position:fixed;inset:0;z-index:30;background:#02040bdd;place-items:center;padding:20px}
+#popup.show{display:grid}
+.popcard{width:min(550px,100%);padding:28px;position:relative}
+.popcard h2{font:700 1.35rem Orbitron;color:var(--cyan)}
+.popcard p{font-size:1.1rem;color:#c1d0e7;line-height:1.6}
+.close{position:absolute;right:14px;top:10px;border:0;background:none;color:white;font-size:1.6rem}
+#warp{position:fixed;inset:0;z-index:25;pointer-events:none;opacity:0;transform:scale(.1);background:radial-gradient(circle,#e4ffff,#467bff 20%,#080b24 70%);transition:.6s}
+#warp.active{opacity:1;transform:scale(2.5)}
+.alien{position:fixed;right:16px;bottom:15px;z-index:8;background:#08162cdd;border:1px solid #68eaff77;color:white;border-radius:30px;padding:9px 13px;cursor:pointer}
+.alien b{font-size:1.2rem}
+.alien small{font:600 .6rem Orbitron;color:var(--cyan);margin-left:6px}
+#toast{position:fixed;z-index:40;bottom:70px;left:50%;transform:translate(-50%,15px);opacity:0;background:#10203d;border:1px solid var(--line);padding:12px 17px;border-radius:8px;color:#e4fbff;transition:.3s;text-align:center;max-width:90%;width:max-content}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:800px){header{padding:14px}nav{gap:10px}nav a{font-size:.52rem}.hero{grid-template-columns:1fr;padding-top:130px}.art{height:310px}.cards{grid-template-columns:1fr 1fr}.photos{grid-template-columns:1fr 1fr}.photo{height:180px}.system{min-height:390px}.orbit{width:var(--mobile);height:var(--mobile)}}
+@media(max-width:480px){nav a:nth-child(3){display:none}.hero h1{font-size:2.65rem}.cards,.photos{grid-template-columns:1fr}.photo{height:225px}.system{min-height:335px}.sun{width:65px;height:65px}.orbit{width:var(--mobile);height:var(--mobile)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
-
 <body>
+<div id="space"><div id="stars"></div><div class="nebula a"></div><div class="nebula b"></div><i class="meteor"></i><i class="meteor"></i></div>
 
-<div id="universe-bg"></div>
-<div id="stars"></div>
-<div id="nebula"></div>
-<div class="meteor m1"></div>
-<div class="meteor m2"></div>
-<div class="decor-planet p1"></div>
-<div class="decor-planet p2"></div>
-<div class="planet-ring"></div>
-<div class="rocket">🚀</div>
-
-<!-- INTRO -->
-<div class="al-intro" id="intro">
- <div class="intro-logo">A<span>L.</span></div>
- <div class="intro-sub">BEYOND THE UNIVERSE</div>
-</div>
-
-<!-- NAVIGATION -->
-<nav>
- <div class="logo">AL<span>.</span></div>
- <div class="navlinks">
-  <a href="#home" class="active">HOME</a>
-  <a href="#universe">UNIVERSE</a>
-  <a href="#about">ABOUT</a>
-  <a href="#education">EDUCATION</a>
-  <a href="#bmx">BMX</a>
-  <a href="#skills">SKILLS</a>
- </div>
- <button class="sound-btn" id="soundBtn" onclick="toggleSound()">♫ SOUND OFF</button>
-</nav>
-
-<!-- HOME -->
-<section class="hero" id="home">
+<div id="intro">
  <div>
-  <div class="eyebrow">✦ WELCOME TO MY UNIVERSE ✦</div>
-  <h1>FACHRIANSYAH<br><span class="gradient">ALFIGO.</span></h1>
-  <p style="font-weight:700;color:white">DREAM BIGGER. EXPLORE FURTHER.</p>
-  <p style="margin-top:15px">
-   A creative mind, a curious soul, and a former BMX Racing athlete
-   with a passion for technology, multimedia, and the future.
-  </p>
-  <a class="btn" href="#universe">🚀 EXPLORE MY UNIVERSE</a>
+  <div class="eyebrow">A PERSONAL UNIVERSE</div>
+  <div class="logo">AL</div>
+  <div class="intro-title">BEYOND THE UNIVERSE</div>
+  <p class="intro-sub">Every explorer has a universe of their own.</p>
+  <button class="btn" id="launch">✦ LAUNCH MISSION ✦</button>
  </div>
- <div class="portrait">
-  <img src="IMG-20261104-WA0009.jpg" alt="Fachriansyah Alfigo">
+</div>
+<div id="warp"></div>
+
+<header>
+ <a class="brand" href="#home">AL<small>SPACE</small></a>
+ <nav><a href="#home">HOME</a><a href="#universe">UNIVERSE</a><a href="#profile">PROFILE</a><a href="#bmx">BMX</a></nav>
+ <button id="sound">♫ SOUND OFF</button>
+</header>
+
+<main>
+<section class="section hero" id="home">
+ <div>
+  <div class="eyebrow">EXPLORER ID · AL-2006</div>
+  <h1>BEYOND<br>THE <span>UNIVERSE.</span></h1>
+  <p class="desc">Welcome to my universe. A space where creativity, technology, and determination meet. Explore my journey beyond the ordinary.</p>
+  <div class="actions"><a class="btn" href="#universe">EXPLORE MY UNIVERSE ↗</a><a class="btn" href="#profile">MEET THE EXPLORER</a></div>
  </div>
+ <div class="art"><div class="planet"></div><div class="moon"></div><div class="rocket">🚀</div></div>
 </section>
 
-<!-- SOLAR SYSTEM -->
-<section id="universe">
- <div class="section-head">
-  <div class="eyebrow">CHOOSE YOUR DESTINATION</div>
-  <h2 class="section-title">EXPLORE MY <span>UNIVERSE</span></h2>
-  <p class="description">Pilih planet dan temukan bagian berbeda dari perjalanan hidupku.</p>
- </div>
- <div class="solar-system">
+<section class="section" id="universe">
+ <div class="section-head"><div class="eyebrow">NAVIGATION SYSTEM / 01</div><h2>EXPLORE THE UNIVERSE</h2><p>Select a planet to discover a part of my story.</p></div>
+ <div class="system glass">
   <div class="sun"></div>
-
-  <div class="orbit o1">
-   <button class="space-planet pa" style="left:0;top:50%" onclick="explore('who')" aria-label="About Me"></button>
-   <span class="planet-caption" style="left:0;top:calc(50% + 22px)">ABOUT</span>
-  </div>
-  <div class="orbit o2">
-   <button class="space-planet pe" style="left:0;top:50%" onclick="explore('college')" aria-label="Education"></button>
-   <span class="planet-caption" style="left:0;top:calc(50% + 23px)">EDUCATION</span>
-  </div>
-  <div class="orbit o3">
-   <button class="space-planet pb" style="left:0;top:50%" onclick="explore('bmx')" aria-label="BMX"></button>
-   <span class="planet-caption" style="left:0;top:calc(50% + 22px)">BMX</span>
-  </div>
-  <div class="orbit o4">
-   <button class="space-planet ps" style="left:50%;top:0" onclick="explore('interest')" aria-label="Skills"></button>
-   <span class="planet-caption" style="left:50%;top:-18px">SKILLS</span>
-  </div>
- </div>
- <p class="solar-note">☀ THE AL SOLAR SYSTEM — TAP A PLANET TO EXPLORE ☀</p>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
- <div class="section-head">
-  <div class="eyebrow">DISCOVER MY STORY</div>
-  <h2 class="section-title">ABOUT <span>ME</span></h2>
-  <p class="description">Every person has a universe of their own.</p>
- </div>
- <div class="grid">
-  <div class="panel">
-   <div class="symbol">🌌</div>
-   <h3>Who Am I?</h3>
-   <p>Mengenal Fachriansyah Alfigo, pribadi yang tertarik pada kreativitas dan teknologi.</p>
-   <button class="btn" onclick="openPopup('who')">DISCOVER →</button>
-  </div>
-  <div class="panel">
-   <div class="symbol">🚀</div>
-   <h3>My Journey</h3>
-   <p>Perjalanan yang dibangun melalui pengalaman, tantangan, dan pembelajaran.</p>
-   <button class="btn" onclick="openPopup('journey')">DISCOVER →</button>
-  </div>
-  <div class="panel">
-   <div class="symbol">✨</div>
-   <h3>My Vision</h3>
-   <p>Terus berkembang dan menciptakan sesuatu yang bermakna di dunia digital.</p>
-   <button class="btn" onclick="openPopup('vision')">DISCOVER →</button>
-  </div>
+  <div class="orbit" style="--size:155px;--speed:12s;--ps:13px;--color:#a9d9ff"><button style="--ps:13px;--color:#a9d9ff;--speed:12s" data-topic="about" aria-label="About"></button><span class="planet-name">ABOUT</span></div>
+  <div class="orbit" style="--size:235px;--speed:19s;--ps:18px;--color:#9e83ff"><button style="--ps:18px;--color:#9e83ff;--speed:19s" data-topic="education" aria-label="Education"></button><span class="planet-name">EDUCATION</span></div>
+  <div class="orbit" style="--size:315px;--speed:27s;--ps:21px;--color:#ff9d73"><button style="--ps:21px;--color:#ff9d73;--speed:27s" data-topic="bmx" aria-label="BMX"></button><span class="planet-name">BMX JOURNEY</span></div>
+  <div class="orbit" style="--size:395px;--speed:36s;--ps:16px;--color:#79e5c0"><button style="--ps:16px;--color:#79e5c0;--speed:36s" data-topic="skills" aria-label="Skills"></button><span class="planet-name">SKILLS</span></div>
+  <div class="hint">✦ TAP A PLANET TO OPEN ITS STORY ✦</div>
  </div>
 </section>
 
-<!-- EDUCATION -->
-<section id="education">
- <div class="section-head">
-  <div class="eyebrow">MY LEARNING ORBIT</div>
-  <h2 class="section-title">EDUCATION <span>& INTERESTS</span></h2>
- </div>
- <div class="grid">
-  <div class="panel">
-   <div class="symbol">🎓</div>
-   <h3>Higher Education</h3>
-   <p>Manajemen Multimedia dan Digital.</p>
-   <button class="btn" onclick="openPopup('college')">DETAIL →</button>
-  </div>
-  <div class="panel">
-   <div class="symbol">📚</div>
-   <h3>High School</h3>
-   <p>Homeschooling HSPG Yogyakarta.</p>
-   <button class="btn" onclick="openPopup('school')">DETAIL →</button>
-  </div>
-  <div class="panel">
-   <div class="symbol">🪐</div>
-   <h3>Creative Exploration</h3>
-   <p>Multimedia, digital design, website, dan teknologi.</p>
-   <button class="btn" onclick="openPopup('interest')">DETAIL →</button>
-  </div>
+<section class="section" id="profile">
+ <div class="section-head"><div class="eyebrow">EXPLORER PROFILE / 02</div><h2>THE PERSON BEHIND AL</h2><p>A little introduction from this side of the galaxy.</p></div>
+ <div class="cards">
+  <article class="glass card"><div class="emoji">🧑‍🚀</div><h3>IDENTITY</h3><p>Fachriansyah Alfigo. A curious explorer who enjoys learning, creating, and discovering new possibilities.</p></article>
+  <article class="glass card"><div class="emoji">🎓</div><h3>EDUCATION</h3><p>Studying Manajemen Multimedia dan Digital, with a background at Homeschooling HSPG Yogyakarta.</p></article>
+  <article class="glass card"><div class="emoji">💡</div><h3>INTERESTS</h3><p>Web development, digital multimedia, creative design, technology, and communication.</p></article>
  </div>
 </section>
 
-<!-- BMX -->
-<section id="bmx">
- <div class="section-head">
-  <div class="eyebrow">A CHAPTER OF MY LIFE</div>
-  <h2 class="section-title">BMX <span>RACING JOURNEY</span></h2>
-  <p class="description">Klik foto untuk membuka dokumentasi dan ceritanya.</p>
+<section class="section" id="bmx">
+ <div class="section-head"><div class="eyebrow">HALL OF MEMORIES / 03</div><h2>THE BMX CHAPTER</h2><p>Before exploring digital worlds, I learned focus, courage, and consistency on the track.</p></div>
+ <div class="photos">
+  <button class="photo" data-photo="IMG-20261104-WA0006.jpg"><img src="IMG-20261104-WA0006.jpg" alt="BMX memory one" onerror="this.style.display='none';this.parentElement.querySelector('span').textContent='ADD PHOTO: IMG-20261104-WA0006.jpg'"><span>THE JOURNEY</span></button>
+  <button class="photo" data-photo="IMG-20261104-WA0009.jpg"><img src="IMG-20261104-WA0009.jpg" alt="BMX memory two" onerror="this.style.display='none';this.parentElement.querySelector('span').textContent='ADD PHOTO: IMG-20261104-WA0009.jpg'"><span>THE EXPERIENCE</span></button>
+  <button class="photo" data-photo="IMG-20261104-WA0011.jpg"><img src="IMG-20261104-WA0011.jpg" alt="BMX memory three" onerror="this.style.display='none';this.parentElement.querySelector('span').textContent='ADD PHOTO: IMG-20261104-WA0011.jpg'"><span>THE MEMORIES</span></button>
  </div>
- <div class="gallery">
-  <div class="photo" onclick="openPopup('photo1')">
-   <img src="IMG-20261104-WA0006.jpg" alt="BMX Racing photo 1">
-   <div class="photo-label">01 — BMX MEMORY ↗</div>
-  </div>
-  <div class="photo" onclick="openPopup('photo2')">
-   <img src="IMG-20261104-WA0009.jpg" alt="BMX Racing photo 2">
-   <div class="photo-label">02 — THE JOURNEY ↗</div>
-  </div>
-  <div class="photo" onclick="openPopup('photo3')">
-   <img src="IMG-20261104-WA0011.jpg" alt="BMX Racing photo 3">
-   <div class="photo-label">03 — THE EXPERIENCE ↗</div>
-  </div>
- </div>
- <div class="panel" style="margin-top:22px">
-  <h3>Beyond The Finish Line</h3>
-  <p>Saya pernah menjalani perjalanan sebagai atlet BMX Racing dan berkompetisi di tingkat daerah, nasional, hingga internasional. Pengalaman tersebut mengajarkan saya tentang disiplin, fokus, konsistensi, dan keberanian menghadapi tantangan. Kini perjalanan kompetitif itu telah menjadi bagian dari masa lalu, tetapi pelajarannya tetap saya bawa.</p>
-  <button class="btn" onclick="openPopup('bmx')">EXPLORE MY STORY →</button>
- </div>
+ <div class="glass" style="padding:22px;margin-top:18px;color:#c1d0e7;line-height:1.65">BMX racing has been an important chapter in my life. I had the opportunity to compete at regional, national, and international levels. That experience taught me discipline, determination, and how to keep moving forward. Today, those lessons continue to inspire my journey in the digital world.</div>
 </section>
 
-<!-- TIMELINE -->
-<section id="timeline">
- <div class="section-head">
-  <div class="eyebrow">MY PERSONAL JOURNEY</div>
-  <h2 class="section-title">LIFE <span>TIMELINE</span></h2>
-  <p class="description">A journey of learning, experiences, and growth.</p>
- </div>
+<section class="section" id="skills">
+ <div class="section-head"><div class="eyebrow">EQUIPMENT & ABILITIES / 04</div><h2>MY TOOLKIT</h2><p>Things I enjoy exploring and developing.</p></div>
+ <div class="skills"><span class="skill">Web Development</span><span class="skill">Digital Multimedia</span><span class="skill">Creative Design</span><span class="skill">Digital Technology</span><span class="skill">Communication</span><span class="skill">Creative Thinking</span><span class="skill">Discipline</span><span class="skill">Continuous Learning</span></div>
+</section>
+
+<section class="section">
+ <div class="section-head"><div class="eyebrow">MISSION LOG / 05</div><h2>ALWAYS MOVING FORWARD</h2></div>
  <div class="timeline">
-  <div class="timeline-item">
-   <h3>EDUCATION</h3>
-   <p>Menempuh pendidikan di Homeschooling HSPG Yogyakarta.</p>
-  </div>
-  <div class="timeline-item">
-   <h3>BMX RACING</h3>
-   <p>Menjalani pengalaman sebagai atlet BMX Racing di tingkat daerah, nasional, dan internasional.</p>
-  </div>
-  <div class="timeline-item">
-   <h3>DIGITAL EXPLORATION</h3>
-   <p>Memperluas minat dan pembelajaran di bidang multimedia serta teknologi digital.</p>
-  </div>
-  <div class="timeline-item">
-   <h3>THE NEXT CHAPTER</h3>
-   <p>Terus mengembangkan kemampuan, kreativitas, dan wawasan untuk masa depan.</p>
-  </div>
+  <div class="event"><h3>THE BMX ERA</h3><p>Building discipline and determination through racing experiences.</p></div>
+  <div class="event"><h3>A NEW DIRECTION</h3><p>Carrying lessons from sport into new interests and opportunities.</p></div>
+  <div class="event"><h3>THE DIGITAL UNIVERSE</h3><p>Exploring multimedia, technology, design, and web development.</p></div>
+  <div class="event"><h3>THE NEXT MISSION</h3><p>Keep learning, keep creating, and discover what comes next.</p></div>
  </div>
 </section>
+</main>
 
-<!-- SKILLS -->
-<section id="skills">
- <div class="section-head">
-  <div class="eyebrow">MY SKILL CONSTELLATION</div>
-  <h2 class="section-title">SKILLS <span>& INTERESTS</span></h2>
- </div>
- <div class="grid">
-  <div class="panel"><div class="symbol">💻</div><h3>Web Development</h3><p>Exploring website creation and digital platforms.</p></div>
-  <div class="panel"><div class="symbol">🎨</div><h3>Creative Design</h3><p>Interested in visual design, creative concepts, and presentation.</p></div>
-  <div class="panel"><div class="symbol">🌐</div><h3>Digital Multimedia</h3><p>Learning about digital content, communication, and multimedia technology.</p></div>
- </div>
-</section>
-
-<!-- PERSONAL DASHBOARD -->
-<section id="dashboard">
- <div class="section-head">
-  <div class="eyebrow">PERSONAL DATA TRANSMISSION</div>
-  <h2 class="section-title">MY <span>PROFILE</span></h2>
- </div>
- <div class="stats">
-  <div class="stat"><strong>01</strong><span>CREATIVE MIND</span></div>
-  <div class="stat"><strong>BMX</strong><span>FORMER ATHLETE</span></div>
-  <div class="stat"><strong>∞</strong><span>WILL TO LEARN</span></div>
- </div>
- <div class="panel" style="margin-top:20px">
-  <h3>PERSONAL INFORMATION</h3>
-  <p><b>NAME:</b> Fachriansyah Alfigo</p>
-  <p><b>EDUCATION:</b> Manajemen Multimedia dan Digital</p>
-  <p><b>BACKGROUND:</b> Former BMX Racing Athlete</p>
-  <p><b>INTERESTS:</b> Technology, Multimedia, Creative Design</p>
- </div>
-</section>
-
-<!-- VALUES -->
-<section id="values">
- <div class="section-head">
-  <div class="eyebrow">MY INNER COMPASS</div>
-  <h2 class="section-title">PERSONAL <span>VALUES</span></h2>
- </div>
- <div class="values">
-  <div class="value">DISCIPLINE</div>
-  <div class="value">DETERMINATION</div>
-  <div class="value">CONTINUOUS GROWTH</div>
- </div>
-</section>
-
-<footer>
- <div class="logo">AL<span>.</span></div>
- <p>FACHRIANSYAH ALFIGO</p>
- <p style="margin-top:8px">BEYOND THE UNIVERSE — © 2026</p>
- <p style="margin-top:15px;color:#00eaff">✦ DREAM BIGGER. EXPLORE FURTHER. ✦</p>
-</footer>
-
-<!-- POPUP -->
-<div class="overlay" id="popup" onclick="if(event.target===this)closePopup()">
- <div class="popup">
-  <span class="close" onclick="closePopup()">×</span>
-  <div id="popupContent"></div>
- </div>
-</div>
-
-<!-- AL NAVIGATION ANIMATION -->
-<div class="logo-screen" id="logoScreen"><b>AL.</b></div>
-
-<!-- PLANET WARP -->
-<div class="warp" id="warp"></div>
-
-<!-- ALIEN COMPANION -->
-<div class="companion" id="companion">
- <b style="color:#00eaff">👽 SPACE COMPANION</b>
- <p id="alienText">Welcome to the AL universe!</p>
- <button onclick="alienNext()">TELL ME MORE →</button>
-</div>
-<div class="alien-hint" onclick="alienNext()">Need a guide? 👽</div>
-<div class="alien" onclick="alienNext()" title="Space Companion">👽</div>
+<footer><div class="brand">AL <small>BEYOND THE UNIVERSE</small></div><p>Designed as a universe of ideas, experience, and possibilities.</p><small>© <span id="year"></span> Fachriansyah Alfigo · All systems operational</small></footer>
+<button class="alien" id="alien"><b>👽</b><small>ALIEN GUIDE</small></button>
+<div id="toast"></div>
+<div id="popup"><div class="popcard glass"><button class="close" id="close">×</button><div class="eyebrow">PLANET DATA RECEIVED</div><h2 id="popTitle">MISSION FILE</h2><p id="popText"></p><button class="btn" id="ok">CONTINUE EXPLORING</button></div></div>
 
 <script>
-/* INTRO */
-window.addEventListener("load",()=>{
- setTimeout(()=>{
-  document.getElementById("intro").classList.add("done");
- },2300);
-});
-
-/* POPUP CONTENT */
+const $=s=>document.querySelector(s),intro=$('#intro'),warp=$('#warp'),popup=$('#popup');
+function toast(t){let x=$('#toast');x.textContent=t;x.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>x.classList.remove('show'),2600)}
+$('#launch').onclick=()=>{intro.classList.add('hide');warp.classList.add('active');setTimeout(()=>warp.classList.remove('active'),700);toast('MISSION STARTED · WELCOME TO AL UNIVERSE')};
 const data={
- who:["WHO AM I?","Fachriansyah Alfigo adalah pribadi yang memiliki rasa ingin tahu dan ketertarikan pada kreativitas, multimedia, teknologi, serta pengalaman baru. Saya percaya setiap pengalaman memiliki sesuatu untuk diajarkan."],
- journey:["MY JOURNEY","Perjalanan saya dibangun dari berbagai pengalaman. Dari BMX Racing hingga dunia multimedia digital, setiap tahap memberikan pelajaran tentang disiplin, usaha, dan perkembangan diri."],
- vision:["MY VISION","Saya ingin terus berkembang, memperluas pengetahuan, dan menghasilkan karya yang menggabungkan kreativitas dengan teknologi. Bagi saya, masa depan selalu punya ruang untuk dieksplorasi."],
- college:["HIGHER EDUCATION","Saya mempelajari Manajemen Multimedia dan Digital. Bidang ini memberikan kesempatan untuk mengenal pengelolaan multimedia, komunikasi digital, kreativitas, dan perkembangan teknologi."],
- school:["HIGH SCHOOL","Saya menempuh pendidikan di Homeschooling HSPG Yogyakarta. Pengalaman pendidikan ini menjadi salah satu bagian dari perjalanan belajar saya."],
- interest:["CREATIVE EXPLORATION","Saya tertarik mempelajari web development, desain kreatif, teknologi digital, dan berbagai bentuk komunikasi multimedia."],
- bmx:["BMX RACING JOURNEY","Saya pernah mengikuti kompetisi BMX Racing di tingkat daerah, nasional, hingga internasional. Dari olahraga ini saya belajar tentang disiplin, fokus, konsistensi, dan keberanian. Walaupun kini tidak lagi aktif berkompetisi, pengalaman tersebut tetap menjadi bagian penting dari perjalanan hidup saya."],
- photo1:["BMX MEMORY — 01","Salah satu dokumentasi perjalanan saya di dunia BMX Racing. Setiap pengalaman menjadi bagian dari proses belajar dan perkembangan diri."],
- photo2:["BMX MEMORY — 02","Foto ini menjadi pengingat perjalanan, pengalaman, dan proses yang pernah saya jalani dalam BMX Racing."],
- photo3:["BMX MEMORY — 03","Sebuah kenangan dari perjalanan BMX Racing yang mengajarkan saya untuk terus menghargai proses dan pengalaman."]
+about:['ABOUT THE EXPLORER','Fachriansyah Alfigo — a curious explorer interested in creativity, digital technology, and discovering new possibilities.'],
+education:['EDUCATION','Currently studying Manajemen Multimedia dan Digital. Previous education: Homeschooling HSPG Yogyakarta.'],
+bmx:['BMX JOURNEY','I used to compete in BMX racing at regional, national, and international levels. The experience taught me discipline, determination, and resilience.'],
+skills:['SKILLS & INTERESTS','Web development, digital multimedia, creative design, digital technology, communication, and continuous learning.']
 };
-const photoFiles={
- photo1:"IMG-20261104-WA0006.jpg",
- photo2:"IMG-20261104-WA0009.jpg",
- photo3:"IMG-20261104-WA0011.jpg"
-};
-function openPopup(key){
- const item=data[key];
- if(!item)return;
- let html="";
- if(photoFiles[key]){
-  html+='<img src="'+photoFiles[key]+'" alt="BMX memory">';
- }
- html+='<div class="eyebrow">✦ AL SPACE ARCHIVE ✦</div>';
- html+='<h2>'+item[0]+'</h2><p>'+item[1]+'</p>';
- document.getElementById("popupContent").innerHTML=html;
- document.getElementById("popup").classList.add("show");
-}
-function closePopup(){
- document.getElementById("popup").classList.remove("show");
-}
-
-/* PLANET WARP */
-function explore(key){
- const warp=document.getElementById("warp");
- warp.classList.remove("active");
- void warp.offsetWidth;
- warp.classList.add("active");
- setTimeout(()=>openPopup(key),550);
- setTimeout(()=>warp.classList.remove("active"),1000);
-}
-
-/* NAVIGATION AL LOGO */
-document.querySelectorAll(".navlinks a").forEach(link=>{
- link.addEventListener("click",e=>{
-  e.preventDefault();
-  const target=link.getAttribute("href");
-  const screen=document.getElementById("logoScreen");
-  screen.classList.remove("show");
-  void screen.offsetWidth;
-  screen.classList.add("show");
-  setTimeout(()=>{
-   screen.classList.remove("show");
-   document.querySelector(target).scrollIntoView({behavior:"smooth"});
-  },750);
-  document.querySelectorAll(".navlinks a").forEach(a=>a.classList.remove("active"));
-  link.classList.add("active");
- });
-});
-
-/* ALIEN GUIDE */
-const alienMessages=[
- "Welcome, explorer! Selamat datang di AL universe. 🌌",
- "Ini adalah perjalanan pribadi Fachriansyah Alfigo.",
- "Coba klik planet di tata surya untuk membuka informasi.",
- "Kamu juga bisa membuka foto BMX dan melihat ceritanya.",
- "Jangan lupa menjelajahi semua bagian portfolio. 🚀"
-];
-let alienIndex=0;
-function alienNext(){
- const box=document.getElementById("companion");
- const text=document.getElementById("alienText");
- box.classList.add("show");
- text.textContent=alienMessages[alienIndex];
- alienIndex=(alienIndex+1)%alienMessages.length;
-}
-
-/* SOUND: SYNTHESIZED AMBIENT */
-let audioContext=null;
-let soundOn=false;
-let oscillators=[];
-function toggleSound(){
- const btn=document.getElementById("soundBtn");
- if(soundOn){
-  oscillators.forEach(o=>{try{o.stop()}catch(e){}});
-  oscillators=[];
-  soundOn=false;
-  btn.textContent="♫ SOUND OFF";
-  return;
- }
- try{
-  const AudioCtx=window.AudioContext||window.webkitAudioContext;
-  audioContext=new AudioCtx();
-  const master=audioContext.createGain();
-  master.gain.value=.035;
-  master.connect(audioContext.destination);
-  [110,164.81,220].forEach((frequency,i)=>{
-   const osc=audioContext.createOscillator();
-   const gain=audioContext.createGain();
-   osc.type="sine";
-   osc.frequency.value=frequency;
-   gain.gain.value=i===0?.6:.2;
-   osc.connect(gain);
-   gain.connect(master);
-   osc.start();
-   oscillators.push(osc);
-  });
-  soundOn=true;
-  btn.textContent="♫ SOUND ON";
- }catch(e){
-  btn.textContent="SOUND UNAVAILABLE";
- }
-}
-
-/* ESCAPE */
-document.addEventListener("keydown",e=>{
- if(e.key==="Escape")closePopup();
-});
+function show(title,text){$('#popTitle').textContent=title;$('#popText').textContent=text;popup.classList.add('show')}
+document.querySelectorAll('[data-topic]').forEach(p=>p.onclick=()=>{let d=data[p.dataset.topic];warp.classList.add('active');setTimeout(()=>warp.classList.remove('active'),600);setTimeout(()=>show(...d),160)});
+document.querySelectorAll('[data-photo]').forEach(p=>p.onclick=()=>show('BMX MEMORY','A moment from my BMX journey. Photo file: '+p.dataset.photo));
+function close(){popup.classList.remove('show')}
+$('#close').onclick=close;$('#ok').onclick=close;
+popup.onclick=e=>{if(e.target===popup)close()};
+document.onkeydown=e=>{if(e.key==='Escape')close()};
+document.querySelectorAll('nav a,.actions a').forEach(a=>a.addEventListener('click',()=>$('.brand').animate([{transform:'scale(1)'},{transform:'scale(1.3)',filter:'brightness(2)'},{transform:'scale(1)'}],{duration:650})));
+let ctx,osc,gain,on=false;
+$('#sound').onclick=async()=>{try{if(!on){ctx=new(window.AudioContext||window.webkitAudioContext)();osc=ctx.createOscillator();gain=ctx.createGain();osc.type='sine';osc.frequency.value=55;gain.gain.value=.018;osc.connect(gain);gain.connect(ctx.destination);osc.start();on=true;$('#sound').textContent='♫ SOUND ON'}else{osc.stop();await ctx.close();on=false;$('#sound').textContent='♫ SOUND OFF'}}catch(e){toast('Sound is not available in this browser.')}};
+let msgs=['Welcome, Explorer! I am your guide around the AL universe. 👽','Try clicking the planets. Each one contains a different mission.','BMX taught this explorer discipline. The digital universe is the next adventure.','Keep exploring. There is always something new to learn!'],mi=0;
+$('#alien').onclick=()=>toast(msgs[mi++%msgs.length]);
+$('#year').textContent=new Date().getFullYear();
 </script>
-
 </body>
 </html>
