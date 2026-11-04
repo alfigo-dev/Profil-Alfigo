@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="theme-color" content="#07090f">
 <title>Fachriansyah Alfigo | Personal Portfolio</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
@@ -32,14 +33,8 @@ body {
 }
 
 a {
-  text-decoration: none;
   color: inherit;
-}
-
-.container {
-  width: 82%;
-  max-width: 1250px;
-  margin: auto;
+  text-decoration: none;
 }
 
 nav {
@@ -47,7 +42,7 @@ nav {
   top: 0;
   width: 100%;
   z-index: 100;
-  padding: 22px 9%;
+  padding: 20px 8%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -57,7 +52,7 @@ nav {
 }
 
 .logo {
-  font-size: 23px;
+  font-size: 24px;
   font-weight: 900;
   letter-spacing: 2px;
 }
@@ -72,8 +67,9 @@ nav {
 }
 
 .nav-links a {
-  font-size: 11px;
+  font-size: 10px;
   color: #aab5c8;
+  letter-spacing: 1px;
   transition: .3s;
 }
 
@@ -87,25 +83,25 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 50px;
+  gap: 45px;
   position: relative;
 }
 
-.hero:before {
+.hero::before {
   content: "";
   position: absolute;
   width: 450px;
   height: 450px;
   background: #1559ca;
   filter: blur(180px);
-  opacity: .15;
+  opacity: .16;
   right: 5%;
   top: 15%;
   z-index: -1;
 }
 
 .hero-content {
-  max-width: 680px;
+  max-width: 650px;
 }
 
 .tag {
@@ -121,8 +117,8 @@ nav {
 }
 
 .hero h1 {
-  font-size: clamp(48px, 7vw, 88px);
-  line-height: 1.04;
+  font-size: clamp(48px, 7vw, 85px);
+  line-height: 1.05;
   letter-spacing: -4px;
   font-weight: 900;
 }
@@ -133,7 +129,7 @@ nav {
   color: transparent;
 }
 
-.hero-content p {
+.hero-content > p {
   color: var(--muted);
   font-size: 14px;
   line-height: 1.9;
@@ -159,7 +155,7 @@ nav {
 
 .hero-photo {
   width: 330px;
-  height: 420px;
+  height: 430px;
   flex-shrink: 0;
   position: relative;
   border-radius: 20px;
@@ -178,7 +174,7 @@ nav {
 .photo-info {
   position: absolute;
   bottom: 0;
-  padding: 35px 20px 20px;
+  padding: 45px 20px 20px;
   width: 100%;
   background: linear-gradient(transparent, #000e);
 }
@@ -195,7 +191,7 @@ nav {
 }
 
 section {
-  padding: 105px 9%;
+  padding: 100px 9%;
 }
 
 .section-label {
@@ -234,6 +230,12 @@ section {
   border-radius: 18px;
 }
 
+.about-highlight .symbol {
+  color: var(--blue);
+  font-size: 35px;
+  margin-bottom: 18px;
+}
+
 .about-highlight h3 {
   font-size: 20px;
   margin-bottom: 15px;
@@ -243,12 +245,6 @@ section {
   font-size: 12px;
   color: var(--muted);
   line-height: 1.9;
-}
-
-.about-highlight .symbol {
-  color: var(--blue);
-  font-size: 35px;
-  margin-bottom: 18px;
 }
 
 .education {
@@ -264,10 +260,10 @@ section {
 
 .timeline-item {
   position: relative;
-  padding: 0 0 40px;
+  padding-bottom: 40px;
 }
 
-.timeline-item:before {
+.timeline-item::before {
   content: "";
   position: absolute;
   left: -38px;
@@ -281,7 +277,7 @@ section {
 
 .timeline-item h3 {
   font-size: 18px;
-  margin-bottom: 9px;
+  margin: 9px 0;
 }
 
 .timeline-item span {
@@ -294,7 +290,6 @@ section {
   color: var(--muted);
   font-size: 13px;
   line-height: 1.8;
-  margin-top: 12px;
 }
 
 .bmx-section {
@@ -462,6 +457,12 @@ section {
   line-height: 1.9;
 }
 
+.values {
+  background:
+    radial-gradient(ellipse at 20% 50%, #123b7930, transparent 65%),
+    var(--bg);
+}
+
 .values-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -474,6 +475,12 @@ section {
   background: #101725;
   border: 1px solid #ffffff12;
   border-radius: 14px;
+  transition: .3s;
+}
+
+.value-card:hover {
+  border-color: #438cff80;
+  transform: translateY(-5px);
 }
 
 .value-card h3 {
@@ -520,17 +527,13 @@ footer {
     font-size: 9px;
   }
 
-  .container {
-    width: 90%;
-  }
-
   .hero {
     padding: 140px 7% 80px;
     flex-direction: column;
     text-align: center;
   }
 
-  .hero-content p {
+  .hero-content > p {
     margin-left: auto;
     margin-right: auto;
   }
@@ -573,6 +576,14 @@ footer {
 }
 
 @media(max-width: 480px) {
+  nav {
+    padding: 16px 4%;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
   .nav-links {
     gap: 8px;
   }
@@ -628,7 +639,7 @@ footer {
   </div>
 
   <div class="hero-photo reveal">
-    <img src="images/bmx-2.jpeg" alt="Fachriansyah Alfigo">
+    <img src="images/IMG-20261104-WA0009.jpg" alt="Fachriansyah Alfigo">
 
     <div class="photo-info">
       <h3>Fachriansyah Alfigo</h3>
@@ -645,9 +656,7 @@ footer {
   <div class="about-layout">
 
     <div class="reveal">
-      <h2 class="section-title">
-        More Than Just A Name.
-      </h2>
+      <h2 class="section-title">More Than Just A Name.</h2>
 
       <p class="section-description">
         I am Fachriansyah Alfigo, a Digital Multimedia and Management student with a journey shaped by discipline, ambition, and continuous growth.
@@ -668,7 +677,6 @@ footer {
 
     <div class="about-highlight reveal">
       <div class="symbol">✦</div>
-
       <h3>Always Moving Forward.</h3>
 
       <p>
@@ -677,7 +685,6 @@ footer {
     </div>
 
   </div>
-
 </section>
 
 <section class="education" id="education">
@@ -693,7 +700,7 @@ footer {
   <div class="timeline">
 
     <div class="timeline-item reveal">
-      <span>EDUCATIONAL JOURNEY</span>
+      <span>HIGH SCHOOL</span>
       <h3>Homeschooling HSPG Yogyakarta</h3>
       <p>
         My high school education journey, where I continued developing my knowledge and personal interests.
@@ -709,24 +716,17 @@ footer {
     </div>
 
   </div>
-
 </section>
 
 <section class="bmx-section" id="bmx">
 
   <div class="bmx-heading reveal">
-
     <div>
       <div class="section-label">03 — MY ATHLETIC STORY</div>
-
-      <h2>
-        BEYOND THE<br>
-        <span>FINISH LINE.</span>
-      </h2>
+      <h2>BEYOND THE<br><span>FINISH LINE.</span></h2>
     </div>
 
     <small>BMX RACING · A CHAPTER OF MY LIFE</small>
-
   </div>
 
   <p class="bmx-text reveal">
@@ -744,7 +744,7 @@ footer {
   <div class="gallery reveal">
 
     <div class="gallery-item">
-      <img src="images/bmx-1.jpeg" alt="BMX Racing">
+      <img src="images/IMG-20261104-WA0006.jpg" alt="BMX Racing competition">
       <div class="gallery-caption">
         <h3>The Competition</h3>
         <p>EVERY RACE HAS A STORY</p>
@@ -752,7 +752,7 @@ footer {
     </div>
 
     <div class="gallery-item">
-      <img src="images/bmx-2.jpeg" alt="BMX Athlete">
+      <img src="images/IMG-20261104-WA0009.jpg" alt="BMX Racing athlete">
       <div class="gallery-caption">
         <h3>The Athlete</h3>
         <p>PASSION AND DEDICATION</p>
@@ -760,7 +760,7 @@ footer {
     </div>
 
     <div class="gallery-item">
-      <img src="images/bmx-3.jpeg" alt="BMX Journey">
+      <img src="images/IMG-20261104-WA0011.jpg" alt="BMX Racing journey">
       <div class="gallery-caption">
         <h3>The Memories</h3>
         <p>A JOURNEY TO REMEMBER</p>
@@ -855,10 +855,9 @@ footer {
     </div>
 
   </div>
-
 </section>
 
-<section id="values">
+<section class="values" id="values">
 
   <div class="section-label reveal">05 — WHAT DEFINES ME</div>
 
@@ -899,7 +898,6 @@ footer {
     </div>
 
   </div>
-
 </section>
 
 <footer>
@@ -910,15 +908,11 @@ footer {
 
 <script>
 const observer = new IntersectionObserver(entries => {
-
   entries.forEach(entry => {
-
     if (entry.isIntersecting) {
       entry.target.classList.add("show");
     }
-
   });
-
 }, {
   threshold: 0.12
 });
@@ -929,4 +923,4 @@ document.querySelectorAll(".reveal").forEach(element => {
 </script>
 
 </body>
-</html>
+      </html>
