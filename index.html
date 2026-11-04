@@ -4,496 +4,845 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080a17">
-<title>AL | Cinematic Universe</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<title>AL Universe | Explore the Galaxy</title>
 
 <style>
-:root{
- --red:#ed376e;
- --burgundy:#a51f50;
- --blue:#35caff;
- --purple:#9b6cff;
- --bg:#080a17;
- --white:#fff;
- --muted:#b9bfd1;
- --glass:rgba(22,25,48,.75);
-}
-*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth}
-body{background:var(--bg);color:var(--white);font-family:Inter,sans-serif;overflow-x:hidden}
-a{text-decoration:none;color:inherit}
-button{font-family:inherit}
-#stars{position:fixed;inset:0;z-index:-3;pointer-events:none}
-.star{position:absolute;background:white;border-radius:50%;animation:twinkle 3s infinite alternate}
-@keyframes twinkle{to{opacity:.2;box-shadow:0 0 10px white}}
-body:before{
- content:"";position:fixed;inset:0;z-index:-4;
- background:
- radial-gradient(ellipse at 10% 20%,#8e1b4b66,transparent 40%),
- radial-gradient(ellipse at 90% 25%,#075b9566,transparent 40%),
- radial-gradient(ellipse at 50% 100%,#582a8766,transparent 45%),
- #080a17;
-}
-.nebula{position:fixed;width:420px;height:420px;border-radius:50%;filter:blur(100px);opacity:.23;z-index:-2;pointer-events:none;animation:nebulaFloat 12s ease-in-out infinite alternate}
-.n1{background:#ed286a;top:5%;left:-230px}
-.n2{background:#008fff;right:-230px;top:35%}
-.n3{background:#9b4dff;bottom:-230px;left:35%}
-@keyframes nebulaFloat{to{transform:translate(100px,80px) scale(1.2)}}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
-.meteor{
- position:fixed;z-index:-1;top:-150px;left:75%;width:3px;height:150px;
- background:linear-gradient(transparent,var(--blue),white);
- transform:rotate(42deg);opacity:0;
- filter:drop-shadow(0 0 10px var(--blue));
- animation:meteor 7s linear infinite;
-}
-.meteor:nth-of-type(2){left:35%;animation-delay:2.5s}
-.meteor:nth-of-type(3){left:90%;animation-delay:5s}
-@keyframes meteor{
- 0%{transform:translate(0,0) rotate(42deg);opacity:0}
- 10%{opacity:1}
- 35%{transform:translate(-450px,650px) rotate(42deg);opacity:0}
- 100%{opacity:0}
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:#030611;
+  color:white;
+  font-family:Inter,sans-serif;
+  overflow:hidden;
 }
 
-/* INTRO */
-#intro{
- position:fixed;inset:0;z-index:9999;
- display:flex;align-items:center;justify-content:center;
- flex-direction:column;text-align:center;
- background:radial-gradient(circle at center,#30152f,#080a17 70%);
- transition:1s;
+#space{
+  position:fixed;
+  inset:0;
+  z-index:0;
 }
-#intro.hide{opacity:0;visibility:hidden}
-.intro-logo{
- width:115px;height:115px;border-radius:30px;
- display:grid;place-items:center;margin-bottom:28px;
- font:900 45px Orbitron;
- background:linear-gradient(135deg,#ed376e33,#35caff33);
- border:2px solid var(--red);
- box-shadow:0 0 35px #ed376e88,0 0 90px #35caff33;
- animation:logoPulse 2s infinite;
-}
-@keyframes logoPulse{50%{box-shadow:0 0 65px #ed376e,0 0 100px #35caff66}}
-#intro h1{font:900 clamp(22px,5vw,43px) Orbitron;margin-bottom:14px}
-#intro h1 span{color:var(--red)}
-#intro p{font-size:10px;letter-spacing:4px;color:var(--muted)}
-.enter-btn{
- margin-top:35px;padding:16px 28px;border:1px solid #ff8bb0;
- background:linear-gradient(110deg,#b51f50,#ed376e);
- border-radius:5px;color:white;font-weight:800;letter-spacing:2px;
- cursor:pointer;box-shadow:0 0 25px #ed376e66;transition:.3s;
-}
-.enter-btn:hover{transform:scale(1.07);box-shadow:0 0 45px #ed376e}
 
-/* NAVIGATION */
+canvas{display:block}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at center,transparent 35%,rgba(1,4,15,.55) 100%),
+    linear-gradient(180deg,rgba(2,5,18,.3),transparent 30%,rgba(2,5,18,.3));
+}
+
 header{
- position:fixed;top:0;left:0;width:100%;z-index:1000;
- padding:18px 7%;display:flex;align-items:center;
- justify-content:space-between;
- background:#080a17c9;backdrop-filter:blur(18px);
- border-bottom:1px solid #ffffff15;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  padding:22px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  z-index:5;
+  pointer-events:none;
 }
+
 .logo{
- font:900 25px Orbitron;
- background:linear-gradient(90deg,var(--red),white,var(--blue));
- -webkit-background-clip:text;background-clip:text;color:transparent;
+  font-family:Orbitron,sans-serif;
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:4px;
+  color:#fff;
+  text-shadow:0 0 18px #168cff;
 }
-nav{display:flex;align-items:center;gap:20px}
-nav a{font-size:10px;font-weight:700;letter-spacing:1px;color:#cbd0df;transition:.3s}
-nav a:hover{color:var(--blue)}
-.menu-btn{display:none;background:none;border:0;color:white;font-size:23px;cursor:pointer}
 
-section{padding:110px 9%;scroll-margin-top:70px}
+.logo span{color:#e82c5c}
 
-/* HERO */
-.hero{
- min-height:100vh;display:flex;align-items:center;
- justify-content:space-between;gap:40px;padding-top:135px;
+.header-label{
+  color:#a9bad9;
+  font-size:10px;
+  letter-spacing:3px;
 }
-.hero-content{max-width:650px}
-.eyebrow{font:700 11px Orbitron;color:var(--blue);letter-spacing:4px;margin-bottom:22px}
-.hero h1{font:900 clamp(38px,7vw,78px) Orbitron;line-height:1.15;margin-bottom:22px}
-.gradient-text{
- background:linear-gradient(100deg,#ff5e96,white,#40d2ff);
- -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.hero p{color:var(--muted);line-height:1.9;font-size:14px;max-width:550px}
-.hero-buttons{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
-.btn{
- display:inline-flex;align-items:center;gap:10px;padding:14px 22px;
- border-radius:5px;font-size:11px;font-weight:800;letter-spacing:1px;transition:.3s;
-}
-.btn-primary{background:linear-gradient(110deg,#b51f50,#ed376e);border:1px solid #ff8bb0}
-.btn-outline{border:1px solid var(--blue);color:var(--blue)}
-.btn:hover{transform:translateY(-5px);box-shadow:0 0 25px #35caff44}
-.hero-visual{width:min(390px,90vw);aspect-ratio:1;position:relative;display:grid;place-items:center}
-.reactor{
- width:65%;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;
- position:relative;border:2px solid var(--blue);
- background:radial-gradient(circle,#35caff30,#ed376e18,transparent 70%);
- box-shadow:0 0 45px #35caff66,inset 0 0 45px #ed376e33;
- animation:reactor 16s linear infinite;
-}
-.reactor:before,.reactor:after{
- content:"";position:absolute;inset:-25px;border:1px solid var(--red);
- border-radius:50%;transform:rotateX(65deg);
-}
-.reactor:after{inset:-48px;border-color:var(--blue);transform:rotateY(65deg)}
-.reactor i{font-size:75px;color:white;text-shadow:0 0 30px var(--blue)}
-@keyframes reactor{to{transform:rotate(360deg)}}
-.space-icon{position:absolute;font-size:35px;filter:drop-shadow(0 0 12px var(--blue));animation:levitate 4s ease-in-out infinite}
-.space-icon:nth-child(1){top:5%;right:10%}
-.space-icon:nth-child(2){bottom:12%;left:2%;animation-delay:1s}
-.space-icon:nth-child(3){top:43%;right:-5%;animation-delay:2s}
-@keyframes levitate{50%{transform:translateY(-24px) rotate(10deg)}}
 
-/* HEADINGS AND CARDS */
-.section-head{text-align:center;margin-bottom:55px}
-.section-head small{font:700 11px Orbitron;letter-spacing:4px;color:var(--red)}
-.section-head h2{font:900 clamp(26px,4vw,43px) Orbitron;margin:15px 0}
-.section-head p{font-size:13px;color:var(--muted);line-height:1.8}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.card{
- padding:28px;border:1px solid #ffffff20;border-radius:13px;
- background:linear-gradient(145deg,rgba(66,26,65,.68),rgba(12,35,61,.75));
- position:relative;overflow:hidden;transition:.35s;
+.panel{
+  position:fixed;
+  z-index:3;
+  pointer-events:none;
 }
-.card:after{
- content:"";position:absolute;top:0;left:-100%;width:70%;height:100%;
- background:linear-gradient(100deg,transparent,#ffffff12,transparent);
- transform:skewX(-20deg);transition:.6s;
+
+.left-panel{
+  top:25%;
+  left:5%;
+  width:250px;
 }
-.card:hover:after{left:130%}
-.card:hover{transform:translateY(-9px);border-color:var(--blue);box-shadow:0 15px 40px #35caff20}
-.card i{font-size:28px;color:var(--blue);margin-bottom:20px}
-.card h3{font:700 15px Orbitron;margin-bottom:13px}
-.card p{font-size:13px;line-height:1.8;color:var(--muted)}
 
-/* ABOUT */
-.about-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:35px;align-items:center}
-.about-symbol{
- min-height:310px;display:grid;place-items:center;border-radius:15px;
- background:radial-gradient(circle,#ed376e55,#35caff20,transparent);
- border:1px solid #ffffff25;position:relative;overflow:hidden;
+.eyebrow{
+  font-family:Orbitron,sans-serif;
+  font-size:10px;
+  letter-spacing:4px;
+  color:#48baff;
+  margin-bottom:16px;
 }
-.about-symbol:before{content:"";position:absolute;width:230px;height:230px;border:1px solid #35caff88;border-radius:50%;animation:reactor 15s linear infinite}
-.about-symbol strong{font:900 90px Orbitron;color:transparent;-webkit-text-stroke:2px var(--blue);text-shadow:0 0 30px #35caff66}
-.about-text h3{font:800 24px Orbitron;margin-bottom:18px}
-.about-text p{font-size:14px;line-height:2;color:var(--muted);margin-bottom:15px}
-.stats{display:flex;gap:25px;margin-top:25px;flex-wrap:wrap}
-.stat strong{display:block;font:900 26px Orbitron;color:var(--red)}
-.stat span{font-size:11px;color:var(--muted)}
 
-/* JOURNEY */
-.timeline{max-width:750px;margin:auto;position:relative}
-.timeline:before{content:"";position:absolute;left:12px;top:0;bottom:0;width:2px;background:linear-gradient(var(--red),white,var(--blue))}
-.timeline-item{padding:0 0 38px 45px;position:relative}
-.timeline-item:before{content:"";position:absolute;left:4px;top:5px;width:18px;height:18px;border-radius:50%;background:var(--red);box-shadow:0 0 18px var(--red)}
-.timeline-item small{font:700 11px Orbitron;color:var(--blue)}
-.timeline-item h3{font:700 17px Orbitron;margin:10px 0}
-.timeline-item p{font-size:13px;line-height:1.8;color:var(--muted)}
-
-/* SOLAR SYSTEM */
-.solar-wrap{min-height:360px;display:flex;align-items:center;justify-content:center}
-.solar{width:300px;height:300px;position:relative;flex-shrink:0}
-.sun{position:absolute;width:55px;height:55px;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#fff6a3,#ff9d32,#ed4b20);box-shadow:0 0 35px #ffb342,0 0 85px #ff7c3566}
-.orbit{position:absolute;left:50%;top:50%;border:1px solid #ffffff44;border-radius:50%;transform:translate(-50%,-50%)}
-.o1{width:110px;height:110px}.o2{width:180px;height:180px}.o3{width:250px;height:250px}
-.planet{position:absolute;top:50%;left:0;width:14px;height:14px;border-radius:50%;transform:translate(-50%,-50%);border:0;cursor:pointer}
-.p1{background:#b7a18c}.p2{background:#e9a66c}.p3{background:#35aaff}
-.planet-info{max-width:550px;margin:15px auto 0;padding:23px;text-align:center;background:var(--glass);border:1px solid #ffffff20;border-radius:12px}
-.planet-info h3{font:700 18px Orbitron;color:var(--blue);margin-bottom:10px}
-.planet-info p{font-size:13px;color:var(--muted);line-height:1.8}
-
-/* BMX */
-.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.gallery-item{overflow:hidden;border-radius:13px;border:1px solid #ffffff25;background:#11172a}
-.gallery img{width:100%;height:290px;object-fit:cover;display:block;transition:.5s}
-.gallery-item:hover img{transform:scale(1.07)}
-.gallery-caption{padding:15px;font:700 11px Orbitron;color:var(--blue)}
-
-/* PERSONAL HIGHLIGHTS */
-.highlight-card{min-height:190px}
-.highlight-card i{font-size:30px}
-.highlight-card h3{font-size:14px}
-
-/* SKILLS */
-.skill-list{max-width:750px;margin:auto}
-.skill{margin-bottom:24px}
-.skill-title{display:flex;justify-content:space-between;font-size:12px;margin-bottom:10px}
-.bar{height:7px;border-radius:10px;background:#ffffff19;overflow:hidden}
-.bar span{display:block;height:100%;width:var(--w);background:linear-gradient(90deg,var(--red),white,var(--blue));border-radius:10px;box-shadow:0 0 12px var(--blue)}
-
-/* CONTACT */
-.contact-box{max-width:750px;margin:auto;text-align:center;padding:45px 25px;border:1px solid #ffffff25;border-radius:15px;background:linear-gradient(135deg,#54172e66,#102d5066)}
-.contact-box h3{font:800 25px Orbitron;margin-bottom:15px}
-.contact-box p{font-size:13px;color:var(--muted);line-height:1.8}
-.socials{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:28px}
-.socials a{padding:14px 18px;border:1px solid #ffffff30;border-radius:7px;color:var(--blue);font-size:12px;transition:.3s}
-.socials a:hover{background:#35caff18;border-color:var(--blue);transform:translateY(-4px)}
-footer{text-align:center;padding:30px;color:var(--muted);font-size:11px;border-top:1px solid #ffffff18}
-footer span{color:var(--red)}
-.top-btn{position:fixed;bottom:25px;right:25px;width:45px;height:45px;border:0;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--blue));color:white;cursor:pointer;z-index:50}
-.reveal{opacity:0;transform:translateY(35px);transition:.8s}
-.reveal.show{opacity:1;transform:translateY(0)}
-
-@media(max-width:900px){
- header{padding:17px 5%}
- .menu-btn{display:block}
- nav{display:none;position:absolute;top:65px;left:0;width:100%;padding:25px;background:#090b18f5;flex-direction:column;gap:22px}
- nav.open{display:flex}
- .hero{flex-direction:column;text-align:center;padding-top:140px}
- .hero-content{display:flex;align-items:center;flex-direction:column}
- .hero-visual{margin-top:25px}
- .about-layout{grid-template-columns:1fr}
- .grid{grid-template-columns:repeat(2,1fr)}
- .gallery{grid-template-columns:repeat(2,1fr)}
+h1{
+  font-family:Orbitron,sans-serif;
+  font-size:clamp(30px,4vw,53px);
+  line-height:1.2;
+  letter-spacing:-2px;
+  margin-bottom:17px;
 }
-@media(max-width:550px){
- section{padding:85px 6%}
- .grid,.gallery{grid-template-columns:1fr}
- .gallery img{height:270px}
- .hero h1{font-size:37px}
- .solar{transform:scale(.85)}
- .stats{justify-content:center}
+
+h1 span{
+  color:#48aaff;
+  text-shadow:0 0 25px #087bff;
 }
-@media(prefers-reduced-motion:reduce){
- *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+
+.description{
+  color:#9eabc5;
+  font-size:12px;
+  line-height:1.9;
+  max-width:250px;
+}
+
+.instruction{
+  margin-top:30px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#a7bad8;
+  font-size:10px;
+  letter-spacing:1px;
+}
+
+.dot{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:#42baff;
+  box-shadow:0 0 12px #42baff;
+}
+
+.right-panel{
+  right:5%;
+  top:27%;
+  width:230px;
+  text-align:right;
+}
+
+.planet-number{
+  font-family:Orbitron,sans-serif;
+  font-size:10px;
+  letter-spacing:3px;
+  color:#48baff;
+}
+
+.planet-name{
+  font-family:Orbitron,sans-serif;
+  font-size:28px;
+  font-weight:700;
+  margin:13px 0;
+  text-shadow:0 0 20px #167cff;
+}
+
+.planet-info{
+  font-size:11px;
+  color:#9caac5;
+  line-height:1.9;
+}
+
+.planet-facts{
+  margin-top:20px;
+  padding-top:15px;
+  border-top:1px solid #ffffff22;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+.fact-label{
+  color:#647b9d;
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+.fact-value{
+  margin-top:5px;
+  font-size:12px;
+  color:#fff;
+}
+
+.bottom-panel{
+  position:fixed;
+  bottom:25px;
+  left:0;
+  width:100%;
+  z-index:5;
+  padding:0 4%;
+}
+
+.planet-list{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  overflow-x:auto;
+  padding:15px 5px;
+  scrollbar-width:none;
+}
+
+.planet-list::-webkit-scrollbar{display:none}
+
+.planet-btn{
+  flex:0 0 auto;
+  min-width:65px;
+  padding:10px 12px;
+  background:#101a30b8;
+  border:1px solid #ffffff20;
+  border-radius:30px;
+  color:#a9bad9;
+  font-size:9px;
+  letter-spacing:1px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.planet-btn:hover,
+.planet-btn.active{
+  border-color:#39aaff;
+  color:white;
+  background:#087bff35;
+  box-shadow:0 0 18px #087bff45;
+}
+
+.controls{
+  position:fixed;
+  left:5%;
+  bottom:35px;
+  z-index:5;
+  display:flex;
+  gap:8px;
+}
+
+.control-btn{
+  pointer-events:auto;
+  border:1px solid #ffffff30;
+  background:#101a30cc;
+  color:#dce9ff;
+  padding:10px 13px;
+  border-radius:25px;
+  font-size:10px;
+  cursor:pointer;
+}
+
+.control-btn:hover{background:#1261ad}
+
+#loading{
+  position:fixed;
+  inset:0;
+  z-index:20;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:#030611;
+  transition:opacity 1s;
+}
+
+.loader{
+  width:55px;height:55px;
+  border:2px solid #1b2945;
+  border-top-color:#39aaff;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  margin-bottom:20px;
+}
+
+.loading-text{
+  font-family:Orbitron,sans-serif;
+  font-size:11px;
+  letter-spacing:4px;
+  color:#68bdff;
+}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:700px){
+  header{padding:18px 5%}
+  .header-label{font-size:8px;letter-spacing:1px}
+  .left-panel{
+    top:105px;
+    left:6%;
+    width:175px;
+  }
+  h1{font-size:28px}
+  .description{font-size:10px}
+  .instruction{margin-top:13px;font-size:8px}
+  .right-panel{
+    top:auto;
+    bottom:145px;
+    right:6%;
+    width:165px;
+  }
+  .planet-name{font-size:20px}
+  .planet-info{font-size:9px}
+  .planet-facts{gap:8px;margin-top:12px}
+  .fact-value{font-size:10px}
+  .fact-label{font-size:8px}
+  .bottom-panel{bottom:12px;padding:0 3%}
+  .planet-list{justify-content:flex-start;gap:7px}
+  .planet-btn{min-width:60px;padding:10px 9px;font-size:8px}
+  .controls{left:6%;bottom:95px}
+  .control-btn{font-size:9px;padding:9px 10px}
+}
+
+@media(max-height:650px) and (min-width:701px){
+  .left-panel{top:22%}
+  .right-panel{top:22%}
+  .bottom-panel{bottom:5px}
 }
 </style>
 </head>
 
 <body>
-<div id="stars"></div>
-<div class="nebula n1"></div>
-<div class="nebula n2"></div>
-<div class="nebula n3"></div>
-<div class="meteor"></div>
-<div class="meteor"></div>
-<div class="meteor"></div>
 
-<div id="intro">
- <div class="intro-logo">AL</div>
- <h1>WELCOME TO <span>MY UNIVERSE</span></h1>
- <p>ONE UNIVERSE. INFINITE POSSIBILITIES.</p>
- <button class="enter-btn" onclick="enterUniverse()">ENTER MY UNIVERSE <i class="fas fa-rocket"></i></button>
+<div id="loading">
+  <div class="loader"></div>
+  <div class="loading-text">ENTERING THE GALAXY</div>
 </div>
 
+<div id="space"></div>
+<div class="overlay"></div>
+
 <header>
- <a class="logo" href="#home">AL.</a>
- <button class="menu-btn" aria-label="Buka menu" onclick="document.querySelector('nav').classList.toggle('open')"><i class="fas fa-bars"></i></button>
- <nav>
-  <a href="#home">HOME</a>
-  <a href="#about">ABOUT</a>
-  <a href="#journey">JOURNEY</a>
-  <a href="#universe">UNIVERSE</a>
-  <a href="#bmx">BMX</a>
-  <a href="#highlights">HIGHLIGHTS</a>
-  <a href="#skills">SKILLS</a>
-  <a href="#contact">CONTACT</a>
- </nav>
+  <div class="logo">AL<span>.</span> UNIVERSE</div>
+  <div class="header-label">COSMIC EXPLORATION / 001</div>
 </header>
 
-<section class="hero" id="home">
- <div class="hero-content">
-  <div class="eyebrow">✦ THE AL CINEMATIC UNIVERSE ✦</div>
-  <h1>HELLO,<br>I'M <span class="gradient-text">FACHRIANSYAH ALFIGO.</span></h1>
-  <p>Welcome to my universe. A personal space where creativity, technology, passion, and imagination come together. Every journey has a beginning. This is mine.</p>
-  <div class="hero-buttons">
-   <a href="#about" class="btn btn-primary">DISCOVER MY STORY ↗</a>
-   <a href="#highlights" class="btn btn-outline">EXPLORE MY WORLD</a>
+<section class="panel left-panel">
+  <div class="eyebrow">AL CINEMATIC UNIVERSE</div>
+  <h1>EXPLORE<br>THE <span>GALAXY.</span></h1>
+  <p class="description">
+    Discover the wonders of our solar system.
+    Explore planets, travel through space and
+    experience the universe in 3D.
+  </p>
+  <div class="instruction">
+    <span class="dot"></span>
+    DRAG TO ROTATE THE UNIVERSE
   </div>
- </div>
- <div class="hero-visual">
-  <span class="space-icon">🪐</span>
-  <span class="space-icon">🛰️</span>
-  <span class="space-icon">🤖</span>
-  <div class="reactor"><i class="fas fa-bolt"></i></div>
- </div>
 </section>
 
-<section id="about">
- <div class="section-head reveal">
-  <small>THE ORIGIN STORY</small>
-  <h2>ABOUT <span class="gradient-text">ME</span></h2>
-  <p>Every great journey begins with curiosity.</p>
- </div>
- <div class="about-layout reveal">
-  <div class="about-symbol"><strong>AL</strong></div>
-  <div class="about-text">
-   <h3>THE PERSON BEHIND THE UNIVERSE.</h3>
-   <p>I'm Fachriansyah Alfigo, a multimedia and digital management student who enjoys exploring technology, creative design, and digital experiences.</p>
-   <p>I believe learning is a continuous journey. Through personal interests, new experiences, and creative exploration, I keep developing my skills and discovering new possibilities.</p>
-   <div class="stats">
-    <div class="stat"><strong>∞</strong><span>IDEAS</span></div>
-    <div class="stat"><strong>01</strong><span>JOURNEY</span></div>
-    <div class="stat"><strong>100%</strong><span>CURIOUS</span></div>
-   </div>
+<section class="panel right-panel">
+  <div class="planet-number" id="planetNumber">SOLAR SYSTEM / 00</div>
+  <div class="planet-name" id="planetName">SOLAR SYSTEM</div>
+  <p class="planet-info" id="planetInfo">
+    The cosmic neighborhood we call home.
+    Choose a planet to discover more.
+  </p>
+  <div class="planet-facts">
+    <div>
+      <div class="fact-label">DIAMETER</div>
+      <div class="fact-value" id="diameter">--</div>
+    </div>
+    <div>
+      <div class="fact-label">DAY LENGTH</div>
+      <div class="fact-value" id="dayLength">--</div>
+    </div>
+    <div>
+      <div class="fact-label">MOONS</div>
+      <div class="fact-value" id="moons">--</div>
+    </div>
+    <div>
+      <div class="fact-label">TYPE</div>
+      <div class="fact-value" id="planetType">--</div>
+    </div>
   </div>
- </div>
 </section>
 
-<section id="journey">
- <div class="section-head reveal">
-  <small>CHAPTERS OF MY LIFE</small>
-  <h2>MY <span class="gradient-text">JOURNEY</span></h2>
-  <p>Small steps. New experiences. Bigger dreams.</p>
- </div>
- <div class="timeline reveal">
-  <div class="timeline-item">
-   <small>CHAPTER 01</small><h3>THE BEGINNING</h3>
-   <p>Building curiosity about the world, learning, and discovering personal interests.</p>
-  </div>
-  <div class="timeline-item">
-   <small>CHAPTER 02</small><h3>DISCOVERING MULTIMEDIA</h3>
-   <p>Exploring creative communication, visual design, and digital media.</p>
-  </div>
-  <div class="timeline-item">
-   <small>CHAPTER 03</small><h3>CREATIVE EXPLORATION</h3>
-   <p>Learning to turn ideas into digital concepts and personal creative experiences.</p>
-  </div>
-  <div class="timeline-item">
-   <small>CHAPTER 04</small><h3>THE NEXT CHAPTER</h3>
-   <p>Continuing to learn, experiment, and build a future full of possibilities.</p>
-  </div>
- </div>
-</section>
+<div class="controls">
+  <button class="control-btn" id="pauseBtn">Ⅱ PAUSE</button>
+  <button class="control-btn" id="resetBtn">↺ RESET VIEW</button>
+</div>
 
-<section id="universe">
- <div class="section-head reveal">
-  <small>EXPLORE THE COSMOS</small>
-  <h2>MY <span class="gradient-text">UNIVERSE</span></h2>
-  <p>Choose a planet and discover a little piece of our solar system.</p>
- </div>
- <div class="solar-wrap reveal">
-  <div class="solar">
-   <div class="sun"></div>
-   <div class="orbit o1"><button class="planet p1" aria-label="Mercury" onclick="planet('Mercury','The smallest planet in our solar system, orbiting closest to the Sun.')"></button></div>
-   <div class="orbit o2"><button class="planet p2" aria-label="Venus" onclick="planet('Venus','A bright world with a thick atmosphere and extreme temperatures.')"></button></div>
-   <div class="orbit o3"><button class="planet p3" aria-label="Earth" onclick="planet('Earth','Our home planet, the only world currently known to support life.')"></button></div>
-  </div>
- </div>
- <div class="planet-info reveal">
-  <h3 id="planet-name">WELCOME, EXPLORER</h3>
-  <p id="planet-desc">Select a planet to reveal its story.</p>
- </div>
-</section>
+<div class="bottom-panel">
+  <div class="planet-list" id="planetList"></div>
+</div>
 
-<section id="bmx">
- <div class="section-head reveal">
-  <small>BEYOND THE DIGITAL WORLD</small>
-  <h2>MY <span class="gradient-text">BMX LIFE</span></h2>
-  <p>A hobby that represents freedom, passion, and creativity.</p>
- </div>
- <div class="gallery reveal">
-  <div class="gallery-item"><img src="IMG-20261104-WA0006.jpg" alt="BMX photo one"><div class="gallery-caption">BMX MOMENT 01</div></div>
-  <div class="gallery-item"><img src="IMG-20261104-WA0009.jpg" alt="BMX photo two"><div class="gallery-caption">BMX MOMENT 02</div></div>
-  <div class="gallery-item"><img src="IMG-20261104-WA0011.jpg" alt="BMX photo three"><div class="gallery-caption">BMX MOMENT 03</div></div>
- </div>
-</section>
+<script type="module">
+import * as THREE from
+'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
 
-<section id="highlights">
- <div class="section-head reveal">
-  <small>MY PERSONAL UNIVERSE</small>
-  <h2>PERSONAL <span class="gradient-text">HIGHLIGHTS</span></h2>
-  <p>A collection of interests, creativity, and personal experiences.</p>
- </div>
- <div class="grid">
-  <article class="card highlight-card reveal">
-   <i class="fas fa-laptop-code"></i>
-   <h3>DIGITAL EXPLORER</h3>
-   <p>Exploring the digital world, technology, and new creative possibilities.</p>
-  </article>
-  <article class="card highlight-card reveal">
-   <i class="fas fa-bicycle"></i>
-   <h3>BMX LIFESTYLE</h3>
-   <p>A passion for BMX, freedom, and expressing creativity beyond the screen.</p>
-  </article>
-  <article class="card highlight-card reveal">
-   <i class="fas fa-camera"></i>
-   <h3>CREATIVE MOMENTS</h3>
-   <p>Capturing moments, discovering inspiration, and creating personal memories.</p>
-  </article>
- </div>
-</section>
+import { OrbitControls } from
+'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js';
 
-<section id="skills">
- <div class="section-head reveal">
-  <small>MY CAPABILITIES</small>
-  <h2>SKILLS & <span class="gradient-text">ABILITIES</span></h2>
-  <p>Skills grow through practice and experience.</p>
- </div>
- <div class="grid">
-  <article class="card reveal"><i class="fas fa-code"></i><h3>WEB DEVELOPMENT</h3><p>Exploring website structure, styling, and interactive experiences.</p></article>
-  <article class="card reveal"><i class="fas fa-pen-nib"></i><h3>CREATIVE DESIGN</h3><p>Creating visual concepts and exploring creative ideas.</p></article>
-  <article class="card reveal"><i class="fas fa-photo-film"></i><h3>MULTIMEDIA</h3><p>Understanding digital media and visual communication.</p></article>
-  <article class="card reveal"><i class="fas fa-comments"></i><h3>COMMUNICATION</h3><p>Sharing ideas and expressing thoughts clearly.</p></article>
-  <article class="card reveal"><i class="fas fa-lightbulb"></i><h3>CREATIVE THINKING</h3><p>Exploring different approaches to solve problems.</p></article>
-  <article class="card reveal"><i class="fas fa-rocket"></i><h3>LEARNING MINDSET</h3><p>Always curious and ready to explore new possibilities.</p></article>
- </div>
-</section>
+const container = document.getElementById('space');
 
-<section id="contact">
- <div class="section-head reveal">
-  <small>TRANSMISSION CENTER</small>
-  <h2>LET'S <span class="gradient-text">CONNECT</span></h2>
- </div>
- <div class="contact-box reveal">
-  <h3>READY FOR THE NEXT CHAPTER?</h3>
-  <p>Have an idea or just want to connect? Let's start a conversation.</p>
-  <div class="socials">
-   <a href="https://instagram.com/a.figo19" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i> Instagram</a>
-   <a href="https://wa.me/6283139998411" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-   <a href="mailto:masfigo41@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-  </div>
- </div>
-</section>
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x030611);
+scene.fog = new THREE.FogExp2(0x030611,0.0018);
 
-<footer>
- <p>© 2026 <span>AL CINEMATIC UNIVERSE</span> · CREATED BY FACHRIANSYAH ALFIGO</p>
- <p style="margin-top:8px">ONE UNIVERSE. INFINITE POSSIBILITIES. ✦</p>
-</footer>
+const camera = new THREE.PerspectiveCamera(
+  45,
+  innerWidth/innerHeight,
+  0.1,
+  2000
+);
 
-<button class="top-btn" aria-label="Kembali ke atas" onclick="window.scrollTo({top:0,behavior:'smooth'})"><i class="fas fa-arrow-up"></i></button>
+camera.position.set(0,90,190);
 
-<script>
-function enterUniverse(){
- document.getElementById('intro').classList.add('hide');
-}
-const stars=document.getElementById('stars');
-for(let i=0;i<150;i++){
- const star=document.createElement('span');
- star.className='star';
- star.style.left=Math.random()*100+'%';
- star.style.top=Math.random()*100+'%';
- const size=Math.random()*2.5+1;
- star.style.width=size+'px';
- star.style.height=size+'px';
- star.style.animationDelay=Math.random()*4+'s';
- stars.appendChild(star);
-}
-function planet(name,description){
- document.getElementById('planet-name').textContent=name.toUpperCase();
- document.getElementById('planet-desc').textContent=description;
-}
-const observer=new IntersectionObserver(entries=>{
- entries.forEach(entry=>{
-  if(entry.isIntersecting){
-   entry.target.classList.add('show');
-   observer.unobserve(entry.target);
-  }
- });
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-document.querySelectorAll('nav a').forEach(link=>{
- link.addEventListener('click',()=>{
-  document.querySelector('nav').classList.remove('open');
- });
+const renderer = new THREE.WebGLRenderer({
+  antialias:true,
+  alpha:true
 });
+
+renderer.setSize(innerWidth,innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.25;
+
+container.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera,renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = .045;
+controls.enablePan = true;
+controls.minDistance = 35;
+controls.maxDistance = 420;
+controls.maxPolarAngle = Math.PI*.88;
+controls.target.set(0,0,0);
+
+// LIGHTS
+scene.add(new THREE.AmbientLight(0x8aa8d8,1.1));
+
+const sunLight = new THREE.PointLight(0xffd18a,2200,700,1.5);
+sunLight.position.set(0,0,0);
+scene.add(sunLight);
+
+// STAR FIELD
+const starGeometry = new THREE.BufferGeometry();
+const starPositions = [];
+
+for(let i=0;i<5000;i++){
+  starPositions.push(
+    (Math.random()-.5)*1000,
+    (Math.random()-.5)*600,
+    (Math.random()-.5)*1000
+  );
+}
+
+starGeometry.setAttribute(
+  'position',
+  new THREE.Float32BufferAttribute(starPositions,3)
+);
+
+const stars = new THREE.Points(
+  starGeometry,
+  new THREE.PointsMaterial({
+    color:0xb7d9ff,
+    size:.75,
+    transparent:true,
+    opacity:.85
+  })
+);
+
+scene.add(stars);
+
+// SUN
+const sun = new THREE.Mesh(
+  new THREE.SphereGeometry(5.5,64,64),
+  new THREE.MeshBasicMaterial({color:0xffa72c})
+);
+
+scene.add(sun);
+
+const sunGlow = new THREE.Mesh(
+  new THREE.SphereGeometry(7.2,32,32),
+  new THREE.MeshBasicMaterial({
+    color:0xff781e,
+    transparent:true,
+    opacity:.17,
+    side:THREE.BackSide
+  })
+);
+
+scene.add(sunGlow);
+
+// SUN CORONA
+const corona = new THREE.Mesh(
+  new THREE.SphereGeometry(9,32,32),
+  new THREE.MeshBasicMaterial({
+    color:0xff9c3d,
+    transparent:true,
+    opacity:.055,
+    side:THREE.BackSide
+  })
+);
+
+scene.add(corona);
+
+// PLANET DATA
+const planets = [
+ {
+  name:'Mercury',size:.75,distance:13,
+  color:0xaaa39b,speed:.018,
+  diameter:'4,879 km',day:'58.6 days',
+  moons:'0',type:'Terrestrial',
+  info:'The smallest planet in our solar system and the closest to the Sun.'
+ },
+ {
+  name:'Venus',size:1.15,distance:20,
+  color:0xe5b77c,speed:.013,
+  diameter:'12,104 km',day:'243 days',
+  moons:'0',type:'Terrestrial',
+  info:'A world of intense heat, thick clouds and a mysterious atmosphere.'
+ },
+ {
+  name:'Earth',size:1.3,distance:28,
+  color:0x258cff,speed:.010,
+  diameter:'12,742 km',day:'24 hours',
+  moons:'1',type:'Terrestrial',
+  info:'Our home planet. The only known world with life and vast oceans.'
+ },
+ {
+  name:'Mars',size:.95,distance:37,
+  color:0xd95c38,speed:.008,
+  diameter:'6,779 km',day:'24.6 hours',
+  moons:'2',type:'Terrestrial',
+  info:'The red planet, home to giant volcanoes and ancient river valleys.'
+ },
+ {
+  name:'Jupiter',size:3.8,distance:55,
+  color:0xc99b76,speed:.004,
+  diameter:'139,820 km',day:'9.9 hours',
+  moons:'95+',type:'Gas Giant',
+  info:'The largest planet, famous for its massive storms and Great Red Spot.'
+ },
+ {
+  name:'Saturn',size:3.1,distance:77,
+  color:0xd9bd87,speed:.003,
+  diameter:'116,460 km',day:'10.7 hours',
+  moons:'274',type:'Gas Giant',
+  info:'A spectacular gas giant surrounded by an enormous ring system.'
+ },
+ {
+  name:'Uranus',size:2.0,distance:99,
+  color:0x7ad8df,speed:.002,
+  diameter:'50,724 km',day:'17.2 hours',
+  moons:'28',type:'Ice Giant',
+  info:'An icy giant that rotates almost sideways around the Sun.'
+ },
+ {
+  name:'Neptune',size:1.95,distance:119,
+  color:0x3568e8,speed:.0015,
+  diameter:'49,244 km',day:'16.1 hours',
+  moons:'16',type:'Ice Giant',
+  info:'A distant blue world with incredibly fast winds.'
+ }
+];
+
+const planetObjects = [];
+const orbitGroups = [];
+
+// CREATE ORBITS AND PLANETS
+planets.forEach((data,index)=>{
+
+  const orbitGroup = new THREE.Group();
+  scene.add(orbitGroup);
+  orbitGroups.push(orbitGroup);
+
+  // Orbit line
+  const points=[];
+  for(let i=0;i<=200;i++){
+    const angle=i/200*Math.PI*2;
+    points.push(new THREE.Vector3(
+      Math.cos(angle)*data.distance,
+      0,
+      Math.sin(angle)*data.distance
+    ));
+  }
+
+  const orbitGeometry = new THREE.BufferGeometry().setFromPoints(points);
+
+  const orbitLine = new THREE.LineLoop(
+    orbitGeometry,
+    new THREE.LineBasicMaterial({
+      color:0x42638c,
+      transparent:true,
+      opacity:.38
+    })
+  );
+
+  scene.add(orbitLine);
+
+  // Planet group
+  const group = new THREE.Group();
+  orbitGroup.add(group);
+
+  const geometry = new THREE.SphereGeometry(data.size,48,48);
+
+  const material = new THREE.MeshStandardMaterial({
+    color:data.color,
+    roughness:.88,
+    metalness:.03
+  });
+
+  const planet = new THREE.Mesh(geometry,material);
+  planet.position.x=data.distance;
+  planet.userData.index=index;
+  group.add(planet);
+
+  // Atmosphere glow
+  const glow = new THREE.Mesh(
+    new THREE.SphereGeometry(data.size*1.12,32,32),
+    new THREE.MeshBasicMaterial({
+      color:data.color,
+      transparent:true,
+      opacity:.09,
+      side:THREE.BackSide
+    })
+  );
+
+  planet.add(glow);
+
+  // Earth moon
+  if(data.name==='Earth'){
+    const moonGroup = new THREE.Group();
+    planet.add(moonGroup);
+    moonGroup.position.set(data.size+1,0,0);
+
+    const moon = new THREE.Mesh(
+      new THREE.SphereGeometry(.35,24,24),
+      new THREE.MeshStandardMaterial({
+        color:0xd8dce5,
+        roughness:1
+      })
+    );
+
+    moon.position.x=1.5;
+    moonGroup.add(moon);
+    planet.userData.moonGroup=moonGroup;
+  }
+
+  // Saturn rings
+  if(data.name==='Saturn'){
+    const ring = new THREE.Mesh(
+      new THREE.RingGeometry(data.size*1.3,data.size*2.1,100),
+      new THREE.MeshStandardMaterial({
+        color:0xd6bd94,
+        side:THREE.DoubleSide,
+        transparent:true,
+        opacity:.8,
+        roughness:1
+      })
+    );
+
+    ring.rotation.x=Math.PI/2.35;
+    planet.add(ring);
+  }
+
+  // Jupiter stripes
+  if(data.name==='Jupiter'){
+    const stripe = new THREE.Mesh(
+      new THREE.SphereGeometry(data.size*1.002,48,48),
+      new THREE.MeshBasicMaterial({
+        color:0x9c6349,
+        wireframe:true,
+        transparent:true,
+        opacity:.06
+      })
+    );
+    planet.add(stripe);
+  }
+
+  planetObjects.push({
+    mesh:planet,
+    group:group,
+    data:data,
+    orbitGroup:orbitGroup,
+    angle:Math.random()*Math.PI*2
+  });
+});
+
+// METEORS
+const meteors=[];
+
+for(let i=0;i<9;i++){
+  const meteor = new THREE.Mesh(
+    new THREE.SphereGeometry(.12,8,8),
+    new THREE.MeshBasicMaterial({color:0x8edcff})
+  );
+
+  meteor.position.set(
+    (Math.random()-.5)*250,
+    (Math.random()-.5)*120,
+    (Math.random()-.5)*250
+  );
+
+  scene.add(meteor);
+  meteors.push({
+    mesh:meteor,
+    speed:.15+Math.random()*.3
+  });
+}
+
+// PLANET SELECTOR
+const list = document.getElementById('planetList');
+
+planets.forEach((p,i)=>{
+  const button=document.createElement('button');
+  button.className='planet-btn';
+  button.textContent=p.name.toUpperCase();
+
+  button.addEventListener('click',()=>{
+    selectPlanet(i);
+  });
+
+  list.appendChild(button);
+});
+
+let selectedIndex=-1;
+
+function selectPlanet(index){
+
+  selectedIndex=index;
+
+  const p=planets[index];
+
+  document.getElementById('planetNumber').textContent=
+    'SOLAR SYSTEM / '+String(index+1).padStart(2,'0');
+
+  document.getElementById('planetName').textContent=
+    p.name.toUpperCase();
+
+  document.getElementById('planetInfo').textContent=p.info;
+  document.getElementById('diameter').textContent=p.diameter;
+  document.getElementById('dayLength').textContent=p.day;
+  document.getElementById('moons').textContent=p.moons;
+  document.getElementById('planetType').textContent=p.type;
+
+  document.querySelectorAll('.planet-btn').forEach((btn,i)=>{
+    btn.classList.toggle('active',i===index);
+  });
+}
+
+// RAYCASTER: CLICK PLANET
+const raycaster=new THREE.Raycaster();
+const pointer=new THREE.Vector2();
+
+renderer.domElement.addEventListener('click',(event)=>{
+
+  if(Math.abs(event.clientX-downX)>5 ||
+     Math.abs(event.clientY-downY)>5) return;
+
+  pointer.x=(event.clientX/innerWidth)*2-1;
+  pointer.y=-(event.clientY/innerHeight)*2+1;
+
+  raycaster.setFromCamera(pointer,camera);
+
+  const hits=raycaster.intersectObjects(
+    planetObjects.map(p=>p.mesh),
+    false
+  );
+
+  if(hits.length){
+    selectPlanet(hits[0].object.userData.index);
+  }
+});
+
+let downX=0,downY=0;
+
+renderer.domElement.addEventListener('pointerdown',e=>{
+  downX=e.clientX;
+  downY=e.clientY;
+});
+
+// ANIMATION
+let paused=false;
+const clock=new THREE.Clock();
+
+function animate(){
+
+  requestAnimationFrame(animate);
+
+  const delta=clock.getDelta();
+  const elapsed=clock.elapsedTime;
+
+  controls.update();
+
+  if(!paused){
+
+    sun.rotation.y+=.0015;
+    sunGlow.rotation.y-=.001;
+
+    stars.rotation.y+=.000025;
+
+    planetObjects.forEach((item,index)=>{
+
+      item.angle+=item.data.speed;
+
+      item.group.rotation.y=item.angle;
+      item.mesh.rotation.y+=.004;
+
+      if(item.mesh.userData.moonGroup){
+        item.mesh.userData.moonGroup.rotation.y+=.02;
+      }
+
+      // Subtle vertical movement
+      item.mesh.position.y=
+        Math.sin(elapsed*.5+index)*.12;
+
+    });
+
+    meteors.forEach((m,i)=>{
+      m.mesh.position.x+=m.speed;
+      m.mesh.position.y-=m.speed*.3;
+
+      if(m.mesh.position.x>150){
+        m.mesh.position.x=-150;
+        m.mesh.position.y=(Math.random()-.5)*120;
+      }
+    });
+  }
+
+  renderer.render(scene,camera);
+}
+
+animate();
+
+// PAUSE
+document.getElementById('pauseBtn').addEventListener('click',()=>{
+  paused=!paused;
+  document.getElementById('pauseBtn').textContent=
+    paused?'▶ PLAY':'Ⅱ PAUSE';
+});
+
+// RESET CAMERA
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  camera.position.set(0,90,190);
+  controls.target.set(0,0,0);
+  controls.update();
+});
+
+// RESPONSIVE
+window.addEventListener('resize',()=>{
+  camera.aspect=innerWidth/innerHeight;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(innerWidth,innerHeight);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));
+});
+
+// START
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const loading=document.getElementById('loading');
+    loading.style.opacity='0';
+    setTimeout(()=>loading.remove(),1000);
+  },900);
+});
+
 </script>
 </body>
 </html>
