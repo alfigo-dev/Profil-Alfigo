@@ -8,6 +8,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 <style>
 * {
   margin: 0;
@@ -24,6 +26,7 @@ body {
   overflow-x: hidden;
 }
 
+/* SPACE BACKGROUND */
 #space {
   position: fixed;
   inset: 0;
@@ -78,25 +81,24 @@ body {
   to { transform: translate(100px, -50px) scale(1.2); }
 }
 
-/* ROBOT TERBANG */
+/* FLYING ROBOT */
 .ironman-emoji {
   position: fixed;
-  z-index: -1;
+  z-index: 1;
   left: -120px;
   top: 70%;
-  font-size: 75px;
+  font-size: 65px;
   pointer-events: none;
   filter: drop-shadow(0 0 15px #ff572f);
-  animation: ironmanFlight 15s linear infinite;
+  animation: ironmanFlight 17s linear infinite;
 }
 
 .ironman-emoji::after {
   content: "🔥";
   position: absolute;
-  font-size: 30px;
+  font-size: 27px;
   left: -20px;
   top: 35px;
-  filter: drop-shadow(0 0 12px orange);
 }
 
 @keyframes ironmanFlight {
@@ -124,6 +126,107 @@ body {
   }
 }
 
+/* SPACE DECORATIONS */
+.space-decorations {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.space-item {
+  position: absolute;
+  display: block;
+  opacity: .8;
+  filter: drop-shadow(0 0 12px #68c9ff);
+}
+
+.planet-one {
+  top: 15%;
+  left: 12%;
+  font-size: 48px;
+  animation: floatSpace 6s ease-in-out infinite;
+}
+
+.rocket {
+  top: 35%;
+  right: 8%;
+  font-size: 55px;
+  animation: rocketMove 9s ease-in-out infinite;
+}
+
+.planet-two {
+  top: 65%;
+  left: 7%;
+  font-size: 38px;
+  animation: floatSpace 8s ease-in-out infinite reverse;
+}
+
+.satellite {
+  top: 18%;
+  right: 30%;
+  font-size: 38px;
+  animation: satelliteMove 12s linear infinite;
+}
+
+.moon {
+  top: 78%;
+  right: 15%;
+  font-size: 42px;
+  animation: floatSpace 7s ease-in-out infinite;
+}
+
+.star-one {
+  top: 45%;
+  left: 45%;
+  font-size: 25px;
+  animation: twinkle 2s infinite alternate;
+}
+
+.star-two {
+  top: 85%;
+  left: 65%;
+  font-size: 30px;
+  animation: twinkle 3s infinite alternate;
+}
+
+.alien {
+  top: 55%;
+  right: 25%;
+  font-size: 32px;
+  animation: floatSpace 5s ease-in-out infinite;
+}
+
+.planet-three {
+  top: 8%;
+  right: 5%;
+  font-size: 32px;
+  animation: floatSpace 9s ease-in-out infinite;
+}
+
+@keyframes floatSpace {
+  0%, 100% { transform: translateY(0) rotate(-8deg); }
+  50% { transform: translateY(-25px) rotate(12deg); }
+}
+
+@keyframes rocketMove {
+  0%, 100% { transform: translate(0, 0) rotate(-20deg); }
+  50% { transform: translate(-35px, -45px) rotate(-35deg); }
+}
+
+@keyframes satelliteMove {
+  0% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(-50px) rotate(25deg); }
+  100% { transform: translateX(0) rotate(0deg); }
+}
+
+@keyframes twinkle {
+  from { opacity: .3; transform: scale(.7); }
+  to { opacity: 1; transform: scale(1.3); }
+}
+
+/* METEORS */
 .meteor {
   position: fixed;
   width: 120px;
@@ -146,6 +249,7 @@ body {
   100% { transform: translate(-500px,500px) rotate(-35deg); opacity: 0; }
 }
 
+/* HEADER */
 header {
   position: fixed;
   top: 0;
@@ -154,7 +258,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #050711aa;
+  background: #050711cc;
   backdrop-filter: blur(12px);
   z-index: 10;
   border-bottom: 1px solid #ffffff15;
@@ -168,22 +272,31 @@ header {
   text-shadow: 0 0 15px #ff245b;
 }
 
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
 nav a {
   color: #dce8ff;
   text-decoration: none;
-  margin-left: 22px;
-  font-size: 17px;
+  font-size: 16px;
+  transition: .3s;
 }
 
 nav a:hover { color: #68c9ff; }
 
+/* SECTIONS */
 section {
-  min-height: 100vh;
+  min-height: 85vh;
   padding: 120px 9% 70px;
   position: relative;
+  z-index: 2;
 }
 
 .hero {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -208,7 +321,7 @@ h1 span {
 }
 
 .hero p {
-  max-width: 600px;
+  max-width: 650px;
   font-size: 21px;
   color: #c3cfe2;
   line-height: 1.7;
@@ -239,6 +352,7 @@ h1 span {
   color: #68c9ff;
 }
 
+/* CARDS */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -263,6 +377,7 @@ h1 span {
 .card h3 {
   font-family: Orbitron;
   color: #ff6688;
+  font-size: 17px;
   margin-bottom: 15px;
 }
 
@@ -272,6 +387,7 @@ h1 span {
   line-height: 1.6;
 }
 
+/* SOLAR SYSTEM */
 .planets {
   display: flex;
   flex-wrap: wrap;
@@ -292,14 +408,13 @@ h1 span {
   animation: float 4s ease-in-out infinite alternate;
 }
 
-.planet:nth-child(even) {
-  animation-delay: 1s;
-}
+.planet:nth-child(even) { animation-delay: 1s; }
 
 @keyframes float {
   to { transform: translateY(-18px); }
 }
 
+/* BMX GALLERY */
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -317,18 +432,58 @@ h1 span {
 
 .gallery img:hover { transform: scale(1.03); }
 
+/* CONTACT */
+.contact-card {
+  display: block;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+}
+
+.contact-card i {
+  font-size: 48px;
+  margin-bottom: 20px;
+  color: #68c9ff;
+  filter: drop-shadow(0 0 12px #2878d0);
+  transition: .3s;
+}
+
+.contact-card:hover i {
+  color: #ff426f;
+  transform: scale(1.15);
+}
+
+.contact-card p { overflow-wrap: anywhere; }
+
+/* FOOTER */
 footer {
+  position: relative;
+  z-index: 2;
   text-align: center;
   padding: 30px;
   color: #aebbd0;
   border-top: 1px solid #ffffff20;
 }
 
+/* MOBILE */
 @media(max-width: 650px) {
-  header { padding: 15px 5%; }
-  nav a { margin-left: 9px; font-size: 13px; }
-  section { padding-left: 7%; padding-right: 7%; }
+  header {
+    padding: 15px 5%;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  nav { gap: 10px; }
+  nav a { font-size: 13px; }
+
+  section {
+    padding-left: 7%;
+    padding-right: 7%;
+  }
+
   .ironman-emoji { font-size: 55px; }
+
+  .space-item { opacity: .55; }
 }
 </style>
 </head>
@@ -345,18 +500,35 @@ footer {
 <div class="meteor two"></div>
 <div class="meteor three"></div>
 
+<!-- KARAKTER TERBANG -->
 <div class="ironman-emoji">🤖</div>
+
+<!-- DEKORASI LUAR ANGKASA -->
+<div class="space-decorations">
+  <span class="space-item planet-one">🪐</span>
+  <span class="space-item rocket">🚀</span>
+  <span class="space-item planet-two">🌍</span>
+  <span class="space-item satellite">🛰️</span>
+  <span class="space-item moon">🌙</span>
+  <span class="space-item star-one">⭐</span>
+  <span class="space-item star-two">🌟</span>
+  <span class="space-item alien">👽</span>
+  <span class="space-item planet-three">🪐</span>
+</div>
 
 <header>
   <div class="logo">AL.</div>
   <nav>
     <a href="#home">Home</a>
     <a href="#about">About</a>
-    <a href="#education">Education</a>
+    <a href="#education">Experience</a>
     <a href="#bmx">BMX</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
   </nav>
 </header>
 
+<!-- HOME -->
 <section class="hero" id="home">
   <div class="eyebrow">WELCOME TO MY UNIVERSE</div>
   <h1>HELLO, I'M<br><span>FACHRIANSYAH ALFIGO</span></h1>
@@ -367,38 +539,105 @@ footer {
   <a href="#about" class="btn">EXPLORE MY WORLD ↗</a>
 </section>
 
+<!-- ABOUT -->
 <section id="about">
   <h2 class="section-title">ABOUT ME</h2>
+
   <div class="grid">
     <div class="card">
       <h3>👨‍🚀 Identity</h3>
-      <p>I'm Fachriansyah Alfigo, a multimedia and digital technology student who loves creativity and exploration.</p>
+      <p>
+        I'm Fachriansyah Alfigo, a multimedia and digital
+        technology student who loves creativity and exploration.
+      </p>
     </div>
+
     <div class="card">
       <h3>🌌 Interests</h3>
-      <p>Technology, digital media, website development, design, and BMX.</p>
+      <p>
+        Technology, digital media, website development,
+        design, and BMX.
+      </p>
     </div>
+
     <div class="card">
       <h3>🚀 My Vision</h3>
-      <p>Keep learning, create meaningful projects, and turn ideas into reality.</p>
+      <p>
+        Keep learning, create meaningful projects,
+        and turn ideas into reality.
+      </p>
     </div>
   </div>
 </section>
 
+<!-- EXPERIENCE -->
 <section id="education">
-  <h2 class="section-title">MY JOURNEY</h2>
+  <h2 class="section-title">MY JOURNEY & EXPERIENCE</h2>
+
   <div class="grid">
     <div class="card">
-      <h3>🎓 Education</h3>
-      <p>Homeschooling HSPG Yogyakarta</p>
+      <h3>🎓 Education Journey</h3>
+      <p>
+        My educational journey has helped me develop new knowledge,
+        build confidence, and explore different fields of creativity.
+        I studied at Homeschooling HSPG Yogyakarta and continued
+        exploring multimedia and digital technology.
+      </p>
     </div>
+
     <div class="card">
-      <h3>💻 Multimedia</h3>
-      <p>Learning multimedia management and digital technology.</p>
+      <h3>💻 Website Development</h3>
+      <p>
+        I have explored website creation using WordPress, Joomla,
+        HTML, and CSS. Through personal and academic projects,
+        I learned about website structure, visual appearance,
+        navigation, and user experience.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>🎨 Digital Creativity</h3>
+      <p>
+        I enjoy exploring graphic design, digital content,
+        presentation design, and multimedia concepts.
+        I use creative ideas to build interesting and informative
+        digital experiences.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>🚴 BMX Experience</h3>
+      <p>
+        BMX is one of my personal interests. It has introduced me
+        to new experiences, creativity, discipline, and the
+        importance of continuously developing my abilities.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>🤝 Communication & Teamwork</h3>
+      <p>
+        I continue developing my communication skills, learning
+        how to share ideas, collaborate with others, and adapt
+        to different situations during projects and activities.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>🚀 Future Goals</h3>
+      <p>
+        I want to keep improving my skills in multimedia,
+        technology, and digital creativity. My goal is to create
+        meaningful projects and gain more experience in the
+        digital industry.
+      </p>
     </div>
   </div>
 
-  <h2 class="section-title" style="margin-top:65px">MY SOLAR SYSTEM</h2>
+  <h2 class="section-title" style="margin-top:65px">
+    MY SOLAR SYSTEM
+  </h2>
+
   <div class="planets">
     <div class="planet" title="About">🌍</div>
     <div class="planet" title="Education">🪐</div>
@@ -407,8 +646,10 @@ footer {
   </div>
 </section>
 
+<!-- BMX -->
 <section id="bmx">
   <h2 class="section-title">BMX & MY PASSION</h2>
+
   <p style="font-size:20px;color:#c3cfe2;margin-bottom:25px">
     A place for passion, freedom, and unforgettable moments.
   </p>
@@ -420,12 +661,65 @@ footer {
   </div>
 </section>
 
+<!-- SKILLS -->
 <section id="skills">
   <h2 class="section-title">MY SKILLS</h2>
+
   <div class="grid">
-    <div class="card"><h3>💻 Web Development</h3><p>Exploring website design and development.</p></div>
-    <div class="card"><h3>🎨 Creativity</h3><p>Visual ideas, digital design, and creative thinking.</p></div>
-    <div class="card"><h3>🎬 Multimedia</h3><p>Exploring digital media and content creation.</p></div>
+    <div class="card">
+      <h3>💻 Web Development</h3>
+      <p>Exploring website design and development.</p>
+    </div>
+
+    <div class="card">
+      <h3>🎨 Creativity</h3>
+      <p>Visual ideas, digital design, and creative thinking.</p>
+    </div>
+
+    <div class="card">
+      <h3>🎬 Multimedia</h3>
+      <p>Exploring digital media and content creation.</p>
+    </div>
+
+    <div class="card">
+      <h3>🤝 Communication</h3>
+      <p>Sharing ideas and learning to work with others.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="section-title">LET'S CONNECT</h2>
+
+  <p style="color:#c3cfe2;font-size:20px;margin-bottom:30px">
+    Have a project, idea, or collaboration in mind?
+    Feel free to contact me.
+  </p>
+
+  <div class="grid">
+    <a class="card contact-card"
+       href="https://instagram.com/a.figo19"
+       target="_blank" rel="noopener">
+      <i class="fa-brands fa-instagram"></i>
+      <h3>Instagram</h3>
+      <p>@a.figo19</p>
+    </a>
+
+    <a class="card contact-card"
+       href="https://wa.me/6283139998411"
+       target="_blank" rel="noopener">
+      <i class="fa-brands fa-whatsapp"></i>
+      <h3>WhatsApp</h3>
+      <p>+62 831-3999-8411</p>
+    </a>
+
+    <a class="card contact-card"
+       href="mailto:masfigo41@gmail.com">
+      <i class="fa-solid fa-envelope"></i>
+      <h3>Email</h3>
+      <p>masfigo41@gmail.com</p>
+    </a>
   </div>
 </section>
 
@@ -435,7 +729,8 @@ footer {
 </footer>
 
 <script>
-document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById("year").textContent =
+  new Date().getFullYear();
 </script>
 
 </body>
