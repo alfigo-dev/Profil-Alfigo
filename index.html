@@ -9,735 +9,433 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --red:#a7194b;
-  --burgundy:#801f42;
-  --blue:#2878d0;
-  --cyan:#68c9ff;
-  --white:#f8faff;
-  --muted:#c3cfe2;
-  --bg:#050711;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  background:var(--bg);
-  color:var(--white);
-  font-family:'Rajdhani',sans-serif;
-  overflow-x:hidden;
-}
-a{color:inherit;text-decoration:none}
-button{font:inherit;cursor:pointer}
+html { scroll-behavior: smooth; }
 
-/* SPACE BACKGROUND */
-#space{
-  position:fixed;
-  inset:0;
-  z-index:-5;
-  overflow:hidden;
+body {
+  background: #050711;
+  color: #f8faff;
+  font-family: 'Rajdhani', sans-serif;
+  overflow-x: hidden;
+}
+
+#space {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
   background:
-    radial-gradient(ellipse at 15% 25%,#42132d 0%,transparent 45%),
-    radial-gradient(ellipse at 85% 70%,#102c55 0%,transparent 45%),
+    radial-gradient(ellipse at 15% 25%, #47132f88, transparent 35%),
+    radial-gradient(ellipse at 85% 65%, #102c6388, transparent 40%),
     #050711;
 }
-.stars{
-  position:absolute;
-  inset:0;
+
+.stars {
+  position: absolute;
+  inset: 0;
   background-image:
-    radial-gradient(2px 2px at 20% 30%,white,transparent),
-    radial-gradient(1px 1px at 70% 60%,white,transparent),
-    radial-gradient(2px 2px at 40% 80%,white,transparent),
-    radial-gradient(1px 1px at 90% 20%,white,transparent);
-  background-size:250px 250px;
-  animation:stars 35s linear infinite;
-}
-@keyframes stars{
-  to{transform:translateY(-250px)}
-}
-.nebula{
-  position:absolute;
-  width:550px;
-  height:550px;
-  border-radius:50%;
-  filter:blur(110px);
-  opacity:.2;
-  animation:nebulaMove 15s ease-in-out infinite alternate;
-}
-.nebula.red{background:#a7194b;top:5%;left:-20%}
-.nebula.blue{background:#1266bb;right:-20%;bottom:0}
-@keyframes nebulaMove{
-  to{transform:translate(80px,-60px) scale(1.2)}
+    radial-gradient(2px 2px at 20% 30%, white, transparent),
+    radial-gradient(2px 2px at 70% 20%, white, transparent),
+    radial-gradient(1px 1px at 40% 80%, white, transparent),
+    radial-gradient(2px 2px at 90% 50%, white, transparent),
+    radial-gradient(1px 1px at 10% 90%, white, transparent);
+  background-size: 180px 180px;
+  animation: starsMove 35s linear infinite;
 }
 
-/* METEORS */
-.meteor{
-  position:absolute;
-  width:140px;
-  height:2px;
-  background:linear-gradient(90deg,transparent,var(--cyan),white);
-  transform:rotate(-35deg);
-  opacity:0;
-  animation:meteorMove 6s linear infinite;
-}
-.meteor.one{top:20%;left:80%;animation-delay:1s}
-.meteor.two{top:65%;left:70%;animation-delay:3s}
-.meteor.three{top:40%;left:100%;animation-delay:4.5s}
-@keyframes meteorMove{
-  0%{transform:translate(0,0) rotate(-35deg);opacity:0}
-  10%{opacity:1}
-  60%{transform:translate(-650px,380px) rotate(-35deg);opacity:0}
-  100%{opacity:0}
+@keyframes starsMove {
+  to { transform: translateY(-180px); }
 }
 
-/* IRON MAN FLIGHT */
-.ironman-flight{
-  position:fixed;
-  top:12%;
-  right:-450px;
-  width:390px;
-  z-index:2;
-  pointer-events:none;
-  animation:ironmanFly 14s linear infinite;
+.nebula {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: .25;
+  animation: nebulaMove 12s ease-in-out infinite alternate;
 }
-.ironman-flight img{
-  display:block;
-  width:100%;
-  height:auto;
-  object-fit:contain;
-  filter:drop-shadow(0 0 18px #2878d0);
-  animation:ironmanTilt 2s ease-in-out infinite alternate;
+
+.nebula.red {
+  background: #a7194b;
+  top: 10%;
+  left: -180px;
 }
-.ironman-glow{
-  position:absolute;
-  width:230px;
-  height:12px;
-  left:-145px;
-  top:65%;
-  border-radius:50%;
-  background:linear-gradient(90deg,transparent,#2878d0,#68c9ff,white);
-  filter:blur(9px);
-  transform:rotate(-12deg);
+
+.nebula.blue {
+  background: #1768bd;
+  bottom: -150px;
+  right: -100px;
 }
-@keyframes ironmanFly{
-  0%{
-    right:-450px;
-    top:12%;
-    opacity:0;
+
+@keyframes nebulaMove {
+  to { transform: translate(100px, -50px) scale(1.2); }
+}
+
+/* ROBOT TERBANG */
+.ironman-emoji {
+  position: fixed;
+  z-index: -1;
+  left: -120px;
+  top: 70%;
+  font-size: 75px;
+  pointer-events: none;
+  filter: drop-shadow(0 0 15px #ff572f);
+  animation: ironmanFlight 15s linear infinite;
+}
+
+.ironman-emoji::after {
+  content: "🔥";
+  position: absolute;
+  font-size: 30px;
+  left: -20px;
+  top: 35px;
+  filter: drop-shadow(0 0 12px orange);
+}
+
+@keyframes ironmanFlight {
+  0% {
+    left: -120px;
+    top: 75%;
+    transform: rotate(-15deg);
   }
-  8%{opacity:1}
-  25%{top:25%}
-  50%{top:38%}
-  75%{top:23%}
-  92%{opacity:1}
-  100%{
-    right:110%;
-    top:10%;
-    opacity:0;
+  25% {
+    top: 45%;
+    transform: rotate(5deg);
+  }
+  50% {
+    top: 20%;
+    transform: rotate(-5deg);
+  }
+  75% {
+    top: 40%;
+    transform: rotate(10deg);
+  }
+  100% {
+    left: 110%;
+    top: 65%;
+    transform: rotate(-10deg);
   }
 }
-@keyframes ironmanTilt{
-  from{transform:rotate(-8deg) translateY(-5px)}
-  to{transform:rotate(-15deg) translateY(7px)}
+
+.meteor {
+  position: fixed;
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #8edaff, white);
+  transform: rotate(-35deg);
+  animation: meteor 5s linear infinite;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
 }
 
-/* INTRO */
-#intro{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  background:radial-gradient(circle,#17213b,#050711 70%);
-  transition:opacity 1s,visibility 1s;
-}
-#intro.hide{opacity:0;visibility:hidden}
-.intro-content{padding:25px}
-.intro-logo{
-  font-family:Orbitron;
-  font-size:clamp(65px,15vw,120px);
-  font-weight:900;
-  text-shadow:0 0 20px var(--blue),0 0 45px var(--red);
-  animation:pulse 2s infinite alternate;
-}
-@keyframes pulse{
-  to{text-shadow:0 0 35px var(--cyan),0 0 70px var(--red)}
-}
-.intro-content h2{
-  font-family:Orbitron;
-  letter-spacing:5px;
-  font-size:clamp(15px,3vw,25px);
-  margin:10px 0;
-}
-.intro-content p{color:var(--muted);letter-spacing:3px}
-.main-btn{
-  margin-top:30px;
-  border:1px solid var(--cyan);
-  color:white;
-  background:linear-gradient(100deg,#801f42,#164c89);
-  padding:14px 28px;
-  border-radius:30px;
-  letter-spacing:2px;
-  transition:.3s;
-}
-.main-btn:hover{
-  transform:scale(1.06);
-  box-shadow:0 0 25px var(--blue);
+.meteor.one { top: 15%; left: 70%; }
+.meteor.two { top: 45%; left: 35%; animation-delay: 2s; }
+.meteor.three { top: 5%; left: 90%; animation-delay: 3.5s; }
+
+@keyframes meteor {
+  0% { transform: translate(0,0) rotate(-35deg); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translate(-500px,500px) rotate(-35deg); opacity: 0; }
 }
 
-/* HEADER */
-header{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  z-index:20;
-  padding:18px 7%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  background:rgba(5,7,17,.7);
-  backdrop-filter:blur(15px);
-  border-bottom:1px solid #ffffff15;
-}
-.brand{
-  font-family:Orbitron;
-  font-size:27px;
-  font-weight:900;
-  text-shadow:0 0 15px var(--red);
-}
-nav{display:flex;gap:25px}
-nav a{
-  color:var(--muted);
-  font-size:16px;
-  letter-spacing:1px;
-  transition:.3s;
-}
-nav a:hover{color:var(--cyan)}
-
-/* SECTIONS */
-section{padding:110px 8%;position:relative}
-.hero{
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-}
-.hero-content{
-  max-width:720px;
-  position:relative;
-  z-index:3;
-}
-.eyebrow{
-  color:var(--cyan);
-  letter-spacing:5px;
-  font-family:Orbitron;
-  font-size:12px;
-}
-.hero h1{
-  font-family:Orbitron;
-  font-size:clamp(35px,7vw,75px);
-  line-height:1.15;
-  margin:22px 0;
-}
-.hero h1 span{
-  color:var(--red);
-  text-shadow:0 0 25px #a7194b80;
-}
-.hero p{
-  color:var(--muted);
-  font-size:21px;
-  max-width:570px;
-  line-height:1.6;
-}
-.hero-actions{display:flex;gap:15px;flex-wrap:wrap}
-.outline-btn{
-  margin-top:28px;
-  padding:12px 24px;
-  border:1px solid var(--cyan);
-  border-radius:25px;
-  color:white;
-  background:#0a1830aa;
-  transition:.3s;
-}
-.outline-btn:hover{
-  background:var(--blue);
-  box-shadow:0 0 20px var(--blue);
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #050711aa;
+  backdrop-filter: blur(12px);
+  z-index: 10;
+  border-bottom: 1px solid #ffffff15;
 }
 
-/* TITLES */
-.section-title{
-  font-family:Orbitron;
-  font-size:clamp(25px,4vw,40px);
-  margin-bottom:15px;
-}
-.section-title span{color:var(--cyan)}
-.section-subtitle{
-  color:var(--muted);
-  font-size:18px;
-  margin-bottom:45px;
+.logo {
+  font-family: Orbitron;
+  font-size: 27px;
+  color: #ff426f;
+  font-weight: 900;
+  text-shadow: 0 0 15px #ff245b;
 }
 
-/* CARDS */
-.cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-}
-.card{
-  padding:28px;
-  border:1px solid #ffffff20;
-  border-radius:18px;
-  background:linear-gradient(145deg,#101b31dd,#0b0d19ee);
-  backdrop-filter:blur(10px);
-  transition:.35s;
-}
-.card:hover{
-  transform:translateY(-8px);
-  border-color:var(--cyan);
-  box-shadow:0 10px 35px #2878d030;
-}
-.card .symbol{font-size:30px;margin-bottom:15px}
-.card h3{
-  font-family:Orbitron;
-  font-size:17px;
-  margin-bottom:12px;
-  color:var(--cyan);
-}
-.card p{
-  color:var(--muted);
-  font-size:18px;
-  line-height:1.5;
+nav a {
+  color: #dce8ff;
+  text-decoration: none;
+  margin-left: 22px;
+  font-size: 17px;
 }
 
-/* SOLAR SYSTEM */
-.solar-section{text-align:center}
-.solar-system{
-  position:relative;
-  width:min(650px,90vw);
-  height:min(650px,90vw);
-  margin:40px auto;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.sun{
-  width:85px;
-  height:85px;
-  border-radius:50%;
-  background:radial-gradient(circle,#fff8bd,#ff9c25 60%,#e64b19);
-  box-shadow:0 0 35px #ff9c25,0 0 90px #ff5c23;
-  z-index:2;
-  animation:sunGlow 3s infinite alternate;
-}
-@keyframes sunGlow{
-  to{box-shadow:0 0 60px #ff9c25,0 0 120px #ff5c23}
-}
-.orbit{
-  position:absolute;
-  border:1px solid #ffffff35;
-  border-radius:50%;
-  animation:rotate 18s linear infinite;
-}
-.orbit.one{width:180px;height:180px}
-.orbit.two{width:280px;height:280px;animation-duration:25s}
-.orbit.three{width:390px;height:390px;animation-duration:32s}
-.orbit.four{width:510px;height:510px;animation-duration:40s}
-@keyframes rotate{to{transform:rotate(360deg)}}
-.planet{
-  position:absolute;
-  top:0;
-  left:50%;
-  width:42px;
-  height:42px;
-  border:0;
-  border-radius:50%;
-  transform:translate(-50%,-50%);
-  cursor:pointer;
-}
-.planet.p1{background:linear-gradient(135deg,#aaa,#555);box-shadow:0 0 15px #aaa}
-.planet.p2{background:linear-gradient(135deg,#e4a36b,#7c392c);box-shadow:0 0 15px #e4a36b}
-.planet.p3{background:linear-gradient(135deg,#55baff,#1255aa);box-shadow:0 0 18px #55baff}
-.planet.p4{background:linear-gradient(135deg,#d4a071,#6b3d2b);box-shadow:0 0 15px #d4a071}
-.planet:hover{filter:brightness(1.5)}
-.planet-info{
-  max-width:450px;
-  min-height:130px;
-  margin:20px auto;
-  padding:22px;
-  background:#101b31dd;
-  border:1px solid #68c9ff55;
-  border-radius:16px;
-}
-.planet-info h3{
-  font-family:Orbitron;
-  color:var(--cyan);
-  margin-bottom:10px;
-}
-.planet-info p{color:var(--muted);font-size:18px}
+nav a:hover { color: #68c9ff; }
 
-/* BMX GALLERY */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-}
-.gallery img{
-  width:100%;
-  height:280px;
-  object-fit:cover;
-  border-radius:15px;
-  border:1px solid #ffffff30;
-  transition:.4s;
-}
-.gallery img:hover{
-  transform:scale(1.025);
-  box-shadow:0 0 25px #2878d080;
-}
-.gallery-caption{color:var(--muted);margin-top:10px}
-
-/* TIMELINE */
-.timeline{max-width:750px;margin:auto}
-.timeline-item{
-  border-left:2px solid var(--blue);
-  padding:0 0 35px 25px;
-  position:relative;
-}
-.timeline-item:before{
-  content:"";
-  position:absolute;
-  left:-7px;
-  top:4px;
-  width:12px;
-  height:12px;
-  background:var(--cyan);
-  border-radius:50%;
-  box-shadow:0 0 15px var(--cyan);
-}
-.timeline-item h3{
-  font-family:Orbitron;
-  color:var(--cyan);
-  font-size:17px;
-}
-.timeline-item p{
-  color:var(--muted);
-  font-size:18px;
-  margin-top:8px;
+section {
+  min-height: 100vh;
+  padding: 120px 9% 70px;
+  position: relative;
 }
 
-/* FOOTER */
-footer{
-  padding:40px 20px;
-  text-align:center;
-  border-top:1px solid #ffffff20;
-  color:var(--muted);
-}
-footer strong{font-family:Orbitron;color:var(--cyan)}
-
-/* GUIDE */
-.guide{
-  position:fixed;
-  bottom:22px;
-  right:20px;
-  z-index:30;
-  border:1px solid var(--cyan);
-  background:#101b31;
-  color:white;
-  border-radius:50%;
-  width:55px;
-  height:55px;
-  font-size:25px;
-  box-shadow:0 0 20px #2878d060;
-}
-.guide-message{
-  display:none;
-  position:fixed;
-  right:20px;
-  bottom:90px;
-  z-index:30;
-  width:230px;
-  background:#101b31;
-  border:1px solid var(--cyan);
-  border-radius:14px;
-  padding:18px;
-  color:var(--muted);
-}
-.guide-message.show{display:block}
-
-/* MOBILE */
-@media(max-width:800px){
-  header{padding:15px 5%}
-  nav{gap:12px}
-  nav a{font-size:13px}
-  section{padding:100px 6%}
-  .solar-system{width:90vw;height:90vw}
-  .orbit.one{width:27vw;height:27vw}
-  .orbit.two{width:43vw;height:43vw}
-  .orbit.three{width:60vw;height:60vw}
-  .orbit.four{width:78vw;height:78vw}
-  .planet{width:30px;height:30px}
-  .ironman-flight{width:260px}
-}
-@media(max-width:480px){
-  nav{gap:9px}
-  nav a{font-size:11px}
-  .brand{font-size:22px}
-  .hero p{font-size:18px}
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* REDUCE MOTION */
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    scroll-behavior:auto!important;
-  }
+.eyebrow {
+  color: #68c9ff;
+  letter-spacing: 5px;
+  font-size: 16px;
+}
+
+h1 {
+  font-family: Orbitron;
+  font-size: clamp(35px, 7vw, 75px);
+  line-height: 1.2;
+  margin: 20px 0;
+}
+
+h1 span {
+  color: #ff426f;
+  text-shadow: 0 0 25px #ff245b77;
+}
+
+.hero p {
+  max-width: 600px;
+  font-size: 21px;
+  color: #c3cfe2;
+  line-height: 1.7;
+}
+
+.btn {
+  display: inline-block;
+  width: fit-content;
+  margin-top: 30px;
+  padding: 13px 28px;
+  color: white;
+  text-decoration: none;
+  border: 1px solid #68c9ff;
+  border-radius: 30px;
+  box-shadow: 0 0 18px #2878d055;
+  transition: .3s;
+}
+
+.btn:hover {
+  background: #2878d0;
+  transform: translateY(-4px);
+}
+
+.section-title {
+  font-family: Orbitron;
+  font-size: clamp(28px, 5vw, 43px);
+  margin-bottom: 35px;
+  color: #68c9ff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+}
+
+.card {
+  padding: 28px;
+  background: #111a2acc;
+  border: 1px solid #ffffff20;
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  transition: .3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: #68c9ff;
+  box-shadow: 0 0 25px #2878d033;
+}
+
+.card h3 {
+  font-family: Orbitron;
+  color: #ff6688;
+  margin-bottom: 15px;
+}
+
+.card p {
+  color: #c3cfe2;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.planets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 35px;
+}
+
+.planet {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 48px;
+  background: #162947;
+  box-shadow: 0 0 30px #2878d077;
+  animation: float 4s ease-in-out infinite alternate;
+}
+
+.planet:nth-child(even) {
+  animation-delay: 1s;
+}
+
+@keyframes float {
+  to { transform: translateY(-18px); }
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.gallery img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid #ffffff33;
+  transition: .3s;
+}
+
+.gallery img:hover { transform: scale(1.03); }
+
+footer {
+  text-align: center;
+  padding: 30px;
+  color: #aebbd0;
+  border-top: 1px solid #ffffff20;
+}
+
+@media(max-width: 650px) {
+  header { padding: 15px 5%; }
+  nav a { margin-left: 9px; font-size: 13px; }
+  section { padding-left: 7%; padding-right: 7%; }
+  .ironman-emoji { font-size: 55px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- SPACE -->
 <div id="space">
   <div class="stars"></div>
   <div class="nebula red"></div>
   <div class="nebula blue"></div>
-  <div class="meteor one"></div>
-  <div class="meteor two"></div>
-  <div class="meteor three"></div>
 </div>
 
-<!-- IRON MAN -->
-<div class="ironman-flight" aria-hidden="true">
-  <div class="ironman-glow"></div>
-  <img src="ironman.png" alt="Iron Man sedang terbang">
-</div>
+<div class="meteor one"></div>
+<div class="meteor two"></div>
+<div class="meteor three"></div>
 
-<!-- INTRO -->
-<div id="intro">
-  <div class="intro-content">
-    <div class="intro-logo">AL</div>
-    <h2>FACHRIANSYAH ALFIGO</h2>
-    <p>MY PERSONAL UNIVERSE</p>
-    <button class="main-btn" onclick="enterUniverse()">
-      ENTER MY UNIVERSE ↗
-    </button>
-  </div>
-</div>
+<div class="ironman-emoji">🤖</div>
 
-<!-- NAVIGATION -->
 <header>
-  <a href="#home" class="brand">AL</a>
+  <div class="logo">AL.</div>
   <nav>
     <a href="#home">Home</a>
     <a href="#about">About</a>
-    <a href="#universe">Universe</a>
+    <a href="#education">Education</a>
     <a href="#bmx">BMX</a>
-    <a href="#skills">Skills</a>
   </nav>
 </header>
 
-<main>
-
-<!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-content">
-    <div class="eyebrow">WELCOME TO MY WORLD</div>
-    <h1>
-      HELLO, I'M<br>
-      <span>FACHRIANSYAH</span><br>
-      ALFIGO.
-    </h1>
-    <p>
-      A multimedia and digital enthusiast with a passion for creativity,
-      technology, sports, and exploring new possibilities.
-    </p>
-    <div class="hero-actions">
-      <a class="outline-btn" href="#about">DISCOVER MY STORY ↗</a>
-      <a class="outline-btn" href="#bmx">MY BMX JOURNEY</a>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-title">ABOUT <span>ME</span></div>
-  <p class="section-subtitle">A little introduction about who I am.</p>
-
-  <div class="cards">
-    <div class="card">
-      <div class="symbol">🚀</div>
-      <h3>IDENTITY</h3>
-      <p>My name is Fachriansyah Alfigo. I enjoy learning, creating, and exploring new experiences.</p>
-    </div>
-
-    <div class="card">
-      <div class="symbol">🎓</div>
-      <h3>EDUCATION</h3>
-      <p>Studying Multimedia and Digital Management at STMM Yogyakarta.</p>
-    </div>
-
-    <div class="card">
-      <div class="symbol">🏁</div>
-      <h3>INTEREST</h3>
-      <p>Interested in BMX, digital creativity, technology, and sports.</p>
-    </div>
-  </div>
-</section>
-
-<!-- SOLAR SYSTEM -->
-<section class="solar-section" id="universe">
-  <div class="section-title">MY <span>UNIVERSE</span></div>
-  <p class="section-subtitle">
-    Explore the planets to discover different parts of my journey.
+  <div class="eyebrow">WELCOME TO MY UNIVERSE</div>
+  <h1>HELLO, I'M<br><span>FACHRIANSYAH ALFIGO</span></h1>
+  <p>
+    A creative mind exploring multimedia, digital technology,
+    creativity, and new experiences.
   </p>
+  <a href="#about" class="btn">EXPLORE MY WORLD ↗</a>
+</section>
 
-  <div class="solar-system">
-    <div class="sun"></div>
-
-    <div class="orbit one">
-      <button class="planet p1" aria-label="About Me"
-        onclick="showPlanet('About Me','I am Fachriansyah Alfigo, someone who enjoys learning and exploring new things.')">
-      </button>
+<section id="about">
+  <h2 class="section-title">ABOUT ME</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>👨‍🚀 Identity</h3>
+      <p>I'm Fachriansyah Alfigo, a multimedia and digital technology student who loves creativity and exploration.</p>
     </div>
-
-    <div class="orbit two">
-      <button class="planet p2" aria-label="Education"
-        onclick="showPlanet('Education','I study Multimedia and Digital Management at STMM Yogyakarta.')">
-      </button>
+    <div class="card">
+      <h3>🌌 Interests</h3>
+      <p>Technology, digital media, website development, design, and BMX.</p>
     </div>
-
-    <div class="orbit three">
-      <button class="planet p3" aria-label="BMX Journey"
-        onclick="showPlanet('BMX Journey','BMX is one of my passions. It has taught me discipline, courage, and consistency.')">
-      </button>
+    <div class="card">
+      <h3>🚀 My Vision</h3>
+      <p>Keep learning, create meaningful projects, and turn ideas into reality.</p>
     </div>
-
-    <div class="orbit four">
-      <button class="planet p4" aria-label="My Skills"
-        onclick="showPlanet('My Skills','Creativity, communication, digital media, teamwork, and willingness to learn.')">
-      </button>
-    </div>
-  </div>
-
-  <div class="planet-info" id="planetInfo">
-    <h3>SELECT A PLANET</h3>
-    <p>Click one of the planets to explore my universe.</p>
   </div>
 </section>
 
-<!-- BMX -->
+<section id="education">
+  <h2 class="section-title">MY JOURNEY</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>🎓 Education</h3>
+      <p>Homeschooling HSPG Yogyakarta</p>
+    </div>
+    <div class="card">
+      <h3>💻 Multimedia</h3>
+      <p>Learning multimedia management and digital technology.</p>
+    </div>
+  </div>
+
+  <h2 class="section-title" style="margin-top:65px">MY SOLAR SYSTEM</h2>
+  <div class="planets">
+    <div class="planet" title="About">🌍</div>
+    <div class="planet" title="Education">🪐</div>
+    <div class="planet" title="Creativity">☀️</div>
+    <div class="planet" title="Future">🌙</div>
+  </div>
+</section>
+
 <section id="bmx">
-  <div class="section-title">MY BMX <span>JOURNEY</span></div>
-  <p class="section-subtitle">A passion that has become part of my story.</p>
+  <h2 class="section-title">BMX & MY PASSION</h2>
+  <p style="font-size:20px;color:#c3cfe2;margin-bottom:25px">
+    A place for passion, freedom, and unforgettable moments.
+  </p>
 
   <div class="gallery">
-    <div>
-      <img src="IMG-20261104-WA0006.jpg" alt="BMX journey photo 1">
-      <p class="gallery-caption">BMX Moment 01</p>
-    </div>
-
-    <div>
-      <img src="IMG-20261104-WA0009.jpg" alt="BMX journey photo 2">
-      <p class="gallery-caption">BMX Moment 02</p>
-    </div>
-
-    <div>
-      <img src="IMG-20261104-WA0011.jpg" alt="BMX journey photo 3">
-      <p class="gallery-caption">BMX Moment 03</p>
-    </div>
+    <img src="IMG-20261104-WA0006.jpg" alt="BMX moment 1">
+    <img src="IMG-20261104-WA0009.jpg" alt="BMX moment 2">
+    <img src="IMG-20261104-WA0011.jpg" alt="BMX moment 3">
   </div>
 </section>
 
-<!-- SKILLS -->
 <section id="skills">
-  <div class="section-title">MY <span>SKILLS</span></div>
-  <p class="section-subtitle">Things I enjoy learning and developing.</p>
-
-  <div class="cards">
-    <div class="card">
-      <div class="symbol">💻</div>
-      <h3>DIGITAL MEDIA</h3>
-      <p>Interested in websites, multimedia, and digital content.</p>
-    </div>
-
-    <div class="card">
-      <div class="symbol">🎨</div>
-      <h3>CREATIVITY</h3>
-      <p>Enjoy developing ideas and turning them into creative projects.</p>
-    </div>
-
-    <div class="card">
-      <div class="symbol">🤝</div>
-      <h3>COMMUNICATION</h3>
-      <p>Working with others, sharing ideas, and learning together.</p>
-    </div>
+  <h2 class="section-title">MY SKILLS</h2>
+  <div class="grid">
+    <div class="card"><h3>💻 Web Development</h3><p>Exploring website design and development.</p></div>
+    <div class="card"><h3>🎨 Creativity</h3><p>Visual ideas, digital design, and creative thinking.</p></div>
+    <div class="card"><h3>🎬 Multimedia</h3><p>Exploring digital media and content creation.</p></div>
   </div>
 </section>
 
-<!-- TIMELINE -->
-<section id="journey">
-  <div class="section-title">MY <span>TIMELINE</span></div>
-  <p class="section-subtitle">A continuous journey of learning and growth.</p>
-
-  <div class="timeline">
-    <div class="timeline-item">
-      <h3>THE BMX CHAPTER</h3>
-      <p>Building experience through BMX and developing discipline through sports.</p>
-    </div>
-
-    <div class="timeline-item">
-      <h3>THE EDUCATION CHAPTER</h3>
-      <p>Exploring multimedia and digital management at STMM Yogyakarta.</p>
-    </div>
-
-    <div class="timeline-item">
-      <h3>THE DIGITAL CHAPTER</h3>
-      <p>Creating projects, learning new technologies, and developing creative skills.</p>
-    </div>
-
-    <div class="timeline-item">
-      <h3>THE NEXT CHAPTER</h3>
-      <p>Continuing to grow, explore, and create new possibilities.</p>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<!-- FOOTER -->
 <footer>
-  <strong>AL — FACHRIANSYAH ALFIGO</strong>
-  <p style="margin-top:10px">Every journey has a universe of its own.</p>
-  <p style="margin-top:8px">
-    © <span id="year"></span> All Rights Reserved.
-  </p>
+  <p>© <span id="year"></span> AL — Fachriansyah Alfigo</p>
+  <p>BUILT WITH CREATIVITY & PASSION 🚀</p>
 </footer>
 
-<!-- GUIDE -->
-<button class="guide" onclick="toggleGuide()" aria-label="Open guide">✦</button>
-
-<div class="guide-message" id="guideMessage">
-  Welcome to my universe! Explore the planets and discover my story.
-</div>
-
 <script>
-function enterUniverse(){
-  document.getElementById('intro').classList.add('hide');
-}
-
-function showPlanet(title,description){
-  const box=document.getElementById('planetInfo');
-  box.innerHTML='<h3>'+title+'</h3><p>'+description+'</p>';
-}
-
-function toggleGuide(){
-  document.getElementById('guideMessage').classList.toggle('show');
-}
-
-document.getElementById('year').textContent=new Date().getFullYear();
+document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 
 </body>
