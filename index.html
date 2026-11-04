@@ -3,484 +3,432 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AL — Cinematic Multiverse</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AL — Multiverse Experience</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#02040d;color:#fff;font-family:Arial,sans-serif;overflow:hidden}
-#universe{position:fixed;inset:0;width:100%;height:100%;display:block}
-.vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse,transparent 35%,#02040dbb 100%);z-index:1}
-header{position:fixed;top:0;left:0;right:0;padding:24px 5%;display:flex;justify-content:space-between;align-items:center;z-index:4}
-.brand{font-size:19px;font-weight:900;letter-spacing:4px;color:#e6d09a}
-.brand small{display:block;font-size:9px;letter-spacing:3px;color:#8ea7c9;margin-top:5px}
-.system{font-size:9px;letter-spacing:2px;color:#9db6d8}
-.hero{position:fixed;z-index:3;left:7%;top:29%;max-width:500px;pointer-events:none;transition:.4s}
-.hero.hide{opacity:0;transform:translateY(20px)}
-.kicker{color:#d8bd80;letter-spacing:5px;font-size:10px}
-h1{font-size:clamp(42px,8vw,86px);line-height:.9;letter-spacing:-4px;margin:20px 0;font-weight:900}
-h1 span{color:#d7bd80}
-.hero p{color:#b0bfd5;line-height:1.8;font-size:13px;max-width:390px}
-.buttons{display:flex;gap:10px;margin-top:25px;pointer-events:auto;flex-wrap:wrap}
-button{cursor:pointer;color:#fff;background:#111d35d9;border:1px solid #8ea9d566;padding:12px 16px;font-size:10px;letter-spacing:1.5px;border-radius:4px;transition:.25s}
-button:hover{background:#d9c18b;color:#07101c;transform:translateY(-2px)}
-.primary{background:#d9c18b;color:#080d18;border-color:#d9c18b}
-nav{position:fixed;z-index:4;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:7px;justify-content:center;width:95%;flex-wrap:wrap}
-nav button{font-size:9px;padding:11px 12px}
-.panel{display:none;position:fixed;z-index:6;right:5%;top:17%;width:min(410px,90%);max-height:70vh;overflow:auto;padding:26px;background:linear-gradient(145deg,#111e36f5,#050a17f5);border:1px solid #b8c8e355;box-shadow:0 15px 70px #000b;border-radius:9px}
-.panel.open{display:block;animation:show .35s ease}
-@keyframes show{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
-.panel h2{font-size:27px;color:#e5ca8d;margin:14px 0}
-.panel p,.panel li{font-size:13px;line-height:1.8;color:#c1cce0}
-.panel .eyebrow{font-size:9px;letter-spacing:3px;color:#8daed9}
-.panel .line{border-bottom:1px solid #ffffff20;padding:12px 0;display:flex;justify-content:space-between;gap:10px;font-size:12px;color:#b6c6dc}
-.panel .line b{color:#e5ce99;text-align:right}
-.close{float:right;padding:8px 11px}
-.character{padding:13px;margin:10px 0;border:1px solid #ffffff24;background:#ffffff08;border-radius:5px}
-.character b{color:#e5ca8d}
-.character small{display:block;color:#a7b9d3;line-height:1.6;margin-top:5px}
-#hint{position:fixed;z-index:3;bottom:90px;left:50%;transform:translateX(-50%);color:#8da4c6;font-size:9px;letter-spacing:2px;text-align:center;white-space:nowrap}
-#controls{display:none;position:fixed;z-index:5;left:15px;bottom:100px}
-#controls button{width:42px;height:42px;padding:0;border-radius:50%;margin:2px}
-footer{position:fixed;right:5%;bottom:29px;z-index:3;color:#7084a4;font-size:9px;letter-spacing:2px}
+body{margin:0;background:#02030a;color:white;font-family:Arial,sans-serif;overflow:hidden}
+canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;background:linear-gradient(90deg,#02040be8,transparent 75%),linear-gradient(0deg,#02040b 0%,transparent 45%)}
+header{position:fixed;top:0;left:0;right:0;padding:25px 6%;display:flex;justify-content:space-between;z-index:5}
+.logo{font-weight:900;letter-spacing:5px;color:#d8c18c}
+.logo small{display:block;font-size:9px;letter-spacing:3px;color:#9daec9;margin-top:7px}
+.status{font-size:9px;letter-spacing:3px;color:#a7bad7}
+.hero{position:fixed;left:8%;top:27%;z-index:3;max-width:550px}
+.tag{font-size:10px;letter-spacing:5px;color:#d7bd7f}
+h1{font-size:clamp(48px,8vw,100px);line-height:.88;letter-spacing:-5px;margin:22px 0;font-weight:900}
+h1 span{color:#d7bd7f}
+p{font-size:14px;line-height:1.9;color:#aebbd0;max-width:430px}
+.buttons{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+button{cursor:pointer;background:#111b2c;border:1px solid #9aabc866;color:white;padding:14px 19px;letter-spacing:2px;font-size:9px;transition:.25s}
+button:hover{background:#d8c18c;color:#050811}
+.primary{background:#d8c18c;color:#080b12}
+nav{position:fixed;z-index:5;bottom:25px;left:50%;transform:translateX(-50%);display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:95%}
+nav button{padding:11px 14px;background:#07101cdd}
+.panel{display:none;position:fixed;z-index:8;right:6%;top:17%;width:min(420px,88%);max-height:70vh;overflow:auto;background:#07101cee;border:1px solid #b9c9e455;padding:26px;box-shadow:0 0 70px #000}
+.panel.show{display:block;animation:in .4s ease}
+@keyframes in{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.panel h2{color:#e3c98d;font-size:27px}
+.panel p{font-size:13px}
+.close{float:right}
+.line{padding:12px 0;border-bottom:1px solid #ffffff20;font-size:12px;color:#b5c4d9}
+.line b{float:right;color:#e2c88e}
+#hint{position:fixed;bottom:92px;left:50%;transform:translateX(-50%);z-index:3;color:#899bb8;font-size:9px;letter-spacing:3px;white-space:nowrap}
 @media(max-width:650px){
- header{padding:18px 5%}.system{font-size:8px}
- .hero{top:24%;left:7%;right:7%}
- .hero p{font-size:12px;max-width:300px}
- h1{font-size:54px}
+ header{padding:18px 5%}.status{font-size:7px}
+ .hero{left:7%;right:7%;top:25%}
+ h1{font-size:57px}
+ .hero p{font-size:12px}
  nav{bottom:12px;gap:5px}
- nav button{padding:9px 8px;font-size:8px}
- #hint{bottom:83px;font-size:8px}
- #controls{display:block}
- footer{display:none}
- .panel{top:12%;max-height:69vh}
+ nav button{font-size:8px;padding:9px}
+ #hint{font-size:7px;bottom:85px}
+ .panel{top:12%;right:5%;width:90%}
 }
 </style>
 </head>
 <body>
-<canvas id="universe"></canvas>
-<div class="vignette"></div>
+<canvas id="space"></canvas>
 
 <header>
- <div class="brand">AL / MULTIVERSE<small>AN INFINITE DIGITAL JOURNEY</small></div>
- <div class="system">● COSMIC SYSTEM ONLINE</div>
+ <div class="logo">AL / MULTIVERSE<small>THE INFINITE EXPERIENCE</small></div>
+ <div class="status">● SYSTEM ONLINE · 2026</div>
 </header>
 
 <section class="hero" id="hero">
- <div class="kicker">WELCOME TO ANOTHER DIMENSION</div>
- <h1>BEYOND<br>THE <span>UNIVERSE.</span></h1>
- <p>Explore the infinite. Discover new worlds. This is the digital universe of Fachriansyah Alfigo — where creativity meets imagination.</p>
+ <div class="tag">A NEW WORLD IS WAITING</div>
+ <h1>ENTER<br>THE <span>UNKNOWN.</span></h1>
+ <p>Beyond the stars, beyond imagination. Welcome to the universe of Fachriansyah Alfigo — a journey through creativity, technology and infinite possibilities.</p>
  <div class="buttons">
-  <button class="primary" onclick="openPanel('about')">ENTER MY UNIVERSE ↗</button>
-  <button onclick="flyMode()">ACTIVATE FLIGHT</button>
+  <button class="primary" onclick="openPanel('about')">DISCOVER MY STORY ↗</button>
+  <button onclick="fly()">START EXPLORING</button>
  </div>
 </section>
 
 <section class="panel" id="panel">
  <button class="close" onclick="closePanel()">CLOSE ✕</button>
- <div class="eyebrow" id="eyebrow">COSMIC ARCHIVE</div>
- <h2 id="panelTitle">WELCOME</h2>
- <div id="panelContent"></div>
+ <div class="tag" id="tag">MULTIVERSE DATABASE</div>
+ <h2 id="heading">WELCOME</h2>
+ <div id="content"></div>
 </section>
 
-<div id="controls">
- <button onclick="move('up')">▲</button><br>
- <button onclick="move('left')">◀</button>
- <button onclick="move('down')">▼</button>
- <button onclick="move('right')">▶</button>
-</div>
-
-<div id="hint">DRAG TO LOOK AROUND · SELECT A WORLD TO EXPLORE</div>
+<div id="hint">DRAG TO ROTATE THE COSMIC VIEW</div>
 
 <nav>
- <button onclick="openPanel('about')">MY PROFILE</button>
+ <button onclick="openPanel('about')">MY STORY</button>
  <button onclick="openPanel('education')">EDUCATION</button>
  <button onclick="openPanel('bmx')">BMX JOURNEY</button>
- <button onclick="openPanel('ironman')">IRON MAN</button>
- <button onclick="openPanel('thor')">THOR</button>
- <button onclick="openPanel('avengers')">AVENGERS</button>
- <button onclick="openPanel('skills')">MY SKILLS</button>
+ <button onclick="openPanel('iron')">STARK WORLD</button>
+ <button onclick="openPanel('thor')">ASGARD</button>
+ <button onclick="openPanel('avengers')">HEROES</button>
 </nav>
-<footer>AL MULTIVERSE · 2026</footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.170.0/three.min.js"></script>
-<script>
-const canvas=document.getElementById('universe');
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import {EffectComposer} from 'three/addons/postprocessing/EffectComposer.js';
+import {RenderPass} from 'three/addons/postprocessing/RenderPass.js';
+import {UnrealBloomPass} from 'three/addons/postprocessing/UnrealBloomPass.js';
+
 const scene=new THREE.Scene();
-scene.background=new THREE.Color(0x02040d);
-scene.fog=new THREE.FogExp2(0x02040d,.0008);
+scene.background=new THREE.Color(0x02030a);
+scene.fog=new THREE.FogExp2(0x02030a,.00065);
 
-const camera=new THREE.PerspectiveCamera(65,innerWidth/innerHeight,.1,3000);
-camera.position.set(0,65,190);
+const camera=new THREE.PerspectiveCamera(55,innerWidth/innerHeight,.1,4000);
+camera.position.set(0,55,180);
 
-const renderer=new THREE.WebGLRenderer({canvas,antialias:true});
+const renderer=new THREE.WebGLRenderer({canvas:document.querySelector('#space'),antialias:true});
 renderer.setSize(innerWidth,innerHeight);
-renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.8));
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.25;
 
-scene.add(new THREE.AmbientLight(0x8aa3d0,1.5));
-const light=new THREE.PointLight(0xffc879,2500,1000);
-scene.add(light);
+const composer=new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene,camera));
+const bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),1.1,.55,.15);
+composer.addPass(bloom);
 
-function makeGlow(color){
- const c=document.createElement('canvas');c.width=c.height=128;
- const ctx=c.getContext('2d');
- const g=ctx.createRadialGradient(64,64,0,64,64,64);
- g.addColorStop(0,'rgba(255,255,255,1)');
- g.addColorStop(.18,'rgba(255,255,255,.65)');
- g.addColorStop(1,'rgba(255,255,255,0)');
- ctx.fillStyle=g;ctx.fillRect(0,0,128,128);
- return new THREE.Sprite(new THREE.SpriteMaterial({
-  map:new THREE.CanvasTexture(c),color,transparent:true,
-  blending:THREE.AdditiveBlending,depthWrite:false
- }));
+scene.add(new THREE.AmbientLight(0x8294bb,1.4));
+const sunLight=new THREE.PointLight(0xffb85e,3000,1300);
+sunLight.position.set(-100,60,-130);
+scene.add(sunLight);
+
+function glow(color,size){
+ const material=new THREE.SpriteMaterial({
+  map:new THREE.TextureLoader().load(
+   'https://threejs.org/examples/textures/sprites/glow.png'
+  ),
+  color,transparent:true,blending:THREE.AdditiveBlending,
+  depthWrite:false
+ });
+ const sprite=new THREE.Sprite(material);
+ sprite.scale.set(size,size,1);
+ return sprite;
 }
 
-// STAR FIELD
-const starGeo=new THREE.BufferGeometry();
-const starPos=[];
-for(let i=0;i<6500;i++){
- starPos.push((Math.random()-.5)*1800,(Math.random()-.5)*1000,(Math.random()-.5)*1800);
+// Deep space starfield
+const starGeometry=new THREE.BufferGeometry();
+const positions=[];
+for(let i=0;i<9000;i++){
+ positions.push(
+  (Math.random()-.5)*2400,
+  (Math.random()-.5)*1300,
+  (Math.random()-.5)*2400
+ );
 }
-starGeo.setAttribute('position',new THREE.Float32BufferAttribute(starPos,3));
-const starField=new THREE.Points(starGeo,new THREE.PointsMaterial({
- color:0xd9e9ff,size:1.5,transparent:true,opacity:.9
+starGeometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));
+const stars=new THREE.Points(starGeometry,new THREE.PointsMaterial({
+ color:0xddeaff,size:1.4,transparent:true,opacity:.9
 }));
-scene.add(starField);
+scene.add(stars);
 
-// NEBULA CLOUDS
-const nebulaGroup=new THREE.Group();
-for(let i=0;i<20;i++){
- const n=makeGlow([0x345cba,0x8b42b8,0x236e99,0x9d5a78][i%4]);
- n.position.set((Math.random()-.5)*650,(Math.random()-.5)*250,-300-Math.random()*500);
- n.scale.set(100+Math.random()*130,80+Math.random()*120,1);
- nebulaGroup.add(n);
-}
-scene.add(nebulaGroup);
+// Giant cinematic planet
+const planetGroup=new THREE.Group();
+planetGroup.position.set(105,15,-160);
+scene.add(planetGroup);
 
-// SUN
-const sun=new THREE.Mesh(
- new THREE.SphereGeometry(15,48,48),
- new THREE.MeshBasicMaterial({color:0xffc46b})
+const planet=new THREE.Mesh(
+ new THREE.SphereGeometry(55,96,96),
+ new THREE.MeshStandardMaterial({
+  color:0x274b85,roughness:.85,metalness:.1
+ })
 );
-sun.position.set(-40,10,-100);
+planetGroup.add(planet);
+
+const planetGlow=glow(0x367dff,180);
+planetGlow.position.set(0,0,0);
+planetGroup.add(planetGlow);
+
+const atmosphere=new THREE.Mesh(
+ new THREE.SphereGeometry(57,96,96),
+ new THREE.MeshBasicMaterial({
+  color:0x498dff,transparent:true,opacity:.12,
+  side:THREE.BackSide
+ })
+);
+planetGroup.add(atmosphere);
+
+// Ring
+const ring=new THREE.Mesh(
+ new THREE.TorusGeometry(85,1.1,5,180),
+ new THREE.MeshBasicMaterial({color:0x9ab9e8,transparent:true,opacity:.45})
+);
+ring.rotation.x=1.25;
+planetGroup.add(ring);
+
+// Sun
+const sun=new THREE.Mesh(
+ new THREE.SphereGeometry(18,64,64),
+ new THREE.MeshBasicMaterial({color:0xffc46e})
+);
+sun.position.set(-115,30,-190);
 scene.add(sun);
-const sunAura=makeGlow(0xffa73c);
-sunAura.position.copy(sun.position);
-sunAura.scale.set(100,100,1);
-scene.add(sunAura);
+const sunGlow=glow(0xff9c35,150);
+sunGlow.position.copy(sun.position);
+scene.add(sunGlow);
 
-// PLANETS AND WORLDS
-const worlds=[
- {id:'about',name:'EARTH',color:0x3e9ce8,x:45,z:-30,r:7},
- {id:'education',name:'ACADEMIA',color:0x9876d8,x:105,z:-100,r:9},
- {id:'bmx',name:'RACING WORLD',color:0xe5a14e,x:-110,z:-130,r:8},
- {id:'ironman',name:'STARK WORLD',color:0xd34c43,x:-170,z:40,r:10},
- {id:'thor',name:'ASGARD',color:0x65b9ec,x:160,z:70,r:11},
- {id:'avengers',name:'AVENGERS',color:0x9b79c8,x:0,z:-230,r:13},
- {id:'skills',name:'CREATIVE WORLD',color:0x53c9a8,x:0,z:100,r:8}
-];
-const planetMeshes=[];
-
-worlds.forEach(w=>{
- const group=new THREE.Group();
- group.position.set(w.x,0,w.z);
- scene.add(group);
-
- const planet=new THREE.Mesh(
-  new THREE.SphereGeometry(w.r,40,40),
-  new THREE.MeshStandardMaterial({color:w.color,roughness:.8,metalness:.15})
- );
- planet.userData.world=w.id;
- group.add(planet);
-
- const aura=makeGlow(w.color);
- aura.scale.set(w.r*5,w.r*5,1);
- group.add(aura);
-
- const ring=new THREE.Mesh(
-  new THREE.TorusGeometry(w.r*1.55,.13,5,90),
-  new THREE.MeshBasicMaterial({color:w.color,transparent:true,opacity:.45})
- );
- ring.rotation.x=Math.PI/2.5;
- group.add(ring);
-
- planetMeshes.push({group,planet,ring,data:w});
-});
-
-// ASTEROID BELT
-const asteroidBelt=new THREE.Group();
-for(let i=0;i<500;i++){
- const a=Math.random()*Math.PI*2;
- const radius=120+Math.random()*18;
+// Asteroid field
+const asteroids=new THREE.Group();
+for(let i=0;i<1000;i++){
  const rock=new THREE.Mesh(
-  new THREE.DodecahedronGeometry(.4+Math.random()*.7,0),
-  new THREE.MeshStandardMaterial({color:0x8290a7,roughness:1})
+  new THREE.IcosahedronGeometry(.4+Math.random()*1.4,0),
+  new THREE.MeshStandardMaterial({color:0x737e91,roughness:1})
  );
- rock.position.set(Math.cos(a)*radius,(Math.random()-.5)*8,Math.sin(a)*radius);
- asteroidBelt.add(rock);
+ const a=Math.random()*Math.PI*2;
+ const r=115+Math.random()*28;
+ rock.position.set(Math.cos(a)*r,(Math.random()-.5)*12,Math.sin(a)*r-160);
+ rock.rotation.set(Math.random()*3,Math.random()*3,Math.random()*3);
+ asteroids.add(rock);
 }
-scene.add(asteroidBelt);
+scene.add(asteroids);
 
-// METEORS
+// Moving meteor trails
 const meteors=[];
-for(let i=0;i<12;i++){
+for(let i=0;i<20;i++){
  const meteor=new THREE.Group();
  const core=new THREE.Mesh(
-  new THREE.SphereGeometry(.7,12,12),
+  new THREE.SphereGeometry(.8,12,12),
   new THREE.MeshBasicMaterial({color:0xffffff})
  );
  meteor.add(core);
- const tail=makeGlow(0x61baff);
- tail.position.z=5;
- tail.scale.set(2,2,12);
+ const tail=glow(0x6bbdff,12);
+ tail.position.z=4;
  meteor.add(tail);
- meteor.position.set((Math.random()-.5)*500,Math.random()*180-80,-Math.random()*500);
+ meteor.position.set(
+  (Math.random()-.5)*600,
+  (Math.random()-.5)*300,
+  -Math.random()*800
+ );
  scene.add(meteor);
  meteors.push(meteor);
 }
 
-// ORIGINAL COSMIC HERO FIGURES
-function createHero(color,accent,x,z,label){
- const group=new THREE.Group();
- group.position.set(x,0,z);
- scene.add(group);
+// Original futuristic armor character
+function createArmor(x,z,primary,secondary){
+ const g=new THREE.Group();
+ g.position.set(x,0,z);
+ scene.add(g);
 
- const mat=new THREE.MeshStandardMaterial({color,metalness:.8,roughness:.25});
- const detail=new THREE.MeshStandardMaterial({color:accent,metalness:.6,roughness:.3});
- const torso=new THREE.Mesh(new THREE.BoxGeometry(5,8,3),mat);
- torso.position.y=7;
- group.add(torso);
+ const gold=new THREE.MeshStandardMaterial({color:secondary,metalness:.85,roughness:.22});
+ const red=new THREE.MeshStandardMaterial({color:primary,metalness:.9,roughness:.2});
+ const energy=new THREE.MeshBasicMaterial({color:0x66dfff});
 
- const head=new THREE.Mesh(new THREE.SphereGeometry(2,20,20),detail);
- head.position.y=13;
- group.add(head);
+ const body=new THREE.Mesh(new THREE.BoxGeometry(5,8,3),red);
+ body.position.y=8;
+ g.add(body);
 
- const cape=new THREE.Mesh(
-  new THREE.BoxGeometry(6,.6,7),
-  new THREE.MeshStandardMaterial({color:accent,side:THREE.DoubleSide})
- );
- cape.position.set(0,7,-4);
- group.add(cape);
+ const chest=new THREE.Mesh(new THREE.BoxGeometry(3,4,.3),gold);
+ chest.position.set(0,8,1.6);
+ g.add(chest);
 
- const aura=makeGlow(accent);
+ const reactor=new THREE.Mesh(new THREE.CircleGeometry(.85,40),energy);
+ reactor.position.set(0,8,1.85);
+ g.add(reactor);
+
+ const head=new THREE.Mesh(new THREE.SphereGeometry(1.7,32,32),gold);
+ head.scale.set(1,.9,.8);
+ head.position.y=14;
+ g.add(head);
+
+ const eyeMat=new THREE.MeshBasicMaterial({color:0x8deaff});
+ [-.7,.7].forEach(x=>{
+  const eye=new THREE.Mesh(new THREE.BoxGeometry(.55,.16,.12),eyeMat);
+  eye.position.set(x,14.1,1.35);
+  g.add(eye);
+ });
+
+ [-1,1].forEach(side=>{
+  const arm=new THREE.Mesh(new THREE.BoxGeometry(1.5,6,1.8),red);
+  arm.position.set(side*3.3,8,0);
+  g.add(arm);
+  const leg=new THREE.Mesh(new THREE.BoxGeometry(2,6,2),gold);
+  leg.position.set(side*1.3,2,0);
+  g.add(leg);
+ });
+ const aura=glow(0x4daeff,35);
  aura.position.y=8;
- aura.scale.set(24,24,1);
- group.add(aura);
- group.userData.label=label;
- return group;
+ g.add(aura);
+ return g;
 }
-const heroes=[
- createHero(0xb52f35,0xf0b84b,-200,15,'STARK ARMOR'),
- createHero(0x477ab2,0xb7d8ed,185,0,'THUNDER GUARDIAN'),
- createHero(0x69728b,0xe4c77b,15,-255,'HERO ALLIANCE')
-];
+const armor=createArmor(-120,15,0x9d252e,0xc9a34e);
+const thunderHero=createArmor(180,-35,0x34516d,0xc6d4e3);
 
-// PLAYER SHIP
+// Lightning effect
+const lightningGroup=new THREE.Group();
+scene.add(lightningGroup);
+function makeLightning(){
+ const pts=[];
+ let x=0,y=0,z=0;
+ pts.push(new THREE.Vector3(x,y,z));
+ for(let i=0;i<18;i++){
+  x+=(Math.random()-.5)*8;
+  y-=4;
+  z+=(Math.random()-.5)*5;
+  pts.push(new THREE.Vector3(x,y,z));
+ }
+ const line=new THREE.Line(
+  new THREE.BufferGeometry().setFromPoints(pts),
+  new THREE.LineBasicMaterial({color:0x83cfff})
+ );
+ return line;
+}
+const lightning=makeLightning();
+lightning.position.set(180,38,-35);
+lightningGroup.add(lightning);
+
+// Spaceship
 const ship=new THREE.Group();
-const shipMat=new THREE.MeshStandardMaterial({color:0xcbd8ec,metalness:.85,roughness:.22});
-const hull=new THREE.Mesh(new THREE.ConeGeometry(3,14,6),shipMat);
+const silver=new THREE.MeshStandardMaterial({color:0xc8d8ec,metalness:.9,roughness:.2});
+const hull=new THREE.Mesh(new THREE.ConeGeometry(3,13,6),silver);
 hull.rotation.x=-Math.PI/2;
 ship.add(hull);
-
 const cockpit=new THREE.Mesh(
- new THREE.SphereGeometry(1.8,24,24),
- new THREE.MeshStandardMaterial({color:0x49cfff,metalness:.7,roughness:.1})
+ new THREE.SphereGeometry(1.8,32,32),
+ new THREE.MeshPhysicalMaterial({
+  color:0x43bfff,metalness:.5,roughness:.1,
+  transparent:true,opacity:.85
+ })
 );
 cockpit.position.set(0,1,1);
 ship.add(cockpit);
-
 [-1,1].forEach(s=>{
- const wing=new THREE.Mesh(new THREE.BoxGeometry(8,.5,4),shipMat);
+ const wing=new THREE.Mesh(new THREE.BoxGeometry(8,.4,4),silver);
  wing.position.set(s*4,-.5,-1);
  ship.add(wing);
 });
-const engine=new THREE.Mesh(
- new THREE.ConeGeometry(1.1,7,16),
- new THREE.MeshBasicMaterial({color:0x37aaff,transparent:true,opacity:.8})
-);
-engine.rotation.x=Math.PI/2;
+const engine=glow(0x38bfff,10);
 engine.position.z=8;
 ship.add(engine);
-ship.position.set(0,0,35);
+ship.position.set(0,0,40);
 scene.add(ship);
 
-// FLIGHT AND CAMERA
-let target=null,targetId=null,autopilot=false;
-let velocity=new THREE.Vector3();
-let drag=false,lastX=0,lastY=0;
-let lookX=0,lookY=0;
-
-function flyMode(){
- autopilot=false;
- velocity.z=-1.5;
- document.getElementById('hero').classList.add('hide');
-}
-function move(dir){
- const step=7;
- if(dir==='up')ship.position.z-=step;
- if(dir==='down')ship.position.z+=step;
- if(dir==='left')ship.position.x-=step;
- if(dir==='right')ship.position.x+=step;
-}
-window.addEventListener('keydown',e=>{
- if(e.key==='Escape')closePanel();
- if(e.key==='w'||e.key==='ArrowUp')move('up');
- if(e.key==='s'||e.key==='ArrowDown')move('down');
- if(e.key==='a'||e.key==='ArrowLeft')move('left');
- if(e.key==='d'||e.key==='ArrowRight')move('right');
- if(e.key===' ')flyMode();
-});
+let targetLookX=0,targetLookY=0;
+let dragging=false,lastX=0,lastY=0;
+let autopilot=false,destination=null;
+const velocity=new THREE.Vector3();
 
 canvas.addEventListener('pointerdown',e=>{
- drag=true;lastX=e.clientX;lastY=e.clientY;
+ dragging=true;lastX=e.clientX;lastY=e.clientY;
 });
-window.addEventListener('pointerup',()=>drag=false);
+window.addEventListener('pointerup',()=>dragging=false);
 window.addEventListener('pointermove',e=>{
- if(!drag)return;
- lookX+=(e.clientX-lastX)*.004;
- lookY+=(e.clientY-lastY)*.002;
- lookY=THREE.MathUtils.clamp(lookY,-.7,.7);
+ if(!dragging)return;
+ targetLookX+=(e.clientX-lastX)*.003;
+ targetLookY+=(e.clientY-lastY)*.002;
+ targetLookY=THREE.MathUtils.clamp(targetLookY,-.6,.6);
  lastX=e.clientX;lastY=e.clientY;
 });
-
-// CONTENT
-const content={
- about:['PERSONAL PROFILE',`
- <p>Welcome to my universe! Aku <b>Fachriansyah Alfigo</b>, seseorang yang tertarik dengan teknologi digital, multimedia, dan kreativitas.</p>
- <div class="line"><span>NAME</span><b>Fachriansyah Alfigo</b></div>
- <div class="line"><span>FIELD</span><b>Multimedia & Digital</b></div>
- <div class="line"><span>LOCATION</span><b>Yogyakarta, Indonesia</b></div>
- <p>Bagiku, setiap ide adalah awal dari eksplorasi baru.</p>`],
- education:['ACADEMIC UNIVERSE',`
- <p>Perjalanan pendidikan dan pembelajaran.</p>
- <div class="line"><span>INSTITUTION</span><b>STMM Yogyakarta</b></div>
- <div class="line"><span>PROGRAM</span><b>Manajemen Multimedia dan Digital</b></div>
- <div class="line"><span>PREVIOUS</span><b>Homeschooling HSPG Yogyakarta</b></div>`],
- bmx:['BMX RACING ARCHIVE',`
- <p>BMX Racing menjadi bagian dari perjalanan dan pengalaman yang membentuk semangat kompetitifku.</p>
- <div class="line"><span>SPORT</span><b>BMX Racing</b></div>
- <div class="line"><span>EXPERIENCE</span><b>Regional</b></div>
- <div class="line"><span>EXPERIENCE</span><b>Nasional</b></div>
- <div class="line"><span>EXPERIENCE</span><b>Internasional</b></div>
- <p>Disiplin, konsistensi, dan semangat untuk terus berkembang.</p>`],
- ironman:['STARK TECHNOLOGY WORLD',`
- <p>Masuki dunia teknologi futuristik yang terinspirasi oleh Iron Man.</p>
- <div class="character"><b>IRON MAN</b><small>Armor futuristik, kecerdasan teknologi, dan inovasi tanpa batas.</small></div>
- <div class="character"><b>TONY STARK</b><small>Representasi kreativitas, sains, dan pemikiran visioner.</small></div>
- <p>Explore: technology · engineering · innovation.</p>`],
- thor:['ASGARD — REALM OF THUNDER',`
- <p>Dunia mitologi kosmik yang terinspirasi oleh Thor.</p>
- <div class="character"><b>THOR</b><small>Guardian of thunder. Kekuatan petir dan keberanian.</small></div>
- <div class="character"><b>ASGARD</b><small>Kerajaan legendaris di antara dunia-dunia kosmik.</small></div>
- <p>Explore: mythology · courage · cosmic power.</p>`],
- avengers:['THE AVENGERS UNIVERSE',`
- <p>Jelajahi dunia para pahlawan super.</p>
- <div class="character"><b>IRON MAN</b><small>Teknologi dan inovasi.</small></div>
- <div class="character"><b>THOR</b><small>Petir dan kekuatan kosmik.</small></div>
- <div class="character"><b>CAPTAIN AMERICA</b><small>Keberanian dan kepemimpinan.</small></div>
- <div class="character"><b>HULK</b><small>Kekuatan luar biasa.</small></div>
- <div class="character"><b>DOCTOR STRANGE</b><small>Dimensi dan seni mistis.</small></div>
- <p>Inspired by the superhero multiverse.</p>`],
- skills:['CREATIVE LAB',`
- <p>Bidang yang ingin terus aku eksplorasi dan kembangkan.</p>
- <ul><li>Web Development</li><li>Digital Multimedia</li><li>Creative Design</li><li>Digital Technology</li><li>Communication</li></ul>
- <p><b>MY MOTTO:</b> Keep learning. Keep creating. Keep exploring.</p>`]
-};
-
-function openPanel(id){
- const item=content[id];
- if(!item)return;
- document.getElementById('eyebrow').textContent=item[0];
- document.getElementById('panelTitle').textContent=id==='about'?'FACHRIANSYAH ALFIGO':item[0];
- document.getElementById('panelContent').innerHTML=item[1];
- document.getElementById('panel').classList.add('open');
- document.getElementById('hero').classList.add('hide');
-}
-function closePanel(){
- document.getElementById('panel').classList.remove('open');
- document.getElementById('hero').classList.remove('hide');
-}
-function travel(id){
- const p=planetMeshes.find(x=>x.data.id===id);
- if(!p){openPanel(id);return}
- target=new THREE.Vector3(p.data.x,12,p.data.z+30);
- targetId=id;
- autopilot=true;
- closePanel();
-}
-
-// CLICK PLANETS
-const raycaster=new THREE.Raycaster();
-const pointer=new THREE.Vector2();
-canvas.addEventListener('click',e=>{
- pointer.x=e.clientX/innerWidth*2-1;
- pointer.y=-(e.clientY/innerHeight)*2+1;
- raycaster.setFromCamera(pointer,camera);
- const hits=raycaster.intersectObjects(planetMeshes.map(p=>p.planet),false);
- if(hits.length){
-  const id=hits[0].object.userData.world;
-  openPanel(id);
- }
+window.addEventListener('keydown',e=>{
+ const step=5;
+ if(e.key==='w'||e.key==='ArrowUp')ship.position.z-=step;
+ if(e.key==='s'||e.key==='ArrowDown')ship.position.z+=step;
+ if(e.key==='a'||e.key==='ArrowLeft')ship.position.x-=step;
+ if(e.key==='d'||e.key==='ArrowRight')ship.position.x+=step;
+ if(e.key==='Escape')closePanel();
 });
 
-// ANIMATION
+function fly(){
+ document.querySelector('#hero').style.display='none';
+ velocity.z=-1;
+}
+const data={
+ about:['FACHRIANSYAH ALFIGO',`
+ <p>Welcome to my universe. Aku Fachriansyah Alfigo, tertarik pada dunia multimedia, teknologi digital, dan kreativitas.</p>
+ <div class="line">IDENTITY <b>Fachriansyah Alfigo</b></div>
+ <div class="line">FIELD <b>Multimedia & Digital</b></div>
+ <div class="line">LOCATION <b>Yogyakarta, Indonesia</b></div>`],
+ education:['EDUCATION',`
+ <p>Perjalanan akademik dan pengembangan diri.</p>
+ <div class="line">INSTITUTION <b>STMM Yogyakarta</b></div>
+ <div class="line">PROGRAM <b>Manajemen Multimedia dan Digital</b></div>
+ <div class="line">PREVIOUS <b>Homeschooling HSPG Yogyakarta</b></div>`],
+ bmx:['BMX JOURNEY',`
+ <p>BMX Racing merupakan bagian dari perjalanan dan pengalaman kompetitifku.</p>
+ <div class="line">SPORT <b>BMX Racing</b></div>
+ <div class="line">EXPERIENCE <b>Regional</b></div>
+ <div class="line">EXPERIENCE <b>Nasional</b></div>
+ <div class="line">EXPERIENCE <b>Internasional</b></div>`],
+ iron:['STARK TECHNOLOGY',`
+ <p>Explore a futuristic technology universe inspired by armored superheroes.</p>
+ <div class="line">THEME <b>Advanced Armor</b></div>
+ <div class="line">FOCUS <b>Technology & Innovation</b></div>`],
+ thor:['ASGARD REALM',`
+ <p>Explore the realm of thunder and cosmic mythology.</p>
+ <div class="line">THEME <b>Thunder Guardian</b></div>
+ <div class="line">WORLD <b>Asgard Inspired</b></div>`],
+ avengers:['HEROES UNIVERSE',`
+ <p>Jelajahi karakter superhero dari dunia film dan komik.</p>
+ <div class="line">IRON MAN <b>Technology</b></div>
+ <div class="line">THOR <b>Thunder</b></div>
+ <div class="line">CAPTAIN AMERICA <b>Leadership</b></div>
+ <div class="line">HULK <b>Strength</b></div>`]
+};
+function openPanel(id){
+ const d=data[id];if(!d)return;
+ document.querySelector('#tag').textContent='MULTIVERSE DATABASE';
+ document.querySelector('#heading').textContent=d[0];
+ document.querySelector('#content').innerHTML=d[1];
+ document.querySelector('#panel').classList.add('show');
+}
+function closePanel(){
+ document.querySelector('#panel').classList.remove('show');
+}
 function animate(){
  requestAnimationFrame(animate);
  const t=performance.now()*.001;
-
- starField.rotation.y+=.00008;
- nebulaGroup.rotation.y+=.0001;
- sun.rotation.y+=.001;
- asteroidBelt.rotation.y+=.0004;
-
- planetMeshes.forEach((p,i)=>{
-  p.planet.rotation.y+=.002;
-  p.ring.rotation.z+=.0005;
-  p.group.position.y=Math.sin(t+i)*1.5;
- });
- heroes.forEach((h,i)=>{
-  h.position.y=3+Math.sin(t*1.5+i)*2;
-  h.rotation.y=Math.sin(t*.3+i)*.15;
- });
+ stars.rotation.y+=.00008;
+ planet.rotation.y+=.0008;
+ ring.rotation.z+=.0003;
+ asteroids.rotation.y+=.00035;
+ armor.position.y=3+Math.sin(t*1.4)*2;
+ thunderHero.position.y=3+Math.sin(t*1.2+2)*2;
+ lightning.visible=Math.sin(t*5)>-.5;
  meteors.forEach(m=>{
-  m.position.x-=.35;
-  m.position.y-=.12;
-  m.position.z+=.25;
-  if(m.position.x < -300){
-   m.position.x=300;
-   m.position.y=Math.random()*180-80;
-   m.position.z=-Math.random()*500;
+  m.position.x-=.4;
+  m.position.y-=.1;
+  m.position.z+=.3;
+  if(m.position.x<-350){
+   m.position.x=350;
+   m.position.y=(Math.random()-.5)*300;
+   m.position.z=-Math.random()*800;
   }
  });
-
- if(autopilot&&target){
-  const diff=target.clone().sub(ship.position);
-  if(diff.length()<2){
-   autopilot=false;
-   const id=targetId;
-   target=null;
-   targetId=null;
-   openPanel(id);
-  }else{
-   ship.position.add(diff.normalize().multiplyScalar(1.1));
-  }
- }else{
-  ship.position.add(velocity);
-  velocity.multiplyScalar(.96);
- }
-
- const follow=new THREE.Vector3(
-  ship.position.x+Math.sin(lookX)*100,
-  ship.position.y+36+lookY*60,
-  ship.position.z+90
+ ship.position.add(velocity);
+ velocity.multiplyScalar(.97);
+ const desired=new THREE.Vector3(
+  ship.position.x+Math.sin(targetLookX)*100,
+  ship.position.y+35+targetLookY*60,
+  ship.position.z+95
  );
- camera.position.lerp(follow,.035);
+ camera.position.lerp(desired,.025);
  camera.lookAt(
-  ship.position.x+Math.sin(lookX)*100,
-  ship.position.y+lookY*40,
-  ship.position.z-50
+  ship.position.x+Math.sin(targetLookX)*80,
+  ship.position.y,
+  ship.position.z-70
  );
- engine.scale.y=.8+Math.sin(t*16)*.18;
- renderer.render(scene,camera);
+ composer.render();
 }
 animate();
 
@@ -488,6 +436,8 @@ window.addEventListener('resize',()=>{
  camera.aspect=innerWidth/innerHeight;
  camera.updateProjectionMatrix();
  renderer.setSize(innerWidth,innerHeight);
+ composer.setSize(innerWidth,innerHeight);
+ bloom.setSize(innerWidth,innerHeight);
 });
 </script>
 </body>
