@@ -4,8 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#08070b">
-<title>F. A | Personal Universe</title>
+<meta name="theme-color" content="#090609">
+<title>F. A | Welcome To My Universe</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,14 +13,14 @@
 
 <style>
 :root{
- --red:#800020;
- --red-light:#c52b50;
- --white:#f5f4f7;
- --blue:#b7dfff;
- --bg:#08070b;
- --panel:rgba(22,15,23,.82);
- --line:rgba(197,43,80,.28);
- --muted:#aaa2ad;
+ --burgundy:#800020;
+ --burgundy2:#b21f45;
+ --white:#f8f5f6;
+ --muted:#aaa0a5;
+ --bg:#090609;
+ --panel:rgba(25,12,19,.88);
+ --line:rgba(178,31,69,.35);
+ --glow:rgba(178,31,69,.25);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -33,192 +33,210 @@ body{
 body:before{
  content:"";position:fixed;inset:0;z-index:-3;
  background:
- radial-gradient(ellipse at 15% 15%,rgba(128,0,32,.20),transparent 40%),
- radial-gradient(ellipse at 85% 45%,rgba(255,255,255,.05),transparent 40%),
- linear-gradient(135deg,#08070b,#171019 55%,#08070b);
+ radial-gradient(ellipse at 15% 15%,rgba(128,0,32,.24),transparent 40%),
+ radial-gradient(ellipse at 85% 65%,rgba(128,0,32,.15),transparent 40%),
+ linear-gradient(135deg,#090609,#160a11 55%,#080609);
 }
 #stars{position:fixed;inset:0;z-index:-2;pointer-events:none}
 .scanlines{
  position:fixed;inset:0;pointer-events:none;z-index:10;opacity:.09;
- background:repeating-linear-gradient(0deg,transparent 0px,transparent 3px,rgba(255,255,255,.06) 4px);
+ background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.05) 4px);
 }
 a{color:inherit;text-decoration:none}
 button{font-family:inherit;cursor:pointer}
 
-/* CINEMATIC INTRO */
+/* INTRO */
 .intro{
- position:fixed;inset:0;z-index:2000;
+ position:fixed;inset:0;z-index:999;
+ background:#080609;
  display:flex;align-items:center;justify-content:center;
- flex-direction:column;text-align:center;
- background:
- radial-gradient(circle at center,rgba(128,0,32,.20),transparent 42%),
- #08070b;
- transition:opacity 1s ease,visibility 1s ease;
+ flex-direction:column;
+ transition:opacity 1s,visibility 1s;
+ overflow:hidden;
 }
-.intro.hide{opacity:0;visibility:hidden;pointer-events:none}
-.intro-orbit{
- position:absolute;width:min(65vw,380px);aspect-ratio:1;
- border:1px solid rgba(197,43,80,.35);
+.intro.hide{opacity:0;visibility:hidden}
+.intro:before{
+ content:"";position:absolute;width:350px;height:350px;
  border-radius:50%;
- animation:orbit 12s linear infinite;
+ background:radial-gradient(circle,rgba(128,0,32,.3),transparent 70%);
+ animation:introGlow 3s infinite;
 }
-.intro-orbit:before,.intro-orbit:after{
- content:"";position:absolute;inset:13%;
- border:1px solid rgba(255,255,255,.20);
- border-radius:50%;
+.intro-reactor{
+ width:155px;height:155px;border-radius:50%;
+ border:2px solid rgba(178,31,69,.7);
+ display:grid;place-items:center;position:relative;
+ box-shadow:0 0 35px rgba(178,31,69,.3),inset 0 0 30px rgba(178,31,69,.2);
+ animation:reactorEnter 1.4s ease;
 }
-.intro-orbit:after{
- inset:28%;border-color:rgba(197,43,80,.55);
+.intro-reactor:before,.intro-reactor:after{
+ content:"";position:absolute;inset:12px;
+ border:1px dashed rgba(255,255,255,.6);
+ border-radius:50%;animation:rotate 12s linear infinite;
+}
+.intro-reactor:after{
+ inset:28px;border:2px solid var(--burgundy2);
+ animation:rotate 8s linear infinite reverse;
 }
 .intro-core{
- width:65px;height:65px;border-radius:50%;
- background:radial-gradient(circle,#fff 0%,#f4a8bb 25%,#800020 65%,transparent 75%);
- box-shadow:0 0 35px #800020,0 0 90px rgba(197,43,80,.5);
- animation:pulse 2s infinite;z-index:2;
+ width:40px;height:40px;border-radius:50%;
+ background:radial-gradient(circle,#fff,#e9a7b8 35%,#800020 75%);
+ box-shadow:0 0 25px #b21f45,0 0 60px rgba(178,31,69,.6);
+ animation:pulse 2s infinite;
 }
 .intro-brand{
- font-family:Orbitron;font-size:clamp(30px,7vw,58px);
- letter-spacing:12px;margin-top:35px;
- color:white;text-shadow:0 0 25px rgba(255,255,255,.35);
- animation:fadeUp 1.4s both;
+ margin-top:35px;font-family:Orbitron;
+ font-size:clamp(40px,9vw,75px);
+ font-weight:800;letter-spacing:12px;
+ color:white;text-shadow:0 0 25px rgba(255,255,255,.2);
+ animation:fadeUp 1.5s both;
 }
 .intro-title{
- font-family:Orbitron;font-size:clamp(12px,2.5vw,19px);
- letter-spacing:5px;margin-top:17px;color:#d94c70;
- animation:fadeUp 1.4s .4s both;
+ margin-top:12px;font-family:Orbitron;
+ font-size:clamp(10px,2vw,15px);
+ letter-spacing:5px;color:#c47a8d;
+ animation:fadeUp 2s both;
 }
-.intro-skip{
- position:absolute;bottom:35px;background:none;
- border:1px solid rgba(255,255,255,.25);
- color:#aaa;padding:10px 18px;letter-spacing:2px;
- font-family:Orbitron;font-size:9px;
+.intro-line{
+ width:100px;height:2px;margin-top:25px;
+ background:linear-gradient(90deg,transparent,#b21f45,transparent);
+ animation:lineGrow 2s both;
 }
-@keyframes orbit{to{transform:rotate(360deg)}}
-@keyframes pulse{50%{transform:scale(.88);filter:brightness(1.5)}}
-@keyframes fadeUp{
- from{opacity:0;transform:translateY(25px)}
- to{opacity:1;transform:translateY(0)}
-}
+@keyframes introGlow{50%{transform:scale(1.3);opacity:.6}}
+@keyframes reactorEnter{from{opacity:0;transform:scale(.5) rotate(-90deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lineGrow{from{width:0}to{width:100px}}
 
 /* NAVIGATION */
 .topbar{
  position:fixed;top:0;left:0;width:100%;z-index:50;
  display:flex;align-items:center;justify-content:space-between;
- padding:15px 5%;background:rgba(5,5,9,.85);
- border-bottom:1px solid var(--line);backdrop-filter:blur(18px);
+ padding:16px 5%;
+ background:rgba(8,5,8,.86);
+ border-bottom:1px solid var(--line);
+ backdrop-filter:blur(18px);
 }
 .brand{
- font-family:Orbitron;font-size:20px;
- letter-spacing:4px;color:white;font-weight:700;
+ font-family:Orbitron;font-size:17px;
+ font-weight:800;letter-spacing:4px;color:white;
 }
-.brand span{color:var(--red-light)}
+.brand span{color:var(--burgundy2)}
 .nav{display:flex;gap:22px}
 .nav a{
- font-family:Orbitron;font-size:9px;letter-spacing:1px;
- color:#c1b9c3;transition:.3s
+ font-family:Orbitron;font-size:9px;
+ letter-spacing:1px;color:#c7bbc0;transition:.3s;
 }
-.nav a:hover{color:#e45b7b}
+.nav a:hover{color:#e66b8a}
 .menu{
  display:none;background:none;border:1px solid var(--line);
- color:white;padding:7px 11px
+ color:white;padding:7px 11px;
 }
+
+/* GENERAL */
 section{padding:110px 8%;position:relative;scroll-margin-top:65px}
 .eyebrow{
  font-family:Orbitron;font-size:10px;
- letter-spacing:4px;color:#d94c70;margin-bottom:15px
+ letter-spacing:4px;color:#d36b88;margin-bottom:15px;
 }
 .heading{
  font-family:Orbitron;font-size:clamp(25px,4vw,43px);
- margin-bottom:15px
+ margin-bottom:15px;
 }
-.heading span{color:#d94c70}
-.sub{color:var(--muted);font-size:18px;max-width:650px;line-height:1.6}
+.heading span{color:#c34b6b}
+.sub{
+ color:var(--muted);font-size:18px;
+ max-width:650px;line-height:1.6;
+}
 .line{
- height:1px;background:linear-gradient(90deg,transparent,#c52b50,transparent);
- margin:25px 0
+ height:1px;background:linear-gradient(90deg,transparent,#b21f45,transparent);
+ margin:25px 0;
 }
 .panel{
- background:linear-gradient(145deg,rgba(35,22,33,.88),rgba(9,8,13,.90));
+ background:linear-gradient(145deg,rgba(39,18,28,.88),rgba(12,8,12,.92));
  border:1px solid var(--line);border-radius:12px;
- box-shadow:0 0 30px rgba(128,0,32,.07),inset 0 0 30px rgba(197,43,80,.025);
- position:relative;overflow:hidden
+ box-shadow:0 0 30px rgba(128,0,32,.08),inset 0 0 30px rgba(128,0,32,.04);
+ position:relative;overflow:hidden;
 }
 .panel:before{
- content:"";position:absolute;top:0;left:0;width:65px;height:2px;
- background:var(--red-light);box-shadow:0 0 15px var(--red)
+ content:"";position:absolute;top:0;left:0;
+ width:65px;height:2px;background:#b21f45;
+ box-shadow:0 0 15px #b21f45;
 }
 .btn{
- display:inline-flex;align-items:center;gap:9px;padding:12px 20px;
- border:1px solid #c52b50;background:rgba(128,0,32,.12);
- color:#f4a1b5;font-family:Orbitron;font-size:10px;
- letter-spacing:1px;transition:.3s;border-radius:4px
+ display:inline-flex;align-items:center;gap:9px;
+ padding:12px 20px;border:1px solid #b21f45;
+ background:rgba(128,0,32,.12);color:#f0c3cf;
+ font-family:Orbitron;font-size:10px;
+ letter-spacing:1px;transition:.3s;border-radius:4px;
 }
 .btn:hover{
- background:var(--red);color:white;
- box-shadow:0 0 25px rgba(197,43,80,.4)
+ background:#800020;color:white;
+ box-shadow:0 0 25px rgba(178,31,69,.4);
 }
-.btn.red{border-color:#c52b50;color:white;background:var(--red)}
-.btn.red:hover{background:#b50035}
+.btn.red{background:#800020;color:white}
+.btn.red:hover{background:#b21f45}
 
 /* HERO */
 .hero{
- min-height:100vh;padding-top:130px;display:grid;
- grid-template-columns:1.1fr .9fr;align-items:center;gap:45px;
+ min-height:100vh;padding-top:130px;
+ display:grid;grid-template-columns:1.1fr .9fr;
+ align-items:center;gap:45px;
 }
 .hero h1{
  font-family:Orbitron;font-size:clamp(38px,6vw,75px);
  line-height:1.12;margin-bottom:20px;
 }
-.hero h1 .white{color:white}
 .hero h1 span{
- color:#d94c70;
- text-shadow:0 0 25px rgba(197,43,80,.30)
+ color:#c34b6b;
+ text-shadow:0 0 25px rgba(178,31,69,.3);
 }
-.hero p{font-size:19px;color:#bdb4c0;line-height:1.7;max-width:560px}
+.hero p{
+ font-size:19px;color:#c0b5ba;
+ line-height:1.7;max-width:560px;
+}
 .hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
 .statusline{
  display:flex;gap:20px;flex-wrap:wrap;
- margin-top:35px;color:#aaa2ad;font-size:13px
+ margin-top:35px;color:#a99ba1;font-size:13px;
 }
-.statusline span:before{content:"●";color:#42e7a1;margin-right:8px}
+.statusline span:before{content:"●";color:#b21f45;margin-right:8px}
+
+/* REACTOR */
 .reactor-wrap{display:flex;align-items:center;justify-content:center;min-height:390px}
 .reactor{
  width:min(330px,75vw);aspect-ratio:1;border-radius:50%;
  position:relative;display:grid;place-items:center;
- background:repeating-radial-gradient(circle,transparent 0 35px,rgba(197,43,80,.16) 36px 37px,transparent 38px 53px);
- animation:rotate 28s linear infinite
+ background:repeating-radial-gradient(circle,transparent 0 35px,rgba(178,31,69,.2) 36px 37px,transparent 38px 53px);
+ animation:rotate 28s linear infinite;
 }
 .reactor:before,.reactor:after{
  content:"";position:absolute;inset:13%;
- border:2px solid rgba(197,43,80,.55);
- border-radius:50%;box-shadow:0 0 25px rgba(197,43,80,.18),inset 0 0 25px rgba(197,43,80,.12)
+ border:2px solid rgba(178,31,69,.7);border-radius:50%;
+ box-shadow:0 0 25px rgba(178,31,69,.2),inset 0 0 25px rgba(178,31,69,.1);
 }
-.reactor:after{
- inset:27%;border-color:rgba(255,255,255,.55);
- animation:rotate 12s linear infinite reverse
-}
+.reactor:after{inset:27%;border-color:rgba(255,255,255,.45);animation:rotate 12s linear infinite reverse}
 .core{
  width:100px;height:100px;border-radius:50%;
- background:radial-gradient(circle,#fff 0%,#ffcbd8 10%,#d94c70 35%,#800020 65%,transparent 72%);
- box-shadow:0 0 25px #c52b50,0 0 75px rgba(197,43,80,.65);
- animation:pulse 2s infinite;z-index:2
+ background:radial-gradient(circle,#fff 0%,#f0b7c6 12%,#b21f45 40%,#500016 70%,transparent 75%);
+ box-shadow:0 0 25px #b21f45,0 0 75px rgba(178,31,69,.65);
+ animation:pulse 2s infinite;z-index:2;
 }
 .reactor-label{
  position:absolute;bottom:-35px;font-family:Orbitron;
- font-size:10px;letter-spacing:3px;color:#e45b7b
+ font-size:10px;letter-spacing:3px;color:#d36b88;
 }
 @keyframes rotate{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{transform:scale(.88);filter:brightness(1.5)}}
 
-/* CONTENT */
+/* SECTIONS */
 .section-head{margin-bottom:35px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .card{padding:24px;min-height:170px;transition:.3s}
 .card:hover{
- transform:translateY(-6px);border-color:rgba(197,43,80,.65);
- box-shadow:0 10px 35px rgba(128,0,32,.12)
+ transform:translateY(-6px);border-color:#b21f45;
+ box-shadow:0 10px 35px rgba(128,0,32,.15);
 }
 .card-icon{font-size:27px;margin-bottom:17px}
-.card h3{font-family:Orbitron;font-size:13px;color:#e45b7b;margin-bottom:10px}
+.card h3{font-family:Orbitron;font-size:13px;color:#d36b88;margin-bottom:10px}
 .card p{color:var(--muted);font-size:16px;line-height:1.5}
 .holo-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:35px;align-items:center}
 .profile-frame{padding:10px;max-width:360px;margin:auto}
@@ -226,128 +244,119 @@ section{padding:110px 8%;position:relative;scroll-margin-top:65px}
 .holo-info{padding:30px}
 .data-row{
  display:flex;justify-content:space-between;gap:15px;
- padding:13px 0;border-bottom:1px solid rgba(197,43,80,.15);
- font-size:17px
+ padding:13px 0;border-bottom:1px solid rgba(178,31,69,.18);
+ font-size:17px;
 }
 .data-row span:first-child{color:var(--muted)}
-.data-row span:last-child{color:#e45b7b;text-align:right}
+.data-row span:last-child{color:#e0a3b3;text-align:right}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
 .gallery img{
  width:100%;height:260px;object-fit:cover;
- border-radius:8px;cursor:pointer;transition:.3s
+ border-radius:8px;cursor:pointer;transition:.3s;
 }
 .gallery img:hover{transform:scale(1.025);filter:brightness(1.15)}
 .portal{padding:25px;text-align:center;cursor:pointer}
 .portal .orb{
- width:85px;height:85px;margin:0 auto 20px;border-radius:50%;
- border:1px solid #c52b50;box-shadow:0 0 25px rgba(197,43,80,.3);
- display:grid;place-items:center;font-size:30px;transition:.3s
+ width:85px;height:85px;margin:0 auto 20px;
+ border-radius:50%;border:1px solid #b21f45;
+ box-shadow:0 0 25px rgba(178,31,69,.3);
+ display:grid;place-items:center;font-size:30px;transition:.4s;
 }
-.portal:hover .orb{box-shadow:0 0 40px #c52b50;transform:rotate(15deg)}
-.meter{height:7px;background:#29212a;border-radius:10px;margin-top:9px;overflow:hidden}
-.meter div{
- height:100%;background:linear-gradient(90deg,#800020,#d94c70,#fff);
- width:85%
-}
+.portal:hover .orb{box-shadow:0 0 40px #b21f45;transform:rotate(15deg)}
+.meter{height:7px;background:#30212a;border-radius:10px;margin-top:9px;overflow:hidden}
+.meter div{height:100%;background:linear-gradient(90deg,#800020,#e8a2b5);width:85%}
 .armor-box{padding:25px}
 .armor-visual{min-height:300px;display:grid;place-items:center;text-align:center}
 .armor-visual .helmet{
- font-size:100px;filter:drop-shadow(0 0 25px rgba(197,43,80,.5));
- animation:float 4s ease-in-out infinite
+ font-size:100px;filter:drop-shadow(0 0 25px rgba(178,31,69,.5));
+ animation:float 4s ease-in-out infinite;
 }
 @keyframes float{50%{transform:translateY(-13px)}}
 .mission{
  padding:20px 23px;margin-bottom:12px;
- display:flex;justify-content:space-between;gap:15px;align-items:center
+ display:flex;justify-content:space-between;gap:15px;align-items:center;
 }
-.mission small{color:#e45b7b;font-family:Orbitron;font-size:9px}
+.mission small{color:#d36b88;font-family:Orbitron;font-size:9px}
 .mission h3{font-size:19px;margin-top:5px}
-.tag{color:#e45b7b;font-family:Orbitron;font-size:9px}
+.tag{color:#d36b88;font-family:Orbitron;font-size:9px}
 .contact{text-align:center;padding:50px 20px}
 footer{
- text-align:center;padding:30px;color:#817782;
- border-top:1px solid var(--line);font-size:13px
+ text-align:center;padding:30px;color:#867780;
+ border-top:1px solid var(--line);font-size:13px;
 }
 
-/* CHAT */
+/* CHAT BUTTONS */
 .jarvis-fab,.alien-fab{
- position:fixed;right:23px;z-index:80;width:58px;height:58px;
- border-radius:50%;display:grid;place-items:center;font-size:23px;
- border:1px solid #c52b50;background:rgba(20,8,15,.96);
- color:#f4a1b5;box-shadow:0 0 25px rgba(197,43,80,.25)
+ position:fixed;right:23px;z-index:80;
+ width:58px;height:58px;border-radius:50%;
+ display:grid;place-items:center;font-size:23px;
+ border:1px solid #b21f45;background:rgba(20,7,14,.96);
+ color:#f0b8c7;box-shadow:0 0 25px rgba(128,0,32,.3);
 }
 .jarvis-fab{bottom:25px}
 .alien-fab{
- bottom:95px;border-color:#8e77ff;color:#b3a2ff;
- right:29px;width:45px;height:45px;font-size:19px
+ bottom:95px;border-color:#9c83ff;color:#b3a2ff;
+ right:29px;width:45px;height:45px;font-size:19px;
 }
 .chat{
  display:none;position:fixed;right:22px;bottom:95px;
- width:min(370px,calc(100vw - 35px));height:490px;
- max-height:70vh;z-index:90;background:rgba(10,7,13,.98);
- border:1px solid #c52b50;border-radius:12px;
- box-shadow:0 0 45px rgba(197,43,80,.16);
- overflow:hidden;flex-direction:column
+ width:min(370px,calc(100vw - 35px));
+ height:490px;max-height:70vh;z-index:90;
+ background:rgba(12,7,12,.98);border:1px solid #b21f45;
+ border-radius:12px;box-shadow:0 0 45px rgba(128,0,32,.2);
+ overflow:hidden;flex-direction:column;
 }
 .chat.open{display:flex}
 .chat-head{
- padding:17px;background:rgba(128,0,32,.18);
+ padding:17px;background:rgba(128,0,32,.15);
  border-bottom:1px solid var(--line);
- display:flex;justify-content:space-between
+ display:flex;justify-content:space-between;
 }
-.chat-head strong{font-family:Orbitron;font-size:11px;color:#e45b7b}
+.chat-head strong{font-family:Orbitron;font-size:11px;color:#e4a3b5}
 .chat-head button{background:none;border:0;color:white;font-size:20px}
 .messages{
  padding:15px;overflow-y:auto;flex:1;
- display:flex;flex-direction:column;gap:12px
+ display:flex;flex-direction:column;gap:12px;
 }
 .msg{
- padding:11px 13px;border-radius:9px;max-width:88%;
- font-size:15px;line-height:1.45
+ padding:11px 13px;border-radius:9px;
+ max-width:88%;font-size:15px;line-height:1.45;
 }
-.bot{background:rgba(128,0,32,.17);border:1px solid rgba(197,43,80,.2);align-self:flex-start}
+.bot{background:rgba(128,0,32,.17);border:1px solid rgba(178,31,69,.25);align-self:flex-start}
 .user{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);align-self:flex-end}
-.chat-input{
- display:flex;padding:12px;border-top:1px solid var(--line);gap:7px
-}
+.chat-input{display:flex;padding:12px;border-top:1px solid var(--line);gap:7px}
 .chat-input input{
- min-width:0;flex:1;background:#17101a;border:1px solid var(--line);
- padding:11px;color:white;border-radius:5px;outline:none
+ min-width:0;flex:1;background:#1c1017;border:1px solid var(--line);
+ padding:11px;color:white;border-radius:5px;outline:none;
 }
-.chat-input button{
- background:#800020;border:0;padding:0 14px;
- border-radius:5px;color:white;font-weight:bold
-}
-.chat-tools{display:flex;gap:8px;padding:0 12px 12px;flex-wrap:wrap}
+.chat-input button{background:#800020;border:0;padding:0 14px;border-radius:5px;color:white;font-weight:bold}
+.chat-tools{display:flex;gap:8px;padding:0 12px 10px}
 .chat-tools button{
- background:transparent;color:#e45b7b;
- border:1px solid var(--line);padding:7px 9px;font-size:10px
+ background:transparent;color:#e2a3b4;
+ border:1px solid var(--line);padding:8px 9px;font-size:10px;
+ font-family:Orbitron;
 }
-#voiceStatus{font-size:11px;color:#aaa;padding:0 13px 10px}
+#voiceStatus{
+ padding:0 13px 10px;color:#d36b88;
+ font-size:10px;font-family:Orbitron;
+}
 #toast{
  position:fixed;top:85px;left:50%;transform:translateX(-50%);
- z-index:100;background:#17101a;border:1px solid #c52b50;
- padding:12px 20px;border-radius:7px;display:none
+ z-index:100;background:#1b0c14;border:1px solid #b21f45;
+ padding:12px 20px;border-radius:7px;display:none;
 }
 .modal{
  display:none;position:fixed;inset:0;z-index:120;
  background:rgba(0,0,0,.92);align-items:center;
- justify-content:center;padding:20px
+ justify-content:center;padding:20px;
 }
-.modal img{
- max-width:90%;max-height:80vh;
- border:1px solid #c52b50;border-radius:8px
-}
-.modal button{
- position:absolute;top:25px;right:30px;
- background:none;color:white;border:0;font-size:30px
-}
+.modal img{max-width:90%;max-height:80vh;border:1px solid #b21f45;border-radius:8px}
+.modal button{position:absolute;top:25px;right:30px;background:none;color:white;border:0;font-size:30px}
 
-/* RESPONSIVE */
 @media(max-width:850px){
  .nav{
   display:none;position:absolute;top:60px;left:0;width:100%;
-  background:#09070c;padding:20px;flex-direction:column
+  background:#10080e;padding:20px;flex-direction:column;
  }
  .nav.show{display:flex}
  .menu{display:block}
@@ -365,7 +374,6 @@ footer{
  .gallery{grid-template-columns:1fr}
  .gallery img{height:230px}
  .mission{align-items:flex-start}
- .intro-orbit{width:75vw}
 }
 </style>
 </head>
@@ -374,11 +382,10 @@ footer{
 
 <!-- CINEMATIC INTRO -->
 <div class="intro" id="intro">
- <div class="intro-orbit"></div>
- <div class="intro-core"></div>
+ <div class="intro-reactor"><div class="intro-core"></div></div>
  <div class="intro-brand">F. A</div>
  <div class="intro-title">WELCOME TO MY UNIVERSE</div>
- <button class="intro-skip" onclick="skipIntro()">ENTER UNIVERSE →</button>
+ <div class="intro-line"></div>
 </div>
 
 <canvas id="stars"></canvas>
@@ -402,7 +409,7 @@ footer{
 <section class="hero" id="home">
  <div>
   <div class="eyebrow">F. A // PERSONAL UNIVERSE</div>
-  <h1><span class="white">WELCOME TO</span><br><span>MY UNIVERSE.</span></h1>
+  <h1>WELCOME TO<br><span>MY UNIVERSE.</span></h1>
   <p>
    A personal universe powered by imagination, technology,
    ambition, and the next generation of innovation.
@@ -439,7 +446,7 @@ footer{
 
 <section id="lab">
  <div class="section-head">
-  <div class="eyebrow">02 // PERSONAL TECHNOLOGY</div>
+  <div class="eyebrow">02 // ADVANCED TECHNOLOGY</div>
   <h2 class="heading">THE <span>LABORATORY</span></h2>
   <p class="sub">Welcome to the place where ideas become reality.</p>
  </div>
@@ -469,11 +476,7 @@ footer{
  <div class="grid">
   <div class="panel armor-box">
    <div class="armor-visual">
-    <div>
-     <div class="helmet">🦾</div>
-     <h3 style="font-family:Orbitron;color:#e45b7b">FA MARK I</h3>
-     <p style="color:var(--muted)">PERSONAL ARMOR CONCEPT</p>
-    </div>
+    <div><div class="helmet">🦾</div><h3 style="font-family:Orbitron;color:#d36b88">FA MARK I</h3><p style="color:var(--muted)">PERSONAL ARMOR CONCEPT</p></div>
    </div>
   </div>
   <div class="panel armor-box">
@@ -486,7 +489,7 @@ footer{
   </div>
   <div class="panel armor-box">
    <div class="eyebrow">ARMOR DATABASE</div>
-   <h3 style="font-family:Orbitron;color:#e45b7b">TECH SPECS</h3>
+   <h3 style="font-family:Orbitron;color:#d36b88">TECH SPECS</h3>
    <div class="data-row"><span>FRAME</span><span>MARK I</span></div>
    <div class="data-row"><span>ENERGY</span><span>ARC CORE</span></div>
    <div class="data-row"><span>INTERFACE</span><span>HOLOGRAPHIC</span></div>
@@ -533,7 +536,7 @@ footer{
   <h2 class="heading">THE <span>ORIGIN STORY</span></h2>
  </div>
  <div class="panel holo-info">
-  <p style="font-size:19px;line-height:1.8;color:#bdc9d7">
+  <p style="font-size:19px;line-height:1.8;color:#d0c3c9">
    Every universe has an origin. This is a space to document the journey,
    ideas, experiences, and ambitions of Fachriansyah Alfigo.
    The future is not simply something to wait for — it is something to build.
@@ -547,21 +550,19 @@ footer{
   <h2 class="heading">ESTABLISH <span>CONNECTION</span></h2>
   <p class="sub" style="margin:0 auto 25px">Open a communication channel.</p>
   <div class="hero-buttons" style="justify-content:center">
-   <a class="btn" href="https://instagram.com/a.figo19" target="_blank">INSTAGRAM</a>
-   <a class="btn" href="https://wa.me/6283139998411" target="_blank">WHATSAPP</a>
+   <a class="btn" href="https://instagram.com/a.figo19" target="_blank" rel="noopener">INSTAGRAM</a>
+   <a class="btn" href="https://wa.me/6283139998411" target="_blank" rel="noopener">WHATSAPP</a>
    <a class="btn" href="mailto:masfigo41@gmail.com">EMAIL</a>
   </div>
  </div>
 </section>
 
-<footer>
- F. A PERSONAL UNIVERSE © 2026 // FACHRIANSYAH ALFIGO
-</footer>
+<footer>F. A PERSONAL UNIVERSE © 2026 // FACHRIANSYAH ALFIGO</footer>
 
 <button class="alien-fab" onclick="toggleAlien()" title="Alien Companion">👽</button>
 <button class="jarvis-fab" onclick="openJarvis()" title="JARVIS">◉</button>
 
-<!-- JARVIS CHAT -->
+<!-- JARVIS -->
 <div class="chat" id="jarvisChat">
  <div class="chat-head">
   <strong>◉ J.A.R.V.I.S. // PERSONAL AI</strong>
@@ -571,10 +572,10 @@ footer{
   <div class="msg bot">Good day. JARVIS system online. Selamat datang kembali. Ada yang bisa saya bantu?</div>
  </div>
  <div class="chat-tools">
-  <button id="voiceButton" onclick="startVoice()">🎙 AKTIFKAN JARVIS VOICE</button>
-  <button onclick="speakLast()">🔊 BACA RESPONS</button>
+  <button id="handsfreeBtn" onclick="toggleHandsFree()">🎙 ACTIVATE HANDS-FREE</button>
+  <button onclick="speakLast()">🔊 REPEAT VOICE</button>
  </div>
- <div id="voiceStatus">VOICE MODE: OFF</div>
+ <div id="voiceStatus">● VOICE SYSTEM STANDBY</div>
  <div class="chat-input">
   <input id="jarvisInput" placeholder="Perintahkan JARVIS..." onkeydown="if(event.key==='Enter')sendJarvis()">
   <button onclick="sendJarvis()">➤</button>
@@ -596,23 +597,20 @@ footer{
  </div>
 </div>
 
-<div class="modal" id="imageModal" onclick="this.style.display='none'">
- <button>×</button>
+<div class="modal" id="imageModal" onclick="if(event.target===this)this.style.display='none'">
+ <button onclick="document.getElementById('imageModal').style.display='none'">×</button>
  <img id="modalImage" src="" alt="Preview">
 </div>
 
 <script>
-/* INTRO */
-const intro=document.getElementById('intro');
-
-function skipIntro(){
- intro.classList.add('hide');
-}
+// INTRO
 window.addEventListener('load',()=>{
- setTimeout(skipIntro,3800);
+ setTimeout(()=>{
+  document.getElementById('intro').classList.add('hide');
+ },3500);
 });
 
-/* STARFIELD */
+// STARFIELD
 const canvas=document.getElementById('stars');
 const ctx=canvas.getContext('2d');
 let stars=[];
@@ -630,15 +628,12 @@ function resize(){
 function animateStars(){
  ctx.clearRect(0,0,canvas.width,canvas.height);
  stars.forEach(s=>{
-  ctx.fillStyle='rgba(220,210,225,.75)';
+  ctx.fillStyle='rgba(255,190,210,.7)';
   ctx.beginPath();
   ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
   ctx.fill();
   s.y+=s.s;
-  if(s.y>canvas.height){
-   s.y=0;
-   s.x=Math.random()*canvas.width;
-  }
+  if(s.y>canvas.height){s.y=0;s.x=Math.random()*canvas.width}
  });
  requestAnimationFrame(animateStars);
 }
@@ -646,7 +641,7 @@ resize();
 animateStars();
 addEventListener('resize',resize);
 
-/* UTILITIES */
+// UTILITIES
 function notify(text){
  const t=document.getElementById('toast');
  t.textContent=text;
@@ -658,17 +653,18 @@ function showImage(src){
  document.getElementById('imageModal').style.display='flex';
 }
 
-/* JARVIS CHAT */
+// JARVIS CORE
 const jarvisChat=document.getElementById('jarvisChat');
 const jarvisMessages=document.getElementById('jarvisMessages');
 
 let lastResponse='';
-let conversation=[];
+let handsFreeActive=false;
+let jarvisSpeaking=false;
+let recognition=null;
 
 function openJarvis(){
  jarvisChat.classList.add('open');
  document.getElementById('alienChat').classList.remove('open');
- document.getElementById('jarvisInput').focus();
 }
 function closeJarvis(){
  jarvisChat.classList.remove('open');
@@ -680,11 +676,17 @@ function addJarvis(text,type='bot'){
  jarvisMessages.appendChild(d);
  jarvisMessages.scrollTop=jarvisMessages.scrollHeight;
 }
+function setVoiceStatus(text){
+ document.getElementById('voiceStatus').textContent='● '+text;
+}
 
 function navigateTo(id,label){
- document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+ const target=document.getElementById(id);
+ if(!target)return 'Maaf, bagian tersebut tidak ditemukan.';
+
+ target.scrollIntoView({behavior:'smooth',block:'start'});
  document.getElementById('nav').classList.remove('show');
- return 'Tentu. Saya akan membuka '+label+' untuk Anda.';
+ return 'Baik. Membuka '+label+'.';
 }
 
 function localJarvis(message){
@@ -693,11 +695,12 @@ function localJarvis(message){
  const routes=[
   {words:['beranda','home','utama','awal'],id:'home',label:'halaman utama'},
   {words:['misi','mission','tugas'],id:'missions',label:'Mission Control'},
-  {words:['laboratorium','lab','profil','tentang saya','identitas'],id:'lab',label:'Laboratory dan profil'},
+  {words:['laboratorium','lab','profil','tentang saya','identitas'],id:'lab',label:'Laboratory'},
   {words:['armor','iron man','baju besi','mark'],id:'armor',label:'Armor System'},
   {words:['portal','multiverse','universe'],id:'multiverse',label:'Multiverse Portal'},
   {words:['foto','gallery','galeri','gambar'],id:'gallery',label:'Gallery'},
-  {words:['kontak','contact','instagram','whatsapp','email'],id:'contact',label:'Contact'}
+  {words:['kontak','contact','instagram','whatsapp','email'],id:'contact',label:'Contact'},
+  {words:['asal usul','origin story','cerita saya'],id:'about',label:'Origin Story'}
  ];
 
  for(const r of routes){
@@ -710,26 +713,84 @@ function localJarvis(message){
   return 'Saya JARVIS, asisten virtual pada Personal Universe milik Fachriansyah Alfigo.';
 
  if(m.includes('siapa')||m.includes('profil saya'))
-  return 'Nama pemilik sistem ini adalah Fachriansyah Alfigo. Anda dapat membuka Laboratory untuk melihat profil.';
+  return 'Pemilik sistem ini adalah Fachriansyah Alfigo. Anda dapat membuka Laboratory untuk melihat profil.';
 
  if(m.includes('alien')){
   toggleAlien();
   return 'Alien Companion telah diaktifkan.';
  }
 
- if(m.includes('waktu')||m.includes('jam'))
-  return 'Waktu perangkat saat ini adalah '+new Date().toLocaleTimeString('id-ID')+'.';
+ if(m.includes('waktu')||m.includes('jam berapa'))
+  return 'Waktu sekarang '+new Date().toLocaleTimeString('id-ID')+'.';
 
  if(m.includes('tanggal'))
-  return 'Tanggal hari ini adalah '+new Date().toLocaleDateString('id-ID')+'.';
+  return 'Tanggal hari ini '+new Date().toLocaleDateString('id-ID')+'.';
 
  if(m.includes('terima kasih')||m.includes('makasih'))
-  return 'Sama-sama. Senang dapat membantu.';
+  return 'Sama-sama. Senang dapat membantu Anda.';
 
  if(m.includes('bantuan')||m.includes('help'))
-  return 'Saya dapat membuka Home, Mission Control, Laboratory, Armor System, Multiverse Portal, Gallery, dan Contact.';
+  return 'Anda bisa meminta saya membuka beranda, misi, laboratorium, armor, portal, galeri, atau kontak.';
 
- return 'Perintah diterima. Anda bisa mengatakan buka laboratorium, tampilkan armor, buka galeri, atau kembali ke beranda.';
+ return 'Perintah diterima. Coba katakan buka laboratorium, tampilkan armor, atau buka galeri.';
+}
+
+// VOICE OUTPUT
+function speakLast(){
+ if(!lastResponse)return;
+
+ if(!('speechSynthesis' in window)){
+  notify('Browser belum mendukung suara.');
+  return;
+ }
+
+ speechSynthesis.cancel();
+
+ const utter=new SpeechSynthesisUtterance(lastResponse);
+ utter.lang='id-ID';
+ utter.rate=.92;
+ utter.pitch=.85;
+
+ const voices=speechSynthesis.getVoices();
+ const preferred=voices.find(v=>/indonesian|indonesia/i.test(v.lang));
+
+ if(preferred)utter.voice=preferred;
+
+ utter.onstart=()=>{
+  jarvisSpeaking=true;
+  setVoiceStatus('JARVIS IS RESPONDING');
+ };
+
+ utter.onend=()=>{
+  jarvisSpeaking=false;
+  if(handsFreeActive){
+   setVoiceStatus('LISTENING FOR JARVIS');
+   restartRecognition();
+  }
+ };
+
+ utter.onerror=()=>{
+  jarvisSpeaking=false;
+  if(handsFreeActive)restartRecognition();
+ };
+
+ // Set before speech begins to avoid microphone restarting too early
+ jarvisSpeaking=true;
+ speechSynthesis.speak(utter);
+}
+
+function processJarvis(message){
+ if(!message.trim())return;
+
+ openJarvis();
+ addJarvis(message,'user');
+
+ lastResponse=localJarvis(message);
+ addJarvis(lastResponse);
+
+ if(handsFreeActive){
+  speakLast();
+ }
 }
 
 function sendJarvis(){
@@ -738,82 +799,40 @@ function sendJarvis(){
  if(!message)return;
 
  input.value='';
- addJarvis(message,'user');
+ processJarvis(message);
 
- const response=localJarvis(message);
- lastResponse=response;
-
- conversation.push(
-  {role:'user',content:message},
-  {role:'assistant',content:response}
- );
-
- addJarvis(response);
+ if(!handsFreeActive)speakLast();
 }
 
-/* JARVIS TEXT TO SPEECH */
-function speakText(text){
- if(!text||!('speechSynthesis' in window)){
-  notify('Text to speech tidak didukung browser ini.');
-  return;
+// HANDS-FREE VOICE
+function toggleHandsFree(){
+ if(handsFreeActive){
+  stopHandsFree();
+ }else{
+  startHandsFree();
  }
-
- speechSynthesis.cancel();
-
- const utter=new SpeechSynthesisUtterance(text);
- utter.lang='id-ID';
- utter.rate=.92;
- utter.pitch=.85;
-
- const voices=speechSynthesis.getVoices();
- const preferred=voices.find(v=>
-  /male|david|daniel|george|james|guy|ryan|mark|thomas/i.test(v.name)
- );
-
- if(preferred)utter.voice=preferred;
-
- utter.onend=()=>{
-  if(voiceActive){
-   setTimeout(startRecognition,500);
-  }
- };
-
- speechSynthesis.speak(utter);
 }
 
-function speakLast(){
- if(!lastResponse)return;
- speakText(lastResponse);
-}
+function startHandsFree(){
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 
-/* JARVIS HANDS-FREE VOICE */
-const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-
-let recognition=null;
-let voiceActive=false;
-let awaitingCommand=false;
-let recognitionRunning=false;
-
-const voiceStatus=document.getElementById('voiceStatus');
-const voiceButton=document.getElementById('voiceButton');
-
-function updateVoiceStatus(text){
- voiceStatus.textContent='VOICE MODE: '+text;
-}
-
-function startVoice(){
  if(!SR){
   notify('Voice recognition belum didukung. Gunakan Chrome.');
   return;
  }
 
- if(voiceActive){
-  stopVoice();
+ if(!window.isSecureContext){
+  notify('Gunakan HTTPS atau localhost untuk akses mikrofon.');
   return;
  }
 
- voiceActive=true;
- awaitingCommand=false;
+ if(handsFreeActive)return;
+
+ handsFreeActive=true;
+ openJarvis();
+
+ document.getElementById('handsfreeBtn').textContent='■ DEACTIVATE HANDS-FREE';
+ setVoiceStatus('STARTING MICROPHONE');
 
  recognition=new SR();
  recognition.lang='id-ID';
@@ -822,9 +841,7 @@ function startVoice(){
  recognition.maxAlternatives=1;
 
  recognition.onstart=()=>{
-  recognitionRunning=true;
-  updateVoiceStatus('LISTENING... KATA PEMICU: JARVIS');
-  voiceButton.textContent='⏹ MATIKAN JARVIS VOICE';
+  if(handsFreeActive)setVoiceStatus('LISTENING FOR JARVIS');
  };
 
  recognition.onresult=(event)=>{
@@ -832,108 +849,82 @@ function startVoice(){
    if(!event.results[i].isFinal)continue;
 
    const transcript=event.results[i][0].transcript.trim();
-   if(!transcript)continue;
+   const lower=transcript.toLowerCase();
 
-   processVoiceCommand(transcript);
+   // Wake word
+   if(!lower.includes('jarvis'))continue;
+
+   const command=transcript
+    .replace(/jarvis/ig,'')
+    .replace(/[,.:]/g,'')
+    .trim();
+
+   recognition.stop();
+
+   if(!command){
+    lastResponse='Saya mendengarkan. Silakan berikan perintah.';
+    addJarvis(lastResponse);
+    speakLast();
+    return;
+   }
+
+   processJarvis(command);
+   return;
   }
  };
 
  recognition.onerror=(event)=>{
-  if(event.error==='not-allowed'||event.error==='service-not-allowed'){
-   voiceActive=false;
-   updateVoiceStatus('MICROPHONE ACCESS DENIED');
-   voiceButton.textContent='🎙 AKTIFKAN JARVIS VOICE';
+  if(event.error==='not-allowed'){
+   setVoiceStatus('MICROPHONE PERMISSION DENIED');
+   stopHandsFree();
+  }else if(event.error==='service-not-allowed'){
+   setVoiceStatus('VOICE SERVICE BLOCKED');
+   stopHandsFree();
+  }else if(event.error!=='no-speech'&&event.error!=='aborted'){
+   setVoiceStatus('VOICE ERROR: '+event.error);
   }
  };
 
  recognition.onend=()=>{
-  recognitionRunning=false;
-
-  if(voiceActive&&!speechSynthesis.speaking){
-   setTimeout(startRecognition,700);
+  if(handsFreeActive&&!jarvisSpeaking){
+   setTimeout(restartRecognition,500);
   }
  };
-
- startRecognition();
- notify('JARVIS Voice aktif. Katakan: JARVIS.');
-}
-
-function startRecognition(){
- if(!voiceActive||!recognition||recognitionRunning)return;
 
  try{
   recognition.start();
  }catch(error){
-  // Browser mungkin masih dalam proses memulai pengenalan suara.
+  setVoiceStatus('VOICE SYSTEM ERROR');
  }
 }
 
-function stopVoice(){
- voiceActive=false;
- awaitingCommand=false;
+function restartRecognition(){
+ if(!handsFreeActive||!recognition||jarvisSpeaking)return;
+
+ try{
+  recognition.start();
+ }catch(error){
+  // Wait for browser to finish the previous recognition session.
+ }
+}
+
+function stopHandsFree(){
+ handsFreeActive=false;
+ jarvisSpeaking=false;
 
  if(recognition){
-  try{recognition.stop()}catch(error){}
+  recognition.onend=null;
+  recognition.stop();
+  recognition=null;
  }
 
- speechSynthesis.cancel();
- recognitionRunning=false;
+ if('speechSynthesis' in window)speechSynthesis.cancel();
 
- updateVoiceStatus('OFF');
- voiceButton.textContent='🎙 AKTIFKAN JARVIS VOICE';
- notify('JARVIS Voice dimatikan.');
+ document.getElementById('handsfreeBtn').textContent='🎙 ACTIVATE HANDS-FREE';
+ setVoiceStatus('VOICE SYSTEM STANDBY');
 }
 
-function processVoiceCommand(transcript){
- const original=transcript;
- const lower=transcript.toLowerCase();
-
- // Menunggu kata pemicu JARVIS.
- if(!awaitingCommand){
-  const wakeIndex=lower.indexOf('jarvis');
-
-  if(wakeIndex===-1)return;
-
-  let command=original.slice(wakeIndex+6).trim();
-  command=command.replace(/^[,.:;!? ]+/,'');
-  awaitingCommand=true;
-
-  if(!command){
-   updateVoiceStatus('JARVIS AKTIF - MENUNGGU PERINTAH');
-   return;
-  }
-
-  executeVoiceCommand(command);
-  return;
- }
-
- // Perintah lanjutan setelah kata pemicu.
- executeVoiceCommand(original);
-}
-
-function executeVoiceCommand(command){
- awaitingCommand=false;
-
- openJarvis();
- document.getElementById('jarvisInput').value=command;
-
- addJarvis('🎙 '+command,'user');
-
- const response=localJarvis(command);
- lastResponse=response;
- addJarvis(response);
-
- updateVoiceStatus('COMMAND RECEIVED');
-
- // Beri waktu browser menyelesaikan proses pengenalan suara.
- if(recognition&&recognitionRunning){
-  try{recognition.stop()}catch(error){}
- }
-
- speakText(response);
-}
-
-/* ALIEN COMPANION */
+// ALIEN COMPANION
 function toggleAlien(){
  const a=document.getElementById('alienChat');
  a.classList.toggle('open');
@@ -948,14 +939,12 @@ function sendAlien(){
  input.value='';
 
  const box=document.getElementById('alienMessages');
-
  const u=document.createElement('div');
  u.className='msg user';
  u.textContent=m;
  box.appendChild(u);
 
  const lower=m.toLowerCase();
-
  let reply='Hmm... menarik sekali! Di planetku, kami juga suka mempelajari hal-hal baru. 👽';
 
  if(lower.includes('nama'))
@@ -973,7 +962,6 @@ function sendAlien(){
  b.className='msg bot';
  b.textContent=reply;
  box.appendChild(b);
-
  box.scrollTop=box.scrollHeight;
 }
 </script>
