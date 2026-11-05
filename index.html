@@ -4,7 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AL Universe | Fachriansyah Alfigo</title>
+<meta name="theme-color" content="#080914">
+<title>Fachriansyah Alfigo | Personal Universe</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -12,31 +14,44 @@
 :root{
  --burgundy:#74152d;
  --red:#e3264f;
- --blue:#087ccB;
+ --blue:#087ccb;
+ --lightblue:#70bfff;
  --white:#f7f8ff;
  --dark:#080914;
  --muted:#aeb4ca;
 }
+
 *{margin:0;padding:0;box-sizing:border-box}
+
 html{scroll-behavior:smooth}
+
 body{
  background:var(--dark);
  color:var(--white);
  font-family:Inter,sans-serif;
  overflow-x:hidden;
 }
+
 a{text-decoration:none;color:inherit}
 button{font:inherit}
-#stars{
- position:fixed;inset:0;z-index:-2;
+
+/* BACKGROUND */
+
+#background{
+ position:fixed;
+ inset:0;
+ z-index:-3;
  background:
- radial-gradient(ellipse at 15% 15%,#74152d45,transparent 35%),
- radial-gradient(ellipse at 85% 45%,#087ccb35,transparent 40%),
+ radial-gradient(ellipse at 15% 15%,#74152d50,transparent 35%),
+ radial-gradient(ellipse at 85% 45%,#087ccb40,transparent 40%),
  radial-gradient(ellipse at 50% 100%,#74152d25,transparent 40%),
  #080914;
 }
-#stars:after{
- content:"";position:absolute;inset:0;
+
+#background:after{
+ content:"";
+ position:absolute;
+ inset:0;
  background-image:
  radial-gradient(1px 1px at 20% 30%,white 80%,transparent),
  radial-gradient(2px 2px at 70% 60%,#a7d9ff 80%,transparent),
@@ -45,218 +60,686 @@ button{font:inherit}
  opacity:.55;
  animation:starsMove 35s linear infinite;
 }
-@keyframes starsMove{to{background-position:300px 500px,-300px 400px,200px -300px}}
+
+@keyframes starsMove{
+ to{background-position:300px 500px,-300px 400px,200px -300px}
+}
+
+/* METEOR */
+
+.meteor{
+ position:fixed;
+ width:100px;
+ height:2px;
+ z-index:-1;
+ background:linear-gradient(90deg,#fff,transparent);
+ transform:rotate(-35deg);
+ opacity:0;
+ animation:meteor 7s linear infinite;
+}
+
+.meteor.one{top:20%;left:75%;animation-delay:1s}
+.meteor.two{top:55%;left:20%;animation-delay:4s}
+.meteor.three{top:75%;left:80%;animation-delay:6s}
+
+@keyframes meteor{
+ 0%{transform:translate(0,0) rotate(-35deg);opacity:0}
+ 5%{opacity:1}
+ 20%{transform:translate(-300px,250px) rotate(-35deg);opacity:0}
+ 100%{opacity:0}
+}
+
+/* OPENING */
+
 #intro{
- position:fixed;inset:0;z-index:100;
- display:flex;align-items:center;justify-content:center;
- flex-direction:column;background:#080914;
+ position:fixed;
+ inset:0;
+ z-index:1000;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ flex-direction:column;
+ background:#080914;
+ overflow:hidden;
  transition:opacity 1s,visibility 1s;
 }
-#intro.hide{opacity:0;visibility:hidden}
-.intro-logo{
- font-family:Orbitron,sans-serif;font-size:clamp(65px,14vw,120px);
- font-weight:900;letter-spacing:8px;
- color:white;text-shadow:0 0 20px #087ccb,0 0 50px #e3264f;
- animation:logoPulse 2s infinite alternate;
+
+#intro.hide{
+ opacity:0;
+ visibility:hidden;
 }
-.intro-logo span{color:var(--red)}
-.intro-line{width:0;height:3px;background:linear-gradient(90deg,var(--red),white,var(--blue));animation:lineIn 1.5s .4s forwards}
-.intro-text{margin-top:20px;font:11px Orbitron;letter-spacing:5px;color:#c6d5f2}
-@keyframes logoPulse{to{filter:brightness(1.6)}}
+
+.welcome-track{
+ overflow:hidden;
+ width:100%;
+ white-space:nowrap;
+ text-align:center;
+}
+
+.welcome-track span{
+ display:inline-block;
+ font-family:Orbitron,sans-serif;
+ font-size:clamp(25px,6vw,55px);
+ font-weight:900;
+ letter-spacing:5px;
+ color:white;
+ text-shadow:0 0 15px #087ccb,0 0 35px #e3264f;
+ animation:welcomeMove 5s ease-in-out infinite alternate;
+}
+
+@keyframes welcomeMove{
+ from{transform:translateX(-35px);opacity:.55}
+ to{transform:translateX(35px);opacity:1}
+}
+
+.intro-line{
+ width:0;
+ height:3px;
+ margin-top:25px;
+ background:linear-gradient(90deg,#e3264f,white,#087ccb);
+ animation:lineIn 1.5s .4s forwards;
+}
+
 @keyframes lineIn{to{width:min(300px,70vw)}}
 
-header{
- position:fixed;top:0;left:0;width:100%;z-index:20;
- display:flex;align-items:center;justify-content:space-between;
- padding:20px 7%;background:#080914c9;
- backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12;
-}
-.brand{font:800 22px Orbitron;letter-spacing:3px}
-.brand span{color:var(--red)}
-nav{display:flex;gap:24px;align-items:center}
-nav a{font-size:10px;letter-spacing:1.3px;color:#c3c8d8;transition:.3s}
-nav a:hover{color:white;text-shadow:0 0 12px var(--blue)}
-.menu{display:none;background:none;border:0;color:white;font-size:26px}
+/* HEADER */
 
-section{position:relative;padding:110px 8%;scroll-margin-top:65px}
-.hero{
- min-height:100vh;display:flex;align-items:center;
- overflow:hidden;padding-top:130px;
+header{
+ position:fixed;
+ top:0;
+ left:0;
+ width:100%;
+ z-index:50;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:20px 7%;
+ background:#080914c9;
+ backdrop-filter:blur(18px);
+ border-bottom:1px solid #ffffff12;
 }
+
+.brand{
+ font:800 24px Orbitron;
+ letter-spacing:3px;
+}
+
+.brand span{color:var(--red)}
+
+nav{
+ display:flex;
+ gap:25px;
+ align-items:center;
+}
+
+nav a{
+ font-size:10px;
+ letter-spacing:1.3px;
+ color:#c3c8d8;
+ transition:.3s;
+}
+
+nav a:hover{
+ color:white;
+ text-shadow:0 0 12px var(--blue);
+}
+
+.menu{
+ display:none;
+ background:none;
+ border:0;
+ color:white;
+ font-size:26px;
+ cursor:pointer;
+}
+
+/* GENERAL */
+
+section{
+ position:relative;
+ padding:110px 8%;
+ scroll-margin-top:65px;
+}
+
+.section-head{
+ text-align:center;
+ margin-bottom:55px;
+}
+
+.section-head small{
+ font:10px Orbitron;
+ letter-spacing:4px;
+ color:var(--lightblue);
+}
+
+.section-head h2{
+ font:800 clamp(27px,5vw,46px) Orbitron;
+ margin:15px 0;
+}
+
+.section-head p{
+ font-size:12px;
+ color:var(--muted);
+ line-height:1.8;
+}
+
+.accent{color:var(--red)}
+
+/* HERO */
+
+.hero{
+ min-height:100vh;
+ display:flex;
+ align-items:center;
+ overflow:hidden;
+ padding-top:130px;
+}
+
 .hero:before{
- content:"";position:absolute;width:550px;height:550px;
- right:-100px;top:15%;
+ content:"";
+ position:absolute;
+ width:550px;
+ height:550px;
+ right:-100px;
+ top:15%;
  border-radius:50%;
  background:radial-gradient(circle,#087ccb42,transparent 68%);
- filter:blur(10px);pointer-events:none;
+ filter:blur(10px);
 }
-.hero:after{
- content:"";position:absolute;width:400px;height:400px;
- right:10%;top:23%;border:1px solid #ffffff18;
- border-radius:50%;box-shadow:0 0 70px #087ccb20,inset 0 0 70px #74152d25;
- animation:orbit 30s linear infinite;
+
+.hero-content{
+ position:relative;
+ z-index:2;
+ max-width:680px;
 }
-@keyframes orbit{to{transform:rotate(360deg)}}
-.hero-content{position:relative;z-index:2;max-width:680px}
-.kicker{font:11px Orbitron;letter-spacing:4px;color:#70bfff;margin-bottom:24px}
+
+.kicker{
+ font:11px Orbitron;
+ letter-spacing:4px;
+ color:#70bfff;
+ margin-bottom:24px;
+}
+
 .hero h1{
  font:900 clamp(42px,7vw,83px)/1.12 Orbitron;
- letter-spacing:-3px;margin-bottom:22px;
+ letter-spacing:-3px;
+ margin-bottom:22px;
 }
+
 .hero h1 span{
- color:var(--red);text-shadow:0 0 25px #e3264f75;
+ color:var(--red);
+ text-shadow:0 0 25px #e3264f75;
 }
-.hero p{color:var(--muted);font-size:14px;line-height:2;max-width:520px}
-.hero-buttons{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+
+.hero p{
+ color:var(--muted);
+ font-size:14px;
+ line-height:2;
+ max-width:520px;
+}
+
+.hero-buttons{
+ display:flex;
+ gap:14px;
+ margin-top:32px;
+ flex-wrap:wrap;
+}
+
 .btn{
- display:inline-flex;align-items:center;justify-content:center;
- padding:14px 22px;border-radius:5px;
- font-size:10px;letter-spacing:2px;font-weight:800;
- transition:.3s;border:1px solid #ffffff35;
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ padding:14px 22px;
+ border-radius:5px;
+ font-size:10px;
+ letter-spacing:2px;
+ font-weight:800;
+ transition:.3s;
+ border:1px solid #ffffff35;
 }
-.btn-primary{background:linear-gradient(110deg,var(--burgundy),var(--red));border:0;box-shadow:0 8px 30px #e3264f35}
-.btn:hover{transform:translateY(-4px);box-shadow:0 0 25px #087ccb65}
+
+.btn-primary{
+ background:linear-gradient(110deg,var(--burgundy),var(--red));
+ border:0;
+ box-shadow:0 8px 30px #e3264f35;
+}
+
+.btn:hover{
+ transform:translateY(-5px);
+ box-shadow:0 0 25px #087ccb65;
+}
+
+/* ENERGY CORE */
+
 .hero-orbit{
- position:absolute;right:9%;top:25%;width:min(34vw,410px);
- aspect-ratio:1;border-radius:50%;
+ position:absolute;
+ right:9%;
+ top:25%;
+ width:min(34vw,410px);
+ aspect-ratio:1;
+ border-radius:50%;
  border:1px solid #087ccb55;
- display:grid;place-items:center;
+ display:grid;
+ place-items:center;
  box-shadow:0 0 70px #087ccb22,inset 0 0 70px #087ccb16;
  animation:float 5s ease-in-out infinite;
 }
-.hero-orbit:before,.hero-orbit:after{
- content:"";position:absolute;border:1px solid #e3264f65;
- border-radius:50%;width:75%;height:75%;transform:rotate(55deg);
+
+.hero-orbit:before,
+.hero-orbit:after{
+ content:"";
+ position:absolute;
+ border:1px solid #e3264f65;
+ border-radius:50%;
+ width:75%;
+ height:75%;
+ transform:rotate(55deg);
 }
-.hero-orbit:after{width:110%;height:42%;transform:rotate(-35deg);border-color:#70bfff55}
+
+.hero-orbit:after{
+ width:110%;
+ height:42%;
+ transform:rotate(-35deg);
+ border-color:#70bfff55;
+}
+
 .hero-core{
- width:48%;aspect-ratio:1;border-radius:50%;
+ width:48%;
+ aspect-ratio:1;
+ border-radius:50%;
  background:radial-gradient(circle at 35% 30%,#fff,#72caff 12%,#087ccb 40%,#74152d 75%,#080914 100%);
  box-shadow:0 0 50px #087ccb,0 0 100px #e3264f45;
+ animation:corePulse 3s ease-in-out infinite alternate;
 }
-@keyframes float{50%{transform:translateY(-18px) rotate(4deg)}}
+
+@keyframes corePulse{
+ to{filter:brightness(1.5);transform:scale(1.07)}
+}
+
 .floating{
- position:absolute;font:10px Orbitron;letter-spacing:2px;color:#c9dfff;
+ position:absolute;
+ font:10px Orbitron;
+ letter-spacing:2px;
+ color:#c9dfff;
  animation:float 5s ease-in-out infinite;
 }
-.f1{right:8%;top:20%}.f2{right:3%;bottom:18%;animation-delay:1s}
+
+.f1{right:8%;top:20%}
+.f2{right:3%;bottom:18%;animation-delay:1s}
 .f3{left:2%;bottom:22%;animation-delay:2s}
 
-.section-head{text-align:center;margin-bottom:55px}
-.section-head small{font:10px Orbitron;letter-spacing:4px;color:#70bfff}
-.section-head h2{font:800 clamp(27px,5vw,46px) Orbitron;margin:15px 0}
-.section-head p{font-size:12px;color:var(--muted);line-height:1.8}
-.accent{color:var(--red)}
+@keyframes float{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-13px)}
+}
+
+/* ABOUT */
 
 .about-grid{
- display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center;
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:45px;
+ align-items:center;
 }
+
 .about-art{
- min-height:360px;display:grid;place-items:center;
- border:1px solid #ffffff20;border-radius:14px;overflow:hidden;
+ min-height:360px;
+ display:grid;
+ place-items:center;
+ border:1px solid #ffffff20;
+ border-radius:14px;
+ overflow:hidden;
  background:radial-gradient(circle,#087ccb35,transparent 65%),linear-gradient(140deg,#74152d55,#101629);
  position:relative;
+ animation:float 6s ease-in-out infinite;
 }
+
 .about-art .symbol{
  font:900 clamp(90px,16vw,160px) Orbitron;
- color:white;text-shadow:0 0 25px var(--blue),0 0 65px var(--red);
+ color:white;
+ text-shadow:0 0 25px var(--blue),0 0 65px var(--red);
 }
+
 .about-art:after{
- content:"AL / ORIGIN";position:absolute;bottom:20px;left:22px;
- font:10px Orbitron;letter-spacing:4px;color:#a8d9ff;
+ content:"MY PERSONAL STORY";
+ position:absolute;
+ bottom:20px;
+ left:22px;
+ font:10px Orbitron;
+ letter-spacing:4px;
+ color:#a8d9ff;
 }
-.about-copy h3{font:700 23px Orbitron;margin-bottom:20px}
-.about-copy p{font-size:13px;line-height:2;color:var(--muted);margin-bottom:15px}
-.info-tags{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
-.tag{border:1px solid #ffffff25;border-radius:30px;padding:9px 13px;font-size:10px;color:#dce6fa}
 
-.timeline{max-width:800px;margin:auto;position:relative}
-.timeline:before{
- content:"";position:absolute;left:18px;top:0;bottom:0;width:2px;
- background:linear-gradient(var(--red),var(--blue));
+.about-copy h3{
+ font:700 23px Orbitron;
+ margin-bottom:20px;
 }
-.event{position:relative;padding:0 0 38px 58px}
-.event:before{
- content:"";position:absolute;left:10px;top:5px;width:18px;height:18px;
- border-radius:50%;background:var(--red);box-shadow:0 0 18px var(--red);
- border:3px solid #fff;
-}
-.event small{font:10px Orbitron;color:#75bfff;letter-spacing:2px}
-.event h3{font:600 17px Orbitron;margin:10px 0}
-.event p{color:var(--muted);font-size:12px;line-height:1.8}
 
-.galaxy-wrap{
- position:relative;height:590px;border:1px solid #ffffff20;
- border-radius:15px;overflow:hidden;
- background:radial-gradient(ellipse at center,#17213d,#080914 70%);
+.about-copy p{
+ font-size:13px;
+ line-height:2;
+ color:var(--muted);
+ margin-bottom:15px;
 }
-#galaxy{position:absolute;inset:0}
-.galaxy-hint{
- position:absolute;bottom:18px;left:0;width:100%;
- text-align:center;font-size:10px;letter-spacing:2px;color:#b7c7e7;
- pointer-events:none;
-}
-.planet-info{
- position:absolute;top:20px;left:20px;z-index:2;
- padding:15px 18px;background:#080914b9;
- border:1px solid #ffffff25;border-radius:9px;
- max-width:210px;pointer-events:none;
-}
-.planet-info small{font:9px Orbitron;color:#70bfff;letter-spacing:2px}
-.planet-info h3{font:700 19px Orbitron;margin:9px 0}
-.planet-info p{font-size:10px;line-height:1.7;color:#b9c5dc}
-.planet-controls{
- position:absolute;top:20px;right:20px;z-index:2;
- display:flex;gap:8px;
-}
-.planet-controls button{
- background:#080914bd;color:white;border:1px solid #ffffff35;
- border-radius:5px;padding:9px 12px;font-size:10px;cursor:pointer;
-}
-.planet-controls button:hover{background:var(--burgundy)}
 
-.bmx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.bmx-card{
- border:1px solid #ffffff20;border-radius:12px;overflow:hidden;
- background:#111527;transition:.4s;
+.info-tags{
+ display:flex;
+ gap:10px;
+ flex-wrap:wrap;
+ margin-top:24px;
 }
-.bmx-card:hover{transform:translateY(-8px);border-color:var(--blue);box-shadow:0 15px 35px #087ccb25}
-.bmx-card img{width:100%;height:260px;object-fit:cover;display:block;transition:.5s}
-.bmx-card:hover img{transform:scale(1.05)}
-.bmx-card div{padding:18px}
-.bmx-card h3{font:600 13px Orbitron}
-.bmx-card p{font-size:10px;color:var(--muted);margin-top:8px}
 
-.skills-grid{
- display:grid;grid-template-columns:repeat(5,1fr);gap:13px;
-}
-.skill{
- padding:27px 12px;text-align:center;
- border:1px solid #ffffff20;border-radius:10px;
- background:linear-gradient(145deg,#74152d30,#087ccb16);
+.tag{
+ border:1px solid #ffffff25;
+ border-radius:30px;
+ padding:9px 13px;
+ font-size:10px;
+ color:#dce6fa;
  transition:.3s;
 }
-.skill:hover{transform:translateY(-7px);border-color:#65baff;box-shadow:0 0 24px #087ccb30}
-.skill .icon{font-size:27px;margin-bottom:15px}
-.skill h3{font:600 10px Orbitron;line-height:1.6}
+
+.tag:hover{
+ transform:translateY(-5px);
+ border-color:var(--blue);
+}
+
+/* JOURNEY */
+
+.timeline{
+ max-width:800px;
+ margin:auto;
+ position:relative;
+}
+
+.timeline:before{
+ content:"";
+ position:absolute;
+ left:18px;
+ top:0;
+ bottom:0;
+ width:2px;
+ background:linear-gradient(var(--red),var(--blue));
+}
+
+.event{
+ position:relative;
+ padding:0 0 38px 58px;
+ animation:float 6s ease-in-out infinite;
+}
+
+.event:before{
+ content:"";
+ position:absolute;
+ left:10px;
+ top:5px;
+ width:18px;
+ height:18px;
+ border-radius:50%;
+ background:var(--red);
+ box-shadow:0 0 18px var(--red);
+ border:3px solid #fff;
+}
+
+.event small{
+ font:10px Orbitron;
+ color:#75bfff;
+ letter-spacing:2px;
+}
+
+.event h3{
+ font:600 17px Orbitron;
+ margin:10px 0;
+}
+
+.event p{
+ color:var(--muted);
+ font-size:12px;
+ line-height:1.8;
+}
+
+/* BMX GALLERY */
+
+.bmx-grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:18px;
+}
+
+.bmx-card{
+ border:1px solid #ffffff20;
+ border-radius:12px;
+ overflow:hidden;
+ background:#111527;
+ transition:.4s;
+ cursor:pointer;
+ animation:float 6s ease-in-out infinite;
+}
+
+.bmx-card:nth-child(2){animation-delay:.7s}
+.bmx-card:nth-child(3){animation-delay:1.4s}
+
+.bmx-card:hover{
+ transform:translateY(-8px);
+ border-color:var(--blue);
+ box-shadow:0 15px 35px #087ccb35;
+}
+
+.bmx-card img{
+ width:100%;
+ height:260px;
+ object-fit:cover;
+ display:block;
+ transition:.5s;
+}
+
+.bmx-card:hover img{transform:scale(1.06)}
+
+.bmx-card div{padding:18px}
+
+.bmx-card h3{
+ font:600 13px Orbitron;
+}
+
+.bmx-card p{
+ font-size:10px;
+ color:var(--muted);
+ margin-top:8px;
+ line-height:1.7;
+}
+
+.bmx-card span{
+ display:inline-block;
+ margin-top:14px;
+ color:#65baff;
+ font-size:9px;
+ letter-spacing:2px;
+}
+
+/* PHOTO POPUP */
+
+.photo-modal{
+ position:fixed;
+ inset:0;
+ z-index:200;
+ background:#02040def;
+ backdrop-filter:blur(15px);
+ display:none;
+ justify-content:center;
+ align-items:center;
+ padding:20px;
+}
+
+.photo-modal.active{
+ display:flex;
+ animation:modalFade .35s ease;
+}
+
+@keyframes modalFade{
+ from{opacity:0}
+ to{opacity:1}
+}
+
+.modal-content{
+ width:min(750px,100%);
+ background:#101426;
+ border:1px solid #ffffff30;
+ border-radius:15px;
+ overflow:hidden;
+ animation:modalFloat .5s ease;
+}
+
+@keyframes modalFloat{
+ from{transform:translateY(35px) scale(.96)}
+ to{transform:translateY(0) scale(1)}
+}
+
+.modal-content img{
+ display:block;
+ width:100%;
+ max-height:65vh;
+ object-fit:contain;
+ background:#050711;
+}
+
+.modal-caption{padding:25px}
+
+.modal-caption small{
+ color:#65baff;
+ font-size:9px;
+ letter-spacing:3px;
+}
+
+.modal-caption h2{
+ font-family:Orbitron,sans-serif;
+ margin:12px 0;
+}
+
+.modal-caption p{
+ color:#aeb4ca;
+ font-size:12px;
+ line-height:1.8;
+}
+
+.close-modal{
+ position:absolute;
+ top:15px;
+ right:25px;
+ border:0;
+ background:none;
+ color:white;
+ font-size:40px;
+ cursor:pointer;
+}
+
+/* SKILLS */
+
+.skills-grid{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:13px;
+}
+
+.skill{
+ padding:27px 12px;
+ text-align:center;
+ border:1px solid #ffffff20;
+ border-radius:10px;
+ background:linear-gradient(145deg,#74152d30,#087ccb16);
+ transition:.3s;
+ animation:float 5s ease-in-out infinite;
+}
+
+.skill:nth-child(even){animation-delay:.7s}
+
+.skill:hover{
+ transform:translateY(-7px);
+ border-color:#65baff;
+ box-shadow:0 0 24px #087ccb30;
+}
+
+.skill .icon{
+ font-size:27px;
+ margin-bottom:15px;
+}
+
+.skill h3{
+ font:600 10px Orbitron;
+ line-height:1.6;
+}
+
+/* CONTACT */
 
 .contact-box{
- max-width:800px;margin:auto;text-align:center;
- padding:55px 25px;border:1px solid #ffffff25;border-radius:15px;
+ max-width:800px;
+ margin:auto;
+ text-align:center;
+ padding:55px 25px;
+ border:1px solid #ffffff25;
+ border-radius:15px;
  background:radial-gradient(ellipse at top,#74152d45,transparent 65%),#101426;
+ animation:float 6s ease-in-out infinite;
 }
-.contact-box h2{font:800 clamp(27px,5vw,43px) Orbitron}
-.contact-box p{font-size:12px;line-height:1.9;color:var(--muted);margin:18px auto 28px;max-width:500px}
-.contact-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.contact-links a{padding:13px 17px;border:1px solid #ffffff30;border-radius:5px;font-size:10px;letter-spacing:1px}
-.contact-links a:hover{background:var(--burgundy);border-color:var(--red)}
+
+.contact-box h2{
+ font:800 clamp(27px,5vw,43px) Orbitron;
+}
+
+.contact-box p{
+ font-size:12px;
+ line-height:1.9;
+ color:var(--muted);
+ margin:18px auto 28px;
+ max-width:500px;
+}
+
+.contact-links{
+ display:flex;
+ justify-content:center;
+ gap:12px;
+ flex-wrap:wrap;
+}
+
+.contact-links a{
+ padding:13px 17px;
+ border:1px solid #ffffff30;
+ border-radius:5px;
+ font-size:10px;
+ letter-spacing:1px;
+ transition:.3s;
+}
+
+.contact-links a:hover{
+ background:var(--burgundy);
+ border-color:var(--red);
+ transform:translateY(-5px);
+ box-shadow:0 0 20px #087ccb55;
+}
+
+/* FOOTER */
 
 footer{
- text-align:center;padding:30px 15px;
- border-top:1px solid #ffffff15;color:#77829c;font-size:10px;letter-spacing:2px;
+ text-align:center;
+ padding:30px 15px;
+ border-top:1px solid #ffffff15;
+ color:#77829c;
+ font-size:10px;
+ letter-spacing:2px;
 }
-.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s,transform .8s}
-.reveal.show{opacity:1;transform:translateY(0)}
+
+/* SCROLL REVEAL */
+
+.reveal{
+ opacity:0;
+ transform:translateY(35px);
+ transition:opacity .8s,transform .8s;
+}
+
+.reveal.show{
+ opacity:1;
+ transform:translateY(0);
+}
+
+/* RESPONSIVE */
 
 @media(max-width:900px){
  nav{gap:13px}
@@ -264,58 +747,99 @@ footer{
  .hero-orbit{right:5%;opacity:.65}
  .skills-grid{grid-template-columns:repeat(3,1fr)}
 }
+
 @media(max-width:650px){
  header{padding:17px 6%}
+
  .menu{display:block}
+
  nav{
-  display:none;position:absolute;top:65px;left:0;width:100%;
-  padding:22px;background:#080914f5;
-  flex-direction:column;align-items:flex-start;
+  display:none;
+  position:absolute;
+  top:65px;
+  left:0;
+  width:100%;
+  padding:22px;
+  background:#080914f5;
+  flex-direction:column;
+  align-items:flex-start;
   border-bottom:1px solid #ffffff20;
  }
+
  nav.open{display:flex}
  nav a{font-size:11px}
+
  section{padding:85px 7%}
- .hero{min-height:95vh;padding-top:125px}
+
+ .hero{
+  min-height:95vh;
+  padding-top:125px;
+ }
+
  .hero-content{max-width:100%}
- .hero-orbit{width:65vw;right:-20%;top:35%;opacity:.35}
+ .hero-orbit{
+  width:65vw;
+  right:-20%;
+  top:35%;
+  opacity:.35;
+ }
+
  .hero h1{font-size:43px}
  .hero p{font-size:12px}
  .floating{display:none}
- .about-grid{grid-template-columns:1fr;gap:25px}
+
+ .about-grid{
+  grid-template-columns:1fr;
+  gap:25px;
+ }
+
  .about-art{min-height:260px}
- .galaxy-wrap{height:530px}
- .planet-info{max-width:155px;padding:11px}
- .planet-info p{font-size:9px}
- .planet-controls{top:auto;bottom:45px;right:10px}
+
  .bmx-grid{grid-template-columns:1fr}
  .bmx-card img{height:280px}
+
  .skills-grid{grid-template-columns:repeat(2,1fr)}
+
  .contact-box{padding:40px 18px}
 }
+
 @media(prefers-reduced-motion:reduce){
- *,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+ *,*:before,*:after{
+  scroll-behavior:auto!important;
+  animation:none!important;
+  transition:none!important;
+ }
 }
 </style>
 </head>
 
 <body>
-<div id="stars"></div>
+
+<div id="background"></div>
+<div class="meteor one"></div>
+<div class="meteor two"></div>
+<div class="meteor three"></div>
+
+<!-- OPENING -->
 
 <div id="intro">
- <div class="intro-logo">AL<span>.</span></div>
+ <div class="welcome-track">
+  <span>WELCOME MY UNIVERSE</span>
+ </div>
  <div class="intro-line"></div>
- <div class="intro-text">WELCOME TO MY UNIVERSE</div>
 </div>
+
+<!-- HEADER -->
 
 <header>
  <a class="brand" href="#home">AL<span>.</span></a>
+
  <button class="menu" id="menuBtn" aria-label="Buka menu">☰</button>
+
  <nav id="nav">
   <a href="#home">HOME</a>
   <a href="#about">ABOUT</a>
   <a href="#journey">JOURNEY</a>
-  <a href="#galaxy-section">GALAXY</a>
   <a href="#bmx">BMX</a>
   <a href="#skills">ABILITIES</a>
   <a href="#contact">CONTACT</a>
@@ -323,169 +847,308 @@ footer{
 </header>
 
 <main>
+
+<!-- HOME -->
+
 <section class="hero" id="home">
+
  <div class="hero-content">
-  <div class="kicker">AL CINEMATIC UNIVERSE / 001</div>
-  <h1>HELLO,<br>I'M <span>FACHRIANSYAH</span><br>ALFIGO.</h1>
+  <div class="kicker">PERSONAL UNIVERSE / 001</div>
+
+  <h1>
+   HELLO,<br>
+   I'M <span>FACHRIANSYAH</span><br>
+   ALFIGO.
+  </h1>
+
   <p>
-   Welcome to my universe. A place where creativity,
-   passion, exploration and ambition become one story.
+   Welcome to my universe. A place where passion,
+   exploration, ambition and creativity become one story.
    Every journey has a beginning. This is mine.
   </p>
+
   <div class="hero-buttons">
-   <a class="btn btn-primary" href="#about">DISCOVER MY STORY ↗</a>
-   <a class="btn" href="#galaxy-section">EXPLORE GALAXY</a>
+   <a class="btn btn-primary" href="#about">
+    DISCOVER MY STORY ↗
+   </a>
+
+   <a class="btn" href="#bmx">
+    EXPLORE MY WORLD
+   </a>
   </div>
  </div>
- <div class="hero-orbit"><div class="hero-core"></div></div>
+
+ <div class="hero-orbit">
+  <div class="hero-core"></div>
+ </div>
+
  <div class="floating f1">ENERGY CORE / AL-01</div>
  <div class="floating f2">UNIVERSE ACTIVE</div>
  <div class="floating f3">EST. 2006</div>
+
 </section>
 
+<!-- ABOUT -->
+
 <section id="about">
+
  <div class="section-head reveal">
   <small>CHAPTER 01 / ORIGIN</small>
   <h2>MY <span class="accent">ORIGIN STORY</span></h2>
   <p>Every hero has a story. This is where mine begins.</p>
  </div>
+
  <div class="about-grid reveal">
-  <div class="about-art"><div class="symbol">AL</div></div>
+
+  <div class="about-art">
+   <div class="symbol">AL</div>
+  </div>
+
   <div class="about-copy">
-   <h3>THE PERSON BEHIND THE UNIVERSE.</h3>
+
+   <h3>THE PERSON BEHIND THE STORY.</h3>
+
    <p>
     My name is Fachriansyah Alfigo. I am a student
-    interested in multimedia, communication, creative
-    experiences and technology.
+    interested in multimedia, communication,
+    creative experiences and technology.
    </p>
+
    <p>
     I believe that learning is a continuous journey.
     I enjoy exploring new ideas, developing skills
     and turning interests into meaningful experiences.
    </p>
+
    <div class="info-tags">
     <span class="tag">Multimedia Student</span>
     <span class="tag">BMX Enthusiast</span>
     <span class="tag">Explorer</span>
    </div>
+
   </div>
  </div>
+
 </section>
 
+<!-- JOURNEY -->
+
 <section id="journey">
+
  <div class="section-head reveal">
   <small>CHAPTER 02 / TIMELINE</small>
   <h2>MY <span class="accent">JOURNEY</span></h2>
   <p>A timeline of learning, growing and discovering.</p>
  </div>
+
  <div class="timeline reveal">
+
   <div class="event">
    <small>THE BEGINNING</small>
    <h3>Education & Discovery</h3>
-   <p>Beginning the journey of education and discovering personal interests.</p>
+   <p>
+    Beginning the journey of education and discovering
+    personal interests.
+   </p>
   </div>
+
   <div class="event">
    <small>THE NEXT CHAPTER</small>
    <h3>Multimedia & Digital Management</h3>
-   <p>Exploring multimedia, communication, digital media and creative ideas through study.</p>
+   <p>
+    Exploring multimedia, communication, digital media
+    and creative ideas through study.
+   </p>
   </div>
+
   <div class="event">
    <small>EVOLVING</small>
    <h3>Personal Growth</h3>
-   <p>Continuously learning, experimenting and developing new abilities.</p>
+   <p>
+    Continuously learning, experimenting and developing
+    new abilities.
+   </p>
   </div>
+
  </div>
+
 </section>
 
-<section id="galaxy-section">
- <div class="section-head reveal">
-  <small>CHAPTER 03 / COSMIC EXPLORATION</small>
-  <h2>EXPLORE THE <span class="accent">GALAXY</span></h2>
-  <p>Enter the solar system. Rotate, zoom and discover the planets.</p>
- </div>
- <div class="galaxy-wrap reveal">
-  <div id="galaxy"></div>
-  <div class="planet-info">
-   <small>GALAXY DATABASE</small>
-   <h3 id="planetName">SOLAR SYSTEM</h3>
-   <p id="planetDesc">Drag to explore the universe. Select a planet to discover its story.</p>
-  </div>
-  <div class="planet-controls">
-   <button id="pauseGalaxy">Ⅱ PAUSE</button>
-   <button id="resetGalaxy">↺ RESET</button>
-  </div>
-  <div class="galaxy-hint">DRAG TO ROTATE • SCROLL TO ZOOM • TAP A PLANET</div>
- </div>
-</section>
+<!-- BMX -->
 
 <section id="bmx">
+
  <div class="section-head reveal">
-  <small>CHAPTER 04 / LIFESTYLE</small>
+  <small>CHAPTER 03 / LIFESTYLE</small>
   <h2>BEYOND THE <span class="accent">LIMITS</span></h2>
   <p>Passion, movement and the freedom of BMX.</p>
  </div>
+
  <div class="bmx-grid reveal">
-  <article class="bmx-card">
-   <img src="IMG-20261104-WA0006.jpg" alt="BMX moment one" loading="lazy">
-   <div><h3>THE RIDE</h3><p>Every ride has its own story.</p></div>
+
+  <article class="bmx-card" onclick="openPhoto(0)">
+   <img src="IMG-20261104-WA0006.jpg" alt="BMX Ride" loading="lazy">
+   <div>
+    <h3>THE RIDE</h3>
+    <p>Every ride has its own story.</p>
+    <span>CLICK TO EXPLORE ↗</span>
+   </div>
   </article>
-  <article class="bmx-card">
-   <img src="IMG-20261104-WA0009.jpg" alt="BMX moment two" loading="lazy">
-   <div><h3>THE PASSION</h3><p>Driven by passion and freedom.</p></div>
+
+  <article class="bmx-card" onclick="openPhoto(1)">
+   <img src="IMG-20261104-WA0009.jpg" alt="BMX Passion" loading="lazy">
+   <div>
+    <h3>THE PASSION</h3>
+    <p>Driven by passion and freedom.</p>
+    <span>CLICK TO EXPLORE ↗</span>
+   </div>
   </article>
-  <article class="bmx-card">
-   <img src="IMG-20261104-WA0011.jpg" alt="BMX moment three" loading="lazy">
-   <div><h3>THE JOURNEY</h3><p>Keep moving. Keep exploring.</p></div>
+
+  <article class="bmx-card" onclick="openPhoto(2)">
+   <img src="IMG-20261104-WA0011.jpg" alt="BMX Journey" loading="lazy">
+   <div>
+    <h3>THE JOURNEY</h3>
+    <p>Keep moving. Keep exploring.</p>
+    <span>CLICK TO EXPLORE ↗</span>
+   </div>
   </article>
+
  </div>
+
 </section>
 
+<!-- PHOTO POPUP -->
+
+<div class="photo-modal" id="photoModal" onclick="closePhoto(event)">
+
+ <button class="close-modal" onclick="closePhoto()">×</button>
+
+ <div class="modal-content" onclick="event.stopPropagation()">
+
+  <img id="modalImage" src="" alt="BMX Photo">
+
+  <div class="modal-caption">
+   <small>PERSONAL BMX COLLECTION</small>
+   <h2 id="modalTitle"></h2>
+   <p id="modalDescription"></p>
+  </div>
+
+ </div>
+
+</div>
+
+<!-- ABILITIES -->
+
 <section id="skills">
+
  <div class="section-head reveal">
-  <small>CHAPTER 05 / ABILITIES</small>
+  <small>CHAPTER 04 / ABILITIES</small>
   <h2>MY <span class="accent">ABILITIES</span></h2>
   <p>Skills and qualities that continue to grow.</p>
  </div>
+
  <div class="skills-grid reveal">
-  <div class="skill"><div class="icon">🎬</div><h3>MULTIMEDIA</h3></div>
-  <div class="skill"><div class="icon">💬</div><h3>COMMUNICATION</h3></div>
-  <div class="skill"><div class="icon">💡</div><h3>CREATIVE THINKING</h3></div>
-  <div class="skill"><div class="icon">🤝</div><h3>TEAMWORK</h3></div>
-  <div class="skill"><div class="icon">🚀</div><h3>LEARNING MINDSET</h3></div>
+
+  <div class="skill">
+   <div class="icon">🎬</div>
+   <h3>MULTIMEDIA</h3>
+  </div>
+
+  <div class="skill">
+   <div class="icon">💬</div>
+   <h3>COMMUNICATION</h3>
+  </div>
+
+  <div class="skill">
+   <div class="icon">💡</div>
+   <h3>CREATIVE THINKING</h3>
+  </div>
+
+  <div class="skill">
+   <div class="icon">🤝</div>
+   <h3>TEAMWORK</h3>
+  </div>
+
+  <div class="skill">
+   <div class="icon">🚀</div>
+   <h3>LEARNING MINDSET</h3>
+  </div>
+
  </div>
+
 </section>
 
+<!-- CONTACT -->
+
 <section id="contact">
+
  <div class="contact-box reveal">
+
   <div class="kicker">FINAL CHAPTER / CONNECTION</div>
+
   <h2>LET'S CONNECT<span class="accent">.</span></h2>
+
   <p>
    Every universe is better with new connections.
    Reach out and let's share ideas, stories and experiences.
   </p>
+
   <div class="contact-links">
-   <a href="https://instagram.com/a.figo19" target="_blank" rel="noopener">INSTAGRAM ↗</a>
-   <a href="https://wa.me/6283139998411" target="_blank" rel="noopener">WHATSAPP ↗</a>
-   <a href="mailto:masfigo41@gmail.com">EMAIL ↗</a>
+
+   <a href="https://instagram.com/a.figo19"
+      target="_blank" rel="noopener">
+    INSTAGRAM ↗
+   </a>
+
+   <a href="https://wa.me/6283139998411"
+      target="_blank" rel="noopener">
+    WHATSAPP ↗
+   </a>
+
+   <a href="mailto:masfigo41@gmail.com">
+    EMAIL ↗
+   </a>
+
   </div>
+
  </div>
+
 </section>
+
 </main>
 
-<footer>© 2026 AL CINEMATIC UNIVERSE — FACHRIANSYAH ALFIGO</footer>
+<footer>
+ © 2026 — FACHRIANSYAH ALFIGO
+</footer>
 
 <script>
+
+/* OPENING */
+
 const intro=document.getElementById('intro');
+
 window.addEventListener('load',()=>{
- setTimeout(()=>intro.classList.add('hide'),1700);
+ setTimeout(()=>{
+  intro.classList.add('hide');
+ },3000);
 });
+
+/* MOBILE MENU */
 
 const menuBtn=document.getElementById('menuBtn');
 const nav=document.getElementById('nav');
-menuBtn.addEventListener('click',()=>nav.classList.toggle('open'));
-nav.querySelectorAll('a').forEach(a=>{
- a.addEventListener('click',()=>nav.classList.remove('open'));
+
+menuBtn.addEventListener('click',()=>{
+ nav.classList.toggle('open');
 });
+
+nav.querySelectorAll('a').forEach(link=>{
+ link.addEventListener('click',()=>{
+  nav.classList.remove('open');
+ });
+});
+
+/* SCROLL ANIMATION */
 
 const observer=new IntersectionObserver(entries=>{
  entries.forEach(entry=>{
@@ -495,176 +1158,66 @@ const observer=new IntersectionObserver(entries=>{
   }
  });
 },{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-</script>
 
-<script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+document.querySelectorAll('.reveal').forEach(el=>{
+ observer.observe(el);
+});
 
-const host=document.getElementById('galaxy');
-const scene=new THREE.Scene();
-scene.background=new THREE.Color(0x080914);
+/* BMX POPUP */
 
-const camera=new THREE.PerspectiveCamera(48,1,.1,1000);
-camera.position.set(0,65,125);
-
-const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
-renderer.outputColorSpace=THREE.SRGBColorSpace;
-host.appendChild(renderer.domElement);
-
-const controls=new OrbitControls(camera,renderer.domElement);
-controls.enableDamping=true;
-controls.dampingFactor=.05;
-controls.minDistance=25;
-controls.maxDistance=250;
-
-scene.add(new THREE.AmbientLight(0xffffff,1.3));
-const sunLight=new THREE.PointLight(0xffd5a1,1600,500);
-scene.add(sunLight);
-
-const sun=new THREE.Mesh(
- new THREE.SphereGeometry(4.8,48,48),
- new THREE.MeshBasicMaterial({color:0xffa43a})
-);
-scene.add(sun);
-
-const sunGlow=new THREE.Mesh(
- new THREE.SphereGeometry(6.5,32,32),
- new THREE.MeshBasicMaterial({color:0xff4a55,transparent:true,opacity:.17})
-);
-scene.add(sunGlow);
-
-const starGeo=new THREE.BufferGeometry();
-const starPos=[];
-for(let i=0;i<2800;i++){
- starPos.push((Math.random()-.5)*600,(Math.random()-.5)*300,(Math.random()-.5)*600);
-}
-starGeo.setAttribute('position',new THREE.Float32BufferAttribute(starPos,3));
-const starField=new THREE.Points(starGeo,new THREE.PointsMaterial({
- color:0xc9e5ff,size:.7,transparent:true,opacity:.8
-}));
-scene.add(starField);
-
-const data=[
- ['MERCURY',.65,10,0xa8a19b,.018,'The smallest planet and closest to the Sun.'],
- ['VENUS',1.05,16,0xe8b77c,.013,'A hot world covered by thick clouds.'],
- ['EARTH',1.2,23,0x258cff,.010,'Our home planet, with oceans and life.'],
- ['MARS',.85,31,0xd65d40,.008,'The red planet with ancient landscapes.'],
- ['JUPITER',3.3,44,0xc99b76,.004,'The largest planet in our solar system.'],
- ['SATURN',2.7,59,0xd7bd89,.003,'A giant world with beautiful rings.'],
- ['URANUS',1.8,75,0x77d6df,.002,'An ice giant that rotates on its side.'],
- ['NEPTUNE',1.8,91,0x3769e9,.0015,'A distant blue world with powerful winds.']
+const photoData=[
+ {
+  title:"THE RIDE",
+  description:"A moment on two wheels. BMX is more than just riding; it is a journey of passion, freedom and personal expression."
+ },
+ {
+  title:"THE PASSION",
+  description:"The excitement of BMX comes from the experience, the creativity and the love of riding."
+ },
+ {
+  title:"THE JOURNEY",
+  description:"Every ride becomes a memory. Keep exploring, keep learning and enjoy every moment."
+ }
 ];
 
-const objects=[];
-data.forEach((d,i)=>{
- const orbit=new THREE.Group();
- scene.add(orbit);
- const points=[];
- for(let n=0;n<180;n++){
-  const a=n/180*Math.PI*2;
-  points.push(new THREE.Vector3(Math.cos(a)*d[2],0,Math.sin(a)*d[2]));
- }
- const line=new THREE.LineLoop(
-  new THREE.BufferGeometry().setFromPoints(points),
-  new THREE.LineBasicMaterial({color:0x779acb,transparent:true,opacity:.3})
- );
- scene.add(line);
+const photoFiles=[
+ "IMG-20261104-WA0006.jpg",
+ "IMG-20261104-WA0009.jpg",
+ "IMG-20261104-WA0011.jpg"
+];
 
- const mesh=new THREE.Mesh(
-  new THREE.SphereGeometry(d[1],40,40),
-  new THREE.MeshStandardMaterial({color:d[3],roughness:.85})
- );
- mesh.position.x=d[2];
- mesh.userData.index=i;
- orbit.add(mesh);
+function openPhoto(index){
 
- if(d[0]==='SATURN'){
-  const ring=new THREE.Mesh(
-   new THREE.RingGeometry(3.5,5.2,80),
-   new THREE.MeshBasicMaterial({color:0xd9c49e,side:THREE.DoubleSide,transparent:true,opacity:.75})
-  );
-  ring.rotation.x=Math.PI/2.3;
-  mesh.add(ring);
- }
+ document.getElementById("modalImage").src=photoFiles[index];
 
- if(d[0]==='EARTH'){
-  const moon=new THREE.Mesh(
-   new THREE.SphereGeometry(.3,20,20),
-   new THREE.MeshStandardMaterial({color:0xdddddd})
-  );
-  moon.position.set(2,0,0);
-  const moonGroup=new THREE.Group();
-  moonGroup.add(moon);
-  moonGroup.position.x=1.5;
-  mesh.add(moonGroup);
-  mesh.userData.moon=moonGroup;
- }
+ document.getElementById("modalTitle").textContent=
+  photoData[index].title;
 
- objects.push({orbit,mesh,data:d,angle:Math.random()*Math.PI*2});
-});
+ document.getElementById("modalDescription").textContent=
+  photoData[index].description;
 
-const raycaster=new THREE.Raycaster();
-const pointer=new THREE.Vector2();
-let down=null;
-let paused=false;
+ document.getElementById("photoModal").classList.add("active");
 
-renderer.domElement.addEventListener('pointerdown',e=>down={x:e.clientX,y:e.clientY});
-renderer.domElement.addEventListener('pointerup',e=>{
- if(!down)return;
- if(Math.hypot(e.clientX-down.x,e.clientY-down.y)>6){down=null;return;}
- down=null;
- const r=renderer.domElement.getBoundingClientRect();
- pointer.x=((e.clientX-r.left)/r.width)*2-1;
- pointer.y=-((e.clientY-r.top)/r.height)*2+1;
- raycaster.setFromCamera(pointer,camera);
- const hits=raycaster.intersectObjects(objects.map(o=>o.mesh));
- if(hits.length){
-  const p=objects[hits[0].object.userData.index].data;
-  document.getElementById('planetName').textContent=p[0];
-  document.getElementById('planetDesc').textContent=p[5];
+ document.body.style.overflow="hidden";
+}
+
+function closePhoto(event){
+
+ if(event && event.target.id!=="photoModal")return;
+
+ document.getElementById("photoModal").classList.remove("active");
+
+ document.body.style.overflow="";
+}
+
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){
+  document.getElementById("photoModal").classList.remove("active");
+  document.body.style.overflow="";
  }
 });
 
-function resize(){
- const w=host.clientWidth,h=host.clientHeight;
- camera.aspect=w/h;
- camera.updateProjectionMatrix();
- renderer.setSize(w,h);
-}
-new ResizeObserver(resize).observe(host);
-resize();
-
-document.getElementById('pauseGalaxy').onclick=()=>{
- paused=!paused;
- document.getElementById('pauseGalaxy').textContent=paused?'▶ PLAY':'Ⅱ PAUSE';
-};
-document.getElementById('resetGalaxy').onclick=()=>{
- camera.position.set(0,65,125);
- controls.target.set(0,0,0);
- controls.update();
-};
-
-const clock=new THREE.Clock();
-function animate(){
- requestAnimationFrame(animate);
- const dt=clock.getDelta();
- controls.update();
- if(!paused){
-  sun.rotation.y+=dt*.12;
-  starField.rotation.y+=dt*.003;
-  objects.forEach(o=>{
-   o.angle+=o.data[4];
-   o.orbit.rotation.y=o.angle;
-   o.mesh.rotation.y+=dt*.25;
-   if(o.mesh.userData.moon)o.mesh.userData.moon.rotation.y+=dt*1.5;
-  });
- }
- renderer.render(scene,camera);
-}
-animate();
 </script>
+
 </body>
 </html>
