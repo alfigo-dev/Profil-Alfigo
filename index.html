@@ -3,738 +3,1583 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#170910">
+<meta name="theme-color" content="#10090d">
 <title>F.A | Personal Universe</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#09070a;
-  --panel:#150d12;
-  --panel2:#201019;
-  --red:#8e173c;
-  --red2:#c02c58;
-  --white:#f8f3f5;
-  --muted:#a99ba2;
-  --cyan:#65e9ee;
-  --line:rgba(255,255,255,.12);
+ --bg:#10090d;
+ --panel:#1a1016;
+ --panel2:#24151e;
+ --red:#8e173c;
+ --red2:#c22d59;
+ --white:#f8f4f6;
+ --muted:#a99ba2;
+ --cyan:#79eaff;
+ --line:rgba(255,255,255,.12);
 }
 
-*{margin:0;padding:0;box-sizing:border-box}
+*{box-sizing:border-box;margin:0;padding:0}
+
 html{scroll-behavior:smooth}
+
 body{
-  background:var(--bg);
-  color:var(--white);
-  font-family:Inter,sans-serif;
-  overflow-x:hidden;
+ background:var(--bg);
+ color:var(--white);
+ font-family:Inter,sans-serif;
+ overflow-x:hidden;
 }
+
 button{font-family:inherit;cursor:pointer}
-#stars{
-  position:fixed;inset:0;width:100%;height:100%;
-  z-index:-2;pointer-events:none;
+
+#particles{
+ position:fixed;
+ inset:0;
+ z-index:0;
+ pointer-events:none;
+ opacity:.55;
 }
-.grid-bg{
-  position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background-image:
-  linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
-  background-size:45px 45px;
-  mask-image:linear-gradient(to bottom,black,transparent);
+
+.scanlines{
+ position:fixed;
+ inset:0;
+ z-index:10;
+ pointer-events:none;
+ opacity:.08;
+ background:repeating-linear-gradient(
+ transparent 0px,
+ transparent 3px,
+ rgba(255,255,255,.12) 4px
+ );
 }
-.glow{
-  position:fixed;width:350px;height:350px;
-  border-radius:50%;filter:blur(110px);
-  background:rgba(142,23,60,.18);
-  top:20%;left:50%;transform:translateX(-50%);
-  z-index:-1;pointer-events:none;
-}
+
+.hidden{display:none!important}
 
 /* INTRO */
+
 #intro{
-  position:fixed;inset:0;z-index:1000;
-  background:#080609;
-  display:flex;align-items:center;justify-content:center;
-  flex-direction:column;
-  transition:opacity 1s,visibility 1s;
-}
-#intro.hide{opacity:0;visibility:hidden}
-.intro-core{
-  width:100px;height:100px;border-radius:50%;
-  border:2px solid var(--red2);
-  display:grid;place-items:center;
-  box-shadow:0 0 25px var(--red),inset 0 0 25px var(--red);
-  animation:corePulse 2s infinite;
-  margin-bottom:30px;
-}
-.intro-core span{
-  font-family:Orbitron;font-size:25px;color:white;
-}
-.intro-title{
-  font-family:Orbitron;letter-spacing:5px;
-  font-size:clamp(20px,5vw,35px);
-  text-align:center;
-}
-.intro-sub{
-  color:var(--cyan);font-size:10px;
-  letter-spacing:5px;margin-top:15px;
-}
-.loading{
-  width:180px;height:2px;background:#30232a;
-  margin-top:35px;overflow:hidden;
-}
-.loading:after{
-  content:"";display:block;width:40%;height:100%;
-  background:var(--red2);
-  animation:loading 1.8s ease-in-out infinite;
-}
-@keyframes loading{
-  from{transform:translateX(-100%)}
-  to{transform:translateX(300%)}
-}
-@keyframes corePulse{
-  50%{box-shadow:0 0 45px var(--red2),inset 0 0 35px var(--red)}
+ position:fixed;
+ inset:0;
+ z-index:100;
+ background:
+ radial-gradient(ellipse at center,rgba(113,18,54,.25),transparent 55%),
+ #09070a;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:24px;
+ overflow:hidden;
 }
 
-/* NAVIGATION */
-header{
-  position:fixed;top:0;left:0;width:100%;z-index:100;
-  padding:18px 7%;
-  display:flex;justify-content:space-between;align-items:center;
-  background:rgba(9,7,10,.82);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--line);
-}
-.logo{
-  font-family:Orbitron;font-weight:800;
-  font-size:23px;letter-spacing:3px;
-}
-.logo span{color:var(--red2)}
-.nav{
-  display:flex;gap:10px;
-}
-.nav button{
-  background:transparent;color:#aaa;
-  border:1px solid transparent;padding:11px 16px;
-  font-family:Orbitron;font-size:10px;
-  letter-spacing:1px;transition:.3s;
-}
-.nav button.active,.nav button:hover{
-  color:white;border-color:var(--red2);
-  background:rgba(142,23,60,.15);
-  box-shadow:0 0 15px rgba(192,44,88,.12);
+.intro-content{
+ width:100%;
+ max-width:650px;
+ text-align:center;
+ position:relative;
+ z-index:2;
 }
 
-/* PAGES */
-.page{
-  display:none;min-height:100vh;
-  padding:120px 7% 70px;
-  animation:pageIn .6s ease;
-}
-.page.active{display:block}
-@keyframes pageIn{
-  from{opacity:0;transform:translateY(15px)}
-  to{opacity:1;transform:translateY(0)}
+.intro-top{
+ font-family:Orbitron;
+ color:var(--cyan);
+ font-size:10px;
+ letter-spacing:5px;
+ margin-bottom:32px;
 }
 
-/* HOME */
-.hero{
-  min-height:75vh;
-  display:grid;grid-template-columns:1.1fr .9fr;
-  align-items:center;gap:35px;
-}
-.eyebrow{
-  color:var(--cyan);font-family:Orbitron;
-  letter-spacing:4px;font-size:10px;margin-bottom:20px;
-}
-.hero h1{
-  font-family:Orbitron;
-  font-size:clamp(35px,7vw,75px);
-  line-height:1.12;letter-spacing:-2px;
-}
-.hero h1 span{
-  color:var(--red2);
-  text-shadow:0 0 25px rgba(192,44,88,.35);
-}
-.hero-desc{
-  color:var(--muted);line-height:1.9;
-  max-width:520px;margin:22px 0 28px;font-size:14px;
-}
-.primary-btn{
-  border:1px solid var(--red2);
-  color:white;background:linear-gradient(120deg,#6d102e,#a41e49);
-  padding:14px 22px;letter-spacing:1px;
-  font-family:Orbitron;font-size:10px;
-  box-shadow:0 0 20px rgba(142,23,60,.25);
-  transition:.3s;
-}
-.primary-btn:hover{transform:translateY(-3px);box-shadow:0 0 30px rgba(192,44,88,.4)}
-.secondary-btn{
-  border:1px solid var(--line);color:white;
-  background:transparent;padding:14px 22px;
-  font-family:Orbitron;font-size:10px;
-  margin-left:8px;
-}
-
-/* ARC REACTOR */
-.reactor-area{
-  display:grid;place-items:center;
-  min-height:390px;position:relative;
-}
 .reactor{
-  width:245px;height:245px;border-radius:50%;
-  border:2px solid rgba(101,233,238,.65);
-  display:grid;place-items:center;
-  position:relative;
-  box-shadow:0 0 25px rgba(101,233,238,.18),
-  inset 0 0 30px rgba(101,233,238,.12);
-  animation:reactorGlow 3s infinite alternate;
+ width:145px;
+ height:145px;
+ border:2px solid rgba(121,234,255,.5);
+ border-radius:50%;
+ margin:0 auto 32px;
+ display:grid;
+ place-items:center;
+ position:relative;
+ box-shadow:0 0 30px rgba(121,234,255,.15),
+ inset 0 0 25px rgba(121,234,255,.12);
+ animation:reactorPulse 3s infinite;
 }
+
 .reactor:before,.reactor:after{
-  content:"";position:absolute;border-radius:50%;
-  border:1px dashed var(--cyan);
+ content:"";
+ position:absolute;
+ border:1px solid var(--cyan);
+ border-radius:50%;
+ inset:12px;
+ animation:spin 8s linear infinite;
 }
-.reactor:before{inset:17px;animation:spin 18s linear infinite}
-.reactor:after{inset:-22px;border-color:var(--red2);animation:spin 25s linear infinite reverse}
-.reactor-inner{
-  width:115px;height:115px;border-radius:50%;
-  background:radial-gradient(circle,#fff 0%,#65e9ee 13%,#167b8a 35%,#07151a 70%);
-  box-shadow:0 0 40px var(--cyan);
+
+.reactor:after{
+ inset:-12px;
+ border-style:dashed;
+ opacity:.5;
+ animation:spin 15s linear infinite reverse;
 }
-.reactor-label{
-  position:absolute;bottom:12px;
-  font-family:Orbitron;font-size:9px;
-  letter-spacing:4px;color:var(--cyan);
+
+.reactor-core{
+ width:55px;
+ height:55px;
+ background:radial-gradient(circle,#fff 0%,#79eaff 25%,#227d9c 70%,transparent 100%);
+ border-radius:50%;
+ box-shadow:0 0 25px var(--cyan),0 0 65px var(--cyan);
 }
+
+@keyframes reactorPulse{
+ 0%,100%{transform:scale(1);filter:brightness(.8)}
+ 50%{transform:scale(1.06);filter:brightness(1.5)}
+}
+
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes reactorGlow{
-  to{box-shadow:0 0 50px rgba(101,233,238,.35),inset 0 0 45px rgba(101,233,238,.2)}
+
+.intro-title{
+ font-family:Orbitron;
+ font-size:clamp(27px,7vw,48px);
+ letter-spacing:4px;
+ margin-bottom:12px;
 }
 
-.section-head{margin:45px 0 25px}
-.section-head small{
-  color:var(--cyan);font-family:Orbitron;
-  font-size:10px;letter-spacing:4px;
-}
-.section-head h2{
-  font-family:Orbitron;font-size:clamp(22px,4vw,34px);
-  margin-top:12px;
-}
-.cards{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
-}
-.card{
-  background:linear-gradient(145deg,rgba(40,19,30,.8),rgba(15,10,14,.9));
-  border:1px solid var(--line);
-  padding:24px;border-radius:4px;
-  position:relative;overflow:hidden;transition:.3s;
-}
-.card:before{
-  content:"";position:absolute;top:0;left:0;
-  width:35px;height:2px;background:var(--red2);
-}
-.card:hover{
-  transform:translateY(-5px);
-  border-color:var(--red2);
-}
-.card .number{
-  font-family:Orbitron;color:var(--red2);
-  font-size:11px;letter-spacing:2px;
-}
-.card h3{font-family:Orbitron;font-size:15px;margin:17px 0 10px}
-.card p{font-size:12px;color:var(--muted);line-height:1.8}
+.intro-title span{color:var(--red2)}
 
-/* ABOUT PAGE */
-.about-hero{
-  display:grid;grid-template-columns:.75fr 1.25fr;
-  gap:30px;align-items:center;margin-bottom:45px;
+.intro-sub{
+ color:var(--muted);
+ letter-spacing:3px;
+ font-size:10px;
+ margin-bottom:32px;
 }
-.profile-box{
-  min-height:270px;border:1px solid var(--red2);
-  background:linear-gradient(145deg,#29101c,#100a0e);
-  display:grid;place-items:center;position:relative;
+
+.system-status{
+ font-family:Orbitron;
+ color:var(--cyan);
+ font-size:10px;
+ letter-spacing:2px;
+ margin-bottom:12px;
 }
-.profile-symbol{
-  width:125px;height:125px;border:1px solid var(--cyan);
-  display:grid;place-items:center;
-  font-family:Orbitron;font-size:35px;
-  color:white;box-shadow:0 0 30px rgba(101,233,238,.13);
-  transform:rotate(45deg);
+
+.loading-track{
+ width:100%;
+ height:3px;
+ background:#30232b;
+ border-radius:10px;
+ overflow:hidden;
+ margin-bottom:10px;
 }
-.profile-symbol span{transform:rotate(-45deg)}
-.profile-caption{
-  position:absolute;bottom:15px;
-  font-family:Orbitron;font-size:9px;
-  letter-spacing:3px;color:var(--cyan);
+
+.loading-bar{
+ width:0;
+ height:100%;
+ background:var(--cyan);
+ box-shadow:0 0 15px var(--cyan);
+ animation:load 3s forwards;
 }
-.about-text h1{
-  font-family:Orbitron;font-size:clamp(27px,5vw,48px);
-  margin-bottom:15px;
+
+@keyframes load{to{width:100%}}
+
+.intro-footer{
+ color:#776b72;
+ font-size:9px;
+ letter-spacing:2px;
+ margin-top:20px;
 }
-.about-text h1 span{color:var(--red2)}
-.about-text p{
-  color:var(--muted);font-size:13px;line-height:1.9;
-  margin-bottom:12px;
+
+/* JARVIS INTRO */
+
+#briefing{
+ position:fixed;
+ inset:0;
+ z-index:90;
+ background:
+ radial-gradient(ellipse at 50% 35%,rgba(26,111,140,.14),transparent 55%),
+ #090b10;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:22px;
 }
-.info-grid{
-  display:grid;grid-template-columns:repeat(2,1fr);
-  gap:14px;margin-bottom:40px;
+
+.briefing-inner{
+ width:100%;
+ max-width:650px;
+ text-align:center;
 }
-.info-item{
-  border:1px solid var(--line);
-  background:rgba(30,15,23,.7);
-  padding:18px;
+
+.jarvis-orb{
+ width:105px;
+ height:105px;
+ margin:0 auto 22px;
+ border-radius:50%;
+ border:1px solid var(--cyan);
+ display:grid;
+ place-items:center;
+ position:relative;
+ box-shadow:0 0 30px rgba(121,234,255,.2),
+ inset 0 0 25px rgba(121,234,255,.1);
+ animation:float 3s ease-in-out infinite;
 }
-.info-item small{
-  color:var(--cyan);font-family:Orbitron;
-  font-size:9px;letter-spacing:2px;
+
+.jarvis-orb:before,.jarvis-orb:after{
+ content:"";
+ position:absolute;
+ inset:-12px;
+ border:1px dashed rgba(121,234,255,.5);
+ border-radius:50%;
+ animation:spin 12s linear infinite;
 }
-.info-item h3{font-size:14px;margin-top:9px}
-.info-item p{color:var(--muted);font-size:12px;margin-top:6px;line-height:1.7}
-.timeline{border-left:1px solid var(--red2);margin:25px 0 40px 8px;padding-left:25px}
-.timeline-item{position:relative;margin-bottom:25px}
+
+.jarvis-orb:after{
+ inset:-23px;
+ border-style:solid;
+ border-color:transparent rgba(121,234,255,.4) transparent transparent;
+ animation:spin 5s linear infinite reverse;
+}
+
+.jarvis-eye{
+ width:30px;
+ height:30px;
+ border-radius:50%;
+ background:var(--cyan);
+ box-shadow:0 0 25px var(--cyan);
+}
+
+@keyframes float{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-9px)}
+}
+
+.jarvis-label{
+ font-family:Orbitron;
+ color:var(--cyan);
+ font-size:10px;
+ letter-spacing:4px;
+ margin-bottom:12px;
+}
+
+.briefing-title{
+ font-family:Orbitron;
+ font-size:clamp(20px,5vw,29px);
+ margin-bottom:20px;
+}
+
+.briefing-box{
+ min-height:165px;
+ border:1px solid rgba(121,234,255,.3);
+ background:rgba(20,45,55,.2);
+ padding:23px;
+ text-align:left;
+ border-radius:5px;
+ line-height:1.9;
+ color:#d8eaf0;
+ font-size:14px;
+ position:relative;
+}
+
+.briefing-box:before{
+ content:"J.A.R.V.I.S. // SYSTEM BRIEFING";
+ display:block;
+ color:var(--cyan);
+ font-family:Orbitron;
+ font-size:9px;
+ letter-spacing:2px;
+ margin-bottom:15px;
+}
+
+#jarvisText{min-height:100px}
+
+.cursor{
+ display:inline-block;
+ width:7px;
+ height:15px;
+ background:var(--cyan);
+ margin-left:3px;
+ animation:blink .7s infinite;
+ vertical-align:middle;
+}
+
+@keyframes blink{50%{opacity:0}}
+
+.briefing-progress{
+ margin:20px auto;
+ max-width:300px;
+ height:2px;
+ background:#26343b;
+}
+
+.briefing-progress div{
+ width:0;
+ height:100%;
+ background:var(--cyan);
+ transition:width .4s;
+}
+
+.enter-button{
+ display:none;
+ margin:20px auto 0;
+ border:1px solid var(--red2);
+ color:white;
+ background:linear-gradient(110deg,#76132f,#a51f48);
+ padding:15px 28px;
+ letter-spacing:3px;
+ font-family:Orbitron;
+ font-size:11px;
+ box-shadow:0 0 25px rgba(194,45,89,.2);
+ transition:.3s;
+}
+
+.enter-button.show{display:block}
+.enter-button:hover{transform:translateY(-3px);box-shadow:0 0 35px rgba(194,45,89,.5)}
+
+.skip-button{
+ background:transparent;
+ border:0;
+ color:#75848b;
+ font-size:10px;
+ letter-spacing:2px;
+ margin-top:18px;
+}
+
+/* MAIN */
+
+#mainWebsite{
+ display:none;
+ position:relative;
+ z-index:1;
+ min-height:100vh;
+}
+
+header{
+ position:sticky;
+ top:0;
+ z-index:50;
+ background:rgba(13,8,12,.92);
+ backdrop-filter:blur(18px);
+ border-bottom:1px solid var(--line);
+}
+
+.navbar{
+ max-width:1200px;
+ margin:auto;
+ padding:15px 6%;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+}
+
+.logo{
+ font-family:Orbitron;
+ font-size:20px;
+ font-weight:800;
+ letter-spacing:3px;
+}
+
+.logo span{color:var(--red2)}
+
+.nav-status{
+ font-family:Orbitron;
+ font-size:9px;
+ color:var(--cyan);
+ letter-spacing:2px;
+}
+
+.nav-buttons{
+ display:flex;
+ gap:8px;
+}
+
+.nav-buttons button{
+ background:transparent;
+ border:1px solid transparent;
+ color:#a99ba2;
+ padding:10px 13px;
+ font-size:10px;
+ letter-spacing:2px;
+ transition:.3s;
+}
+
+.nav-buttons button.active,
+.nav-buttons button:hover{
+ border-color:var(--red2);
+ color:white;
+ background:rgba(142,23,60,.18);
+}
+
+.page{
+ display:none;
+ animation:pageIn .6s ease;
+}
+
+.page.active{display:block}
+
+@keyframes pageIn{
+ from{opacity:0;transform:translateY(15px)}
+ to{opacity:1;transform:translateY(0)}
+}
+
+.container{
+ max-width:1150px;
+ margin:auto;
+ padding:45px 6%;
+}
+
+.eyebrow{
+ color:var(--cyan);
+ font-family:Orbitron;
+ letter-spacing:3px;
+ font-size:10px;
+ margin-bottom:15px;
+}
+
+.section-title{
+ font-family:Orbitron;
+ font-size:clamp(23px,5vw,36px);
+ line-height:1.3;
+ margin-bottom:16px;
+}
+
+.section-title span{color:var(--red2)}
+
+.description{
+ color:var(--muted);
+ line-height:1.9;
+ font-size:14px;
+ max-width:650px;
+}
+
+/* HOME HERO */
+
+.hero{
+ min-height:590px;
+ display:grid;
+ grid-template-columns:1.1fr .9fr;
+ align-items:center;
+ gap:35px;
+ padding-top:60px;
+ padding-bottom:60px;
+}
+
+.hero-kicker{
+ color:var(--cyan);
+ font-family:Orbitron;
+ font-size:10px;
+ letter-spacing:4px;
+ margin-bottom:20px;
+}
+
+.hero h1{
+ font-family:Orbitron;
+ font-size:clamp(36px,7vw,65px);
+ line-height:1.1;
+ letter-spacing:-2px;
+ margin-bottom:20px;
+}
+
+.hero h1 span{
+ color:var(--red2);
+ display:block;
+}
+
+.hero-text{
+ color:var(--muted);
+ line-height:1.9;
+ font-size:14px;
+ max-width:480px;
+ margin-bottom:28px;
+}
+
+.hero-actions{
+ display:flex;
+ gap:12px;
+ flex-wrap:wrap;
+}
+
+.primary-btn,.outline-btn{
+ padding:14px 20px;
+ font-family:Orbitron;
+ font-size:10px;
+ letter-spacing:2px;
+ border:1px solid var(--red2);
+ transition:.3s;
+}
+
+.primary-btn{
+ background:var(--red);
+ color:white;
+}
+
+.outline-btn{
+ background:transparent;
+ color:white;
+ border-color:rgba(255,255,255,.3);
+}
+
+.primary-btn:hover,.outline-btn:hover{
+ transform:translateY(-3px);
+ box-shadow:0 0 20px rgba(194,45,89,.25);
+}
+
+.hero-photo-wrap{
+ position:relative;
+ max-width:370px;
+ width:100%;
+ margin:auto;
+}
+
+.photo-frame{
+ padding:10px;
+ border:1px solid rgba(194,45,89,.65);
+ background:linear-gradient(145deg,rgba(142,23,60,.22),rgba(20,15,20,.9));
+ position:relative;
+ box-shadow:0 0 45px rgba(142,23,60,.15);
+}
+
+.photo-frame:before{
+ content:"";
+ position:absolute;
+ inset:-9px;
+ border:1px solid rgba(121,234,255,.2);
+ pointer-events:none;
+}
+
+.photo-frame img{
+ width:100%;
+ height:420px;
+ display:block;
+ object-fit:cover;
+ object-position:center;
+ background:#24151e;
+}
+
+.photo-caption{
+ display:flex;
+ justify-content:space-between;
+ padding-top:13px;
+ font-family:Orbitron;
+ font-size:9px;
+ letter-spacing:2px;
+ color:var(--cyan);
+}
+
+.corner{
+ position:absolute;
+ width:28px;
+ height:28px;
+ border-color:var(--cyan);
+ border-style:solid;
+}
+
+.c1{top:-12px;left:-12px;border-width:2px 0 0 2px}
+.c2{top:-12px;right:-12px;border-width:2px 2px 0 0}
+.c3{bottom:-12px;left:-12px;border-width:0 0 2px 2px}
+.c4{bottom:-12px;right:-12px;border-width:0 2px 2px 0}
+
+/* INFO STRIP */
+
+.info-strip{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:12px;
+ margin-top:15px;
+}
+
+.info-box{
+ background:linear-gradient(145deg,#20131c,#140e13);
+ border:1px solid var(--line);
+ padding:20px;
+}
+
+.info-box small{
+ color:var(--cyan);
+ font-family:Orbitron;
+ font-size:9px;
+ letter-spacing:2px;
+}
+
+.info-box h3{
+ font-size:15px;
+ margin:10px 0 5px;
+}
+
+.info-box p{
+ color:var(--muted);
+ font-size:12px;
+ line-height:1.7;
+}
+
+/* SECTIONS */
+
+.section{
+ padding:65px 0;
+ border-top:1px solid var(--line);
+}
+
+.section-heading{
+ margin-bottom:28px;
+}
+
+.section-heading .description{max-width:600px}
+
+.card-grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:15px;
+}
+
+.data-card{
+ background:linear-gradient(145deg,#21141d,#130d12);
+ border:1px solid var(--line);
+ padding:24px;
+ min-height:190px;
+ transition:.3s;
+ position:relative;
+ overflow:hidden;
+}
+
+.data-card:hover{
+ transform:translateY(-5px);
+ border-color:var(--red2);
+}
+
+.data-card .number{
+ color:var(--red2);
+ font-family:Orbitron;
+ font-size:23px;
+ margin-bottom:22px;
+}
+
+.data-card h3{
+ font-family:Orbitron;
+ font-size:13px;
+ letter-spacing:1px;
+ margin-bottom:12px;
+}
+
+.data-card p{
+ color:var(--muted);
+ font-size:12px;
+ line-height:1.9;
+}
+
+/* STORY PAGE */
+
+.story-hero{
+ padding:65px 0 40px;
+ display:grid;
+ grid-template-columns:.8fr 1.2fr;
+ gap:35px;
+ align-items:center;
+}
+
+.story-photo{
+ width:100%;
+ max-width:330px;
+ border:1px solid var(--red2);
+ padding:8px;
+ background:#1c1018;
+}
+
+.story-photo img{
+ display:block;
+ width:100%;
+ height:390px;
+ object-fit:cover;
+}
+
+.story-intro h1{
+ font-family:Orbitron;
+ font-size:clamp(28px,5vw,45px);
+ margin-bottom:18px;
+}
+
+.story-intro h1 span{color:var(--red2)}
+
+.story-intro p{
+ color:var(--muted);
+ font-size:14px;
+ line-height:2;
+ margin-bottom:12px;
+}
+
+.profile-table{
+ margin-top:25px;
+ border-top:1px solid var(--line);
+}
+
+.profile-row{
+ display:grid;
+ grid-template-columns:130px 1fr;
+ gap:15px;
+ padding:15px 0;
+ border-bottom:1px solid var(--line);
+ font-size:13px;
+}
+
+.profile-row span:first-child{
+ color:var(--cyan);
+ font-family:Orbitron;
+ font-size:9px;
+ letter-spacing:1px;
+}
+
+.profile-row span:last-child{color:#e7dfe3;line-height:1.7}
+
+.story-block{
+ padding:50px 0;
+ border-top:1px solid var(--line);
+}
+
+.timeline{
+ border-left:1px solid var(--red2);
+ margin-left:8px;
+ padding-left:25px;
+}
+
+.timeline-item{
+ position:relative;
+ padding-bottom:28px;
+}
+
 .timeline-item:before{
-  content:"";position:absolute;left:-31px;top:4px;
-  width:10px;height:10px;border-radius:50%;
-  background:var(--red2);box-shadow:0 0 12px var(--red2);
-}
-.timeline-item h3{font-size:14px;margin-bottom:7px}
-.timeline-item p{font-size:12px;color:var(--muted);line-height:1.8}
-
-/* JARVIS */
-.jarvis{
-  position:fixed;right:20px;bottom:20px;z-index:200;
-}
-.jarvis-toggle{
-  width:55px;height:55px;border-radius:50%;
-  background:#25101b;border:1px solid var(--red2);
-  color:white;font-family:Orbitron;
-  box-shadow:0 0 22px rgba(192,44,88,.3);
-}
-.jarvis-panel{
-  display:none;position:absolute;right:0;bottom:70px;
-  width:min(330px,calc(100vw - 40px));
-  background:#100b10;border:1px solid var(--red2);
-  box-shadow:0 0 30px rgba(0,0,0,.6);
-  padding:18px;
-}
-.jarvis-panel.open{display:block}
-.jarvis-title{
-  font-family:Orbitron;color:var(--cyan);
-  font-size:11px;letter-spacing:2px;
-  border-bottom:1px solid var(--line);padding-bottom:12px;
-}
-.jarvis-output{
-  min-height:100px;padding:15px 0;
-  font-size:12px;color:#ddd;line-height:1.8;
-}
-.jarvis-input{display:flex;gap:6px}
-.jarvis-input input{
-  min-width:0;flex:1;background:#21151d;
-  border:1px solid var(--line);color:white;
-  padding:11px;font-size:12px;outline:none;
-}
-.jarvis-input button{
-  background:var(--red);border:0;color:white;
-  padding:0 13px;font-size:11px;
+ content:"";
+ position:absolute;
+ left:-31px;
+ top:5px;
+ width:11px;
+ height:11px;
+ background:var(--red2);
+ border-radius:50%;
+ box-shadow:0 0 12px var(--red2);
 }
 
-/* FOOTER */
+.timeline-item small{
+ color:var(--cyan);
+ font-family:Orbitron;
+ font-size:9px;
+ letter-spacing:2px;
+}
+
+.timeline-item h3{
+ margin:9px 0;
+ font-size:16px;
+}
+
+.timeline-item p{
+ color:var(--muted);
+ font-size:13px;
+ line-height:1.8;
+ max-width:650px;
+}
+
+.gallery{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:15px;
+}
+
+.gallery-item{
+ border:1px solid var(--line);
+ background:#1b1118;
+ padding:9px;
+}
+
+.gallery-item img{
+ width:100%;
+ height:300px;
+ object-fit:cover;
+ display:block;
+ background:#24151e;
+}
+
+.gallery-item p{
+ color:var(--cyan);
+ font-family:Orbitron;
+ font-size:9px;
+ letter-spacing:2px;
+ padding:12px 5px 5px;
+}
+
+.vision-panel{
+ border:1px solid rgba(194,45,89,.5);
+ background:linear-gradient(120deg,rgba(142,23,60,.18),rgba(20,12,18,.8));
+ padding:30px;
+ position:relative;
+}
+
+.vision-panel h3{
+ font-family:Orbitron;
+ font-size:18px;
+ margin-bottom:15px;
+}
+
+.vision-panel p{
+ color:var(--muted);
+ line-height:2;
+ font-size:13px;
+}
+
+/* JARVIS CHAT */
+
+.jarvis-launch{
+ position:fixed;
+ right:20px;
+ bottom:20px;
+ z-index:70;
+ width:58px;
+ height:58px;
+ border-radius:50%;
+ border:1px solid var(--cyan);
+ background:#10212a;
+ color:var(--cyan);
+ font-family:Orbitron;
+ font-size:11px;
+ box-shadow:0 0 25px rgba(121,234,255,.25);
+}
+
+.jarvis-launch:hover{box-shadow:0 0 35px var(--cyan)}
+
+.chat-panel{
+ display:none;
+ position:fixed;
+ z-index:80;
+ right:20px;
+ bottom:90px;
+ width:min(340px,calc(100vw - 35px));
+ background:#10151a;
+ border:1px solid rgba(121,234,255,.45);
+ box-shadow:0 0 30px rgba(0,0,0,.6);
+}
+
+.chat-panel.open{display:block;animation:pageIn .3s}
+
+.chat-head{
+ padding:15px;
+ border-bottom:1px solid rgba(121,234,255,.25);
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ font-family:Orbitron;
+ color:var(--cyan);
+ font-size:10px;
+ letter-spacing:2px;
+}
+
+.chat-head button{
+ background:none;
+ border:0;
+ color:white;
+ font-size:20px;
+}
+
+.chat-messages{
+ height:250px;
+ overflow-y:auto;
+ padding:15px;
+ display:flex;
+ flex-direction:column;
+ gap:12px;
+}
+
+.message{
+ font-size:12px;
+ line-height:1.7;
+ padding:10px;
+ max-width:90%;
+ border-radius:4px;
+}
+
+.bot{
+ align-self:flex-start;
+ color:#d6edf2;
+ background:#17252c;
+ border-left:2px solid var(--cyan);
+}
+
+.user{
+ align-self:flex-end;
+ color:white;
+ background:#57182f;
+ border-right:2px solid var(--red2);
+}
+
+.chat-input{
+ display:flex;
+ border-top:1px solid rgba(121,234,255,.2);
+}
+
+.chat-input input{
+ width:100%;
+ min-width:0;
+ background:#0b1014;
+ border:0;
+ padding:14px;
+ color:white;
+ outline:none;
+ font-size:12px;
+}
+
+.chat-input button{
+ background:#17313a;
+ border:0;
+ color:var(--cyan);
+ padding:0 15px;
+}
+
 footer{
-  border-top:1px solid var(--line);
-  padding:25px 7%;text-align:center;
-  color:#84757d;font-size:10px;letter-spacing:2px;
+ border-top:1px solid var(--line);
+ text-align:center;
+ padding:30px 15px;
+ color:#776b72;
+ font-family:Orbitron;
+ font-size:9px;
+ letter-spacing:2px;
+ line-height:2;
 }
-footer span{color:var(--red2)}
 
-@media(max-width:760px){
-  header{padding:14px 5%;flex-wrap:wrap;gap:12px}
-  .logo{font-size:19px}
-  .nav{gap:4px}
-  .nav button{font-size:8px;padding:9px 10px}
-  .page{padding:115px 5% 55px}
-  .hero{grid-template-columns:1fr;gap:10px;padding-top:20px}
-  .hero h1{font-size:43px}
-  .reactor-area{min-height:310px}
-  .reactor{width:190px;height:190px}
-  .reactor-inner{width:90px;height:90px}
-  .cards{grid-template-columns:1fr}
-  .about-hero{grid-template-columns:1fr}
-  .profile-box{min-height:220px}
-  .info-grid{grid-template-columns:1fr}
-  .secondary-btn{margin:10px 0 0}
+@media(max-width:750px){
+ .navbar{padding:13px 5%;flex-wrap:wrap;gap:12px}
+ .nav-status{display:none}
+ .hero{grid-template-columns:1fr;gap:45px;padding-top:45px}
+ .hero-photo-wrap{max-width:310px}
+ .photo-frame img{height:370px}
+ .info-strip{grid-template-columns:1fr}
+ .card-grid{grid-template-columns:1fr}
+ .story-hero{grid-template-columns:1fr}
+ .story-photo{max-width:290px;margin:auto}
+ .story-intro{text-align:left}
+ .gallery{grid-template-columns:1fr}
+ .gallery-item img{height:330px}
+ .container{padding:35px 6%}
+ .section{padding:45px 0}
+ .nav-buttons button{padding:9px 10px;font-size:9px}
+}
+
+@media(max-width:390px){
+ .logo{font-size:17px}
+ .nav-buttons button{padding:8px;font-size:8px}
+ .briefing-box{padding:17px;font-size:12px}
+ .photo-frame img{height:340px}
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="stars"></canvas>
-<div class="grid-bg"></div>
-<div class="glow"></div>
+<canvas id="particles"></canvas>
+<div class="scanlines"></div>
 
-<!-- INTRO -->
-<div id="intro">
-  <div class="intro-core"><span>F.A</span></div>
-  <div class="intro-title">WELCOME TO MY UNIVERSE</div>
-  <div class="intro-sub">PERSONAL SYSTEM INITIALIZING</div>
-  <div class="loading"></div>
-</div>
+<!-- OPENING -->
+<section id="intro">
+ <div class="intro-content">
+  <div class="intro-top">STARK INDUSTRIES // PERSONAL SYSTEM</div>
 
-<!-- HEADER -->
+  <div class="reactor">
+   <div class="reactor-core"></div>
+  </div>
+
+  <div class="intro-title">F.A <span>UNIVERSE</span></div>
+  <div class="intro-sub">PERSONAL LABORATORY EXPERIENCE</div>
+
+  <div class="system-status" id="loadingText">INITIALIZING SYSTEM...</div>
+  <div class="loading-track"><div class="loading-bar"></div></div>
+
+  <div class="intro-footer">POWERED BY CURIOSITY & IMAGINATION</div>
+ </div>
+</section>
+
+<!-- JARVIS BRIEFING -->
+<section id="briefing" class="hidden">
+ <div class="briefing-inner">
+
+  <div class="jarvis-orb">
+   <div class="jarvis-eye"></div>
+  </div>
+
+  <div class="jarvis-label">J.A.R.V.I.S. ONLINE</div>
+  <h2 class="briefing-title">WELCOME, VISITOR.</h2>
+
+  <div class="briefing-box">
+   <div id="jarvisText"></div><span class="cursor" id="cursor"></span>
+  </div>
+
+  <div class="briefing-progress">
+   <div id="briefProgress"></div>
+  </div>
+
+  <button class="enter-button" id="enterButton" onclick="enterUniverse()">
+   ENTER MY UNIVERSE →
+  </button>
+
+  <button class="skip-button" onclick="finishBriefing()">
+   SKIP INTRODUCTION
+  </button>
+
+ </div>
+</section>
+
+<!-- MAIN WEBSITE -->
+<div id="mainWebsite">
+
 <header>
+ <div class="navbar">
   <div class="logo">F<span>.</span>A</div>
-  <nav class="nav">
-    <button class="active" onclick="showPage('home',this)">01 / HOME</button>
-    <button onclick="showPage('story',this)">02 / MY STORY</button>
-  </nav>
+
+  <div class="nav-status">SYSTEM ONLINE ●</div>
+
+  <div class="nav-buttons">
+   <button class="active" onclick="showPage('home',this)">HOME</button>
+   <button onclick="showPage('story',this)">MY STORY</button>
+  </div>
+ </div>
 </header>
 
 <!-- PAGE 1 -->
 <main id="home" class="page active">
+ <div class="container">
+
   <section class="hero">
-    <div>
-      <div class="eyebrow">PERSONAL UNIVERSE // SYSTEM ONLINE</div>
-      <h1>WELCOME TO<br>MY <span>UNIVERSE.</span></h1>
-      <p class="hero-desc">
-        Sebuah ruang digital yang menggambarkan diriku,
-        perjalanan, ketertarikan, dan mimpi yang ingin
-        aku wujudkan. Ini bukan sekadar website.
-        Ini adalah duniaku.
-      </p>
-      <button class="primary-btn" onclick="showPage('story')">
-        EXPLORE MY STORY ↗
-      </button>
-      <button class="secondary-btn" onclick="askJarvis('Perkenalkan website ini')">
-        MEET J.A.R.V.I.S
-      </button>
-    </div>
 
-    <div class="reactor-area">
-      <div class="reactor">
-        <div class="reactor-inner"></div>
-      </div>
-      <div class="reactor-label">F.A ENERGY CORE</div>
+   <div>
+    <div class="hero-kicker">PERSONAL IDENTITY // FA-001</div>
+
+    <h1>WELCOME TO <span>MY UNIVERSE.</span></h1>
+
+    <p class="hero-text">
+     Sebuah ruang digital yang menggambarkan siapa saya,
+     bagaimana saya melihat dunia, hal-hal yang saya sukai,
+     dan perjalanan saya untuk terus berkembang.
+     Bukan tentang menjadi sempurna, tetapi tentang terus
+     menciptakan versi diri yang lebih baik.
+    </p>
+
+    <div class="hero-actions">
+     <button class="primary-btn" onclick="showPage('story',document.querySelectorAll('.nav-buttons button')[1])">
+      EXPLORE MY STORY →
+     </button>
+
+     <button class="outline-btn" onclick="openJarvis()">
+      TALK TO JARVIS
+     </button>
     </div>
+   </div>
+
+   <div class="hero-photo-wrap">
+    <div class="photo-frame">
+     <span class="corner c1"></span>
+     <span class="corner c2"></span>
+     <span class="corner c3"></span>
+     <span class="corner c4"></span>
+
+     <img src="IMG-20261104-WA0009.jpg"
+      alt="Foto profil F.A"
+      onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('beforeend','<div style=&quot;height:420px;display:grid;place-items:center;color:#79eaff;font-family:Orbitron&quot;>F.A PROFILE IMAGE</div>')">
+
+     <div class="photo-caption">
+      <span>SUBJECT: F.A</span>
+      <span>IDENTITY VERIFIED</span>
+     </div>
+    </div>
+   </div>
+
   </section>
 
-  <section>
-    <div class="section-head">
-      <small>PERSONAL DATABASE / 001</small>
-      <h2>INSIDE MY UNIVERSE</h2>
+  <div class="info-strip">
+   <div class="info-box">
+    <small>01 // IDENTITY</small>
+    <h3>Who Am I?</h3>
+    <p>Mengenal identitas, karakter, dan cara saya memandang kehidupan.</p>
+   </div>
+
+   <div class="info-box">
+    <small>02 // EDUCATION</small>
+    <h3>My Journey</h3>
+    <p>Perjalanan belajar dan ketertarikan saya pada dunia multimedia digital.</p>
+   </div>
+
+   <div class="info-box">
+    <small>03 // FUTURE</small>
+    <h3>My Vision</h3>
+    <p>Ide, impian, dan tujuan yang ingin saya bangun di masa mendatang.</p>
+   </div>
+  </div>
+
+  <section class="section">
+   <div class="section-heading">
+    <div class="eyebrow">SYSTEM DATABASE // 001</div>
+    <h2 class="section-title">INSIDE MY <span>UNIVERSE.</span></h2>
+    <p class="description">
+     Setiap orang punya cerita dan perspektifnya sendiri.
+     Ini adalah beberapa bagian yang membentuk universe saya.
+    </p>
+   </div>
+
+   <div class="card-grid">
+    <div class="data-card">
+     <div class="number">01</div>
+     <h3>THE IDENTITY</h3>
+     <p>Mengenal Fachriansyah Alfigo, perjalanan pribadi,
+     prinsip, serta hal-hal yang membentuk karakter saya.</p>
     </div>
 
-    <div class="cards">
-      <div class="card">
-        <div class="number">01 / IDENTITY</div>
-        <h3>WHO AM I?</h3>
-        <p>Mengenal diriku, karakter, prinsip, dan hal-hal yang membentuk siapa aku.</p>
-      </div>
-
-      <div class="card">
-        <div class="number">02 / INTEREST</div>
-        <h3>MY PASSION</h3>
-        <p>Teknologi, dunia digital, kreativitas, sepak bola, dan eksplorasi hal baru.</p>
-      </div>
-
-      <div class="card">
-        <div class="number">03 / FUTURE</div>
-        <h3>MY VISION</h3>
-        <p>Terus berkembang, belajar, menciptakan sesuatu, dan membangun masa depan.</p>
-      </div>
+    <div class="data-card">
+     <div class="number">02</div>
+     <h3>THE CREATIVE MIND</h3>
+     <p>Ketertarikan pada teknologi, desain visual,
+     multimedia, dan berbagai kemungkinan kreatif
+     di dunia digital.</p>
     </div>
+
+    <div class="data-card">
+     <div class="number">03</div>
+     <h3>THE NEXT CHAPTER</h3>
+     <p>Perjalanan untuk belajar, mencoba pengalaman baru,
+     mengembangkan kemampuan, dan membangun masa depan.</p>
+    </div>
+   </div>
   </section>
 
-  <section>
-    <div class="section-head">
-      <small>SYSTEM STATUS</small>
-      <h2>THE MIND BEHIND F.A</h2>
+  <section class="section">
+   <div class="eyebrow">PERSONAL INTEREST // 002</div>
+   <h2 class="section-title">THINGS THAT <span>INSPIRE ME.</span></h2>
+   <p class="description">
+    Ada banyak hal yang membuat saya tertarik dan terus ingin mengeksplorasi.
+   </p>
+
+   <div class="card-grid" style="margin-top:25px">
+    <div class="data-card">
+     <div class="number">⌘</div>
+     <h3>TECHNOLOGY</h3>
+     <p>Saya tertarik dengan perkembangan teknologi,
+     kecerdasan buatan, dan bagaimana teknologi
+     dapat membantu kehidupan manusia.</p>
     </div>
-    <div class="cards">
-      <div class="card">
-        <div class="number">CORE 01</div>
-        <h3>CREATIVITY</h3>
-        <p>Selalu tertarik dengan ide dan konsep yang unik.</p>
-      </div>
-      <div class="card">
-        <div class="number">CORE 02</div>
-        <h3>TECHNOLOGY</h3>
-        <p>Menyukai perkembangan teknologi dan inovasi masa depan.</p>
-      </div>
-      <div class="card">
-        <div class="number">CORE 03</div>
-        <h3>AMBITION</h3>
-        <p>Memiliki tujuan dan keinginan untuk terus menjadi lebih baik.</p>
-      </div>
+
+    <div class="data-card">
+     <div class="number">✦</div>
+     <h3>CREATIVE DESIGN</h3>
+     <p>Dunia visual, desain, dan multimedia menjadi
+     ruang untuk menuangkan ide dan membangun
+     sesuatu yang memiliki karakter.</p>
     </div>
+
+    <div class="data-card">
+     <div class="number">⚽</div>
+     <h3>FOOTBALL</h3>
+     <p>Sepak bola adalah salah satu hal yang saya ikuti,
+     terutama cerita, pemain, dan perjalanan
+     di balik dunia olahraga.</p>
+    </div>
+
+    <div class="data-card">
+     <div class="number">◉</div>
+     <h3>EXPLORATION</h3>
+     <p>Saya menyukai pengalaman baru, perjalanan,
+     dan kesempatan untuk melihat sesuatu
+     dari sudut pandang yang berbeda.</p>
+    </div>
+
+    <div class="data-card">
+     <div class="number">◈</div>
+     <h3>MARVEL UNIVERSE</h3>
+     <p>Konsep teknologi futuristik, laboratorium,
+     dan karakter seperti Tony Stark menjadi
+     salah satu inspirasi visual saya.</p>
+    </div>
+
+    <div class="data-card">
+     <div class="number">∞</div>
+     <h3>SELF DEVELOPMENT</h3>
+     <p>Saya ingin terus belajar, mencoba hal baru,
+     dan mengembangkan kemampuan
+     dari waktu ke waktu.</p>
+    </div>
+   </div>
   </section>
+
+ </div>
 </main>
 
 <!-- PAGE 2 -->
 <main id="story" class="page">
-  <div class="section-head">
-    <small>PERSONAL DATABASE / 002</small>
-    <h2>MY STORY</h2>
-  </div>
+ <div class="container">
 
-  <section class="about-hero">
-    <div class="profile-box">
-      <div class="profile-symbol"><span>F.A</span></div>
-      <div class="profile-caption">PERSONAL IDENTITY</div>
-    </div>
+  <section class="story-hero">
 
-    <div class="about-text">
-      <div class="eyebrow">IDENTITY CONFIRMED</div>
-      <h1>HELLO, I'M <span>F.A.</span></h1>
-      <p>
-        Aku adalah seseorang yang tertarik dengan dunia teknologi,
-        kreativitas, dan berbagai hal baru. Aku suka mengeksplorasi
-        ide, mencoba sesuatu yang berbeda, dan belajar dari pengalaman.
-      </p>
-      <p>
-        Bagiku, setiap orang punya perjalanan masing-masing.
-        Aku ingin terus berkembang, menemukan potensi diri,
-        dan membangun sesuatu yang bisa menjadi bagian dari masa depanku.
-      </p>
+   <div class="story-photo">
+    <img src="IMG-20261104-WA0009.jpg"
+     alt="F.A profile"
+     onerror="this.style.display='none';this.parentElement.innerHTML+='<div style=&quot;height:390px;display:grid;place-items:center;color:#79eaff;font-family:Orbitron&quot;>F.A</div>'">
+   </div>
+
+   <div class="story-intro">
+    <div class="eyebrow">PERSONAL FILE // CLASSIFIED</div>
+
+    <h1>THE STORY <span>BEHIND F.A.</span></h1>
+
+    <p>
+     Nama saya Fachriansyah Alfigo. Saya adalah seseorang
+     yang memiliki ketertarikan pada teknologi, kreativitas,
+     dan berbagai hal yang membuka kesempatan untuk terus belajar.
+    </p>
+
+    <p>
+     Saya percaya bahwa setiap orang memiliki prosesnya masing-masing.
+     Tidak semua hal harus langsung berhasil. Ada banyak hal yang
+     perlu dicoba, dipelajari, dan diperbaiki sepanjang perjalanan.
+    </p>
+
+    <div class="profile-table">
+     <div class="profile-row">
+      <span>FULL NAME</span>
+      <span>Fachriansyah Alfigo</span>
+     </div>
+
+     <div class="profile-row">
+      <span>EDUCATION</span>
+      <span>Manajemen Multimedia dan Digital</span>
+     </div>
+
+     <div class="profile-row">
+      <span>INTEREST</span>
+      <span>Technology, Creative Design, Football, Exploration</span>
+     </div>
+
+     <div class="profile-row">
+      <span>PERSONALITY</span>
+      <span>Curious, Creative, Explorative</span>
+     </div>
+
+     <div class="profile-row">
+      <span>PERSONAL MOTTO</span>
+      <span>Keep Learning. Keep Creating. Keep Growing.</span>
+     </div>
     </div>
+   </div>
+
   </section>
 
-  <div class="section-head">
-    <small>PERSONAL INFORMATION</small>
-    <h2>ABOUT ME</h2>
-  </div>
+  <section class="story-block">
+   <div class="eyebrow">EDUCATION DATABASE // 01</div>
+   <h2 class="section-title">MY LEARNING <span>JOURNEY.</span></h2>
 
-  <div class="info-grid">
-    <div class="info-item">
-      <small>01 / NAME</small>
-      <h3>Fachriansyah Alfigo</h3>
-      <p>Personal identity</p>
-    </div>
-    <div class="info-item">
-      <small>02 / FIELD</small>
-      <h3>Multimedia & Digital Management</h3>
-      <p>Education and learning journey</p>
-    </div>
-    <div class="info-item">
-      <small>03 / PERSONALITY</small>
-      <h3>Curious & Creative</h3>
-      <p>Senang mencari tahu, mengeksplorasi, dan mencoba hal baru.</p>
-    </div>
-    <div class="info-item">
-      <small>04 / MINDSET</small>
-      <h3>Keep Improving</h3>
-      <p>Percaya bahwa proses belajar dan pengalaman adalah bagian dari perkembangan diri.</p>
-    </div>
-  </div>
-
-  <div class="section-head">
-    <small>EDUCATION / 001</small>
-    <h2>MY EDUCATION</h2>
-  </div>
-
-  <div class="timeline">
+   <div class="timeline" style="margin-top:30px">
     <div class="timeline-item">
-      <h3>Higher Education</h3>
-      <p>
-        Saat ini mempelajari Manajemen Multimedia dan Digital.
-        Bidang yang menggabungkan kreativitas, teknologi,
-        komunikasi, dan dunia digital.
-      </p>
+     <small>EDUCATION</small>
+     <h3>Homeschooling HSPG Yogyakarta</h3>
+     <p>
+      Salah satu bagian dari perjalanan pendidikan saya
+      sebelum melanjutkan ke jenjang berikutnya.
+     </p>
     </div>
+
     <div class="timeline-item">
-      <h3>Continuous Learning</h3>
-      <p>
-        Terus memperluas wawasan melalui pengalaman,
-        eksplorasi teknologi, dan proses belajar sehari-hari.
-      </p>
+     <small>HIGHER EDUCATION</small>
+     <h3>Manajemen Multimedia dan Digital</h3>
+     <p>
+      Mempelajari bagaimana teknologi, media, kreativitas,
+      dan strategi digital saling terhubung.
+      Saya ingin memahami bukan hanya cara menggunakan teknologi,
+      tetapi juga bagaimana mengembangkannya menjadi sesuatu
+      yang bermanfaat.
+     </p>
     </div>
-  </div>
 
-  <div class="section-head">
-    <small>PERSONAL INTERESTS / 002</small>
-    <h2>THINGS I LOVE</h2>
-  </div>
+    <div class="timeline-item">
+     <small>CONTINUOUS DEVELOPMENT</small>
+     <h3>Learning Beyond The Classroom</h3>
+     <p>
+      Belajar tidak berhenti di ruang kelas.
+      Saya juga ingin terus mengeksplorasi ide,
+      memperluas wawasan, dan mengembangkan kemampuan
+      melalui pengalaman sehari-hari.
+     </p>
+    </div>
+   </div>
+  </section>
 
-  <div class="cards">
-    <div class="card">
-      <div class="number">INTEREST 01</div>
-      <h3>TECHNOLOGY</h3>
-      <p>Tertarik dengan AI, inovasi, gadget, dan teknologi masa depan.</p>
-    </div>
-    <div class="card">
-      <div class="number">INTEREST 02</div>
-      <h3>MARVEL UNIVERSE</h3>
-      <p>Menyukai konsep futuristik, terutama teknologi dan laboratorium ala Tony Stark.</p>
-    </div>
-    <div class="card">
-      <div class="number">INTEREST 03</div>
-      <h3>FOOTBALL</h3>
-      <p>Menikmati dunia sepak bola dan kisah para pemain hebat.</p>
-    </div>
-    <div class="card">
-      <div class="number">INTEREST 04</div>
-      <h3>TRAVELING</h3>
-      <p>Suka mengeksplorasi tempat baru dan mendapatkan pengalaman berbeda.</p>
-    </div>
-    <div class="card">
-      <div class="number">INTEREST 05</div>
-      <h3>CREATIVE DESIGN</h3>
-      <p>Menyukai desain visual, multimedia, dan tampilan digital yang menarik.</p>
-    </div>
-    <div class="card">
-      <div class="number">INTEREST 06</div>
-      <h3>INNOVATION</h3>
-      <p>Tertarik pada ide-ide baru yang bisa dikembangkan menjadi sesuatu yang nyata.</p>
-    </div>
-  </div>
+  <section class="story-block">
+   <div class="eyebrow">PERSONAL GALLERY // 02</div>
+   <h2 class="section-title">MY VISUAL <span>MEMORIES.</span></h2>
+   <p class="description">
+    Beberapa potongan visual dari perjalanan personal saya.
+   </p>
 
-  <div class="section-head">
-    <small>FUTURE PROTOCOL / 003</small>
-    <h2>MY DREAMS</h2>
-  </div>
+   <div class="gallery" style="margin-top:25px">
+    <div class="gallery-item">
+     <img src="IMG-20261104-WA0006.jpg"
+      alt="Personal memory 01">
+     <p>MEMORY FILE // 001</p>
+    </div>
 
-  <div class="card">
-    <div class="number">MISSION: FUTURE</div>
-    <h3>BUILD SOMETHING GREAT.</h3>
+    <div class="gallery-item">
+     <img src="IMG-20261104-WA0011.jpg"
+      alt="Personal memory 02">
+     <p>MEMORY FILE // 002</p>
+    </div>
+   </div>
+  </section>
+
+  <section class="story-block">
+   <div class="eyebrow">FUTURE PROTOCOL // 03</div>
+   <h2 class="section-title">THE FUTURE <span>IS MINE TO BUILD.</span></h2>
+
+   <div class="vision-panel">
+    <h3>MY VISION & AMBITION</h3>
     <p>
-      Aku ingin terus mengembangkan kemampuan, memperluas pengalaman,
-      memahami teknologi, dan menciptakan sesuatu yang memiliki nilai.
-      Perjalanan masih panjang, dan setiap langkah adalah bagian
-      dari proses menuju masa depan yang ingin aku capai.
+     Saya ingin menjadi pribadi yang terus berkembang,
+     memiliki kemampuan yang bermanfaat, dan mampu
+     menciptakan sesuatu melalui teknologi serta kreativitas.
+     Saya ingin memperluas pengalaman, memahami dunia digital
+     lebih dalam, dan berani mencoba berbagai kesempatan baru.
+     <br><br>
+     Bagi saya, masa depan bukan sesuatu yang hanya ditunggu.
+     Masa depan dibangun dari keputusan, proses belajar,
+     dan usaha yang dilakukan hari ini.
     </p>
-  </div>
+   </div>
+  </section>
+
+ </div>
 </main>
 
-<!-- JARVIS -->
-<div class="jarvis">
-  <div class="jarvis-panel" id="jarvisPanel">
-    <div class="jarvis-title">J.A.R.V.I.S // PERSONAL AI</div>
-    <div class="jarvis-output" id="jarvisOutput">
-      System online. Halo! Aku J.A.R.V.I.S.
-      Ada yang ingin kamu ketahui tentang F.A?
-    </div>
-    <div class="jarvis-input">
-      <input id="jarvisInput" placeholder="Ketik perintah..." onkeydown="if(event.key==='Enter')sendJarvis()">
-      <button onclick="sendJarvis()">SEND</button>
-    </div>
-  </div>
-  <button class="jarvis-toggle" onclick="toggleJarvis()">J.A</button>
-</div>
-
 <footer>
-  F.A PERSONAL UNIVERSE <span>///</span> DESIGNED FOR THE FUTURE
+ F.A PERSONAL UNIVERSE<br>
+ DESIGNED AS A REFLECTION OF MYSELF<br>
+ © 2026 // ALL SYSTEMS OPERATIONAL
 </footer>
 
+</div>
+
+<!-- JARVIS CHAT -->
+<button class="jarvis-launch" onclick="toggleChat()">J.A</button>
+
+<div class="chat-panel" id="chatPanel">
+ <div class="chat-head">
+  <span>J.A.R.V.I.S. INTERFACE</span>
+  <button onclick="toggleChat()">×</button>
+ </div>
+
+ <div class="chat-messages" id="chatMessages">
+  <div class="message bot">
+   Selamat datang kembali. Saya JARVIS,
+   asisten digital F.A. Ada yang ingin Anda ketahui?
+  </div>
+ </div>
+
+ <div class="chat-input">
+  <input id="chatInput" placeholder="Ketik perintah..." onkeydown="if(event.key==='Enter')sendMessage()">
+  <button onclick="sendMessage()">SEND</button>
+ </div>
+</div>
+
 <script>
-// INTRO
-window.addEventListener("load",()=>{
+/* INTRO SEQUENCE */
+
+const intro=document.getElementById("intro");
+const briefing=document.getElementById("briefing");
+const mainWebsite=document.getElementById("mainWebsite");
+
+const introMessages=[
+ "POWER CORE ACTIVATED...",
+ "SCANNING PERSONAL DATABASE...",
+ "J.A.R.V.I.S. CONNECTION ESTABLISHED..."
+];
+
+let messageIndex=0;
+
+function updateIntro(){
+ document.getElementById("loadingText").textContent=
+ introMessages[messageIndex];
+
+ messageIndex++;
+
+ if(messageIndex<introMessages.length){
+  setTimeout(updateIntro,850);
+ }else{
   setTimeout(()=>{
-    document.getElementById("intro").classList.add("hide");
-  },2200);
-});
+   intro.style.opacity="0";
+   intro.style.transition="opacity 1s";
+   setTimeout(()=>{
+    intro.classList.add("hidden");
+    startBriefing();
+   },1000);
+  },900);
+ }
+}
 
-// PAGE NAVIGATION
+setTimeout(updateIntro,500);
+
+
+/* JARVIS INTRO NARRATION */
+
+const briefingText=
+"Selamat datang di F.A Personal Universe. Saya J.A.R.V.I.S., asisten digital yang akan memandu Anda menjelajahi ruang personal ini. Di halaman HOME, Anda akan mengenal identitas F.A, ketertarikan, dan hal-hal yang menginspirasinya. Selanjutnya, halaman MY STORY berisi perjalanan pendidikan, cerita personal, galeri foto, serta visi dan tujuan masa depan. Semua bagian dirancang untuk memperkenalkan sosok di balik inisial F.A. Sistem telah siap. Silakan jelajahi universe ini.";
+
+let charIndex=0;
+let typingTimer;
+
+function startBriefing(){
+ briefing.classList.remove("hidden");
+ typeBriefing();
+}
+
+function typeBriefing(){
+ const target=document.getElementById("jarvisText");
+
+ if(charIndex<briefingText.length){
+  target.textContent+=briefingText.charAt(charIndex);
+  charIndex++;
+
+  document.getElementById("briefProgress").style.width=
+   (charIndex/briefingText.length*100)+"%";
+
+  typingTimer=setTimeout(typeBriefing,25);
+ }else{
+  document.getElementById("cursor").style.display="none";
+  document.getElementById("enterButton").classList.add("show");
+ }
+}
+
+function finishBriefing(){
+ clearTimeout(typingTimer);
+
+ document.getElementById("jarvisText").textContent=briefingText;
+ document.getElementById("briefProgress").style.width="100%";
+ document.getElementById("cursor").style.display="none";
+ document.getElementById("enterButton").classList.add("show");
+}
+
+function enterUniverse(){
+ briefing.style.opacity="0";
+ briefing.style.transition="opacity .8s";
+
+ setTimeout(()=>{
+  briefing.classList.add("hidden");
+  mainWebsite.style.display="block";
+  window.scrollTo(0,0);
+ },800);
+}
+
+
+/* NAVIGATION */
+
 function showPage(page,button){
-  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
-  document.getElementById(page).classList.add("active");
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(page).classList.add("active");
 
-  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+ document.querySelectorAll(".nav-buttons button").forEach(b=>b.classList.remove("active"));
+ if(button)button.classList.add("active");
 
-  if(button){
-    button.classList.add("active");
-  }else{
-    document.querySelectorAll(".nav button").forEach(b=>{
-      if((page==="home" && b.textContent.includes("HOME")) ||
-         (page==="story" && b.textContent.includes("STORY"))){
-        b.classList.add("active");
-      }
-    });
-  }
-  window.scrollTo({top:0,behavior:"smooth"});
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 
-// JARVIS
-function toggleJarvis(){
-  document.getElementById("jarvisPanel").classList.toggle("open");
+
+/* JARVIS CHAT */
+
+function toggleChat(){
+ document.getElementById("chatPanel").classList.toggle("open");
 }
 
-function askJarvis(question){
-  document.getElementById("jarvisPanel").classList.add("open");
-  document.getElementById("jarvisInput").value=question;
-  sendJarvis();
+function openJarvis(){
+ document.getElementById("chatPanel").classList.add("open");
 }
 
-function sendJarvis(){
-  const input=document.getElementById("jarvisInput");
-  const output=document.getElementById("jarvisOutput");
-  const q=input.value.trim().toLowerCase();
+function addMessage(text,type){
+ const messages=document.getElementById("chatMessages");
+ const item=document.createElement("div");
 
-  if(!q)return;
+ item.className="message "+type;
+ item.textContent=text;
 
-  let answer="Aku belum memahami perintah tersebut. Coba tanyakan tentang profil, pendidikan, minat, atau impian F.A.";
-
-  if(q.includes("halo") || q.includes("hai")){
-    answer="Halo! Sistem J.A.R.V.I.S aktif. Selamat datang di Personal Universe F.A.";
-  }else if(q.includes("siapa") || q.includes("profil") || q.includes("tentang")){
-    answer="F.A adalah seseorang yang tertarik dengan teknologi, kreativitas, multimedia, sepak bola, dan eksplorasi hal baru.";
-  }else if(q.includes("pendidikan") || q.includes("kuliah") || q.includes("jurusan")){
-    answer="F.A mempelajari Manajemen Multimedia dan Digital, bidang yang berkaitan dengan kreativitas, komunikasi, dan teknologi.";
-  }else if(q.includes("hobi") || q.includes("minat") || q.includes("suka")){
-    answer="Minat F.A meliputi teknologi, Marvel, sepak bola, traveling, desain kreatif, dan inovasi.";
-  }else if(q.includes("mimpi") || q.includes("impian") || q.includes("masa depan")){
-    answer="Misi F.A adalah terus berkembang, meningkatkan kemampuan, memperluas pengalaman, dan menciptakan sesuatu yang bernilai.";
-  }else if(q.includes("jarvis") || q.includes("kamu")){
-    answer="Saya J.A.R.V.I.S, asisten digital pada Personal Universe F.A. Saya siap membantu menjelajahi informasi di dalam sistem ini.";
-  }else if(q.includes("marvel") || q.includes("tony")){
-    answer="F.A menyukai konsep teknologi futuristik, laboratorium canggih, hologram, dan inovasi ala Tony Stark.";
-  }
-
-  output.innerHTML="<span style='color:#65e9ee'>YOU:</span> "+input.value+
-  "<br><br><span style='color:#c02c58'>J.A.R.V.I.S:</span> "+answer;
-
-  input.value="";
+ messages.appendChild(item);
+ messages.scrollTop=messages.scrollHeight;
 }
 
-// STAR PARTICLES
-const canvas=document.getElementById("stars");
+function sendMessage(){
+ const input=document.getElementById("chatInput");
+ const question=input.value.trim().toLowerCase();
+
+ if(!question)return;
+
+ addMessage(input.value,"user");
+ input.value="";
+
+ let answer="Maaf, saya belum memiliki informasi tersebut. Coba tanyakan tentang profil, pendidikan, minat, atau tujuan F.A.";
+
+ if(question.includes("nama")||question.includes("siapa")){
+  answer="Nama lengkap pemilik universe ini adalah Fachriansyah Alfigo. Inisial personalnya adalah F.A.";
+ }
+ else if(question.includes("kuliah")||question.includes("pendidikan")||question.includes("belajar")){
+  answer="F.A menempuh pendidikan di bidang Manajemen Multimedia dan Digital. Fokus ketertarikannya mencakup teknologi, kreativitas, dan dunia digital.";
+ }
+ else if(question.includes("hobi")||question.includes("minat")||question.includes("suka")){
+  answer="Beberapa ketertarikan F.A adalah teknologi, desain kreatif, sepak bola, Marvel, perjalanan, dan pengembangan diri.";
+ }
+ else if(question.includes("tujuan")||question.includes("mimpi")||question.includes("masa depan")){
+  answer="F.A ingin terus berkembang, meningkatkan kemampuan digital, mengeksplorasi pengalaman baru, dan menciptakan karya yang bermanfaat.";
+ }
+ else if(question.includes("jarvis")){
+  answer="J.A.R.V.I.S. online. Saya siap membantu Anda menjelajahi F.A Personal Universe.";
+ }
+ else if(question.includes("website")||question.includes("isi")){
+  answer="Website ini memiliki dua halaman utama: HOME untuk pengenalan dan MY STORY untuk profil, pendidikan, galeri, serta visi masa depan.";
+ }
+ else if(question.includes("foto")||question.includes("galeri")){
+  answer="Galeri foto personal dapat Anda temukan di halaman MY STORY.";
+ }
+
+ setTimeout(()=>addMessage(answer,"bot"),350);
+}
+
+
+/* PARTICLE BACKGROUND */
+
+const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
-let stars=[];
+
+let particles=[];
 
 function resizeCanvas(){
-  canvas.width=window.innerWidth;
-  canvas.height=window.innerHeight;
-  stars=[];
-  for(let i=0;i<100;i++){
-    stars.push({
-      x:Math.random()*canvas.width,
-      y:Math.random()*canvas.height,
-      r:Math.random()*1.5,
-      speed:Math.random()*.35
-    });
-  }
-}
-
-function animateStars(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  stars.forEach(s=>{
-    s.y-=s.speed;
-    if(s.y<0){
-      s.y=canvas.height;
-      s.x=Math.random()*canvas.width;
-    }
-    ctx.beginPath();
-    ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-    ctx.fillStyle="rgba(255,255,255,.65)";
-    ctx.fill();
-  });
-  requestAnimationFrame(animateStars);
+ canvas.width=window.innerWidth;
+ canvas.height=window.innerHeight;
 }
 
 window.addEventListener("resize",resizeCanvas);
 resizeCanvas();
-animateStars();
+
+for(let i=0;i<65;i++){
+ particles.push({
+  x:Math.random()*canvas.width,
+  y:Math.random()*canvas.height,
+  size:Math.random()*1.8+.4,
+  speed:Math.random()*.35+.08,
+  alpha:Math.random()*.6+.2
+ });
+}
+
+function animateParticles(){
+ ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ particles.forEach(p=>{
+  p.y-=p.speed;
+
+  if(p.y<0){
+   p.y=canvas.height;
+   p.x=Math.random()*canvas.width;
+  }
+
+  ctx.beginPath();
+  ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+  ctx.fillStyle=`rgba(180,80,115,${p.alpha})`;
+  ctx.fill();
+ });
+
+ requestAnimationFrame(animateParticles);
+}
+
+animateParticles();
 </script>
 
 </body>
-</html>
+      </html>
