@@ -975,8 +975,6 @@ body::before{
     transition:transform .25s ease-out;
 }
 
-/* floating platform */
-
 .holo-platform{
     position:absolute;
     width:330px;
@@ -1498,6 +1496,122 @@ body::before{
 }
 .detail strong{font-size:12px}
 
+/* =================================
+   CONTACT ME
+================================= */
+
+.contact-section{
+    margin-top:30px;
+    padding:25px;
+    background:linear-gradient(145deg,#fff,#f8f3f6);
+    border:1px solid var(--line);
+    box-shadow:0 12px 35px rgba(49,8,25,.06);
+    position:relative;
+    overflow:hidden;
+}
+
+.contact-section::before{
+    content:"";
+    position:absolute;
+    width:130px;
+    height:130px;
+    border:1px solid rgba(0,200,232,.2);
+    border-radius:50%;
+    right:-55px;
+    top:-65px;
+}
+
+.contact-heading{
+    font-family:'Orbitron',sans-serif;
+    font-size:11px;
+    letter-spacing:3px;
+    color:var(--burgundy);
+    margin-bottom:10px;
+}
+
+.contact-description{
+    color:#888;
+    font-size:12px;
+    line-height:1.8;
+    margin-bottom:20px;
+}
+
+.contact-links{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.contact-link{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:15px;
+    background:white;
+    border:1px solid var(--line);
+    transition:.35s ease;
+    position:relative;
+    z-index:1;
+    min-width:0;
+}
+
+.contact-link:hover{
+    transform:translateY(-5px);
+    border-color:var(--cyan);
+    box-shadow:0 12px 25px rgba(0,200,232,.1);
+}
+
+.contact-icon{
+    width:42px;
+    height:42px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--burgundy);
+    color:white;
+    font-family:'Orbitron',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    box-shadow:0 5px 15px rgba(121,13,50,.2);
+}
+
+.contact-link.whatsapp .contact-icon{
+    background:#168c61;
+    box-shadow:0 5px 15px rgba(22,140,97,.2);
+}
+
+.contact-info{
+    min-width:0;
+}
+
+.contact-info small{
+    display:block;
+    font-family:'Orbitron',sans-serif;
+    color:#999;
+    font-size:8px;
+    letter-spacing:2px;
+    margin-bottom:6px;
+}
+
+.contact-info strong{
+    display:block;
+    color:var(--burgundy);
+    font-size:12px;
+    overflow-wrap:anywhere;
+}
+
+.contact-link.whatsapp .contact-info strong{
+    color:#168c61;
+}
+
+.contact-arrow{
+    margin-left:auto;
+    color:var(--cyan);
+    font-size:18px;
+    flex-shrink:0;
+}
+
 /* TIMELINE */
 
 .timeline-section{padding:80px 0;background:white}
@@ -1720,7 +1834,6 @@ footer small{color:#888;font-size:10px;letter-spacing:1px}
     color:white;
     font:11px 'Orbitron',sans-serif;
     letter-spacing:5px;
-    text-shadow:0 0 15px var(--cyan);
 }
 
 /* DIGITAL PARTICLES */
@@ -1918,6 +2031,10 @@ footer small{color:#888;font-size:10px;letter-spacing:1px}
     .holo-label{font-size:7px;padding:8px}
     .reactor-stage{transform:scale(.75);margin:-5px auto}
     .stones-title{font-size:9px;letter-spacing:3px;margin-bottom:35px}
+
+    .contact-section{padding:20px 15px}
+    .contact-links{grid-template-columns:1fr}
+    .contact-link{padding:13px}
 
     #snapHand{
         transform:translateX(-50%) scale(.82);
@@ -2414,6 +2531,63 @@ footer small{color:#888;font-size:10px;letter-spacing:1px}
                         <div class="detail deploy-card">
                             <small>PERSONAL ID</small>
                             <strong>F.A // 001</strong>
+                        </div>
+
+                    </div>
+
+                    <!-- CONTACT ME -->
+
+                    <div class="contact-section deploy-card">
+
+                        <div class="contact-heading">
+                            CONNECT WITH ME // 005
+                        </div>
+
+                        <p class="contact-description">
+                            Feel free to connect with me through
+                            my social media or send me a message.
+                        </p>
+
+                        <div class="contact-links">
+
+                            <a
+                                class="contact-link"
+                                href="https://instagram.com/a.figo19"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Kunjungi Instagram Al Figo"
+                            >
+
+                                <div class="contact-icon">IG</div>
+
+                                <div class="contact-info">
+                                    <small>INSTAGRAM</small>
+                                    <strong>@a.figo19</strong>
+                                </div>
+
+                                <span class="contact-arrow">↗</span>
+
+                            </a>
+
+                            <a
+                                class="contact-link whatsapp"
+                                href="https://wa.me/6283139998411"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Hubungi Al Figo melalui WhatsApp"
+                            >
+
+                                <div class="contact-icon">WA</div>
+
+                                <div class="contact-info">
+                                    <small>WHATSAPP</small>
+                                    <strong>+62 831-3999-8411</strong>
+                                </div>
+
+                                <span class="contact-arrow">↗</span>
+
+                            </a>
+
                         </div>
 
                     </div>
