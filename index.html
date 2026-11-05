@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#f8f7f8">
+<meta name="theme-color" content="#09080c">
 <title>F.A | Personal Universe</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +13,6 @@
 <style>
 :root{
   --bg:#f8f7f8;
-  --white:#ffffff;
   --ink:#201820;
   --muted:#817780;
   --burgundy:#701d3c;
@@ -22,10 +20,14 @@
   --cyan:#00c9d8;
   --line:rgba(65,30,48,.12);
   --shadow:0 20px 60px rgba(56,20,39,.10);
-  --motion:3.5s;
+  --motion:4s;
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
 
 html{
   scroll-behavior:smooth;
@@ -47,9 +49,10 @@ button{cursor:pointer}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
-::selection{background:var(--burgundy);color:white}
-
-/* GLOBAL */
+::selection{
+  background:var(--burgundy);
+  color:white;
+}
 
 .container{
   width:min(1120px,calc(100% - 40px));
@@ -87,9 +90,7 @@ img{max-width:100%;display:block}
   font-weight:900;
 }
 
-.section-title span{
-  color:var(--burgundy);
-}
+.section-title span{color:var(--burgundy)}
 
 .section-desc{
   color:var(--muted);
@@ -106,21 +107,22 @@ img{max-width:100%;display:block}
   backdrop-filter:blur(18px);
 }
 
+/* GLOBAL ANIMATIONS */
+
 .reveal{
   opacity:0;
-  transform:translateY(35px);
-  transition:opacity var(--motion) ease,transform var(--motion) ease;
+  transform:translateY(35px) rotateX(4deg);
+  transition:
+    opacity 4s ease,
+    transform 4s cubic-bezier(.2,.8,.2,1);
 }
 
 .reveal.show{
   opacity:1;
-  transform:translateY(0);
+  transform:translateY(0) rotateX(0);
 }
 
-.cyan-text{color:var(--cyan)}
-.burgundy-text{color:var(--burgundy)}
-
-/* BACKGROUND EFFECT */
+/* PARTICLES */
 
 #particles{
   position:fixed;
@@ -137,15 +139,18 @@ img{max-width:100%;display:block}
   border-radius:50%;
   background:var(--cyan);
   opacity:.35;
-  animation:particleFloat var(--motion) ease-in-out infinite alternate;
+  animation:particleFloat 4s ease-in-out infinite alternate;
 }
 
 @keyframes particleFloat{
-  from{transform:translateY(0);opacity:.15}
-  to{transform:translateY(-35px);opacity:.65}
+  from{transform:translate3d(0,0,0);opacity:.15}
+  to{transform:translate3d(12px,-38px,0);opacity:.7}
 }
 
-main,header,footer{position:relative;z-index:1}
+main,header,footer{
+  position:relative;
+  z-index:1;
+}
 
 /* NAVBAR */
 
@@ -198,13 +203,14 @@ main,header,footer{position:relative;z-index:1}
   font-weight:800;
   padding:11px 16px;
   border-radius:12px;
-  transition:var(--motion);
+  transition:background 4s,color 4s,transform 4s;
 }
 
 .nav-btn.active,
 .nav-btn:hover{
   background:var(--burgundy);
   color:white;
+  transform:translateY(-2px);
 }
 
 .nav-status{
@@ -224,18 +230,26 @@ main,header,footer{position:relative;z-index:1}
   box-shadow:0 0 10px #16c784;
 }
 
-/* PAGE SYSTEM */
+/* PAGE TRANSITION */
 
 .page{
   display:none;
-  animation:pageIn var(--motion) ease both;
+  animation:pageIn 4s ease both;
 }
 
 .page.active{display:block}
 
 @keyframes pageIn{
-  from{opacity:0;transform:translateY(25px);filter:blur(5px)}
-  to{opacity:1;transform:translateY(0);filter:blur(0)}
+  from{
+    opacity:0;
+    transform:translateY(25px);
+    filter:blur(5px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+    filter:blur(0);
+  }
 }
 
 .page-transition{
@@ -248,7 +262,7 @@ main,header,footer{position:relative;z-index:1}
 }
 
 .page-transition.run{
-  animation:liquidTransition var(--motion) ease-in-out;
+  animation:liquidTransition 4s ease-in-out;
 }
 
 @keyframes liquidTransition{
@@ -258,7 +272,7 @@ main,header,footer{position:relative;z-index:1}
   100%{clip-path:circle(0% at 50% 50%);opacity:0}
 }
 
-/* HERO */
+/* HOME HERO */
 
 .hero{
   min-height:100vh;
@@ -291,7 +305,8 @@ main,header,footer{position:relative;z-index:1}
 }
 
 .hero-tag i{
-  width:7px;height:7px;
+  width:7px;
+  height:7px;
   border-radius:50%;
   background:var(--cyan);
   box-shadow:0 0 10px var(--cyan);
@@ -335,7 +350,7 @@ main,header,footer{position:relative;z-index:1}
   padding:15px 21px;
   font-size:11px;
   font-weight:800;
-  transition:var(--motion);
+  transition:all 4s;
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -359,7 +374,10 @@ main,header,footer{position:relative;z-index:1}
   border:1px solid var(--line);
 }
 
-.btn-secondary:hover{transform:translateY(-4px);border-color:var(--cyan)}
+.btn-secondary:hover{
+  transform:translateY(-4px);
+  border-color:var(--cyan);
+}
 
 .hero-meta{
   display:flex;
@@ -381,7 +399,7 @@ main,header,footer{position:relative;z-index:1}
   letter-spacing:1px;
 }
 
-/* 3D PROFILE */
+/* PROFILE 3D */
 
 .hero-visual{
   display:flex;
@@ -392,10 +410,12 @@ main,header,footer{position:relative;z-index:1}
 
 .profile-scene{
   width:min(370px,85vw);
-  aspect-ratio: .82;
+  aspect-ratio:.82;
   position:relative;
   transform-style:preserve-3d;
-  transition:transform .15s ease-out;
+  transition:transform .18s ease-out;
+  will-change:transform;
+  touch-action:pan-y;
 }
 
 .profile-glow{
@@ -438,11 +458,12 @@ main,header,footer{position:relative;z-index:1}
 .profile-scan{
   position:absolute;
   z-index:3;
-  left:0;right:0;
+  left:0;
+  right:0;
   height:2px;
   background:linear-gradient(90deg,transparent,var(--cyan),transparent);
   box-shadow:0 0 15px var(--cyan);
-  animation:scan var(--motion) ease-in-out infinite alternate;
+  animation:scan 4s ease-in-out infinite alternate;
 }
 
 @keyframes scan{
@@ -456,7 +477,7 @@ main,header,footer{position:relative;z-index:1}
   border:1px solid rgba(0,201,216,.35);
   border-radius:50%;
   transform:rotateX(65deg) rotateZ(-20deg) translateZ(-15px);
-  animation:ringSpin 12s linear infinite;
+  animation:ringSpin 4s linear infinite;
 }
 
 .holo-ring.two{
@@ -482,10 +503,11 @@ main,header,footer{position:relative;z-index:1}
   font-size:9px;
   letter-spacing:1px;
   transform:translateZ(70px);
+  animation:floatLabel 4s ease-in-out infinite alternate;
 }
 
 .floating-label.one{top:18%;right:-3%}
-.floating-label.two{bottom:15%;left:-5%}
+.floating-label.two{bottom:15%;left:-5%;animation-delay:1s}
 
 .floating-label span{
   display:block;
@@ -493,6 +515,10 @@ main,header,footer{position:relative;z-index:1}
   font-size:8px;
   color:var(--muted);
   margin-top:5px;
+}
+
+@keyframes floatLabel{
+  to{translate:0 -12px}
 }
 
 .arc-reactor{
@@ -506,15 +532,17 @@ main,header,footer{position:relative;z-index:1}
   border:4px solid #d7faff;
   background:radial-gradient(circle,#fff 0 15%,var(--cyan) 25%,#087d9b 60%,#fff 70%);
   box-shadow:0 0 20px var(--cyan),inset 0 0 12px white;
-  animation:reactorPulse var(--motion) ease-in-out infinite alternate;
+  animation:reactorPulse 4s ease-in-out infinite alternate;
   transform:translateZ(90px);
 }
 
 @keyframes reactorPulse{
-  to{box-shadow:0 0 35px var(--cyan),0 0 65px rgba(0,201,216,.3),inset 0 0 15px white}
+  to{
+    box-shadow:0 0 35px var(--cyan),0 0 65px rgba(0,201,216,.3),inset 0 0 15px white;
+  }
 }
 
-/* MINI TECH STRIP */
+/* TECH CARDS */
 
 .tech-strip{
   display:grid;
@@ -528,6 +556,12 @@ main,header,footer{position:relative;z-index:1}
   border:1px solid var(--line);
   border-radius:16px;
   padding:18px;
+  transition:transform 4s,box-shadow 4s;
+}
+
+.tech-card:hover{
+  transform:translateY(-8px) rotateX(5deg);
+  box-shadow:var(--shadow);
 }
 
 .tech-card small{
@@ -543,7 +577,7 @@ main,header,footer{position:relative;z-index:1}
   color:var(--burgundy);
 }
 
-/* STORY INTRO */
+/* MY STORY */
 
 .story-hero{
   padding:155px 0 75px;
@@ -590,6 +624,9 @@ main,header,footer{position:relative;z-index:1}
   border-radius:24px;
   position:relative;
   overflow:hidden;
+  transform-style:preserve-3d;
+  transition:transform .18s ease-out;
+  will-change:transform;
 }
 
 .story-photo{
@@ -605,7 +642,10 @@ main,header,footer{position:relative;z-index:1}
   height:100%;
   min-height:410px;
   object-fit:cover;
+  transition:transform 4s;
 }
+
+.story-photo:hover img{transform:scale(1.07)}
 
 .photo-caption{
   position:absolute;
@@ -638,6 +678,12 @@ main,header,footer{position:relative;z-index:1}
 .story-card{
   border-radius:20px;
   padding:25px;
+  transition:transform 4s,box-shadow 4s;
+}
+
+.story-card:hover{
+  transform:translateY(-6px);
+  box-shadow:var(--shadow);
 }
 
 .story-card h3{
@@ -661,8 +707,6 @@ main,header,footer{position:relative;z-index:1}
   line-height:1.7;
 }
 
-/* PROFILE DATA */
-
 .profile-data{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -675,7 +719,10 @@ main,header,footer{position:relative;z-index:1}
   border:1px solid var(--line);
   border-radius:12px;
   padding:13px;
+  transition:transform 4s;
 }
+
+.data-item:hover{transform:translateY(-5px)}
 
 .data-item small{
   color:var(--muted);
@@ -689,7 +736,7 @@ main,header,footer{position:relative;z-index:1}
   color:var(--burgundy);
 }
 
-/* JOURNEY TIMELINE */
+/* TIMELINE */
 
 .journey-section{background:rgba(112,29,60,.025)}
 
@@ -740,7 +787,10 @@ main,header,footer{position:relative;z-index:1}
   margin-top:12px;
   padding:21px;
   border-radius:16px;
+  transition:transform 4s;
 }
+
+.timeline-card:hover{transform:translateX(8px)}
 
 .timeline-card h3{
   font-size:15px;
@@ -767,11 +817,11 @@ main,header,footer{position:relative;z-index:1}
   border:1px solid var(--line);
   padding:25px;
   border-radius:18px;
-  transition:var(--motion);
+  transition:all 4s;
 }
 
 .value-card:hover{
-  transform:translateY(-7px);
+  transform:translateY(-9px) rotateY(4deg);
   box-shadow:var(--shadow);
   border-color:rgba(0,201,216,.5);
 }
@@ -815,6 +865,8 @@ main,header,footer{position:relative;z-index:1}
   position:relative;
   cursor:pointer;
   background:#eee;
+  transform-style:preserve-3d;
+  transition:transform .18s ease-out;
 }
 
 .gallery-item:first-child{grid-row:span 2}
@@ -823,7 +875,7 @@ main,header,footer{position:relative;z-index:1}
   width:100%;
   height:100%;
   object-fit:cover;
-  transition:transform var(--motion);
+  transition:transform 4s;
 }
 
 .gallery-item:hover img{transform:scale(1.07)}
@@ -895,7 +947,10 @@ main,header,footer{position:relative;z-index:1}
   padding:9px 13px;
   font-size:9px;
   color:white;
+  transition:transform 4s;
 }
+
+.future-tags span:hover{transform:translateY(-5px)}
 
 /* CONTACT */
 
@@ -914,11 +969,11 @@ main,header,footer{position:relative;z-index:1}
   background:white;
   border:1px solid var(--line);
   border-radius:17px;
-  transition:var(--motion);
+  transition:all 4s;
 }
 
 .contact-card:hover{
-  transform:translateY(-5px);
+  transform:translateY(-7px);
   border-color:var(--cyan);
   box-shadow:var(--shadow);
 }
@@ -985,10 +1040,10 @@ footer p{
   font-weight:800;
   background:linear-gradient(135deg,var(--burgundy),#a32e55);
   box-shadow:0 8px 30px rgba(112,29,60,.35);
-  transition:var(--motion);
+  transition:transform 4s;
 }
 
-.jarvis-toggle:hover{transform:scale(1.08)}
+.jarvis-toggle:hover{transform:scale(1.1)}
 
 .chat-panel{
   position:fixed;
@@ -1004,7 +1059,10 @@ footer p{
   display:none;
 }
 
-.chat-panel.open{display:block;animation:pageIn var(--motion) ease}
+.chat-panel.open{
+  display:block;
+  animation:pageIn 4s ease;
+}
 
 .chat-head{
   padding:17px;
@@ -1093,7 +1151,7 @@ footer p{
   font-size:35px;
 }
 
-/* INTRO CINEMATIC */
+/* INTRO */
 
 .intro{
   position:fixed;
@@ -1155,9 +1213,11 @@ footer p{
   padding-left:15px;
 }
 
+/* GAUNTLET */
+
 .gauntlet-stage{
   width:270px;
-  height:190px;
+  height:210px;
   margin:25px auto 0;
   position:relative;
 }
@@ -1180,7 +1240,9 @@ footer p{
   border-radius:45% 45% 35% 35%;
   background:linear-gradient(135deg,#d9a746,#76501c 55%,#e9c56a);
   border:3px solid #e6bd60;
-  box-shadow:inset 0 0 15px rgba(0,0,0,.4),0 0 20px rgba(220,165,60,.2);
+  box-shadow:
+    inset 0 0 20px rgba(255,220,130,.25),
+    0 0 20px rgba(218,169,77,.2);
 }
 
 .gauntlet-finger{
@@ -1193,10 +1255,30 @@ footer p{
   border:2px solid #d8aa51;
 }
 
-.gauntlet-finger:nth-child(1){left:4px;height:52px;transform:rotate(-15deg)}
-.gauntlet-finger:nth-child(2){left:29px;height:65px;top:0}
-.gauntlet-finger:nth-child(3){left:55px;height:68px;top:-4px}
-.gauntlet-finger:nth-child(4){left:81px;height:60px;top:4px}
+.gauntlet-finger:nth-child(1){
+  left:4px;
+  height:52px;
+  transform:rotate(-15deg);
+}
+
+.gauntlet-finger:nth-child(2){
+  left:29px;
+  height:65px;
+  top:0;
+}
+
+.gauntlet-finger:nth-child(3){
+  left:55px;
+  height:68px;
+  top:-4px;
+}
+
+.gauntlet-finger:nth-child(4){
+  left:81px;
+  height:60px;
+  top:4px;
+}
+
 .gauntlet-thumb{
   position:absolute;
   left:112px;
@@ -1209,50 +1291,94 @@ footer p{
   border:2px solid #d8aa51;
 }
 
-.stone-slot{
+/* INFINITY STONES */
+
+.stone{
   position:absolute;
   width:19px;
   height:19px;
   border-radius:50%;
-  border:2px solid rgba(255,255,255,.6);
-  box-shadow:0 0 12px currentColor;
-  z-index:4;
-}
-
-.stone-slot:nth-child(1){left:31px;top:58px;color:#a855f7}
-.stone-slot:nth-child(2){left:54px;top:39px;color:#f4d03f}
-.stone-slot:nth-child(3){left:78px;top:58px;color:#e74c3c}
-.stone-slot:nth-child(4){left:31px;top:84px;color:#27ae60}
-.stone-slot:nth-child(5){left:78px;top:84px;color:#3498db}
-.stone-slot:nth-child(6){left:54px;top:103px;color:#f39c12}
-
-.stone{
-  position:absolute;
-  width:17px;
-  height:17px;
-  border-radius:50%;
-  box-shadow:0 0 15px currentColor;
   opacity:0;
-  z-index:10;
+  z-index:8;
+  border:2px solid rgba(255,255,255,.65);
+  box-shadow:
+    0 0 8px currentColor,
+    0 0 18px currentColor,
+    inset 0 0 5px rgba(255,255,255,.9);
+  transform:translate(var(--sx),var(--sy)) scale(.3);
 }
 
 .stone.fly{
-  opacity:1;
-  animation:stoneFlight 3.5s cubic-bezier(.2,.8,.2,1) forwards;
+  animation:stoneLand 4s cubic-bezier(.2,.8,.2,1) forwards;
 }
 
-.stone:nth-child(1){background:#a855f7;color:#a855f7;left:0;top:0}
-.stone:nth-child(2){background:#f4d03f;color:#f4d03f;left:50px;top:0}
-.stone:nth-child(3){background:#e74c3c;color:#e74c3c;left:100px;top:0}
-.stone:nth-child(4){background:#27ae60;color:#27ae60;left:150px;top:0}
-.stone:nth-child(5){background:#3498db;color:#3498db;left:200px;top:0}
-.stone:nth-child(6){background:#f39c12;color:#f39c12;left:250px;top:0}
-
-@keyframes stoneFlight{
-  0%{transform:translate(0,0) scale(.4);opacity:0}
-  15%{opacity:1;transform:translate(0,-25px) scale(1.2)}
-  100%{transform:translate(var(--dx),var(--dy)) scale(.85);opacity:1}
+@keyframes stoneLand{
+  0%{
+    opacity:0;
+    transform:translate(var(--sx),var(--sy)) scale(.3);
+  }
+  20%{
+    opacity:1;
+    transform:translate(var(--sx),var(--sy)) scale(1.3);
+  }
+  75%{
+    opacity:1;
+    transform:translate(0,0) scale(.9);
+  }
+  90%{
+    transform:translate(0,0) scale(1.12);
+  }
+  100%{
+    opacity:1;
+    transform:translate(0,0) scale(1);
+  }
 }
+
+/* BATU DITEMPATKAN PADA TELAPAK */
+
+.stone-space{
+  left:31px;
+  top:58px;
+  color:#249cff;
+  background:radial-gradient(circle at 30% 25%,#c8eeff,#1689ff 55%,#0752b5);
+}
+
+.stone-mind{
+  left:54px;
+  top:39px;
+  color:#ffe34d;
+  background:radial-gradient(circle at 30% 25%,#fff7a6,#ffcf20 55%,#d18a00);
+}
+
+.stone-reality{
+  left:78px;
+  top:58px;
+  color:#ff4a55;
+  background:radial-gradient(circle at 30% 25%,#ffb0a8,#e52b42 55%,#9e102d);
+}
+
+.stone-power{
+  left:31px;
+  top:84px;
+  color:#bd70ff;
+  background:radial-gradient(circle at 30% 25%,#e8c1ff,#963be8 55%,#5514a8);
+}
+
+.stone-time{
+  left:78px;
+  top:84px;
+  color:#46e68c;
+  background:radial-gradient(circle at 30% 25%,#c5ffd8,#18bd68 55%,#087b3b);
+}
+
+.stone-soul{
+  left:54px;
+  top:103px;
+  color:#ff9b32;
+  background:radial-gradient(circle at 30% 25%,#ffe0a1,#ff8b18 55%,#bd4b00);
+}
+
+/* SNAP */
 
 .snap-text{
   font-family:Orbitron,sans-serif;
@@ -1264,7 +1390,7 @@ footer p{
   text-shadow:0 0 30px var(--cyan);
 }
 
-.snap-text.show{animation:snapReveal 3.5s ease both}
+.snap-text.show{animation:snapReveal 4s ease both}
 
 @keyframes snapReveal{
   0%{opacity:0;transform:scale(.5);filter:blur(15px)}
@@ -1282,7 +1408,7 @@ footer p{
   pointer-events:none;
 }
 
-.snap-flash.active{animation:flash .8s ease}
+.snap-flash.active{animation:flash 4s ease}
 
 @keyframes flash{
   0%{opacity:0}
@@ -1290,7 +1416,7 @@ footer p{
   100%{opacity:0}
 }
 
-/* FAKE CRASH */
+/* SYSTEM CRASH */
 
 .crash-screen{
   position:fixed;
@@ -1303,7 +1429,10 @@ footer p{
   font-family:monospace;
 }
 
-.crash-screen.show{display:block;animation:crashIn .5s steps(3)}
+.crash-screen.show{
+  display:block;
+  animation:crashIn 4s steps(4);
+}
 
 @keyframes crashIn{
   0%{filter:invert(1);transform:translateX(-8px)}
@@ -1335,10 +1464,12 @@ footer p{
   width:0;
   height:100%;
   background:var(--cyan);
-  animation:reboot 3.5s linear forwards;
+  animation:reboot 4s linear forwards;
 }
 
 @keyframes reboot{to{width:100%}}
+
+/* IDENTITY REVEAL */
 
 .reveal-name{
   position:fixed;
@@ -1358,7 +1489,7 @@ footer p{
   font-family:Orbitron,sans-serif;
   font-size:clamp(35px,10vw,85px);
   letter-spacing:4px;
-  animation:identityReveal 3.5s ease both;
+  animation:identityReveal 4s ease both;
 }
 
 .reveal-name h1 span{color:var(--cyan)}
@@ -1390,19 +1521,30 @@ footer p{
   letter-spacing:1px;
 }
 
-/* RESPONSIVE */
+/* MOBILE */
 
 @media(max-width:800px){
-  .hero-grid{grid-template-columns:1fr;gap:50px}
+  .hero-grid{
+    grid-template-columns:1fr;
+    gap:50px;
+  }
+
   .hero-copy{text-align:center}
-  .hero-subtitle{margin-left:auto;margin-right:auto}
+
+  .hero-subtitle{
+    margin-left:auto;
+    margin-right:auto;
+  }
+
   .hero-actions,.hero-meta{justify-content:center}
   .hero-visual{grid-row:1}
   .profile-scene{width:min(310px,80vw)}
   .hero{padding-top:130px}
+
   .story-layout{grid-template-columns:1fr}
   .story-photo{min-height:350px}
   .story-photo img{min-height:350px}
+
   .values-grid{grid-template-columns:1fr 1fr}
   .contact-grid{grid-template-columns:1fr}
 }
@@ -1410,26 +1552,40 @@ footer p{
 @media(max-width:520px){
   .container{width:calc(100% - 30px)}
   .section{padding:75px 0}
-  .navbar{top:8px;padding:10px 12px}
+
+  .navbar{
+    top:8px;
+    padding:10px 12px;
+  }
+
   .brand{font-size:13px}
   .brand small{font-size:7px}
   .nav-links{gap:2px}
-  .nav-btn{font-size:9px;padding:10px 11px}
+
+  .nav-btn{
+    font-size:9px;
+    padding:10px 11px;
+  }
+
   .nav-status{display:none}
+
   .hero h1{letter-spacing:-3px}
   .hero-meta{gap:17px}
   .tech-strip{gap:8px}
   .tech-card{padding:13px 10px}
   .tech-card strong{font-size:10px}
+
   .story-hero{padding-top:130px}
   .story-heading h1{letter-spacing:-2px}
   .story-card{padding:20px}
   .profile-data{gap:8px}
   .values-grid{grid-template-columns:1fr}
+
   .gallery-grid{
     grid-template-columns:1fr 1fr;
     grid-template-rows:220px 150px;
   }
+
   .gallery-item:first-child{grid-row:span 2}
   .future-card{padding:27px}
   .floating-label{font-size:8px}
@@ -1451,11 +1607,11 @@ footer p{
 <div id="particles"></div>
 <div class="page-transition" id="pageTransition"></div>
 
-<!-- CINEMATIC INTRO -->
+<!-- INTRO JARVIS -->
 <div class="intro" id="intro">
   <div class="snap-flash" id="snapFlash"></div>
 
-  <div class="intro-content" id="introContent">
+  <div class="intro-content">
     <div class="jarvis-label">STARK INDUSTRIES // SYSTEM ONLINE</div>
     <div class="intro-title">WELCOME TO MY UNIVERSE</div>
     <div class="intro-sub">PERSONAL IDENTITY PROTOCOL</div>
@@ -1465,13 +1621,6 @@ footer p{
     </div>
 
     <div class="gauntlet-stage">
-      <div class="stone" style="--dx:90px;--dy:110px"></div>
-      <div class="stone" style="--dx:40px;--dy:75px"></div>
-      <div class="stone" style="--dx:-10px;--dy:95px"></div>
-      <div class="stone" style="--dx:-65px;--dy:110px"></div>
-      <div class="stone" style="--dx:-10px;--dy:145px"></div>
-      <div class="stone" style="--dx:40px;--dy:155px"></div>
-
       <div class="gauntlet">
         <div class="gauntlet-finger"></div>
         <div class="gauntlet-finger"></div>
@@ -1479,12 +1628,13 @@ footer p{
         <div class="gauntlet-finger"></div>
         <div class="gauntlet-thumb"></div>
         <div class="gauntlet-palm"></div>
-        <div class="stone-slot"></div>
-        <div class="stone-slot"></div>
-        <div class="stone-slot"></div>
-        <div class="stone-slot"></div>
-        <div class="stone-slot"></div>
-        <div class="stone-slot"></div>
+
+        <div class="stone stone-space" style="--sx:-150px;--sy:-150px"></div>
+        <div class="stone stone-mind" style="--sx:0px;--sy:-190px"></div>
+        <div class="stone stone-reality" style="--sx:130px;--sy:-150px"></div>
+        <div class="stone stone-power" style="--sx:-150px;--sy:-30px"></div>
+        <div class="stone stone-time" style="--sx:0px;--sy:100px"></div>
+        <div class="stone stone-soul" style="--sx:150px;--sy:20px"></div>
       </div>
     </div>
 
@@ -1494,18 +1644,16 @@ footer p{
   <button class="intro-skip" onclick="skipIntro()">SKIP INTRO ↗</button>
 </div>
 
-<!-- FAKE CRASH -->
 <div class="crash-screen" id="crashScreen">
   <h2>⚠ SYSTEM FAILURE</h2>
   <p>STARK INDUSTRIES PERSONAL SYSTEM</p>
   <p>Unexpected energy overload detected...</p>
   <p>Memory sectors unstable.</p>
   <p>Rebuilding personal universe...</p>
-  <p id="crashText">RECOVERY INITIALIZING...</p>
+  <p>RECOVERY INITIALIZING...</p>
   <div class="crash-progress"><span></span></div>
 </div>
 
-<!-- IDENTITY REVEAL -->
 <div class="reveal-name" id="revealName">
   <div>
     <h1>I'M <span>AL FIGO.</span></h1>
@@ -1533,393 +1681,462 @@ footer p{
 
 <main>
 
-<!-- ================= HOME ================= -->
+<!-- HOME -->
 <div class="page active" id="home">
 
-  <section class="hero">
-    <div class="container hero-grid">
+<section class="hero">
+<div class="container hero-grid">
 
-      <div class="hero-copy">
-        <div class="hero-tag"><i></i> PERSONAL IDENTITY SYSTEM</div>
+  <div class="hero-copy">
+    <div class="hero-tag"><i></i> PERSONAL IDENTITY SYSTEM</div>
 
-        <h1>
-          HELLO,
-          <span class="name">I'M FIGO.</span>
-          <span class="outline">WELCOME.</span>
-        </h1>
+    <h1>
+      HELLO,
+      <span class="name">I'M FIGO.</span>
+      <span class="outline">WELCOME.</span>
+    </h1>
 
-        <p class="hero-subtitle">
-          Sebuah ruang digital yang berisi cerita, perjalanan,
-          pemikiran, dan hal-hal yang sedang aku bangun.
-          Bukan sekadar website, ini adalah bagian kecil dari
-          personal universe milikku.
-        </p>
+    <p class="hero-subtitle">
+      Sebuah ruang digital yang berisi cerita, perjalanan, pemikiran,
+      dan hal-hal yang sedang aku bangun. Bukan sekadar website,
+      ini adalah bagian kecil dari personal universe milikku.
+    </p>
 
-        <div class="hero-actions">
-          <button class="btn btn-primary" onclick="showPage('story')">
-            EXPLORE MY STORY ↗
-          </button>
-          <a class="btn btn-secondary" href="https://instagram.com/a.figo19" target="_blank">
-            CONNECT WITH ME
-          </a>
-        </div>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="showPage('story')">
+        EXPLORE MY STORY ↗
+      </button>
 
-        <div class="hero-meta">
-          <div class="meta-item">
-            <strong>F.A</strong>
-            <span>IDENTITY</span>
-          </div>
-          <div class="meta-item">
-            <strong>∞</strong>
-            <span>POSSIBILITIES</span>
-          </div>
-          <div class="meta-item">
-            <strong>2026</strong>
-            <span>THE JOURNEY</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-visual">
-        <div class="profile-scene" id="profileScene">
-          <div class="profile-glow"></div>
-          <div class="holo-ring"></div>
-          <div class="holo-ring two"></div>
-
-          <div class="profile-frame">
-            <img src="IMG-20261104-WA0009.jpg" alt="Foto profil Figo">
-            <div class="profile-scan"></div>
-          </div>
-
-          <div class="floating-label one">
-            F.A / 001
-            <span>IDENTITY VERIFIED</span>
-          </div>
-
-          <div class="floating-label two">
-            PERSONAL FILE
-            <span>ACCESS GRANTED</span>
-          </div>
-
-          <div class="arc-reactor"></div>
-        </div>
-      </div>
-
+      <a class="btn btn-secondary"
+         href="https://instagram.com/a.figo19"
+         target="_blank" rel="noopener">
+        CONNECT WITH ME
+      </a>
     </div>
-  </section>
 
-  <section class="container" style="padding-bottom:90px">
-    <div class="tech-strip">
-      <div class="tech-card reveal">
-        <small>01 / IDENTITY</small>
-        <strong>Personal Universe</strong>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <strong>F.A</strong>
+        <span>IDENTITY</span>
       </div>
-      <div class="tech-card reveal">
-        <small>02 / SYSTEM</small>
-        <strong>Creative Mindset</strong>
+
+      <div class="meta-item">
+        <strong>∞</strong>
+        <span>POSSIBILITIES</span>
       </div>
-      <div class="tech-card reveal">
-        <small>03 / DIRECTION</small>
-        <strong>Keep Growing</strong>
+
+      <div class="meta-item">
+        <strong>2026</strong>
+        <span>THE JOURNEY</span>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="section">
-    <div class="container">
-      <div class="reveal">
-        <div class="section-label">BEHIND THE IDENTITY</div>
-        <h2 class="section-title">More than just a <span>name.</span></h2>
-        <p class="section-desc">
-          Setiap orang punya perjalanan yang berbeda. Ini adalah
-          tempat untuk mengenal sedikit tentang siapa aku,
-          apa yang aku pelajari, dan ke mana aku ingin melangkah.
-        </p>
-        <button class="btn btn-primary" style="margin-top:25px" onclick="showPage('story')">
-          DISCOVER MY STORY ↗
-        </button>
+  <!-- FOTO PROFIL 3D -->
+  <div class="hero-visual">
+    <div class="profile-scene" id="profileScene">
+
+      <div class="profile-glow"></div>
+      <div class="holo-ring"></div>
+      <div class="holo-ring two"></div>
+
+      <div class="profile-frame">
+        <img src="IMG-20261104-WA0009.jpg" alt="Foto profil Figo">
+        <div class="profile-scan"></div>
       </div>
+
+      <div class="floating-label one">
+        F.A / 001
+        <span>IDENTITY VERIFIED</span>
+      </div>
+
+      <div class="floating-label two">
+        PERSONAL FILE
+        <span>ACCESS GRANTED</span>
+      </div>
+
+      <div class="arc-reactor"></div>
     </div>
-  </section>
+  </div>
+
+</div>
+</section>
+
+<section class="container" style="padding-bottom:90px">
+  <div class="tech-strip">
+    <div class="tech-card reveal">
+      <small>01 / IDENTITY</small>
+      <strong>Personal Universe</strong>
+    </div>
+
+    <div class="tech-card reveal">
+      <small>02 / SYSTEM</small>
+      <strong>Creative Mindset</strong>
+    </div>
+
+    <div class="tech-card reveal">
+      <small>03 / DIRECTION</small>
+      <strong>Keep Growing</strong>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container reveal">
+    <div class="section-label">BEHIND THE IDENTITY</div>
+
+    <h2 class="section-title">
+      More than just a <span>name.</span>
+    </h2>
+
+    <p class="section-desc">
+      Setiap orang punya perjalanan yang berbeda. Ini adalah tempat
+      untuk mengenal sedikit tentang siapa aku, apa yang aku pelajari,
+      dan ke mana aku ingin melangkah.
+    </p>
+
+    <button class="btn btn-primary"
+            style="margin-top:25px"
+            onclick="showPage('story')">
+      DISCOVER MY STORY ↗
+    </button>
+  </div>
+</section>
 
 </div>
 
-<!-- ================= MY STORY ================= -->
+<!-- MY STORY -->
 <div class="page" id="story">
 
-  <section class="story-hero">
-    <div class="container">
-      <div class="story-heading reveal">
-        <div class="section-label">THE PERSON BEHIND F.A</div>
-        <h1>THIS IS <span>MY STORY.</span></h1>
-        <p class="section-desc">
-          Bukan tentang menjadi sempurna, tetapi tentang perjalanan
-          untuk terus belajar, berkembang, dan menemukan versi
-          terbaik dari diri sendiri.
-        </p>
-      </div>
+<section class="story-hero">
+<div class="container">
 
-      <div class="story-layout">
+  <div class="story-heading reveal">
+    <div class="section-label">THE PERSON BEHIND F.A</div>
 
-        <div class="story-photo-card glass reveal">
-          <div class="story-photo">
-            <img src="IMG-20261104-WA0009.jpg" alt="Figo portrait">
-            <div class="photo-caption">
-              <strong>FACHRIANSYAH ALFIGO</strong>
-              <span>THE PERSON BEHIND THE UNIVERSE</span>
-            </div>
-          </div>
-        </div>
+    <h1>THIS IS <span>MY STORY.</span></h1>
 
-        <div class="story-content">
+    <p class="section-desc">
+      Bukan tentang menjadi sempurna, tetapi tentang perjalanan
+      untuk terus belajar, berkembang, dan menemukan versi terbaik
+      dari diri sendiri.
+    </p>
+  </div>
 
-          <article class="story-card glass reveal">
-            <div class="section-label">01 / INTRODUCTION</div>
-            <h3>Who am I?</h3>
-            <p>
-              Halo, aku Fachriansyah Alfigo. Aku adalah seseorang
-              yang masih terus belajar mengenal diri sendiri,
-              mencoba hal baru, dan mengembangkan kemampuan.
-              Aku percaya bahwa setiap pengalaman, sekecil apa pun,
-              punya sesuatu yang bisa dipelajari.
-            </p>
-            <div class="story-quote">
-              "Small steps today can create a different future tomorrow."
-            </div>
-          </article>
+  <div class="story-layout">
 
-          <article class="story-card glass reveal">
-            <div class="section-label">02 / PERSONAL PROFILE</div>
-            <h3>A little about me.</h3>
-            <p>
-              Beberapa informasi sederhana tentang diriku.
-              Sebuah identitas kecil di balik F.A Personal Universe.
-            </p>
+    <div class="story-photo-card glass reveal" data-tilt>
+      <div class="story-photo">
+        <img src="IMG-20261104-WA0009.jpg" alt="Figo portrait">
 
-            <div class="profile-data">
-              <div class="data-item">
-                <small>FULL NAME</small>
-                <strong>Fachriansyah Alfigo</strong>
-              </div>
-              <div class="data-item">
-                <small>CALL ME</small>
-                <strong>Figo</strong>
-              </div>
-              <div class="data-item">
-                <small>INTEREST</small>
-                <strong>Digital & Creativity</strong>
-              </div>
-              <div class="data-item">
-                <small>PERSONAL MOTTO</small>
-                <strong>Keep Moving Forward</strong>
-              </div>
-            </div>
-          </article>
-
+        <div class="photo-caption">
+          <strong>FACHRIANSYAH ALFIGO</strong>
+          <span>THE PERSON BEHIND THE UNIVERSE</span>
         </div>
       </div>
     </div>
-  </section>
 
-  <!-- EDUCATION -->
-  <section class="section journey-section">
-    <div class="container">
-      <div class="reveal">
-        <div class="section-label">03 / MY JOURNEY</div>
-        <h2 class="section-title">Every chapter has a <span>meaning.</span></h2>
-        <p class="section-desc">
-          Perjalanan bukan hanya tentang tujuan akhir.
-          Setiap proses memberikan pengalaman dan pelajaran baru.
-        </p>
-      </div>
+    <div class="story-content">
 
-      <div class="timeline">
+      <article class="story-card glass reveal">
+        <div class="section-label">01 / INTRODUCTION</div>
 
-        <div class="timeline-item reveal">
-          <div class="timeline-date">CHAPTER 01</div>
-          <div class="timeline-card glass">
-            <h3>Early Experiences</h3>
-            <p>
-              Masa untuk mengenal banyak hal, membangun pengalaman,
-              dan mulai memahami apa yang ingin dilakukan.
-            </p>
-          </div>
-        </div>
+        <h3>Who am I?</h3>
 
-        <div class="timeline-item reveal">
-          <div class="timeline-date">CHAPTER 02</div>
-          <div class="timeline-card glass">
-            <h3>High School — HSPG Yogyakarta</h3>
-            <p>
-              Menyelesaikan perjalanan pendidikan menengah dan
-              mendapatkan pengalaman yang menjadi bagian dari
-              proses perkembangan diri.
-            </p>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-date">CHAPTER 03</div>
-          <div class="timeline-card glass">
-            <h3>Digital Learning Journey</h3>
-            <p>
-              Mulai mendalami dunia multimedia dan digital,
-              termasuk kreativitas, teknologi, komunikasi,
-              serta pengembangan ide.
-            </p>
-          </div>
-        </div>
-
-        <div class="timeline-item reveal">
-          <div class="timeline-date">CHAPTER 04</div>
-          <div class="timeline-card glass">
-            <h3>The Next Chapter</h3>
-            <p>
-              Masih banyak hal yang ingin dipelajari dan dicapai.
-              Perjalanan ini terus berjalan, dan ceritanya
-              belum selesai.
-            </p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- PERSONAL VALUES -->
-  <section class="section">
-    <div class="container">
-      <div class="reveal">
-        <div class="section-label">04 / WHAT DEFINES ME</div>
-        <h2 class="section-title">My personal <span>principles.</span></h2>
-        <p class="section-desc">
-          Hal-hal sederhana yang ingin aku bawa dalam setiap
-          perjalanan dan proses perkembangan diri.
-        </p>
-      </div>
-
-      <div class="values-grid">
-        <div class="value-card reveal">
-          <div class="value-icon">✦</div>
-          <h3>Curiosity</h3>
-          <p>
-            Selalu punya rasa ingin tahu dan terbuka untuk
-            mempelajari sesuatu yang baru.
-          </p>
-        </div>
-
-        <div class="value-card reveal">
-          <div class="value-icon">◈</div>
-          <h3>Creativity</h3>
-          <p>
-            Berani mencoba ide baru dan melihat sesuatu
-            dari sudut pandang yang berbeda.
-          </p>
-        </div>
-
-        <div class="value-card reveal">
-          <div class="value-icon">↗</div>
-          <h3>Growth</h3>
-          <p>
-            Menghargai proses, belajar dari pengalaman,
-            dan terus memperbaiki diri.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section class="section journey-section">
-    <div class="container">
-      <div class="reveal">
-        <div class="section-label">05 / PERSONAL ARCHIVE</div>
-        <h2 class="section-title">Moments & <span>memories.</span></h2>
-        <p class="section-desc">
-          Beberapa potongan momen yang menjadi bagian
-          dari perjalanan personal.
-        </p>
-      </div>
-
-      <div class="gallery-grid">
-        <div class="gallery-item reveal" onclick="openLightbox(this)">
-          <img src="IMG-20261104-WA0006.jpg" alt="Personal moment one">
-        </div>
-        <div class="gallery-item reveal" onclick="openLightbox(this)">
-          <img src="IMG-20261104-WA0011.jpg" alt="Personal moment two">
-        </div>
-        <div class="gallery-item reveal" onclick="openLightbox(this)">
-          <img src="IMG-20261104-WA0009.jpg" alt="Personal portrait">
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FUTURE -->
-  <section class="section">
-    <div class="container">
-      <div class="future-card reveal">
-        <div class="section-label" style="color:#8df7ff">06 / LOOKING FORWARD</div>
-        <h2>The future is still being written.</h2>
         <p>
-          Aku tidak harus mengetahui semua jawaban hari ini.
-          Yang penting adalah tetap melangkah, berani mencoba,
-          dan tidak berhenti mengembangkan diri.
-          Masih banyak pengalaman, kesempatan, dan cerita
-          yang menunggu untuk dijalani.
+          Halo, aku Fachriansyah Alfigo. Aku adalah seseorang yang
+          masih terus belajar mengenal diri sendiri, mencoba hal baru,
+          dan mengembangkan kemampuan. Aku percaya bahwa setiap
+          pengalaman, sekecil apa pun, punya sesuatu yang bisa dipelajari.
         </p>
 
-        <div class="future-tags">
-          <span>LEARN</span>
-          <span>CREATE</span>
-          <span>EXPLORE</span>
-          <span>IMPROVE</span>
-          <span>REPEAT</span>
+        <div class="story-quote">
+          "Small steps today can create a different future tomorrow."
         </div>
-      </div>
-    </div>
-  </section>
+      </article>
 
-  <!-- CONTACT HUB -->
-  <section class="section journey-section">
-    <div class="container">
-      <div class="reveal">
-        <div class="section-label">07 / LET'S CONNECT</div>
-        <h2 class="section-title">Find me <span>somewhere.</span></h2>
-        <p class="section-desc">
-          Terhubung denganku melalui beberapa platform berikut.
+      <article class="story-card glass reveal">
+        <div class="section-label">02 / PERSONAL PROFILE</div>
+
+        <h3>A little about me.</h3>
+
+        <p>
+          Beberapa informasi sederhana tentang diriku.
+          Sebuah identitas kecil di balik F.A Personal Universe.
+        </p>
+
+        <div class="profile-data">
+
+          <div class="data-item">
+            <small>FULL NAME</small>
+            <strong>Fachriansyah Alfigo</strong>
+          </div>
+
+          <div class="data-item">
+            <small>CALL ME</small>
+            <strong>Figo</strong>
+          </div>
+
+          <div class="data-item">
+            <small>INTEREST</small>
+            <strong>Digital & Creativity</strong>
+          </div>
+
+          <div class="data-item">
+            <small>PERSONAL MOTTO</small>
+            <strong>Keep Moving Forward</strong>
+          </div>
+
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- JOURNEY -->
+<section class="section journey-section">
+<div class="container">
+
+  <div class="reveal">
+    <div class="section-label">03 / MY JOURNEY</div>
+
+    <h2 class="section-title">
+      Every chapter has a <span>meaning.</span>
+    </h2>
+
+    <p class="section-desc">
+      Perjalanan bukan hanya tentang tujuan akhir.
+      Setiap proses memberikan pengalaman dan pelajaran baru.
+    </p>
+  </div>
+
+  <div class="timeline">
+
+    <div class="timeline-item reveal">
+      <div class="timeline-date">CHAPTER 01</div>
+
+      <div class="timeline-card glass">
+        <h3>Early Experiences</h3>
+        <p>
+          Masa untuk mengenal banyak hal, membangun pengalaman,
+          dan mulai memahami apa yang ingin dilakukan.
         </p>
       </div>
+    </div>
 
-      <div class="contact-grid">
+    <div class="timeline-item reveal">
+      <div class="timeline-date">CHAPTER 02</div>
 
-        <a class="contact-card reveal" href="https://instagram.com/a.figo19" target="_blank">
-          <div class="contact-icon">IG</div>
-          <div>
-            <small>INSTAGRAM</small>
-            <strong>@a.figo19</strong>
-          </div>
-        </a>
-
-        <a class="contact-card reveal" href="https://wa.me/6283139998411" target="_blank">
-          <div class="contact-icon">WA</div>
-          <div>
-            <small>WHATSAPP</small>
-            <strong>+62 831-3999-8411</strong>
-          </div>
-        </a>
-
-        <a class="contact-card reveal" href="mailto:masfigo41@gmail.com">
-          <div class="contact-icon">@</div>
-          <div>
-            <small>EMAIL</small>
-            <strong>masfigo41@gmail.com</strong>
-          </div>
-        </a>
-
+      <div class="timeline-card glass">
+        <h3>High School — HSPG Yogyakarta</h3>
+        <p>
+          Menyelesaikan perjalanan pendidikan menengah dan mendapatkan
+          pengalaman yang menjadi bagian dari proses perkembangan diri.
+        </p>
       </div>
     </div>
-  </section>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-date">CHAPTER 03</div>
+
+      <div class="timeline-card glass">
+        <h3>Digital Learning Journey</h3>
+        <p>
+          Mulai mendalami dunia multimedia dan digital, termasuk
+          kreativitas, teknologi, komunikasi, serta pengembangan ide.
+        </p>
+      </div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-date">CHAPTER 04</div>
+
+      <div class="timeline-card glass">
+        <h3>The Next Chapter</h3>
+        <p>
+          Masih banyak hal yang ingin dipelajari dan dicapai.
+          Perjalanan ini terus berjalan, dan ceritanya belum selesai.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- VALUES -->
+<section class="section">
+<div class="container">
+
+  <div class="reveal">
+    <div class="section-label">04 / WHAT DEFINES ME</div>
+
+    <h2 class="section-title">
+      My personal <span>principles.</span>
+    </h2>
+
+    <p class="section-desc">
+      Hal-hal sederhana yang ingin aku bawa dalam setiap perjalanan
+      dan proses perkembangan diri.
+    </p>
+  </div>
+
+  <div class="values-grid">
+
+    <div class="value-card reveal" data-tilt>
+      <div class="value-icon">✦</div>
+      <h3>Curiosity</h3>
+      <p>
+        Selalu punya rasa ingin tahu dan terbuka untuk mempelajari
+        sesuatu yang baru.
+      </p>
+    </div>
+
+    <div class="value-card reveal" data-tilt>
+      <div class="value-icon">◈</div>
+      <h3>Creativity</h3>
+      <p>
+        Berani mencoba ide baru dan melihat sesuatu dari sudut
+        pandang yang berbeda.
+      </p>
+    </div>
+
+    <div class="value-card reveal" data-tilt>
+      <div class="value-icon">↗</div>
+      <h3>Growth</h3>
+      <p>
+        Menghargai proses, belajar dari pengalaman,
+        dan terus memperbaiki diri.
+      </p>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- GALLERY -->
+<section class="section journey-section">
+<div class="container">
+
+  <div class="reveal">
+    <div class="section-label">05 / PERSONAL ARCHIVE</div>
+
+    <h2 class="section-title">
+      Moments & <span>memories.</span>
+    </h2>
+
+    <p class="section-desc">
+      Beberapa potongan momen yang menjadi bagian dari perjalanan personal.
+    </p>
+  </div>
+
+  <div class="gallery-grid">
+
+    <div class="gallery-item reveal"
+         data-tilt
+         onclick="openLightbox(this)">
+      <img src="IMG-20261104-WA0006.jpg" alt="Personal moment one">
+    </div>
+
+    <div class="gallery-item reveal"
+         data-tilt
+         onclick="openLightbox(this)">
+      <img src="IMG-20261104-WA0011.jpg" alt="Personal moment two">
+    </div>
+
+    <div class="gallery-item reveal"
+         data-tilt
+         onclick="openLightbox(this)">
+      <img src="IMG-20261104-WA0009.jpg" alt="Personal portrait">
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- FUTURE -->
+<section class="section">
+<div class="container">
+
+  <div class="future-card reveal">
+    <div class="section-label" style="color:#8df7ff">
+      06 / LOOKING FORWARD
+    </div>
+
+    <h2>The future is still being written.</h2>
+
+    <p>
+      Aku tidak harus mengetahui semua jawaban hari ini.
+      Yang penting adalah tetap melangkah, berani mencoba,
+      dan tidak berhenti mengembangkan diri. Masih banyak pengalaman,
+      kesempatan, dan cerita yang menunggu untuk dijalani.
+    </p>
+
+    <div class="future-tags">
+      <span>LEARN</span>
+      <span>CREATE</span>
+      <span>EXPLORE</span>
+      <span>IMPROVE</span>
+      <span>REPEAT</span>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
+<section class="section journey-section">
+<div class="container">
+
+  <div class="reveal">
+    <div class="section-label">07 / LET'S CONNECT</div>
+
+    <h2 class="section-title">
+      Find me <span>somewhere.</span>
+    </h2>
+
+    <p class="section-desc">
+      Terhubung denganku melalui beberapa platform berikut.
+    </p>
+  </div>
+
+  <div class="contact-grid">
+
+    <a class="contact-card reveal"
+       href="https://instagram.com/a.figo19"
+       target="_blank" rel="noopener">
+      <div class="contact-icon">IG</div>
+      <div>
+        <small>INSTAGRAM</small>
+        <strong>@a.figo19</strong>
+      </div>
+    </a>
+
+    <a class="contact-card reveal"
+       href="https://wa.me/6283139998411"
+       target="_blank" rel="noopener">
+      <div class="contact-icon">WA</div>
+      <div>
+        <small>WHATSAPP</small>
+        <strong>+62 831-3999-8411</strong>
+      </div>
+    </a>
+
+    <a class="contact-card reveal"
+       href="mailto:masfigo41@gmail.com">
+      <div class="contact-icon">@</div>
+      <div>
+        <small>EMAIL</small>
+        <strong>masfigo41@gmail.com</strong>
+      </div>
+    </a>
+
+  </div>
+</div>
+</section>
 
 </div>
 </main>
@@ -1931,7 +2148,7 @@ footer p{
   </div>
 </footer>
 
-<!-- JARVIS CHAT -->
+<!-- JARVIS -->
 <button class="jarvis-toggle" onclick="toggleChat()">J</button>
 
 <div class="chat-panel" id="chatPanel">
@@ -1939,12 +2156,14 @@ footer p{
     <strong>J.A.R.V.I.S.</strong>
     <button onclick="toggleChat()">×</button>
   </div>
+
   <div class="chat-body">
     <div class="chat-message" id="chatMessage">
       Good evening. I am J.A.R.V.I.S.
       How can I assist you in exploring this universe?
     </div>
   </div>
+
   <div class="chat-options">
     <button onclick="jarvisReply('home')">HOME</button>
     <button onclick="jarvisReply('story')">MY STORY</button>
@@ -1952,28 +2171,27 @@ footer p{
   </div>
 </div>
 
-<!-- LIGHTBOX -->
+<!-- IMAGE LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button aria-label="Close">&times;</button>
   <img id="lightboxImage" src="" alt="Expanded gallery image">
 </div>
 
 <script>
-/* =========================================
+/* =====================================
    F.A PERSONAL UNIVERSE
-   JAVASCRIPT SYSTEM
-========================================= */
+   GLOBAL INTERACTION SYSTEM
+===================================== */
 
 /* PARTICLES */
-const particleArea = document.getElementById("particles");
+const particleArea=document.getElementById("particles");
 
 for(let i=0;i<35;i++){
   const p=document.createElement("span");
   p.className="particle";
   p.style.left=Math.random()*100+"%";
   p.style.top=Math.random()*100+"%";
-  p.style.animationDelay=(Math.random()*3.5)+"s";
-  p.style.animationDuration="3.5s";
+  p.style.animationDelay=(Math.random()*4)+"s";
   particleArea.appendChild(p);
 }
 
@@ -1984,6 +2202,7 @@ function showPage(page){
   if(page===currentPage)return;
 
   const transition=document.getElementById("pageTransition");
+
   transition.classList.remove("run");
   void transition.offsetWidth;
   transition.classList.add("run");
@@ -1995,18 +2214,28 @@ function showPage(page){
 
     document.getElementById(page).classList.add("active");
 
-    document.getElementById("navHome").classList.toggle("active",page==="home");
-    document.getElementById("navStory").classList.toggle("active",page==="story");
+    document.getElementById("navHome")
+      .classList.toggle("active",page==="home");
+
+    document.getElementById("navStory")
+      .classList.toggle("active",page==="story");
 
     currentPage=page;
-    window.scrollTo({top:0,behavior:"smooth"});
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
     revealElements();
-  },1200);
+  },1400);
 }
 
 /* SCROLL REVEAL */
 function revealElements(){
-  const elements=document.querySelectorAll(".page.active .reveal");
+  const elements=document.querySelectorAll(
+    ".page.active .reveal:not(.show)"
+  );
 
   const observer=new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
@@ -2015,68 +2244,107 @@ function revealElements(){
         observer.unobserve(entry.target);
       }
     });
-  },{threshold:.12});
+  },{threshold:.1});
 
-  elements.forEach(el=>{
-    if(!el.classList.contains("show"))observer.observe(el);
-  });
+  elements.forEach(el=>observer.observe(el));
 }
 
 revealElements();
 
-/* 3D PROFILE — MOUSE */
+/* =====================================
+   3D PROFILE MOVEMENT
+   MOUSE + TOUCH + DEVICE ORIENTATION
+===================================== */
+
 const profileScene=document.getElementById("profileScene");
 
+function moveProfile(x,y,rect){
+  const nx=(x-rect.left)/rect.width;
+  const ny=(y-rect.top)/rect.height;
+
+  const ry=(nx-.5)*28;
+  const rx=(.5-ny)*28;
+
+  profileScene.style.transform=
+    `rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.025,1.025,1.025)`;
+}
+
 if(profileScene){
+
   profileScene.addEventListener("mousemove",e=>{
-    if(window.innerWidth<=800)return;
-
-    const rect=profileScene.getBoundingClientRect();
-    const x=(e.clientX-rect.left)/rect.width;
-    const y=(e.clientY-rect.top)/rect.height;
-
-    const rotateY=(x-.5)*24;
-    const rotateX=(.5-y)*24;
-
-    profileScene.style.transform=
-      `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    moveProfile(
+      e.clientX,
+      e.clientY,
+      profileScene.getBoundingClientRect()
+    );
   });
 
   profileScene.addEventListener("mouseleave",()=>{
-    profileScene.style.transform="rotateX(0) rotateY(0)";
+    profileScene.style.transform=
+      "rotateX(0) rotateY(0) scale(1)";
   });
 
-  /* TOUCH */
   profileScene.addEventListener("touchmove",e=>{
-    const touch=e.touches[0];
-    const rect=profileScene.getBoundingClientRect();
-    const x=(touch.clientX-rect.left)/rect.width;
-    const y=(touch.clientY-rect.top)/rect.height;
+    const t=e.touches[0];
 
-    profileScene.style.transform=
-      `rotateX(${(.5-y)*18}deg) rotateY(${(x-.5)*18}deg)`;
+    moveProfile(
+      t.clientX,
+      t.clientY,
+      profileScene.getBoundingClientRect()
+    );
   },{passive:true});
 
   profileScene.addEventListener("touchend",()=>{
-    profileScene.style.transform="rotateX(0) rotateY(0)";
+    profileScene.style.transform=
+      "rotateX(0) rotateY(0) scale(1)";
   });
 
-  /* DEVICE ORIENTATION */
   window.addEventListener("deviceorientation",e=>{
     if(window.innerWidth>800)return;
-    if(e.gamma===null || e.beta===null)return;
+    if(e.gamma===null||e.beta===null)return;
 
-    const x=Math.max(-10,Math.min(10,e.gamma/3));
-    const y=Math.max(-10,Math.min(10,(e.beta-45)/4));
+    const x=Math.max(-12,Math.min(12,e.gamma/2.5));
+    const y=Math.max(-12,Math.min(12,(e.beta-45)/3));
 
-    profileScene.style.transform=`rotateX(${-y}deg) rotateY(${x}deg)`;
+    profileScene.style.transform=
+      `rotateX(${-y}deg) rotateY(${x}deg)`;
   });
 }
 
-/* LIGHTBOX */
+/* =====================================
+   3D MOVEMENT FOR ALL TILT CARDS
+===================================== */
+
+document.querySelectorAll("[data-tilt]").forEach(card=>{
+
+  card.addEventListener("mousemove",e=>{
+    if(window.innerWidth<700)return;
+
+    const r=card.getBoundingClientRect();
+
+    const x=(e.clientX-r.left)/r.width;
+    const y=(e.clientY-r.top)/r.height;
+
+    card.style.transform=
+      `perspective(900px)
+       rotateX(${(0.5-y)*7}deg)
+       rotateY(${(x-.5)*8}deg)
+       translateY(-3px)`;
+  });
+
+  card.addEventListener("mouseleave",()=>{
+    card.style.transform=
+      "perspective(900px) rotateX(0) rotateY(0) translateY(0)";
+  });
+
+});
+
+/* GALLERY LIGHTBOX */
 function openLightbox(item){
   const image=item.querySelector("img");
+
   document.getElementById("lightboxImage").src=image.src;
+
   document.getElementById("lightbox").classList.add("open");
 }
 
@@ -2084,47 +2352,51 @@ function closeLightbox(){
   document.getElementById("lightbox").classList.remove("open");
 }
 
-/* JARVIS CHAT */
+/* JARVIS */
 function toggleChat(){
   document.getElementById("chatPanel").classList.toggle("open");
 }
 
 function jarvisReply(topic){
+
   const message=document.getElementById("chatMessage");
 
   if(topic==="home"){
-    message.textContent="Welcome to the HOME section. This is the main entrance to F.A Personal Universe.";
+    message.textContent=
+      "Welcome to the HOME section. This is the main entrance to F.A Personal Universe.";
+
     showPage("home");
   }
 
   if(topic==="story"){
-    message.textContent="Accessing personal archive. Welcome to the MY STORY section.";
+    message.textContent=
+      "Accessing personal archive. Welcome to the MY STORY section.";
+
     showPage("story");
   }
 
   if(topic==="contact"){
-    message.textContent="You can connect through Instagram @a.figo19, WhatsApp, or email. The contact hub is available in MY STORY.";
+    message.textContent=
+      "You can connect through Instagram, WhatsApp, or email. The contact hub is available in MY STORY.";
+
     showPage("story");
   }
 }
 
-/* INTRO SEQUENCE */
+/* =====================================
+   CINEMATIC INTRO
+===================================== */
+
 const intro=document.getElementById("intro");
 const introLog=document.getElementById("introLog");
 const stones=document.querySelectorAll(".stone");
+
 let introFinished=false;
-let introTimers=[];
 
-function wait(ms){
-  return new Promise(resolve=>setTimeout(resolve,ms));
-}
-
-function scheduleIntro(fn,ms){
-  const id=setTimeout(fn,ms);
-  introTimers.push(id);
-}
+const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 
 async function startIntro(){
+
   const logs=[
     "J.A.R.V.I.S. INITIALIZING...",
     "SCANNING PERSONAL IDENTITY...",
@@ -2134,69 +2406,80 @@ async function startIntro(){
     "ALL SYSTEMS OPERATIONAL."
   ];
 
-  for(let i=0;i<logs.length;i++){
+  for(const line of logs){
+
     if(introFinished)return;
-    introLog.textContent=logs[i];
-    await wait(850);
+
+    introLog.textContent=line;
+
+    await wait(650);
   }
 
   if(introFinished)return;
 
-  /* Six stones fly in together */
   stones.forEach((stone,index)=>{
-    stone.classList.add("fly");
     stone.style.animationDelay=(index*.12)+"s";
+    stone.classList.add("fly");
   });
 
-  await wait(3500);
+  await wait(4000);
+
   if(introFinished)return;
 
   document.getElementById("snapFlash").classList.add("active");
   document.getElementById("snapText").classList.add("show");
 
-  await wait(900);
+  await wait(1000);
+
   if(introFinished)return;
 
-  /* Fake crash */
   intro.classList.add("hidden");
+
   document.getElementById("crashScreen").classList.add("show");
 
-  await wait(3500);
+  await wait(4000);
+
   if(introFinished)return;
 
   document.getElementById("crashScreen").classList.remove("show");
 
-  const reveal=document.getElementById("revealName");
-  reveal.classList.add("show");
+  document.getElementById("revealName").classList.add("show");
 
-  await wait(3500);
+  await wait(4000);
+
   if(introFinished)return;
 
-  reveal.classList.remove("show");
+  document.getElementById("revealName").classList.remove("show");
+
   introFinished=true;
 }
 
 function skipIntro(){
+
   if(introFinished)return;
 
   introFinished=true;
-  introTimers.forEach(clearTimeout);
 
   intro.classList.add("hidden");
+
   document.getElementById("crashScreen").classList.remove("show");
+
   document.getElementById("revealName").classList.remove("show");
 }
 
-window.addEventListener("load",()=>{
-  startIntro();
-});
+/* START */
+window.addEventListener("load",startIntro);
 
-/* ESCAPE KEY */
+/* KEYBOARD */
 document.addEventListener("keydown",e=>{
+
   if(e.key==="Escape"){
     closeLightbox();
-    document.getElementById("chatPanel").classList.remove("open");
+
+    document.getElementById("chatPanel")
+      .classList.remove("open");
   }
+
 });
 </script>
 
