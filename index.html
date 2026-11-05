@@ -24,7 +24,6 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
-
 html{scroll-behavior:smooth}
 
 body{
@@ -290,7 +289,7 @@ body::before{
     letter-spacing:3px;
 }
 
-/* INFINITY STONES */
+/* INFINITY STONES SCENE */
 
 #stonesScene{
     display:none;
@@ -299,7 +298,7 @@ body::before{
     align-items:center;
     justify-content:center;
     flex-direction:column;
-    transition:opacity .7s ease;
+    transition:opacity .8s ease;
 }
 
 #stonesScene.show{display:flex}
@@ -308,9 +307,10 @@ body::before{
     font-family:'Orbitron',sans-serif;
     color:var(--cyan);
     font-size:11px;
-    letter-spacing:5px;
+    letter-spacing:4px;
     margin-bottom:45px;
     text-align:center;
+    transition:.5s;
 }
 
 .stones{
@@ -319,6 +319,8 @@ body::before{
     align-items:center;
     justify-content:center;
     flex-wrap:wrap;
+    position:relative;
+    z-index:8;
 }
 
 .stone{
@@ -327,36 +329,70 @@ body::before{
     border-radius:50%;
     opacity:0;
     transform:translateY(40px) scale(.3);
-    animation:stoneAppear .7s ease forwards;
     position:relative;
+    flex-shrink:0;
 }
 
-.stone:nth-child(1){background:#9b35ff;box-shadow:0 0 30px #9b35ff;animation-delay:.2s}
-.stone:nth-child(2){background:#e9c73e;box-shadow:0 0 30px #e9c73e;animation-delay:.5s}
-.stone:nth-child(3){background:#276cff;box-shadow:0 0 30px #276cff;animation-delay:.8s}
-.stone:nth-child(4){background:#36dc72;box-shadow:0 0 30px #36dc72;animation-delay:1.1s}
-.stone:nth-child(5){background:#e83452;box-shadow:0 0 30px #e83452;animation-delay:1.4s}
-.stone:nth-child(6){background:#ff9635;box-shadow:0 0 30px #ff9635;animation-delay:1.7s}
+.stone::after{
+    content:"";
+    position:absolute;
+    inset:-8px;
+    border:1px solid currentColor;
+    border-radius:50%;
+    opacity:.45;
+    animation:stoneRing 2s linear infinite;
+}
+
+.stone:nth-child(1){background:#9b35ff;color:#9b35ff;box-shadow:0 0 30px #9b35ff}
+.stone:nth-child(2){background:#e9c73e;color:#e9c73e;box-shadow:0 0 30px #e9c73e}
+.stone:nth-child(3){background:#276cff;color:#276cff;box-shadow:0 0 30px #276cff}
+.stone:nth-child(4){background:#36dc72;color:#36dc72;box-shadow:0 0 30px #36dc72}
+.stone:nth-child(5){background:#e83452;color:#e83452;box-shadow:0 0 30px #e83452}
+.stone:nth-child(6){background:#ff9635;color:#ff9635;box-shadow:0 0 30px #ff9635}
+
+.stone.appear{
+    animation:stoneAppear .65s cubic-bezier(.2,.8,.2,1) forwards;
+}
 
 @keyframes stoneAppear{
     to{opacity:1;transform:translateY(0) scale(1)}
 }
 
-/* MECHANICAL SNAP HAND */
+@keyframes stoneRing{
+    to{transform:rotate(360deg) scale(1.15)}
+}
+
+/* GAUNTLET */
 
 #snapHand{
     position:absolute;
-    bottom:-350px;
+    bottom:-400px;
     left:50%;
-    transform:translateX(-50%);
-    width:230px;
-    height:310px;
+    transform:translateX(-50%) scale(.9);
+    width:250px;
+    height:340px;
     opacity:0;
-    z-index:5;
+    z-index:6;
+    perspective:900px;
+    filter:drop-shadow(0 0 15px rgba(0,200,232,.2));
 }
 
-#snapHand.animate{
-    animation:handRise 1.3s cubic-bezier(.2,.8,.2,1) forwards;
+#snapHand.rise{
+    animation:handRise 1.2s cubic-bezier(.16,.8,.25,1) forwards;
+}
+
+#snapHand.facing{
+    animation:handFace .65s ease forwards;
+}
+
+@keyframes handRise{
+    from{bottom:-400px;opacity:0}
+    to{bottom:8%;opacity:1}
+}
+
+@keyframes handFace{
+    0%{transform:translateX(-50%) scale(.9) rotateY(-20deg)}
+    100%{transform:translateX(-50%) scale(1) rotateY(0deg)}
 }
 
 .gauntlet{
@@ -364,57 +400,98 @@ body::before{
     bottom:0;
     left:50%;
     transform:translateX(-50%);
-    width:150px;
-    height:190px;
-    background:linear-gradient(135deg,#d9d9de,#777982 35%,#25262d 70%,#aaaab0);
-    border:2px solid #d5d5dc;
+    width:165px;
+    height:205px;
+    background:
+        linear-gradient(120deg,#f0d8a3 0%,#9d865f 15%,#4c4a4b 40%,#24252c 70%,#b5a27b 100%);
+    border:2px solid #c7b58e;
     border-radius:55px 55px 28px 28px;
-    box-shadow:0 0 25px rgba(0,200,232,.3),inset 0 0 20px #222;
+    box-shadow:
+        0 0 30px rgba(0,200,232,.25),
+        inset 0 0 25px rgba(0,0,0,.8),
+        inset 0 0 8px #fff;
 }
 
 .gauntlet::before{
     content:"";
     position:absolute;
-    width:100px;
+    width:112px;
     height:45px;
-    top:-30px;
-    left:23px;
-    background:linear-gradient(120deg,#d8d8dc,#41434c);
-    border:2px solid #aaa;
+    top:-29px;
+    left:24px;
+    background:linear-gradient(120deg,#e3d3ad,#665a45 45%,#29282a);
+    border:2px solid #c7b58e;
     border-radius:20px 20px 8px 8px;
+    box-shadow:inset 0 0 12px #222;
 }
 
 .gauntlet::after{
     content:"";
     position:absolute;
-    bottom:20px;
-    left:25px;
-    width:95px;
-    height:65px;
-    border:1px solid rgba(0,200,232,.6);
-    border-radius:15px;
+    bottom:17px;
+    left:30px;
+    width:100px;
+    height:55px;
+    border:1px solid rgba(0,200,232,.55);
+    border-radius:12px;
     box-shadow:inset 0 0 20px rgba(0,200,232,.3);
+    background:linear-gradient(145deg,rgba(0,200,232,.1),transparent);
 }
+
+/* SIX STONE SLOTS */
 
 .stone-slot{
     position:absolute;
-    top:22px;
-    left:50%;
-    transform:translateX(-50%);
-    width:28px;
-    height:28px;
+    width:25px;
+    height:25px;
     border-radius:50%;
-    background:#8b24ed;
-    box-shadow:0 0 20px #8b24ed;
+    background:radial-gradient(circle,#27232a,#09090c);
+    border:2px solid #b7a27a;
+    box-shadow:inset 0 0 8px #000;
+    z-index:4;
+    transition:.3s;
 }
+
+.stone-slot::after{
+    content:"";
+    position:absolute;
+    inset:4px;
+    border-radius:50%;
+    background:#17151a;
+}
+
+.stone-slot.lit{
+    border-color:white;
+    box-shadow:0 0 18px var(--stone-color),0 0 35px var(--stone-color);
+    background:var(--stone-color);
+}
+
+.stone-slot.lit::after{
+    background:var(--stone-color);
+    box-shadow:0 0 12px var(--stone-color);
+}
+
+/* posisi batu pada sarung tangan */
+
+.slot-1{top:43px;left:69px;--stone-color:#9b35ff}
+.slot-2{top:76px;left:35px;--stone-color:#e9c73e}
+.slot-3{top:76px;left:103px;--stone-color:#276cff}
+.slot-4{top:111px;left:35px;--stone-color:#36dc72}
+.slot-5{top:111px;left:103px;--stone-color:#e83452}
+.slot-6{top:145px;left:69px;--stone-color:#ff9635}
+
+/* MECHANICAL FINGERS */
 
 .finger{
     position:absolute;
-    background:linear-gradient(90deg,#aeb0b8,#42444c 45%,#d6d6da);
-    border:2px solid #d0d0d4;
+    background:linear-gradient(90deg,#d4c6a8,#59534b 45%,#c8b58f);
+    border:2px solid #c9b995;
     border-radius:18px;
-    box-shadow:inset 0 0 8px #25252b,0 0 8px rgba(0,0,0,.4);
+    box-shadow:
+        inset 0 0 8px #25252b,
+        0 0 10px rgba(0,0,0,.5);
     transform-origin:bottom center;
+    z-index:3;
 }
 
 .finger::after{
@@ -425,81 +502,95 @@ body::before{
     width:100%;
     height:3px;
     background:#24252a;
+    box-shadow:0 0 5px rgba(0,200,232,.3);
 }
 
 .finger-index{
     width:32px;
-    height:105px;
-    left:89px;
-    bottom:155px;
+    height:112px;
+    left:91px;
+    bottom:165px;
     transform:rotate(13deg);
 }
 
 .finger-middle{
     width:32px;
-    height:120px;
-    left:120px;
-    bottom:150px;
+    height:125px;
+    left:122px;
+    bottom:160px;
     transform:rotate(3deg);
 }
 
 .finger-ring{
     width:30px;
-    height:105px;
-    left:145px;
-    bottom:145px;
+    height:110px;
+    left:148px;
+    bottom:153px;
     transform:rotate(-12deg);
 }
 
 .finger-pinky{
     width:25px;
-    height:75px;
-    left:165px;
-    bottom:140px;
+    height:78px;
+    left:168px;
+    bottom:145px;
     transform:rotate(-22deg);
 }
 
 .thumb{
     position:absolute;
     width:38px;
-    height:90px;
-    left:35px;
-    bottom:115px;
+    height:92px;
+    left:36px;
+    bottom:120px;
     transform:rotate(-48deg);
     transform-origin:bottom center;
+    z-index:5;
 }
 
-/* JARI MULAI MENJENTIK SETELAH TANGAN NAIK */
+/* SNAP MOVEMENT */
 
-#snapHand.animate .finger-index{
-    animation:indexSnap 1.1s ease-in-out 1.35s forwards;
+#snapHand.snapping .finger-index{
+    animation:indexSnap .65s cubic-bezier(.2,.8,.2,1) forwards;
 }
 
-#snapHand.animate .thumb{
-    animation:thumbSnap 1.1s ease-in-out 1.35s forwards;
-}
-
-@keyframes handRise{
-    to{bottom:10%;opacity:1}
+#snapHand.snapping .thumb{
+    animation:thumbSnap .65s cubic-bezier(.2,.8,.2,1) forwards;
 }
 
 @keyframes indexSnap{
     0%{transform:rotate(13deg)}
-    45%{transform:rotate(65deg)}
-    70%{transform:rotate(25deg)}
+    35%{transform:rotate(68deg)}
+    58%{transform:rotate(25deg)}
+    72%{transform:rotate(5deg)}
     100%{transform:rotate(13deg)}
 }
 
 @keyframes thumbSnap{
     0%{transform:rotate(-48deg)}
-    45%{transform:rotate(5deg)}
-    70%{transform:rotate(-35deg)}
+    35%{transform:rotate(8deg)}
+    58%{transform:rotate(-35deg)}
+    72%{transform:rotate(-58deg)}
     100%{transform:rotate(-48deg)}
 }
 
-/* =========================
-   INFINITY ENERGY BURST
-========================= */
+/* STONE FLIGHT ANIMATION */
+
+.stone.flying{
+    position:fixed;
+    z-index:10010;
+    margin:0;
+    pointer-events:none;
+    transition:
+        left .65s cubic-bezier(.18,.8,.2,1),
+        top .65s cubic-bezier(.18,.8,.2,1),
+        width .65s ease,
+        height .65s ease,
+        opacity .65s ease,
+        transform .65s cubic-bezier(.18,.8,.2,1);
+}
+
+/* ENERGY EFFECTS */
 
 #snapEffects{
     position:fixed;
@@ -511,7 +602,7 @@ body::before{
 }
 
 #snapEffects.active{
-    animation:effectsFade 1.5s ease-out forwards;
+    animation:effectsFade 1.7s ease-out forwards;
 }
 
 @keyframes effectsFade{
@@ -520,22 +611,18 @@ body::before{
     100%{opacity:0}
 }
 
-/* Ledakan cahaya di tengah layar */
-
 .snap-flash{
     position:absolute;
     inset:0;
     opacity:0;
     background:
-        radial-gradient(
-            circle at center,
+        radial-gradient(circle at center,
             #fff 0%,
             #fffbe9 7%,
             rgba(255,211,112,.95) 17%,
             rgba(255,158,54,.55) 32%,
             rgba(121,13,50,.35) 52%,
-            transparent 75%
-        );
+            transparent 75%);
 }
 
 #snapEffects.active .snap-flash{
@@ -548,8 +635,6 @@ body::before{
     45%{opacity:.9;transform:scale(1.3)}
     100%{opacity:0;transform:scale(2.5)}
 }
-
-/* Gelombang energi */
 
 .snap-wave{
     position:absolute;
@@ -567,28 +652,14 @@ body::before{
     animation:waveBurst 1.25s ease-out forwards;
 }
 
-#snapEffects.active .snap-wave:nth-child(2){
-    animation-delay:.12s;
-}
-
-#snapEffects.active .snap-wave:nth-child(3){
-    animation-delay:.25s;
-}
+#snapEffects.active .snap-wave:nth-child(2){animation-delay:.12s}
+#snapEffects.active .snap-wave:nth-child(3){animation-delay:.25s}
+#snapEffects.active .snap-wave:nth-child(4){animation-delay:.38s}
 
 @keyframes waveBurst{
-    0%{
-        transform:translate(-50%,-50%) scale(0);
-        opacity:1;
-        border-width:5px;
-    }
-    100%{
-        transform:translate(-50%,-50%) scale(28);
-        opacity:0;
-        border-width:1px;
-    }
+    0%{transform:translate(-50%,-50%) scale(0);opacity:1;border-width:5px}
+    100%{transform:translate(-50%,-50%) scale(28);opacity:0;border-width:1px}
 }
-
-/* Partikel energi */
 
 .energy-particle{
     position:absolute;
@@ -607,23 +678,13 @@ body::before{
 }
 
 @keyframes particleExplosion{
-    0%{
-        opacity:0;
-        transform:translate(-50%,-50%) scale(.3);
-    }
+    0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}
     15%{opacity:1}
     100%{
         opacity:0;
-        transform:
-            translate(
-                calc(-50% + var(--x)),
-                calc(-50% + var(--y))
-            )
-            scale(0);
+        transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(0);
     }
 }
-
-/* Kilatan garis energi */
 
 .energy-ray{
     position:absolute;
@@ -646,11 +707,7 @@ body::before{
     100%{height:45vh;opacity:0}
 }
 
-/* Getaran layar */
-
-#intro.shake{
-    animation:screenShake .45s ease-in-out;
-}
+#intro.shake{animation:screenShake .45s ease-in-out}
 
 @keyframes screenShake{
     0%,100%{transform:translate(0,0)}
@@ -728,10 +785,7 @@ body::before{
     transition:opacity 1.2s ease;
 }
 
-#universe.visible{
-    display:block;
-    opacity:1;
-}
+#universe.visible{display:block;opacity:1}
 
 .topbar{
     position:sticky;
@@ -771,7 +825,6 @@ body::before{
 }
 
 .nav button:hover,.nav button.active{color:var(--burgundy)}
-
 .nav button.active{border-bottom:2px solid var(--burgundy)}
 
 .status{
@@ -1366,6 +1419,7 @@ footer small{color:#888;font-size:10px;letter-spacing:1px}
 
     .logo{font-size:18px}
     .status{font-size:8px}
+
     .nav{
         width:100%;
         justify-content:center;
@@ -1411,6 +1465,26 @@ footer small{color:#888;font-size:10px;letter-spacing:1px}
     .chat-panel{right:12px;bottom:88px}
     .jarvis-button{right:16px;bottom:18px}
     footer{justify-content:center;text-align:center}
+
+    #snapHand{
+        transform:translateX(-50%) scale(.82);
+        transform-origin:bottom center;
+    }
+
+    #snapHand.rise{
+        animation:handRiseMobile 1.2s cubic-bezier(.16,.8,.25,1) forwards;
+    }
+
+    @keyframes handRiseMobile{
+        from{bottom:-400px;opacity:0}
+        to{bottom:10%;opacity:1}
+    }
+
+    .stones-title{
+        font-size:9px;
+        letter-spacing:3px;
+        margin-bottom:35px;
+    }
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -1474,21 +1548,32 @@ footer small{color:#888;font-size:10px;letter-spacing:1px}
 
     <div id="stonesScene">
 
-        <div class="stones-title">INFINITY ENERGY DETECTED</div>
-
-        <div class="stones">
-            <div class="stone"></div>
-            <div class="stone"></div>
-            <div class="stone"></div>
-            <div class="stone"></div>
-            <div class="stone"></div>
-            <div class="stone"></div>
+        <div class="stones-title" id="stonesTitle">
+            INFINITY ENERGY DETECTED
         </div>
+
+        <div class="stones" id="stonesContainer">
+            <div class="stone" data-stone="1"></div>
+            <div class="stone" data-stone="2"></div>
+            <div class="stone" data-stone="3"></div>
+            <div class="stone" data-stone="4"></div>
+            <div class="stone" data-stone="5"></div>
+            <div class="stone" data-stone="6"></div>
+        </div>
+
+        <!-- INFINITY GAUNTLET -->
 
         <div id="snapHand">
 
             <div class="gauntlet">
-                <div class="stone-slot"></div>
+
+                <div class="stone-slot slot-1"></div>
+                <div class="stone-slot slot-2"></div>
+                <div class="stone-slot slot-3"></div>
+                <div class="stone-slot slot-4"></div>
+                <div class="stone-slot slot-5"></div>
+                <div class="stone-slot slot-6"></div>
+
             </div>
 
             <div class="finger finger-index"></div>
@@ -1506,6 +1591,7 @@ footer small{color:#888;font-size:10px;letter-spacing:1px}
     <div id="snapEffects">
 
         <div class="snap-flash"></div>
+        <div class="snap-wave"></div>
         <div class="snap-wave"></div>
         <div class="snap-wave"></div>
         <div class="snap-wave"></div>
@@ -2095,6 +2181,9 @@ const bootScreen = document.getElementById("bootScreen");
 const briefing = document.getElementById("briefing");
 const briefingText = document.getElementById("briefingText");
 const stonesScene = document.getElementById("stonesScene");
+const stonesTitle = document.getElementById("stonesTitle");
+const stones = [...document.querySelectorAll(".stone")];
+const stoneSlots = [...document.querySelectorAll(".stone-slot")];
 const snapHand = document.getElementById("snapHand");
 const snapEffects = document.getElementById("snapEffects");
 const identityReveal = document.getElementById("identityReveal");
@@ -2118,7 +2207,7 @@ let characterIndex = 0;
 function typeBriefing(){
 
     if(briefingIndex >= briefingScript.length){
-        setTimeout(startInfinitySequence,1200);
+        setTimeout(startInfinitySequence,1000);
         return;
     }
 
@@ -2130,7 +2219,7 @@ function typeBriefing(){
 
         characterIndex++;
 
-        setTimeout(typeBriefing,25);
+        setTimeout(typeBriefing,24);
 
     }else{
 
@@ -2139,7 +2228,7 @@ function typeBriefing(){
         briefingIndex++;
         characterIndex = 0;
 
-        setTimeout(typeBriefing,700);
+        setTimeout(typeBriefing,550);
 
     }
 
@@ -2150,13 +2239,11 @@ function typeBriefing(){
 
 function createEnergyBurst(){
 
-    // Hapus partikel dan garis dari ledakan sebelumnya
     snapEffects.querySelectorAll(".energy-particle,.energy-ray").forEach(el=>{
         el.remove();
     });
 
-    // Partikel menyebar dari tengah layar
-    for(let i=0;i<75;i++){
+    for(let i=0;i<85;i++){
 
         const particle = document.createElement("div");
 
@@ -2173,20 +2260,18 @@ function createEnergyBurst(){
 
         particle.style.width = (2+Math.random()*5)+"px";
         particle.style.height = particle.style.width;
-
         particle.style.animationDelay = (Math.random()*.12)+"s";
 
         snapEffects.appendChild(particle);
 
     }
 
-    // Garis energi melesat ke segala arah
-    for(let i=0;i<24;i++){
+    for(let i=0;i<30;i++){
 
         const ray = document.createElement("div");
 
         ray.className = "energy-ray";
-        ray.style.transform = `translate(-50%,-100%) rotate(${i*15}deg)`;
+        ray.style.transform = `translate(-50%,-100%) rotate(${i*12}deg)`;
         ray.style.animationDelay = (Math.random()*.1)+"s";
 
         snapEffects.appendChild(ray);
@@ -2205,13 +2290,11 @@ function triggerSnapEffect(){
     snapEffects.classList.remove("active");
     intro.classList.remove("shake");
 
-    // Memastikan animasi bisa diputar ulang
     void snapEffects.offsetWidth;
 
     snapEffects.classList.add("active");
     intro.classList.add("shake");
 
-    // Getaran hanya sebentar
     setTimeout(()=>{
         intro.classList.remove("shake");
     },500);
@@ -2219,52 +2302,132 @@ function triggerSnapEffect(){
 }
 
 
-/* INFINITY SEQUENCE */
+/* STONE APPEAR */
 
-function startInfinitySequence(){
+function revealStones(){
 
-    briefing.style.display = "none";
+    stones.forEach((stone,index)=>{
 
-    stonesScene.classList.add("show");
+        setTimeout(()=>{
 
-    // Tangan mekanik mulai naik
-    setTimeout(()=>{
+            stone.classList.add("appear");
 
-        snapHand.classList.add("animate");
+        },index*250);
 
-    },2500);
+    });
 
-    /*
-       Timeline:
-       2.5 detik  : tangan mulai naik
-       3.8 detik  : tangan selesai naik, jari mulai bergerak
-       4.3 detik  : jari menjentik dan ledakan dimulai
-    */
+}
 
+
+/* STONE FLIES INTO GAUNTLET */
+
+function flyStoneIntoSlot(index){
+
+    return new Promise(resolve=>{
+
+        const stone = stones[index];
+        const slot = stoneSlots[index];
+
+        const stoneRect = stone.getBoundingClientRect();
+        const slotRect = slot.getBoundingClientRect();
+
+        const startX = stoneRect.left;
+        const startY = stoneRect.top;
+
+        const targetX = slotRect.left + slotRect.width/2 - stoneRect.width/2;
+        const targetY = slotRect.top + slotRect.height/2 - stoneRect.height/2;
+
+        stone.classList.add("flying");
+
+        stone.style.left = startX+"px";
+        stone.style.top = startY+"px";
+        stone.style.width = stoneRect.width+"px";
+        stone.style.height = stoneRect.height+"px";
+        stone.style.transform = "scale(1)";
+        stone.style.opacity = "1";
+
+        requestAnimationFrame(()=>{
+
+            requestAnimationFrame(()=>{
+
+                stone.style.left = targetX+"px";
+                stone.style.top = targetY+"px";
+                stone.style.width = "20px";
+                stone.style.height = "20px";
+                stone.style.transform = "scale(.65)";
+
+            });
+
+        });
+
+        setTimeout(()=>{
+
+            stone.style.opacity = "0";
+            slot.classList.add("lit");
+
+            stone.remove();
+
+            resolve();
+
+        },700);
+
+    });
+
+}
+
+
+/* ALL STONES ENTER GAUNTLET */
+
+async function loadInfinityGauntlet(){
+
+    stonesTitle.textContent = "SIX STONES // ALIGNING WITH GAUNTLET";
+
+    for(let i=0;i<stones.length;i++){
+
+        await flyStoneIntoSlot(i);
+
+        await new Promise(resolve=>setTimeout(resolve,180));
+
+    }
+
+    stonesTitle.textContent = "INFINITY GAUNTLET // FULLY CHARGED";
+
+    snapHand.classList.add("facing");
+
+    stoneSlots.forEach(slot=>{
+        slot.style.transform = "scale(1.2)";
+    });
+
+    await new Promise(resolve=>setTimeout(resolve,950));
+
+    stonesTitle.textContent = "ENERGY LEVEL // 100%";
+
+    await new Promise(resolve=>setTimeout(resolve,650));
+
+    snapHand.classList.add("snapping");
+
+    // Impact disamakan dengan momen jari menyentuh.
     setTimeout(()=>{
 
         triggerSnapEffect();
 
-    },4300);
+    },420);
 
-
-    // Setelah ledakan, Infinity Stones menghilang
+    // Hilangkan adegan gauntlet setelah ledakan dimulai.
     setTimeout(()=>{
 
         stonesScene.style.opacity = "0";
 
-    },4750);
+    },850);
 
-
-    // Identitas muncul setelah ledakan mulai mereda
+    // Identitas tampil setelah ledakan.
     setTimeout(()=>{
 
         identityReveal.classList.add("show");
 
-    },5100);
+    },1250);
 
-
-    // Masuk otomatis ke website
+    // Masuk ke website secara otomatis.
     setTimeout(()=>{
 
         intro.classList.add("hide");
@@ -2277,7 +2440,34 @@ function startInfinitySequence(){
 
         },100);
 
-    },7900);
+    },4050);
+
+}
+
+
+/* INFINITY SEQUENCE */
+
+function startInfinitySequence(){
+
+    briefing.style.display = "none";
+
+    stonesScene.classList.add("show");
+
+    revealStones();
+
+    // Tangan muncul setelah batu terlihat.
+    setTimeout(()=>{
+
+        snapHand.classList.add("rise");
+
+        // Setelah tangan naik, batu mulai masuk satu per satu.
+        setTimeout(()=>{
+
+            loadInfinityGauntlet();
+
+        },1250);
+
+    },2200);
 
 }
 
