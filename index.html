@@ -11,23 +11,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --red:#ff304f;
-  --blue:#24c8ff;
-  --gold:#ffc857;
-  --bg:#070914;
-  --panel:rgba(15,22,42,.85);
-  --text:#eef5ff;
-  --muted:#91a2bd;
+:root{
+ --red:#ff304f;
+ --blue:#24c8ff;
+ --gold:#ffc857;
+ --bg:#070914;
+ --panel:rgba(15,22,42,.88);
+ --text:#eef5ff;
+ --muted:#91a2bd;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
- background:var(--bg);color:var(--text);
- font-family:'Rajdhani',sans-serif;overflow-x:hidden;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Rajdhani,sans-serif;
+ overflow-x:hidden;
 }
 body:before{
- content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;
+ content:"";
+ position:fixed;
+ inset:0;
+ pointer-events:none;
+ z-index:-2;
  background:
  radial-gradient(circle at 15% 15%,#152c55 0,transparent 35%),
  radial-gradient(circle at 85% 30%,#421323 0,transparent 35%),
@@ -35,95 +41,244 @@ body:before{
 }
 #stars{position:fixed;inset:0;z-index:-1;pointer-events:none}
 nav{
- position:fixed;top:0;left:0;width:100%;z-index:20;
- display:flex;justify-content:space-between;align-items:center;
- padding:17px 7%;background:rgba(5,8,18,.85);
- backdrop-filter:blur(18px);border-bottom:1px solid #ffffff16;
+ position:fixed;
+ top:0;left:0;width:100%;
+ z-index:20;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:17px 7%;
+ background:rgba(5,8,18,.85);
+ backdrop-filter:blur(18px);
+ border-bottom:1px solid #ffffff16;
 }
-.logo{font-family:Orbitron;color:var(--gold);font-weight:800;letter-spacing:2px}
-nav a{color:#c5d4e9;text-decoration:none;margin-left:19px;font-size:14px}
+.logo{
+ font-family:Orbitron;
+ color:var(--gold);
+ font-weight:800;
+ letter-spacing:2px;
+}
+nav a{
+ color:#c5d4e9;
+ text-decoration:none;
+ margin-left:19px;
+ font-size:14px;
+}
 nav a:hover{color:var(--blue)}
-section{padding:110px 8%;min-height:80vh;scroll-margin-top:65px}
-.eyebrow{color:var(--blue);font-family:Orbitron;font-size:11px;letter-spacing:4px}
+section{
+ padding:110px 8%;
+ min-height:80vh;
+ scroll-margin-top:65px;
+}
+.eyebrow{
+ color:var(--blue);
+ font-family:Orbitron;
+ font-size:11px;
+ letter-spacing:4px;
+}
 h1,h2,h3{font-family:Orbitron}
-h2{font-size:clamp(25px,4vw,42px);margin:13px 0 35px}
+h2{
+ font-size:clamp(25px,4vw,42px);
+ margin:13px 0 35px;
+}
 p{color:var(--muted);line-height:1.7}
 .hero{
- min-height:100vh;display:grid;grid-template-columns:1.2fr .8fr;
- align-items:center;gap:45px;padding-top:120px;
+ min-height:100vh;
+ display:grid;
+ grid-template-columns:1.2fr .8fr;
+ align-items:center;
+ gap:45px;
+ padding-top:120px;
 }
-.hero h1{font-size:clamp(38px,7vw,75px);line-height:1.15;margin:18px 0}
-.hero h1 span{color:var(--red);text-shadow:0 0 30px #ff304f66}
+.hero h1{
+ font-size:clamp(38px,7vw,75px);
+ line-height:1.15;
+ margin:18px 0;
+}
+.hero h1 span{
+ color:var(--red);
+ text-shadow:0 0 30px #ff304f66;
+}
 .btn{
- display:inline-block;margin-top:25px;padding:13px 23px;
- border:1px solid var(--blue);border-radius:4px;color:white;
- text-decoration:none;font-family:Orbitron;font-size:11px;
- background:#24c8ff12;cursor:pointer;transition:.3s;
+ display:inline-block;
+ margin-top:25px;
+ padding:13px 23px;
+ border:1px solid var(--blue);
+ border-radius:4px;
+ color:white;
+ text-decoration:none;
+ font-family:Orbitron;
+ font-size:11px;
+ background:#24c8ff12;
+ cursor:pointer;
+ transition:.3s;
 }
-.btn:hover{background:var(--blue);color:#07101b;box-shadow:0 0 25px #24c8ff66}
+.btn:hover{
+ background:var(--blue);
+ color:#07101b;
+ box-shadow:0 0 25px #24c8ff66;
+}
 .reactor{
- width:min(330px,75vw);aspect-ratio:1;border-radius:50%;
- margin:auto;display:grid;place-items:center;position:relative;
+ width:min(330px,75vw);
+ aspect-ratio:1;
+ border-radius:50%;
+ margin:auto;
+ display:grid;
+ place-items:center;
+ position:relative;
  border:2px solid #24c8ff99;
  box-shadow:0 0 35px #24c8ff55,inset 0 0 35px #24c8ff33;
  animation:pulse 3s infinite;
 }
 .reactor:before,.reactor:after{
- content:"";position:absolute;inset:17px;border-radius:50%;
- border:2px dashed var(--gold);animation:spin 18s linear infinite;
+ content:"";
+ position:absolute;
+ inset:17px;
+ border-radius:50%;
+ border:2px dashed var(--gold);
+ animation:spin 18s linear infinite;
 }
-.reactor:after{inset:40px;border:2px solid var(--red);animation:spin 12s linear infinite reverse}
+.reactor:after{
+ inset:40px;
+ border:2px solid var(--red);
+ animation:spin 12s linear infinite reverse;
+}
 .core{
- width:105px;height:105px;border-radius:50%;background:#dffaff;
+ width:105px;
+ height:105px;
+ border-radius:50%;
+ background:#dffaff;
  box-shadow:0 0 25px white,0 0 65px var(--blue);
- display:grid;place-items:center;color:#092033;font:800 28px Orbitron;
+ display:grid;
+ place-items:center;
+ color:#092033;
+ font:800 28px Orbitron;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes pulse{50%{box-shadow:0 0 60px #24c8ff88,inset 0 0 50px #24c8ff66}}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}
-.panel{
- background:var(--panel);border:1px solid #ffffff19;
- border-radius:12px;padding:24px;position:relative;overflow:hidden;
- backdrop-filter:blur(12px);transition:.3s;
+@keyframes pulse{
+ 50%{box-shadow:0 0 60px #24c8ff88,inset 0 0 50px #24c8ff66}
 }
-.panel:hover{transform:translateY(-6px);border-color:var(--blue);box-shadow:0 10px 35px #24c8ff19}
+.grid{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+ gap:18px;
+}
+.panel{
+ background:var(--panel);
+ border:1px solid #ffffff19;
+ border-radius:12px;
+ padding:24px;
+ position:relative;
+ overflow:hidden;
+ backdrop-filter:blur(12px);
+ transition:.3s;
+}
+.panel:hover{
+ transform:translateY(-6px);
+ border-color:var(--blue);
+ box-shadow:0 10px 35px #24c8ff19;
+}
 .panel h3{font-size:15px;margin:12px 0}
 .panel .symbol{font-size:30px}
 .panel p{font-size:15px}
-.holo-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.holo-wrap{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:40px;
+ align-items:center;
+}
 .holo{
- max-width:360px;margin:auto;position:relative;padding:12px;
- border:1px solid var(--blue);background:#24c8ff0c;
+ max-width:360px;
+ margin:auto;
+ position:relative;
+ padding:12px;
+ border:1px solid var(--blue);
+ background:#24c8ff0c;
  box-shadow:0 0 30px #24c8ff33;
 }
-.holo img{width:100%;display:block;filter:saturate(.8) contrast(1.1)}
+.holo img{
+ width:100%;
+ display:block;
+ filter:saturate(.8) contrast(1.1);
+}
 .holo:after{
- content:"";position:absolute;left:0;right:0;height:4px;top:0;
- background:var(--blue);box-shadow:0 0 18px 5px var(--blue);
+ content:"";
+ position:absolute;
+ left:0;right:0;
+ height:4px;top:0;
+ background:var(--blue);
+ box-shadow:0 0 18px 5px var(--blue);
  animation:scan 4s linear infinite;
 }
 @keyframes scan{to{top:100%}}
-.holo-label{position:absolute;bottom:20px;left:20px;font:10px Orbitron;color:var(--blue)}
-.bar{height:8px;background:#ffffff18;margin:9px 0 20px;border-radius:10px;overflow:hidden}
-.bar span{display:block;height:100%;background:linear-gradient(90deg,var(--red),var(--blue))}
-.portal{
- min-height:135px;display:flex;flex-direction:column;justify-content:center;
- align-items:center;text-align:center;border-radius:50%;
- border:2px solid var(--blue);width:135px;margin:auto;
- box-shadow:0 0 22px #24c8ff66;animation:pulse 3s infinite;
+.holo-label{
+ position:absolute;
+ bottom:20px;left:20px;
+ font:10px Orbitron;
+ color:var(--blue);
 }
-.gallery img{width:100%;height:210px;object-fit:cover;border-radius:8px;cursor:pointer}
-footer{text-align:center;padding:35px;border-top:1px solid #ffffff16;color:var(--muted)}
+.bar{
+ height:8px;
+ background:#ffffff18;
+ margin:9px 0 20px;
+ border-radius:10px;
+ overflow:hidden;
+}
+.bar span{
+ display:block;
+ height:100%;
+ background:linear-gradient(90deg,var(--red),var(--blue));
+}
+.portal{
+ min-height:135px;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+ border-radius:50%;
+ border:2px solid var(--blue);
+ width:135px;
+ margin:auto;
+ box-shadow:0 0 22px #24c8ff66;
+ animation:pulse 3s infinite;
+}
+.gallery img{
+ width:100%;
+ height:210px;
+ object-fit:cover;
+ border-radius:8px;
+ cursor:pointer;
+}
+footer{
+ text-align:center;
+ padding:35px;
+ border-top:1px solid #ffffff16;
+ color:var(--muted);
+}
 
-/* JARVIS CONTROL */
+/* AI BUTTONS */
 #jarvis,#alien{
- position:fixed;bottom:20px;z-index:30;border-radius:50%;
- width:58px;height:58px;border:1px solid var(--blue);
- background:#0b1c32;color:var(--blue);font-size:25px;cursor:pointer;
- box-shadow:0 0 22px #24c8ff66;transition:.3s;
+ position:fixed;
+ bottom:20px;
+ z-index:30;
+ border-radius:50%;
+ width:58px;
+ height:58px;
+ border:1px solid var(--blue);
+ background:#0b1c32;
+ color:var(--blue);
+ font-size:25px;
+ cursor:pointer;
+ box-shadow:0 0 22px #24c8ff66;
+ transition:.3s;
 }
 #jarvis{left:20px}
-#alien{right:20px;border-color:var(--gold);color:var(--gold)}
+#alien{
+ right:20px;
+ border-color:var(--gold);
+ color:var(--gold);
+}
 #jarvis.listening{
  background:#123c55;
  box-shadow:0 0 15px var(--blue),0 0 45px var(--blue);
@@ -133,78 +288,154 @@ footer{text-align:center;padding:35px;border-top:1px solid #ffffff16;color:var(-
  50%{transform:scale(1.1);box-shadow:0 0 35px var(--blue)}
 }
 .chat{
- display:none;position:fixed;bottom:90px;z-index:31;
- width:min(360px,92vw);background:#0c1427;
- border:1px solid var(--blue);border-radius:14px;padding:16px;
+ display:none;
+ position:fixed;
+ bottom:90px;
+ z-index:31;
+ width:min(360px,92vw);
+ background:#0c1427;
+ border:1px solid var(--blue);
+ border-radius:14px;
+ padding:16px;
  box-shadow:0 0 30px #24c8ff33;
 }
 #jarvisChat{left:12px}
 #alienChat{right:12px;border-color:var(--gold)}
 .chat h3{font-size:13px;margin-bottom:12px}
-.messages{height:165px;overflow:auto;font-size:14px;margin-bottom:10px}
-.messages p{padding:9px;background:#ffffff0b;border-radius:7px;margin:6px 0;color:#dceaff}
-.chat input{width:100%;padding:11px;background:#060b17;border:1px solid #ffffff30;color:white;border-radius:5px}
+.messages{
+ height:165px;
+ overflow:auto;
+ font-size:14px;
+ margin-bottom:10px;
+}
+.messages p{
+ padding:9px;
+ background:#ffffff0b;
+ border-radius:7px;
+ margin:6px 0;
+ color:#dceaff;
+ overflow-wrap:anywhere;
+}
+.chat input{
+ width:100%;
+ padding:11px;
+ background:#060b17;
+ border:1px solid #ffffff30;
+ color:white;
+ border-radius:5px;
+}
 .chat button{
- padding:9px 12px;margin-top:8px;background:#163c54;color:white;
- border:1px solid var(--blue);cursor:pointer;border-radius:4px;
+ padding:9px 12px;
+ margin-top:8px;
+ background:#163c54;
+ color:white;
+ border:1px solid var(--blue);
+ cursor:pointer;
+ border-radius:4px;
 }
 .chat button:hover{background:#245b78}
 .voice-status{
- padding:9px;background:#24c8ff0c;border:1px solid #24c8ff33;
- border-radius:6px;color:var(--blue);font-size:12px;
- margin-bottom:10px;font-family:Orbitron;
+ padding:9px;
+ background:#24c8ff0c;
+ border:1px solid #24c8ff33;
+ border-radius:6px;
+ color:var(--blue);
+ font-size:12px;
+ margin-bottom:10px;
+ font-family:Orbitron;
 }
 .voice-buttons{display:flex;gap:7px;flex-wrap:wrap}
 .voice-buttons button{flex:1}
 .modal{
- display:none;position:fixed;inset:0;z-index:50;background:#000d;
- align-items:center;justify-content:center;padding:20px;
+ display:none;
+ position:fixed;
+ inset:0;
+ z-index:50;
+ background:#000d;
+ align-items:center;
+ justify-content:center;
+ padding:20px;
 }
 .modal .panel{max-width:500px;width:100%}
 
-/* JARVIS HOLOGRAM */
+/* JARVIS HUD */
 #jarvisHUD{
- position:fixed;inset:0;z-index:29;pointer-events:none;
- display:none;align-items:center;justify-content:center;
+ position:fixed;
+ inset:0;
+ z-index:29;
+ pointer-events:none;
+ display:none;
+ align-items:center;
+ justify-content:center;
  background:radial-gradient(circle,transparent 20%,#24c8ff08 100%);
 }
 #jarvisHUD.active{display:flex}
 .hud-circle{
- width:190px;height:190px;border-radius:50%;
+ width:190px;
+ height:190px;
+ border-radius:50%;
  border:2px solid #24c8ff99;
  box-shadow:0 0 25px #24c8ff66,inset 0 0 30px #24c8ff33;
- display:grid;place-items:center;position:relative;
+ display:grid;
+ place-items:center;
+ position:relative;
  animation:spin 12s linear infinite;
 }
 .hud-circle:before,.hud-circle:after{
- content:"";position:absolute;inset:14px;border:1px dashed var(--gold);
+ content:"";
+ position:absolute;
+ inset:14px;
+ border:1px dashed var(--gold);
  border-radius:50%;
 }
-.hud-circle:after{inset:30px;border:2px solid var(--blue)}
+.hud-circle:after{
+ inset:30px;
+ border:2px solid var(--blue);
+}
 .hud-core{
- font-family:Orbitron;font-size:18px;color:var(--blue);
- text-shadow:0 0 15px var(--blue);animation:spin 12s linear infinite reverse;
+ font-family:Orbitron;
+ font-size:18px;
+ color:var(--blue);
+ text-shadow:0 0 15px var(--blue);
+ animation:spin 12s linear infinite reverse;
 }
 #hudText{
- position:absolute;margin-top:240px;color:var(--blue);
- font:10px Orbitron;letter-spacing:3px;text-align:center;
+ position:absolute;
+ margin-top:240px;
+ color:var(--blue);
+ font:10px Orbitron;
+ letter-spacing:3px;
+ text-align:center;
  text-shadow:0 0 12px var(--blue);
 }
 #jarvisToast{
- position:fixed;top:85px;left:50%;transform:translateX(-50%);
- z-index:40;background:#071a2b;border:1px solid var(--blue);
- color:var(--blue);padding:12px 20px;border-radius:8px;
- font:10px Orbitron;letter-spacing:1px;
- opacity:0;transition:.3s;pointer-events:none;
- max-width:90%;text-align:center;
+ position:fixed;
+ top:85px;
+ left:50%;
+ transform:translateX(-50%);
+ z-index:40;
+ background:#071a2b;
+ border:1px solid var(--blue);
+ color:var(--blue);
+ padding:12px 20px;
+ border-radius:8px;
+ font:10px Orbitron;
+ letter-spacing:1px;
+ opacity:0;
+ transition:.3s;
+ pointer-events:none;
+ max-width:90%;
+ text-align:center;
 }
 #jarvisToast.show{opacity:1}
 
 @media(max-width:750px){
- nav{padding:14px 5%}nav .links{display:none}
+ nav{padding:14px 5%}
+ nav .links{display:none}
  section{padding:90px 6%}
  .hero,.holo-wrap{grid-template-columns:1fr;text-align:center}
- .hero{gap:50px}.reactor{width:230px}
+ .hero{gap:50px}
+ .reactor{width:230px}
 }
 </style>
 </head>
@@ -331,12 +562,12 @@ footer{text-align:center;padding:35px;border-top:1px solid #ffffff16;color:var(-
 
 <!-- JARVIS CHAT -->
 <div class="chat" id="jarvisChat">
- <h3>◉ J.A.R.V.I.S. COMMAND SYSTEM</h3>
+ <h3>◉ J.A.R.V.I.S. AI COMMAND</h3>
  <div class="voice-status" id="voiceStatus">SYSTEM STANDBY // MICROPHONE OFF</div>
  <div class="messages" id="jarvisMessages">
   <p>JARVIS: Good day, Sir. All systems are ready.</p>
  </div>
- <input id="jarvisInput" placeholder="Ketik perintah atau pertanyaan..." onkeydown="if(event.key==='Enter')sendMessage('jarvis')">
+ <input id="jarvisInput" placeholder="Tanyakan sesuatu kepada JARVIS..." onkeydown="if(event.key==='Enter')sendMessage('jarvis')">
  <div class="voice-buttons">
   <button onclick="sendMessage('jarvis')">SEND</button>
   <button onclick="startListening()">🎙 ACTIVATE MIC</button>
@@ -363,7 +594,9 @@ footer{text-align:center;padding:35px;border-top:1px solid #ffffff16;color:var(-
 </div>
 
 <script>
+// ============================================
 // STARFIELD
+// ============================================
 const canvas=document.getElementById('stars');
 const ctx=canvas.getContext('2d');
 let stars=[];
@@ -395,37 +628,27 @@ addEventListener('resize',resize);
 resize();
 animate();
 
+// ============================================
 // GENERAL
+// ============================================
 function toggleChat(id){
  const el=document.getElementById(id);
  const opening=getComputedStyle(el).display==='none';
  el.style.display=opening?'block':'none';
- if(id==='jarvisChat'&&opening){
-  toast('J.A.R.V.I.S. INTERFACE OPENED');
- }
+ if(id==='jarvisChat'&&opening)toast('J.A.R.V.I.S. INTERFACE OPENED');
 }
+
 function showImage(src){
  document.getElementById('modalImage').src=src;
  document.getElementById('imageModal').style.display='flex';
 }
 
-// JARVIS VOICE SYSTEM
-let recognition=null;
-let listening=false;
-let muted=false;
-let awaitingCommand=false;
-let commandTimeout=null;
-let restartRecognition=false;
-
-const statusBox=document.getElementById('voiceStatus');
-const jarvisButton=document.getElementById('jarvis');
-
-function toast(text){
+function toast(message){
  const el=document.getElementById('jarvisToast');
- el.textContent=text;
+ el.textContent=message;
  el.classList.add('show');
- clearTimeout(el.timer);
- el.timer=setTimeout(()=>el.classList.remove('show'),2600);
+ clearTimeout(toast.timer);
+ toast.timer=setTimeout(()=>el.classList.remove('show'),2600);
 }
 
 function addMessage(kind,text){
@@ -435,6 +658,28 @@ function addMessage(kind,text){
  box.appendChild(p);
  box.scrollTop=box.scrollHeight;
 }
+
+function addUserMessage(kind,text){
+ const box=document.getElementById(kind+'Messages');
+ const p=document.createElement('p');
+ p.textContent='YOU: '+text;
+ box.appendChild(p);
+ box.scrollTop=box.scrollHeight;
+}
+
+// ============================================
+// JARVIS STATE
+// ============================================
+let recognition=null;
+let listening=false;
+let muted=false;
+let awaitingCommand=false;
+let commandTimeout=null;
+let restartRecognition=false;
+let conversationHistory=[];
+
+const statusBox=document.getElementById('voiceStatus');
+const jarvisButton=document.getElementById('jarvis');
 
 function setListeningUI(active){
  jarvisButton.classList.toggle('listening',active);
@@ -451,159 +696,239 @@ function showHUD(text){
  showHUD.timer=setTimeout(()=>hud.classList.remove('active'),1700);
 }
 
-// VOICE SYNTHESIS
-function speak(text,language='en-GB'){
+// ============================================
+// MALE VOICE ENGINE
+// ============================================
+function getMaleVoice(language){
+ if(!('speechSynthesis' in window))return null;
+
+ const voices=speechSynthesis.getVoices();
+ if(!voices.length)return null;
+
+ const maleHints=[
+  'male','david','daniel','george','james',
+  'guy','ryan','mark','thomas'
+ ];
+
+ const preferred=voices.filter(v=>
+  language==='en-GB'
+   ?v.lang.toLowerCase()==='en-gb'
+   :v.lang.toLowerCase().startsWith('id')
+ );
+
+ const male=preferred.find(v=>
+  maleHints.some(h=>v.name.toLowerCase().includes(h))
+ );
+
+ if(male)return male;
+
+ const anyMale=voices.find(v=>
+  maleHints.some(h=>v.name.toLowerCase().includes(h))
+ );
+
+ return anyMale||preferred[0]||voices[0];
+}
+
+function speak(text,language='id-ID'){
  if(muted||!('speechSynthesis' in window))return;
+
  speechSynthesis.cancel();
 
  const utterance=new SpeechSynthesisUtterance(text);
- utterance.lang=language;
- utterance.rate=.91;
- utterance.pitch=.88;
+ utterance.rate=.88;
+ utterance.pitch=.82;
  utterance.volume=1;
 
- const voices=speechSynthesis.getVoices();
- let selected=null;
-
- if(language==='en-GB'){
-  selected=voices.find(v=>v.lang==='en-GB'&&/male|daniel|george/i.test(v.name))
-       ||voices.find(v=>v.lang==='en-GB');
+ const voice=getMaleVoice(language);
+ if(voice){
+  utterance.voice=voice;
+  utterance.lang=voice.lang;
+ }else{
+  utterance.lang=language;
  }
- if(language==='id-ID'){
-  selected=voices.find(v=>v.lang==='id-ID');
- }
- if(selected)utterance.voice=selected;
 
  speechSynthesis.speak(utterance);
+}
+
+function jarvisReply(text){
+ addMessage('jarvis',text);
+ speak(text,'id-ID');
 }
 
 function toggleMute(){
  muted=!muted;
  document.getElementById('muteButton').textContent=
   muted?'🔇 UNMUTE':'🔊 MUTE';
- if(muted&&'speechSynthesis' in window)speechSynthesis.cancel();
- if(!muted)speak('Audio system online, Sir.');
+
+ if(muted)speechSynthesis.cancel();
+ else speak('Audio system online, Sir.','en-GB');
 }
 
-// NAVIGATION COMMANDS
+// ============================================
+// WEBSITE KNOWLEDGE
+// ============================================
 const destinations={
- home:['home','beranda','utama','awal'],
- missions:['mission','missions','misi','command center','mission center'],
- hologram:['hologram','profile','profil','foto profil'],
- multiverse:['portal','multiverse','universe','dunia'],
- status:['status','armor','karakter','character'],
- about:['about','journey','perjalanan','origin','tentang'],
- gallery:['gallery','galeri','foto','memory'],
- contact:['contact','kontak','transmission','hubungi']
+ home:['home','beranda','halaman utama','awal'],
+ missions:['mission','missions','misi','command center','mission center','tugas'],
+ hologram:['hologram','profile','profil','foto profil','identitas'],
+ multiverse:['portal','multiverse','universe','dunia','tech world'],
+ status:['status','armor','karakter','character','sistem armor'],
+ about:['about','journey','perjalanan','origin','tentang','cerita'],
+ gallery:['gallery','galeri','foto','foto-foto','memory','kenangan'],
+ contact:['contact','kontak','transmission','hubungi','media sosial']
 };
 
-function navigateTo(id){
+const sectionNames={
+ home:'Home',
+ missions:'Mission Center',
+ hologram:'Hologram Profile',
+ multiverse:'Multiverse Portal',
+ status:'Character Status',
+ about:'The Journey',
+ gallery:'Gallery',
+ contact:'Contact'
+};
+
+function navigateTo(id,announce=true){
  const section=document.getElementById(id);
- if(!section)return;
+ if(!section)return false;
 
  showHUD('NAVIGATING TO '+id.toUpperCase());
  section.scrollIntoView({behavior:'smooth',block:'start'});
+ toast('NAVIGATION // '+sectionNames[id].toUpperCase());
 
- const names={
-  home:'Home',
-  missions:'Mission Center',
-  hologram:'Hologram Profile',
-  multiverse:'Multiverse Portal',
-  status:'Character Status',
-  about:'The Journey',
-  gallery:'Gallery',
-  contact:'Contact'
- };
-
- const message='Certainly, Sir. Navigating to '+names[id]+'.';
- addMessage('jarvis',message);
- speak(message);
- toast('NAVIGATION // '+names[id].toUpperCase());
+ if(announce){
+  jarvisReply('Baik, saya arahkan ke '+sectionNames[id]+', Sir.');
+ }
+ return true;
 }
 
-function processCommand(raw){
- const text=raw.toLowerCase().trim();
- if(!text)return;
+function detectLocalNavigation(text){
+ const normalized=text.toLowerCase();
 
- // SCROLL COMMANDS
- if(/scroll ke bawah|turun ke bawah|gulir ke bawah|down/.test(text)){
-  window.scrollBy({top:window.innerHeight*.75,behavior:'smooth'});
-  jarvisReply('Certainly, Sir. Scrolling down.');
-  return;
- }
- if(/scroll ke atas|naik ke atas|gulir ke atas|scroll up/.test(text)){
-  window.scrollBy({top:-window.innerHeight*.75,behavior:'smooth'});
-  jarvisReply('Certainly, Sir. Scrolling up.');
-  return;
- }
- if(/paling atas|kembali ke atas|ke atas sekali|back to top/.test(text)){
-  window.scrollTo({top:0,behavior:'smooth'});
-  jarvisReply('Returning to the top, Sir.');
-  return;
- }
- if(/berhenti scroll|stop scrolling/.test(text)){
-  window.scrollTo({top:window.scrollY,behavior:'instant'});
-  jarvisReply('Scrolling stopped, Sir.');
-  return;
- }
-
- // SECTION NAVIGATION
  for(const [id,aliases] of Object.entries(destinations)){
-  if(aliases.some(alias=>text.includes(alias))){
-   navigateTo(id);
-   return;
+  if(aliases.some(alias=>normalized.includes(alias))){
+   return id;
   }
  }
+ return null;
+}
 
- // OTHER COMMANDS
- if(/buka galeri|open gallery/.test(text)){
-  navigateTo('gallery');return;
+// ============================================
+// REAL AI CONNECTION
+// ============================================
+async function askJarvisAI(message){
+ const history=conversationHistory.slice(-8);
+
+ statusBox.textContent='● JARVIS AI // THINKING';
+ showHUD('ANALYZING YOUR REQUEST');
+
+ try{
+  const response=await fetch('/api/jarvis',{
+   method:'POST',
+   headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({message,history})
+  });
+
+  if(!response.ok)throw new Error('AI server returned '+response.status);
+
+  const data=await response.json();
+  const reply=data.reply||'Perintah diterima, Sir.';
+  const target=data.navigateTo||null;
+
+  conversationHistory.push(
+   {role:'user',content:message},
+   {role:'assistant',content:reply}
+  );
+
+  if(conversationHistory.length>16){
+   conversationHistory=conversationHistory.slice(-16);
+  }
+
+  addMessage('jarvis',reply);
+  speak(reply,'id-ID');
+
+  if(target&&sectionNames[target]){
+   setTimeout(()=>navigateTo(target,false),900);
+  }
+
+  statusBox.textContent='AI ONLINE // READY';
+
+ }catch(error){
+  console.error('JARVIS AI error:',error);
+
+  const localTarget=detectLocalNavigation(message);
+
+  if(localTarget){
+   navigateTo(localTarget);
+   statusBox.textContent='LOCAL NAVIGATION // READY';
+  }else{
+   jarvisReply('Koneksi AI belum tersedia, Sir. Navigasi dasar masih aktif. Pastikan server JARVIS sudah dijalankan.');
+   statusBox.textContent='AI CONNECTION UNAVAILABLE';
+  }
  }
- if(/mute|matikan suara/.test(text)){
+}
+
+// ============================================
+// COMMAND PROCESSOR
+// ============================================
+async function processCommand(raw){
+ const text=raw.trim();
+ if(!text)return;
+ const lower=text.toLowerCase();
+
+ if(/scroll ke bawah|turun ke bawah|gulir ke bawah|down/.test(lower)){
+  window.scrollBy({top:innerHeight*.75,behavior:'smooth'});
+  jarvisReply('Baik, saya gulir ke bawah, Sir.');
+  return;
+ }
+
+ if(/scroll ke atas|naik ke atas|gulir ke atas|scroll up/.test(lower)){
+  window.scrollBy({top:-innerHeight*.75,behavior:'smooth'});
+  jarvisReply('Baik, saya gulir ke atas, Sir.');
+  return;
+ }
+
+ if(/paling atas|kembali ke atas|back to top/.test(lower)){
+  window.scrollTo({top:0,behavior:'smooth'});
+  jarvisReply('Kembali ke halaman utama, Sir.');
+  return;
+ }
+
+ if(/mute|matikan suara/.test(lower)){
   if(!muted)toggleMute();
-  jarvisReply('Audio muted, Sir.');return;
+  addMessage('jarvis','Audio muted, Sir.');
+  return;
  }
- if(/unmute|nyalakan suara/.test(text)){
+
+ if(/unmute|nyalakan suara/.test(lower)){
   if(muted)toggleMute();
-  jarvisReply('Audio restored, Sir.');return;
+  jarvisReply('Audio restored, Sir.');
+  return;
  }
- if(/alien|teman alien/.test(text)){
+
+ if(/buka alien|teman alien|alien companion/.test(lower)){
   document.getElementById('alienChat').style.display='block';
-  jarvisReply('Opening Alien Companion interface, Sir.');return;
+  jarvisReply('Alien Companion interface is now open, Sir.');
+  return;
  }
- if(/tutup chat|close interface/.test(text)){
+
+ if(/tutup chat|close interface/.test(lower)){
   document.getElementById('jarvisChat').style.display='none';
-  jarvisReply('Interface closed, Sir.');return;
- }
- if(/status sistem|system status/.test(text)){
-  jarvisReply('All primary systems are operational. Personal Universe is online.');
-  return;
- }
- if(/siapa kamu|who are you/.test(text)){
-  jarvisReply('I am JARVIS, your personal digital assistant. At your service, Sir.');
-  return;
- }
- if(/terima kasih|thank you/.test(text)){
-  jarvisReply('You are most welcome, Sir.');
   return;
  }
 
- // FALLBACK
- const response=answer('jarvis',text);
- jarvisReply(response);
+ await askJarvisAI(text);
 }
 
-function jarvisReply(text){
- addMessage('jarvis',text);
- speak(text,/Sir|Certainly|Welcome|Returning|online|operational|system|assistant|muted|restored|closed|Navigating|Scrolling/i.test(text)?'en-GB':'id-ID');
-}
-
-// WAKE WORD RECOGNITION
+// ============================================
+// MICROPHONE
+// ============================================
 function startListening(){
  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 
  if(!SR){
-  alert('Browser ini belum mendukung speech recognition. Coba gunakan Chrome dan izinkan mikrofon.');
+  alert('Browser belum mendukung speech recognition. Coba Chrome dan izinkan akses mikrofon.');
   return;
  }
 
@@ -618,6 +943,7 @@ function startListening(){
  listening=true;
  restartRecognition=true;
  awaitingCommand=false;
+
  setListeningUI(true);
  showHUD('J.A.R.V.I.S. LISTENING');
  toast('VOICE SYSTEM ACTIVATED');
@@ -629,7 +955,7 @@ function startListening(){
    const transcript=event.results[i][0].transcript.trim();
    const normalized=transcript.toLowerCase();
 
-   console.log('Voice:',transcript);
+   console.log('JARVIS heard:',transcript);
 
    const wakePattern=/\bjarvis\b|\bj a r v i s\b/i;
    const hasWake=wakePattern.test(normalized);
@@ -640,14 +966,15 @@ function startListening(){
     if(command){
      awaitingCommand=false;
      clearTimeout(commandTimeout);
+     addUserMessage('jarvis',transcript);
      processCommand(command);
     }else{
      awaitingCommand=true;
      clearTimeout(commandTimeout);
-     jarvisReply('Yes, Sir. I am listening.');
+     jarvisReply('Ya, Sir. Silakan jelaskan apa yang ingin Anda buka.');
      commandTimeout=setTimeout(()=>{
       awaitingCommand=false;
-     },12000);
+     },15000);
     }
     continue;
    }
@@ -655,7 +982,8 @@ function startListening(){
    if(awaitingCommand){
     awaitingCommand=false;
     clearTimeout(commandTimeout);
-    processCommand(normalized);
+    addUserMessage('jarvis',transcript);
+    processCommand(transcript);
    }
   }
  };
@@ -686,7 +1014,7 @@ function startListening(){
 
  try{
   recognition.start();
- }catch(e){
+ }catch(error){
   listening=false;
   setListeningUI(false);
   toast('VOICE SYSTEM COULD NOT START');
@@ -709,20 +1037,31 @@ function stopListening(){
  toast('VOICE SYSTEM DEACTIVATED');
 }
 
-// TEXT CHAT AND COMPANION
-function answer(kind,msg){
- const m=msg.toLowerCase();
+// ============================================
+// TEXT CHAT
+// ============================================
+async function sendMessage(kind){
+ const input=document.getElementById(kind+'Input');
+ const msg=input.value.trim();
+ if(!msg)return;
+
+ addUserMessage(kind,msg);
+ input.value='';
 
  if(kind==='jarvis'){
-  if(m.includes('nama'))return 'Nama pemilik sistem ini adalah Fachriansyah Alfigo.';
-  if(m.includes('website'))return 'Ini adalah Personal Universe, pusat kendali dunia digital FA.';
-  if(m.includes('misi'))return 'Mission Center berisi tujuan dan eksplorasi yang sedang dikembangkan.';
-  if(m.includes('foto'))return 'Foto profil ditampilkan dalam antarmuka hologram dengan efek pemindaian.';
-  if(m.includes('alien'))return 'Alien Companion adalah rekan eksplorasi universe ini.';
-  if(m.includes('status'))return 'Seluruh antarmuka utama sedang online.';
-  if(m.includes('halo')||m.includes('hai'))return 'Halo, Sir. JARVIS online. Ada yang bisa saya bantu?';
-  return 'Perintah diterima, Sir. Saya masih menggunakan mode demo lokal untuk percakapan. Navigasi suara dan perintah halaman sudah tersedia.';
+  await processCommand(msg);
+ }else{
+  const response=answer('alien',msg);
+  addMessage('alien',response);
+  speak(response,'id-ID');
  }
+}
+
+// ============================================
+// ALIEN COMPANION
+// ============================================
+function answer(kind,msg){
+ const m=msg.toLowerCase();
 
  if(m.includes('nama'))return 'Aku Alien Companion! Penjaga universe ini 👽';
  if(m.includes('bumi'))return 'Planet biru ini menarik sekali! Aku sedang mempelajari kehidupan manusia.';
@@ -732,40 +1071,17 @@ function answer(kind,msg){
  return 'Bleep bloop! Aku sedang belajar bahasa manusia. Coba tanya tentang website ini!';
 }
 
-function sendMessage(kind){
- const input=document.getElementById(kind+'Input');
- const msg=input.value.trim();
- if(!msg)return;
-
- addMessage(kind==='jarvis'?'jarvis':'alien', ''); 
-
- // Replace the last empty message with the user's message.
- const box=document.getElementById(kind+'Messages');
- const last=box.lastElementChild;
- last.textContent='YOU: '+msg;
-
- if(kind==='jarvis'){
-  processCommand(msg);
- }else{
-  const response=answer('alien',msg);
-  addMessage('alien',response);
-  speak(response,'id-ID');
- }
-
- input.value='';
-}
-
+// ============================================
 // INITIAL GREETING
+// ============================================
 window.addEventListener('load',()=>{
- setTimeout(()=>{
-  toast('PERSONAL UNIVERSE // ONLINE');
- },1200);
+ setTimeout(()=>toast('PERSONAL UNIVERSE // ONLINE'),1200);
 });
 
-// VOICE LIST
 if('speechSynthesis' in window){
  speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices();
 }
 </script>
+
 </body>
 </html>
