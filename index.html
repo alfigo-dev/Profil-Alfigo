@@ -22,7 +22,7 @@
   --green:#43ff83;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{
   background:var(--bg);
   color:var(--white);
@@ -31,6 +31,7 @@ body{
 }
 a{text-decoration:none;color:inherit}
 button{font:inherit}
+
 #stars{
   position:fixed;inset:0;z-index:-2;
   pointer-events:none;
@@ -49,12 +50,15 @@ button{font:inherit}
   background-size:180px 180px;
   animation:starMove 30s linear infinite;
 }
-@keyframes starMove{to{background-position:180px 180px}}
-
+@keyframes starMove{
+  to{background-position:180px 180px}
+}
 .cursor-glow{
-  position:fixed;width:250px;height:250px;border-radius:50%;
+  position:fixed;width:250px;height:250px;
+  border-radius:50%;
   background:radial-gradient(circle,#3e74ff18,transparent 70%);
-  pointer-events:none;z-index:-1;transform:translate(-50%,-50%);
+  pointer-events:none;z-index:-1;
+  transform:translate(-50%,-50%);
 }
 section{padding:110px 8%;position:relative}
 .section-label{
@@ -66,31 +70,43 @@ section{padding:110px 8%;position:relative}
   font-size:clamp(28px,5vw,48px);
   margin-bottom:20px;
 }
-.section-desc{color:var(--muted);line-height:1.8;max-width:650px}
+.section-desc{
+  color:var(--muted);line-height:1.8;max-width:650px;
+}
 .gradient{
   background:linear-gradient(90deg,#ff365f,#8b6cff,#42c9ff);
-  -webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-background-clip:text;
+  background-clip:text;color:transparent;
 }
 
 /* INTRO */
 #intro{
   position:fixed;inset:0;z-index:1000;
-  background:radial-gradient(ellipse at center,#182044,#060710 75%);
-  display:flex;align-items:center;justify-content:center;
-  overflow:hidden;transition:opacity 1s,visibility 1s;
+  background:radial-gradient(ellipse at center,#182b4d,#060710 75%);
+  overflow:hidden;
+  transition:opacity 1s,visibility 1s;
 }
-#intro.hide{opacity:0;visibility:hidden;pointer-events:none}
+#intro.hide{
+  opacity:0;visibility:hidden;pointer-events:none;
+}
 #space3d{position:absolute;inset:0}
 #space3d canvas{width:100%;height:100%;display:block}
+.intro-vignette{
+  position:absolute;inset:0;z-index:1;
+  pointer-events:none;
+  background:
+  linear-gradient(180deg,#03040a44,transparent 35%,#03040a88),
+  radial-gradient(ellipse at center,transparent 40%,#02030b88);
+}
 .intro-copy{
-  position:absolute;bottom:10%;left:0;width:100%;
-  text-align:center;pointer-events:none;z-index:2;
+  position:absolute;bottom:9%;left:5%;right:5%;
+  text-align:center;pointer-events:none;z-index:3;
 }
 .intro-copy h1{
   font-family:Orbitron,sans-serif;
-  font-size:clamp(24px,5vw,48px);
+  font-size:clamp(25px,5.2vw,60px);
   letter-spacing:5px;
-  text-shadow:0 0 25px #45ff9a80;
+  text-shadow:0 0 15px #dff7ff,0 0 35px #42c9ff;
 }
 .intro-copy p{
   color:#a7b5d8;letter-spacing:5px;
@@ -98,9 +114,18 @@ section{padding:110px 8%;position:relative}
 }
 .intro-skip{
   position:absolute;right:25px;top:25px;z-index:5;
-  border:1px solid #ffffff44;background:#ffffff0c;
-  color:white;padding:10px 17px;border-radius:30px;
+  border:1px solid #ffffff44;
+  background:#ffffff0c;color:white;
+  padding:10px 17px;border-radius:30px;
   cursor:pointer;font-size:11px;letter-spacing:2px;
+  backdrop-filter:blur(10px);
+}
+.intro-orbit-line{
+  width:min(500px,75vw);height:30px;
+  border:1px solid #7bdfff99;border-top:0;
+  border-radius:0 0 50% 50%;
+  margin:8px auto 0;
+  filter:drop-shadow(0 0 8px #42c9ff);
 }
 
 /* NAVBAR */
@@ -108,28 +133,29 @@ header{
   position:fixed;top:0;left:0;width:100%;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
   padding:22px 8%;background:#080914a8;
-  backdrop-filter:blur(16px);border-bottom:1px solid #ffffff0c;
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid #ffffff0c;
 }
 .logo{
-  font-family:Orbitron,sans-serif;font-size:27px;
-  font-weight:800;letter-spacing:3px;
+  font-family:Orbitron,sans-serif;
+  font-size:27px;font-weight:800;letter-spacing:3px;
 }
 .logo span{color:var(--red)}
 nav{display:flex;gap:28px}
 nav a{
-  color:#b8bbce;font-size:12px;letter-spacing:1px;
-  transition:.3s;
+  color:#b8bbce;font-size:12px;
+  letter-spacing:1px;transition:.3s;
 }
 nav a:hover{color:var(--blue)}
 .menu-btn{
-  display:none;background:none;border:0;color:white;
-  font-size:26px;cursor:pointer;
+  display:none;background:none;border:0;
+  color:white;font-size:26px;cursor:pointer;
 }
 
 /* HERO */
 #home{
-  min-height:100vh;display:flex;align-items:center;
-  padding-top:140px;
+  min-height:100vh;display:flex;
+  align-items:center;padding-top:140px;
 }
 .hero-content{max-width:780px}
 .hero-tag{
@@ -145,7 +171,9 @@ nav a:hover{color:var(--blue)}
   color:var(--muted);font-size:16px;
   line-height:1.9;margin-top:25px;max-width:590px;
 }
-.hero-buttons{display:flex;gap:15px;margin-top:35px;flex-wrap:wrap}
+.hero-buttons{
+  display:flex;gap:15px;margin-top:35px;flex-wrap:wrap;
+}
 .btn{
   padding:14px 24px;border-radius:30px;
   font-size:12px;letter-spacing:1px;
@@ -156,16 +184,21 @@ nav a:hover{color:var(--blue)}
   background:linear-gradient(100deg,#ff365f,#814bff);
   border:0;color:white;
 }
-.btn:hover{transform:translateY(-5px);box-shadow:0 10px 35px #5a6aff35}
+.btn:hover{
+  transform:translateY(-5px);
+  box-shadow:0 10px 35px #5a6aff35;
+}
 .hero-orbit{
   position:absolute;width:360px;height:360px;
   right:10%;top:28%;border:1px solid #42c9ff30;
   border-radius:50%;animation:orbit 25s linear infinite;
+  pointer-events:none;
 }
 .hero-orbit:before{
   content:"";position:absolute;width:15px;height:15px;
   border-radius:50%;background:var(--blue);
-  box-shadow:0 0 30px var(--blue);top:50px;left:40px;
+  box-shadow:0 0 30px var(--blue);
+  top:50px;left:40px;
 }
 @keyframes orbit{to{transform:rotate(360deg)}}
 
@@ -181,7 +214,8 @@ nav a:hover{color:var(--blue)}
 }
 .about-card:after{
   content:"";position:absolute;width:200px;height:200px;
-  background:#416eff18;filter:blur(60px);right:-70px;top:-70px;
+  background:#416eff18;filter:blur(60px);
+  right:-70px;top:-70px;
 }
 .about-mark{
   font-family:Orbitron,sans-serif;font-size:90px;
@@ -220,7 +254,9 @@ nav a:hover{color:var(--blue)}
   background:#121629;border:1px solid #ffffff15;
   cursor:pointer;transition:.4s;
 }
-.bmx-card:hover{transform:translateY(-10px);border-color:#42c9ff80}
+.bmx-card:hover{
+  transform:translateY(-10px);border-color:#42c9ff80;
+}
 .bmx-card img{
   width:100%;height:260px;object-fit:cover;
   display:block;transition:.5s;
@@ -228,7 +264,9 @@ nav a:hover{color:var(--blue)}
 .bmx-card:hover img{transform:scale(1.06)}
 .bmx-caption{padding:20px}
 .bmx-caption h3{font-size:18px}
-.bmx-caption p{color:var(--muted);font-size:12px;margin-top:7px}
+.bmx-caption p{
+  color:var(--muted);font-size:12px;margin-top:7px;
+}
 
 /* SKILLS */
 .skills-grid{
@@ -237,8 +275,7 @@ nav a:hover{color:var(--blue)}
 }
 .skill{
   padding:27px;border:1px solid #ffffff15;
-  border-radius:18px;background:#111426;
-  transition:.3s;
+  border-radius:18px;background:#111426;transition:.3s;
 }
 .skill:hover{border-color:var(--blue);transform:translateY(-6px)}
 .skill .number{font-family:Orbitron;color:var(--blue);font-size:12px}
@@ -262,15 +299,15 @@ nav a:hover{color:var(--blue)}
 footer{
   padding:30px 8%;border-top:1px solid #ffffff12;
   color:#777e9a;font-size:12px;
-  display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;
+  display:flex;justify-content:space-between;
+  gap:15px;flex-wrap:wrap;
 }
 
 /* MODAL */
 .modal{
   position:fixed;inset:0;z-index:500;
   background:#03040bdc;backdrop-filter:blur(15px);
-  display:none;align-items:center;justify-content:center;
-  padding:20px;
+  display:none;align-items:center;justify-content:center;padding:20px;
 }
 .modal.show{display:flex}
 .modal-content{
@@ -282,7 +319,10 @@ footer{
   from{transform:scale(.9);opacity:0}
   to{transform:scale(1);opacity:1}
 }
-.modal-content img{width:100%;max-height:65vh;object-fit:contain;background:#05060d}
+.modal-content img{
+  width:100%;max-height:65vh;
+  object-fit:contain;background:#05060d;
+}
 .modal-info{padding:22px}
 .modal-info p{color:var(--muted);margin-top:8px;line-height:1.7}
 .modal-close{
@@ -319,8 +359,19 @@ footer{
   .bmx-grid,.skills-grid{grid-template-columns:1fr}
   .bmx-card img{height:240px}
   .contact-box{padding:27px}
-  .intro-copy p{letter-spacing:2px}
   .hero-title{font-size:38px}
+  .intro-copy{bottom:13%}
+  .intro-copy h1{font-size:clamp(23px,7vw,36px);letter-spacing:2px}
+  .intro-copy p{letter-spacing:2px;font-size:8px}
+  .intro-orbit-line{height:20px}
+  .intro-skip{top:15px;right:15px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
 }
 </style>
 </head>
@@ -329,13 +380,15 @@ footer{
 <div id="stars"></div>
 <div class="cursor-glow" id="cursorGlow"></div>
 
-<!-- INTRO ALIEN -->
+<!-- INTRO -->
 <div id="intro">
   <div id="space3d"></div>
+  <div class="intro-vignette"></div>
   <button class="intro-skip" id="skipIntro">SKIP INTRO ✕</button>
   <div class="intro-copy">
     <h1>HELLO, HUMAN!</h1>
     <p>AN UNKNOWN VISITOR HAS ARRIVED</p>
+    <div class="intro-orbit-line"></div>
   </div>
 </div>
 
@@ -383,7 +436,6 @@ footer{
       and the things that inspire me.
     </p>
   </div>
-
   <div class="about-grid">
     <div class="about-card reveal">
       <div class="about-mark">AL.</div>
@@ -395,24 +447,11 @@ footer{
         and turning ideas into something meaningful.
       </p>
     </div>
-
     <div class="about-info reveal">
-      <div class="info-item">
-        <small>EDUCATION</small>
-        <p>Multimedia and Digital Management</p>
-      </div>
-      <div class="info-item">
-        <small>INTEREST</small>
-        <p>Creative Media · Technology · BMX</p>
-      </div>
-      <div class="info-item">
-        <small>PERSONALITY</small>
-        <p>Curious · Creative · Open to Learning</p>
-      </div>
-      <div class="info-item">
-        <small>MY PRINCIPLE</small>
-        <p>Keep exploring. Keep creating. Keep growing.</p>
-      </div>
+      <div class="info-item"><small>EDUCATION</small><p>Multimedia and Digital Management</p></div>
+      <div class="info-item"><small>INTEREST</small><p>Creative Media · Technology · BMX</p></div>
+      <div class="info-item"><small>PERSONALITY</small><p>Curious · Creative · Open to Learning</p></div>
+      <div class="info-item"><small>MY PRINCIPLE</small><p>Keep exploring. Keep creating. Keep growing.</p></div>
     </div>
   </div>
 </section>
@@ -426,31 +465,21 @@ footer{
       and building experiences.
     </p>
   </div>
-
   <div class="timeline">
     <div class="timeline-item reveal">
       <small>CHAPTER 01</small>
       <h3>Discovering Creativity</h3>
-      <p>
-        Exploring creative interests, discovering visual ideas,
-        and learning to express them in different ways.
-      </p>
+      <p>Exploring creative interests, discovering visual ideas, and learning to express them in different ways.</p>
     </div>
     <div class="timeline-item reveal">
       <small>CHAPTER 02</small>
       <h3>Multimedia & Digital Learning</h3>
-      <p>
-        Developing knowledge in multimedia, communication,
-        digital media, and creative technology.
-      </p>
+      <p>Developing knowledge in multimedia, communication, digital media, and creative technology.</p>
     </div>
     <div class="timeline-item reveal">
       <small>CHAPTER 03</small>
       <h3>Keep Building</h3>
-      <p>
-        Improving skills through projects, experiments,
-        collaboration, and new experiences.
-      </p>
+      <p>Improving skills through projects, experiments, collaboration, and new experiences.</p>
     </div>
   </div>
 </section>
@@ -461,40 +490,21 @@ footer{
     <h2 class="section-title">LIFE ON <span class="gradient">TWO WHEELS.</span></h2>
     <p class="section-desc">
       BMX is more than a hobby. It's a way to enjoy the ride,
-      challenge myself, and create memories.
-      Tap a picture to see it closer.
+      challenge myself, and create memories. Tap a picture to see it closer.
     </p>
   </div>
-
   <div class="bmx-grid">
-    <div class="bmx-card reveal" data-image="IMG-20261104-WA0006.jpg"
-      data-title="BMX MOMENT 01"
-      data-description="A moment from my BMX journey. Every ride brings a new experience.">
+    <div class="bmx-card reveal" data-image="IMG-20261104-WA0006.jpg" data-title="BMX MOMENT 01" data-description="A moment from my BMX journey. Every ride brings a new experience.">
       <img src="IMG-20261104-WA0006.jpg" alt="BMX moment 1">
-      <div class="bmx-caption">
-        <h3>THE RIDE</h3>
-        <p>Moments on two wheels</p>
-      </div>
+      <div class="bmx-caption"><h3>THE RIDE</h3><p>Moments on two wheels</p></div>
     </div>
-
-    <div class="bmx-card reveal" data-image="IMG-20261104-WA0009.jpg"
-      data-title="BMX MOMENT 02"
-      data-description="Enjoying the process, learning new things, and keeping the passion alive.">
+    <div class="bmx-card reveal" data-image="IMG-20261104-WA0009.jpg" data-title="BMX MOMENT 02" data-description="Enjoying the process, learning new things, and keeping the passion alive.">
       <img src="IMG-20261104-WA0009.jpg" alt="BMX moment 2">
-      <div class="bmx-caption">
-        <h3>THE PASSION</h3>
-        <p>More than just a hobby</p>
-      </div>
+      <div class="bmx-caption"><h3>THE PASSION</h3><p>More than just a hobby</p></div>
     </div>
-
-    <div class="bmx-card reveal" data-image="IMG-20261104-WA0011.jpg"
-      data-title="BMX MOMENT 03"
-      data-description="A collection of memories and experiences from the journey.">
+    <div class="bmx-card reveal" data-image="IMG-20261104-WA0011.jpg" data-title="BMX MOMENT 03" data-description="A collection of memories and experiences from the journey.">
       <img src="IMG-20261104-WA0011.jpg" alt="BMX moment 3">
-      <div class="bmx-caption">
-        <h3>THE JOURNEY</h3>
-        <p>Keep moving forward</p>
-      </div>
+      <div class="bmx-caption"><h3>THE JOURNEY</h3><p>Keep moving forward</p></div>
     </div>
   </div>
 </section>
@@ -503,42 +513,15 @@ footer{
   <div class="reveal">
     <div class="section-label">04 / WHAT I BRING</div>
     <h2 class="section-title">MY <span class="gradient">ABILITIES.</span></h2>
-    <p class="section-desc">
-      Skills and qualities that I continue to develop.
-    </p>
+    <p class="section-desc">Skills and qualities that I continue to develop.</p>
   </div>
-
   <div class="skills-grid">
-    <div class="skill reveal">
-      <div class="number">01 / SKILL</div>
-      <h3>Multimedia</h3>
-      <p>Interest in visual content, digital media, and creative presentation.</p>
-    </div>
-    <div class="skill reveal">
-      <div class="number">02 / SKILL</div>
-      <h3>Communication</h3>
-      <p>Enjoy sharing ideas, listening, and connecting with people.</p>
-    </div>
-    <div class="skill reveal">
-      <div class="number">03 / SKILL</div>
-      <h3>Creative Thinking</h3>
-      <p>Exploring different perspectives and finding fresh ideas.</p>
-    </div>
-    <div class="skill reveal">
-      <div class="number">04 / SKILL</div>
-      <h3>Teamwork</h3>
-      <p>Learning and collaborating to achieve shared goals.</p>
-    </div>
-    <div class="skill reveal">
-      <div class="number">05 / SKILL</div>
-      <h3>Learning Mindset</h3>
-      <p>Always open to feedback, new knowledge, and improvement.</p>
-    </div>
-    <div class="skill reveal">
-      <div class="number">06 / SKILL</div>
-      <h3>Adaptability</h3>
-      <p>Willing to explore new challenges and experiences.</p>
-    </div>
+    <div class="skill reveal"><div class="number">01 / SKILL</div><h3>Multimedia</h3><p>Interest in visual content, digital media, and creative presentation.</p></div>
+    <div class="skill reveal"><div class="number">02 / SKILL</div><h3>Communication</h3><p>Enjoy sharing ideas, listening, and connecting with people.</p></div>
+    <div class="skill reveal"><div class="number">03 / SKILL</div><h3>Creative Thinking</h3><p>Exploring different perspectives and finding fresh ideas.</p></div>
+    <div class="skill reveal"><div class="number">04 / SKILL</div><h3>Teamwork</h3><p>Learning and collaborating to achieve shared goals.</p></div>
+    <div class="skill reveal"><div class="number">05 / SKILL</div><h3>Learning Mindset</h3><p>Always open to feedback, new knowledge, and improvement.</p></div>
+    <div class="skill reveal"><div class="number">06 / SKILL</div><h3>Adaptability</h3><p>Willing to explore new challenges and experiences.</p></div>
   </div>
 </section>
 
@@ -551,13 +534,10 @@ footer{
       Feel free to reach out.
     </p>
   </div>
-
   <div class="contact-box reveal">
     <div>
       <h2>START A CONVERSATION.</h2>
-      <p style="color:var(--muted);margin-top:10px">
-        Find me across these platforms.
-      </p>
+      <p style="color:var(--muted);margin-top:10px">Find me across these platforms.</p>
     </div>
     <div class="contact-links">
       <a href="https://instagram.com/a.figo19" target="_blank" rel="noopener">INSTAGRAM ↗</a>
@@ -587,349 +567,462 @@ footer{
 
 <script>
 /* NAVIGATION */
-const menuBtn = document.getElementById("menuBtn");
-const navigation = document.getElementById("navigation");
-
-menuBtn.addEventListener("click", () => {
+const menuBtn=document.getElementById("menuBtn");
+const navigation=document.getElementById("navigation");
+menuBtn.addEventListener("click",()=>{
   navigation.classList.toggle("open");
 });
-
-navigation.querySelectorAll("a").forEach(link => {
-  link.addEventListener("click", () => navigation.classList.remove("open"));
+navigation.querySelectorAll("a").forEach(link=>{
+  link.addEventListener("click",()=>navigation.classList.remove("open"));
 });
 
 /* REVEAL */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
     if(entry.isIntersecting){
       entry.target.classList.add("active");
       observer.unobserve(entry.target);
     }
   });
-},{threshold:0.12});
-
-document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 
 /* BMX POPUP */
-const modal = document.getElementById("photoModal");
-
-document.querySelectorAll(".bmx-card").forEach(card => {
-  card.addEventListener("click", () => {
-    document.getElementById("modalImage").src = card.dataset.image;
-    document.getElementById("modalTitle").textContent = card.dataset.title;
-    document.getElementById("modalDescription").textContent = card.dataset.description;
+const modal=document.getElementById("photoModal");
+document.querySelectorAll(".bmx-card").forEach(card=>{
+  card.addEventListener("click",()=>{
+    document.getElementById("modalImage").src=card.dataset.image;
+    document.getElementById("modalTitle").textContent=card.dataset.title;
+    document.getElementById("modalDescription").textContent=card.dataset.description;
     modal.classList.add("show");
   });
 });
-
 function closeModal(){modal.classList.remove("show")}
 document.getElementById("modalClose").addEventListener("click",closeModal);
-modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});
+modal.addEventListener("click",e=>{
+  if(e.target===modal)closeModal();
+});
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape")closeModal();
 });
 
 /* CURSOR LIGHT */
-document.addEventListener("pointermove",e=>{
+if(matchMedia("(pointer:fine)").matches){
   const glow=document.getElementById("cursorGlow");
-  glow.style.left=e.clientX+"px";
-  glow.style.top=e.clientY+"px";
-});
+  document.addEventListener("pointermove",e=>{
+    glow.style.left=e.clientX+"px";
+    glow.style.top=e.clientY+"px";
+  });
+}
 </script>
 
-<!-- THREE.JS ALIEN INTRO -->
 <script type="importmap">
 {
-  "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+  "imports":{
+    "three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
   }
 }
 </script>
 
 <script type="module">
 import * as THREE from "three";
-import { GLTFLoader } from
+import {GLTFLoader} from
 "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js";
 
+/* SCENE */
 const container=document.getElementById("space3d");
 const scene=new THREE.Scene();
-scene.background=new THREE.Color(0x070914);
-scene.fog=new THREE.FogExp2(0x070914,0.025);
+scene.fog=new THREE.FogExp2(0x070914,.018);
 
-const camera=new THREE.PerspectiveCamera(
-  45,window.innerWidth/window.innerHeight,0.1,100
-);
-camera.position.set(0,2.5,10);
+const camera=new THREE.PerspectiveCamera(42,innerWidth/innerHeight,.1,100);
+camera.position.set(0,1.4,12);
+camera.lookAt(0,1.25,0);
 
 const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
-renderer.setSize(window.innerWidth,window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+renderer.setSize(innerWidth,innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.8));
 renderer.outputColorSpace=THREE.SRGBColorSpace;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure=1.25;
+renderer.toneMappingExposure=1.12;
 container.appendChild(renderer.domElement);
 
-/* LIGHTING */
-scene.add(new THREE.AmbientLight(0xffffff,1.5));
+/* LIGHTS */
+scene.add(new THREE.HemisphereLight(0xb8d9ff,0x17203c,2));
 
-const greenLight=new THREE.PointLight(0x43ff83,45,20);
-greenLight.position.set(0,2,2);
-scene.add(greenLight);
+const keyLight=new THREE.DirectionalLight(0xffffff,2.2);
+keyLight.position.set(3,7,6);
+scene.add(keyLight);
 
-const blueLight=new THREE.PointLight(0x438aff,35,20);
-blueLight.position.set(-4,2,3);
+const cyanLight=new THREE.PointLight(0x42dfff,30,16);
+cyanLight.position.set(0,2,1);
+scene.add(cyanLight);
+
+const blueLight=new THREE.PointLight(0x426dff,25,18);
+blueLight.position.set(-4,1,2);
 scene.add(blueLight);
 
-const topLight=new THREE.DirectionalLight(0xffffff,2);
-topLight.position.set(2,6,5);
-scene.add(topLight);
-
 /* STARS */
-const starGeometry=new THREE.BufferGeometry();
 const starPositions=[];
-
-for(let i=0;i<1200;i++){
+for(let i=0;i<1600;i++){
   starPositions.push(
-    (Math.random()-.5)*45,
-    (Math.random()-.5)*30,
-    (Math.random()-.5)*35
+    (Math.random()-.5)*55,
+    (Math.random()-.5)*34,
+    (Math.random()-.5)*42-5
   );
 }
+const starGeometry=new THREE.BufferGeometry();
 starGeometry.setAttribute(
   "position",
   new THREE.Float32BufferAttribute(starPositions,3)
 );
-const starMaterial=new THREE.PointsMaterial({
-  color:0xffffff,size:0.045,transparent:true,opacity:.85
-});
-const stars=new THREE.Points(starGeometry,starMaterial);
+const stars=new THREE.Points(
+  starGeometry,
+  new THREE.PointsMaterial({
+    color:0xdceaff,size:.045,transparent:true,opacity:.9
+  })
+);
 scene.add(stars);
 
 /* PLANET */
+const planetGroup=new THREE.Group();
 const planet=new THREE.Mesh(
-  new THREE.SphereGeometry(1.7,48,48),
+  new THREE.SphereGeometry(1.65,48,48),
   new THREE.MeshStandardMaterial({
-    color:0x182c68,roughness:.8,metalness:.2
+    color:0x244caa,roughness:.78,metalness:.12
   })
 );
-planet.position.set(-6,2,-5);
-scene.add(planet);
+planetGroup.add(planet);
 
 const planetRing=new THREE.Mesh(
-  new THREE.TorusGeometry(2.3,.035,8,100),
-  new THREE.MeshBasicMaterial({color:0x6c9dff})
+  new THREE.TorusGeometry(2.18,.035,8,120),
+  new THREE.MeshBasicMaterial({color:0x80baff})
 );
-planetRing.position.copy(planet.position);
-planetRing.rotation.x=1.1;
-scene.add(planetRing);
+planetRing.rotation.x=1.18;
+planetRing.rotation.y=.18;
+planetGroup.add(planetRing);
+planetGroup.position.set(-6,1.5,-5.5);
+scene.add(planetGroup);
+
+/* MOON */
+const moon=new THREE.Mesh(
+  new THREE.SphereGeometry(.42,28,28),
+  new THREE.MeshStandardMaterial({
+    color:0x6e79b5,roughness:1
+  })
+);
+moon.position.set(5.4,2.3,-4.5);
+scene.add(moon);
 
 /* UFO */
 const ufo=new THREE.Group();
 
 const saucer=new THREE.Mesh(
-  new THREE.SphereGeometry(1.5,48,24),
-  new THREE.MeshStandardMaterial({
-    color:0x9daecb,metalness:.85,roughness:.2
+  new THREE.SphereGeometry(1.55,56,28),
+  new THREE.MeshPhysicalMaterial({
+    color:0x9eafc8,metalness:.88,roughness:.2,clearcoat:.8
   })
 );
-saucer.scale.set(1,.22,1);
+saucer.scale.set(1,.2,1);
 ufo.add(saucer);
 
 const dome=new THREE.Mesh(
-  new THREE.SphereGeometry(.65,32,20,0,Math.PI*2,0,Math.PI/2),
+  new THREE.SphereGeometry(.66,40,24,0,Math.PI*2,0,Math.PI/2),
   new THREE.MeshPhysicalMaterial({
-    color:0x6cffe2,transparent:true,opacity:.65,
-    metalness:.2,roughness:.05
+    color:0x8df4ff,transparent:true,opacity:.72,
+    metalness:.15,roughness:.08,clearcoat:1
   })
 );
-dome.position.y=.12;
+dome.position.y=.16;
 ufo.add(dome);
 
-const ufoRing=new THREE.Mesh(
-  new THREE.TorusGeometry(1.35,.045,10,80),
-  new THREE.MeshBasicMaterial({color:0x43eaff})
+const rim=new THREE.Mesh(
+  new THREE.TorusGeometry(1.43,.055,12,100),
+  new THREE.MeshBasicMaterial({color:0x42dcff})
 );
-ufoRing.rotation.x=Math.PI/2;
-ufoRing.position.y=-.12;
-ufo.add(ufoRing);
+rim.rotation.x=Math.PI/2;
+rim.position.y=-.1;
+ufo.add(rim);
 
-for(let i=0;i<10;i++){
-  const light=new THREE.Mesh(
-    new THREE.SphereGeometry(.07,12,12),
-    new THREE.MeshBasicMaterial({color:0x48ff9a})
+for(let i=0;i<12;i++){
+  const bulb=new THREE.Mesh(
+    new THREE.SphereGeometry(.065,16,16),
+    new THREE.MeshBasicMaterial({color:0x8ef7ff})
   );
-  const a=i/10*Math.PI*2;
-  light.position.set(Math.cos(a)*1.2,-.05,Math.sin(a)*1.2);
-  ufo.add(light);
+  const angle=i/12*Math.PI*2;
+  bulb.position.set(
+    Math.cos(angle)*1.28,-.06,Math.sin(angle)*1.28
+  );
+  ufo.add(bulb);
 }
-
-ufo.position.set(0,4,-1);
-ufo.scale.setScalar(.9);
+ufo.position.set(0,4.25,-1.1);
+ufo.scale.setScalar(.92);
 scene.add(ufo);
 
-/* TELEPORT BEAM */
-const beam=new THREE.Mesh(
-  new THREE.CylinderGeometry(.8,1.4,5,32,1,true),
+/* LIGHT BEAM */
+const beamGroup=new THREE.Group();
+
+const beamOuter=new THREE.Mesh(
+  new THREE.CylinderGeometry(.78,1.28,3.45,40,1,true),
   new THREE.MeshBasicMaterial({
-    color:0x43ff9a,transparent:true,opacity:.13,
+    color:0x3bcfff,transparent:true,opacity:.085,
     side:THREE.DoubleSide,depthWrite:false
   })
 );
-beam.position.set(0,0,-1);
-scene.add(beam);
+const beamInner=new THREE.Mesh(
+  new THREE.CylinderGeometry(.34,.72,3.35,40,1,true),
+  new THREE.MeshBasicMaterial({
+    color:0x8af4ff,transparent:true,opacity:.09,
+    side:THREE.DoubleSide,depthWrite:false
+  })
+);
+beamOuter.position.y=1.95;
+beamInner.position.y=1.95;
+beamGroup.add(beamOuter,beamInner);
+scene.add(beamGroup);
 
-/* ALIEN GROUP */
-const alienGroup=new THREE.Group();
-scene.add(alienGroup);
-alienGroup.position.set(0,-1.6,0);
+/* ALIEN ROOT */
+const alienRoot=new THREE.Group();
+alienRoot.position.set(0,.05,0);
+scene.add(alienRoot);
 
-/* FLOCKBAY GLB */
+let mixer=null;
+let modelReady=false;
+
+function fitModel(model){
+  // Keep the GLB original material and anatomy.
+  const box=new THREE.Box3().setFromObject(model);
+  const size=box.getSize(new THREE.Vector3());
+  const center=box.getCenter(new THREE.Vector3());
+
+  const targetHeight=2.45;
+  const scale=targetHeight/(size.y||1);
+
+  model.scale.setScalar(scale);
+  model.position.set(
+    -center.x*scale,
+    -box.min.y*scale,
+    -center.z*scale
+  );
+
+  alienRoot.add(model);
+  modelReady=true;
+}
+
+/* FALLBACK ALIEN */
+function createFallbackAlien(){
+  const group=new THREE.Group();
+
+  const skin=new THREE.MeshStandardMaterial({
+    color:0x9be8d1,roughness:.42,metalness:.08
+  });
+  const dark=new THREE.MeshPhysicalMaterial({
+    color:0x050b19,roughness:.08,metalness:.22,clearcoat:1
+  });
+  const glow=new THREE.MeshBasicMaterial({color:0x53eaff});
+
+  function sphere(parent,material,pos,scale){
+    const mesh=new THREE.Mesh(
+      new THREE.SphereGeometry(1,28,24),material
+    );
+    mesh.position.set(...pos);
+    mesh.scale.set(...scale);
+    parent.add(mesh);
+    return mesh;
+  }
+
+  sphere(group,skin,[0,.82,0],[.43,.65,.32]);
+  sphere(group,skin,[0,1.85,0],[.72,.83,.58]);
+
+  sphere(group,dark,[-.31,1.94,.49],[.22,.31,.12]);
+  sphere(group,dark,[.31,1.94,.49],[.22,.31,.12]);
+
+  sphere(group,glow,[-.37,2.08,.60],[.035,.055,.018]);
+  sphere(group,glow,[.25,2.08,.60],[.035,.055,.018]);
+
+  sphere(group,skin,[0,1.17,0],[.22,.22,.22]);
+
+  // Two complete arms with palms and five fingers.
+  for(const side of [-1,1]){
+    const shoulder=[side*.39,1.12,0];
+    const elbow=[side*.69,.91,.06];
+    const wrist=[side*.88,.72,.12];
+
+    function segment(a,b,r){
+      const va=new THREE.Vector3(...a);
+      const vb=new THREE.Vector3(...b);
+      const direction=new THREE.Vector3().subVectors(vb,va);
+      const mesh=new THREE.Mesh(
+        new THREE.CylinderGeometry(r*.8,r,direction.length(),16),
+        skin
+      );
+      mesh.position.copy(va).add(vb).multiplyScalar(.5);
+      mesh.quaternion.setFromUnitVectors(
+        new THREE.Vector3(0,1,0),direction.normalize()
+      );
+      group.add(mesh);
+      sphere(group,skin,a,[r,r,r]);
+      sphere(group,skin,b,[r*.8,r*.8,r*.8]);
+    }
+
+    segment(shoulder,elbow,.14);
+    segment(elbow,wrist,.11);
+    sphere(group,skin,[side*.99,.68,.16],[.15,.13,.09]);
+
+    for(let f=0;f<4;f++){
+      const x=side*(.91+f*.075);
+      const finger=new THREE.Mesh(
+        new THREE.CapsuleGeometry(.035,.13,4,8),skin
+      );
+      finger.position.set(x,.52,.17);
+      group.add(finger);
+    }
+
+    const thumb=new THREE.Mesh(
+      new THREE.CapsuleGeometry(.04,.12,4,8),skin
+    );
+    thumb.position.set(side*1.02,.68,.24);
+    thumb.rotation.z=side*.8;
+    group.add(thumb);
+  }
+
+  for(const side of [-1,1]){
+    sphere(group,skin,[side*.19,.18,0],[.15,.42,.17]);
+    sphere(group,skin,[side*.2,-.12,.13],[.19,.12,.28]);
+  }
+
+  sphere(group,glow,[0,.94,.31],[.105,.105,.035]);
+
+  alienRoot.add(group);
+  modelReady=true;
+}
+
+/* LOAD FLOCKBAY GLB */
 const loader=new GLTFLoader();
-let alienModel=null;
 
 loader.load(
   "https://api.flockbay.com/bootstrap/library/models/v1/560ed1bc0f8de11683bf57432f045aedc9a130f647b7707f962a0572577e3c6c/alien.glb",
   gltf=>{
-    alienModel=gltf.scene;
-    alienModel.scale.setScalar(1.35);
+    fitModel(gltf.scene);
 
-    alienModel.traverse(obj=>{
+    if(gltf.animations && gltf.animations.length){
+      mixer=new THREE.AnimationMixer(gltf.scene);
+      mixer.clipAction(gltf.animations[0]).reset().fadeIn(.4).play();
+    }
+
+    gltf.scene.traverse(obj=>{
       if(obj.isMesh){
         obj.castShadow=true;
         obj.receiveShadow=true;
-        if(obj.material){
-          obj.material=obj.material.clone();
-          obj.material.color.set("#36ff42");
-          obj.material.roughness=.32;
-          obj.material.metalness=.12;
-        }
+
+        // Do not recolor the GLB or replace its hand/body geometry.
+        const materials=Array.isArray(obj.material)
+          ? obj.material : [obj.material];
+
+        materials.forEach(material=>{
+          if(material && "roughness" in material){
+            material.roughness=Math.min(material.roughness??.5,.55);
+          }
+        });
       }
     });
-
-    const box=new THREE.Box3().setFromObject(alienModel);
-    const center=box.getCenter(new THREE.Vector3());
-    alienModel.position.sub(center);
-    alienGroup.add(alienModel);
   },
   undefined,
   error=>{
-    console.error("Alien GLB tidak berhasil dimuat:",error);
+    console.error("Alien GLB gagal dimuat:",error);
     createFallbackAlien();
   }
 );
 
-/* FALLBACK ALIEN */
-function createFallbackAlien(){
-  const fallback=new THREE.Group();
-  const green=new THREE.MeshStandardMaterial({
-    color:0x35ed54,roughness:.35
-  });
-  const black=new THREE.MeshPhysicalMaterial({
-    color:0x02040a,metalness:.4,roughness:.08
-  });
+/* INTRO CONTROL */
+let introFinished=false;
+const intro=document.getElementById("intro");
+const startTime=performance.now();
 
-  const head=new THREE.Mesh(
-    new THREE.SphereGeometry(.8,32,32),green
-  );
-  head.scale.set(1.15,1.2,.8);
-  head.position.y=1.3;
-  fallback.add(head);
-
-  const body=new THREE.Mesh(
-    new THREE.SphereGeometry(.5,24,24),green
-  );
-  body.scale.set(.75,1.2,.55);
-  body.position.y=.25;
-  fallback.add(body);
-
-  for(const side of [-1,1]){
-    const eye=new THREE.Mesh(
-      new THREE.SphereGeometry(.25,24,24),black
-    );
-    eye.scale.set(1.1,1.3,.5);
-    eye.position.set(side*.38,1.4,.68);
-    fallback.add(eye);
-  }
-
-  alienGroup.add(fallback);
-  alienModel=fallback;
+function finishIntro(){
+  if(introFinished)return;
+  introFinished=true;
+  intro.classList.add("hide");
 }
-
-/* PROCEDURAL WAVING ARM */
-const wavingArm=new THREE.Group();
-const armMaterial=new THREE.MeshStandardMaterial({
-  color:0x35ed54,roughness:.35
-});
-
-const upperArm=new THREE.Mesh(
-  new THREE.CylinderGeometry(.11,.15,.65,16),armMaterial
-);
-upperArm.position.y=-.32;
-wavingArm.add(upperArm);
-
-const hand=new THREE.Mesh(
-  new THREE.SphereGeometry(.17,16,16),armMaterial
-);
-hand.position.y=-.7;
-wavingArm.add(hand);
-
-wavingArm.position.set(1.0,.2,.25);
-wavingArm.visible=false;
-alienGroup.add(wavingArm);
+document.getElementById("skipIntro").addEventListener("click",finishIntro);
 
 /* ANIMATION */
 const clock=new THREE.Clock();
-const startTime=clock.getElapsedTime();
-let introFinished=false;
 
 function animate(){
   requestAnimationFrame(animate);
-  const t=clock.getElapsedTime();
 
-  stars.rotation.y=t*.008;
-  planet.rotation.y=t*.08;
-  planetRing.rotation.z=t*.04;
+  const delta=clock.getDelta();
+  const t=clock.elapsedTime;
 
-  ufo.position.y=4-Math.min(t*1.1,2.2);
-  ufo.rotation.y=Math.sin(t*.5)*.15;
+  stars.rotation.y=t*.006;
+  planet.rotation.y=t*.07;
+  planetRing.rotation.z=t*.025;
+  moon.rotation.y=t*.12;
 
-  beam.scale.y=.7+Math.sin(t*3)*.08;
-  beam.material.opacity=.1+Math.sin(t*4)*.04;
+  // UFO descends and hovers above alien.
+  const descent=Math.min(t/2.2,1);
+  ufo.position.y=4.8-descent*.55+Math.sin(t*1.1)*.055;
+  ufo.rotation.y=Math.sin(t*.42)*.09;
+  ufo.rotation.z=Math.sin(t*.7)*.018;
 
-  if(alienModel){
-    alienGroup.position.y=-1.6+
-      Math.sin(t*2)*.09;
+  // Beam is locked to UFO position.
+  beamGroup.position.set(
+    ufo.position.x,
+    ufo.position.y-2.15,
+    ufo.position.z
+  );
 
-    alienGroup.rotation.y=Math.sin(t*.7)*.12;
+  beamGroup.scale.y=1+Math.sin(t*2.3)*.025;
+  beamOuter.material.opacity=.075+Math.sin(t*2.5)*.018;
+  beamInner.material.opacity=.08+Math.sin(t*2.5+1)*.02;
+  cyanLight.intensity=29+Math.sin(t*2.4)*4;
 
-    if(t>3){
-      wavingArm.visible=true;
-      wavingArm.rotation.z=Math.sin(t*5)*.55;
-    }
+  if(modelReady){
+    alienRoot.position.y=.03+Math.sin(t*1.65)*.075;
+    alienRoot.rotation.y=Math.sin(t*.48)*.08;
+    alienRoot.rotation.z=Math.sin(t*.8)*.012;
   }
 
-  if(t>6.5&&!introFinished){
-    introFinished=true;
-    document.getElementById("intro").classList.add("hide");
+  if(mixer)mixer.update(delta);
+
+  if(!introFinished && performance.now()-startTime>8500){
+    finishIntro();
   }
 
   renderer.render(scene,camera);
 }
 animate();
 
-/* SKIP INTRO */
-document.getElementById("skipIntro").addEventListener("click",()=>{
-  document.getElementById("intro").classList.add("hide");
-  introFinished=true;
-});
+/* RESPONSIVE */
+function resizeScene(){
+  const w=innerWidth;
+  const h=innerHeight;
 
-/* RESIZE */
-window.addEventListener("resize",()=>{
-  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.aspect=w/h;
+
+  if(w<600){
+    camera.fov=49;
+    camera.position.set(0,1.5,14.2);
+    camera.lookAt(0,1.35,0);
+    planetGroup.position.set(-4.4,2,-6);
+    planetGroup.scale.setScalar(.72);
+    moon.position.set(4,2.8,-5);
+    ufo.scale.setScalar(.72);
+  }else{
+    camera.fov=42;
+    camera.position.set(0,1.4,12);
+    camera.lookAt(0,1.25,0);
+    planetGroup.position.set(-6,1.5,-5.5);
+    planetGroup.scale.setScalar(1);
+    moon.position.set(5.4,2.3,-4.5);
+    ufo.scale.setScalar(.92);
+  }
+
   camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth,window.innerHeight);
-});
+  renderer.setSize(w,h);
+}
+window.addEventListener("resize",resizeScene);
+resizeScene();
 </script>
-
 </body>
 </html>
