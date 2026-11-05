@@ -8,6 +8,7 @@
 <title>Fachriansyah Alfigo | Personal Universe</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
@@ -85,7 +86,7 @@ button{font:inherit}
  100%{opacity:0}
 }
 
-/* ALIEN INTRO */
+/* 3D CGI INTRO */
 
 #intro{
  position:fixed;
@@ -96,7 +97,7 @@ button{font:inherit}
  justify-content:center;
  flex-direction:column;
  overflow:hidden;
- background:radial-gradient(ellipse at center,#14253b 0%,#080914 65%);
+ background:radial-gradient(ellipse at center,#142d50 0%,#080914 70%);
  transition:opacity 1s,visibility 1s;
 }
 
@@ -115,137 +116,35 @@ button{font:inherit}
  radial-gradient(1px 1px at 45% 75%,white 80%,transparent);
  background-size:150px 150px;
  animation:starDrift 15s linear infinite;
+ pointer-events:none;
 }
 
 @keyframes starDrift{
  to{transform:translateY(-150px)}
 }
 
-/* UFO */
-
-.ufo{
+#space3d{
  position:absolute;
- top:12%;
- width:160px;
- height:80px;
- z-index:3;
- animation:ufoArrival 2s ease-out forwards,
- ufoHover 3s 2s ease-in-out infinite;
+ inset:0;
+ width:100%;
+ height:100%;
+ z-index:2;
 }
 
-.ufo-dome{
- position:absolute;
- width:65px;
- height:40px;
- top:0;
- left:48px;
- border-radius:60px 60px 10px 10px;
- background:linear-gradient(120deg,#d9f6ff,#087ccb,#74152d);
- box-shadow:0 0 25px #70bfff;
+#space3d canvas{
+ width:100%;
+ height:100%;
+ display:block;
 }
-
-.ufo-body{
- position:absolute;
- width:160px;
- height:40px;
- bottom:5px;
- border-radius:50%;
- background:linear-gradient(#e6f7ff,#596c91 55%,#202b48);
- border:2px solid #70bfff;
- box-shadow:0 0 25px #087ccb;
-}
-
-.ufo-lights{
- position:absolute;
- bottom:18px;
- left:25px;
- display:flex;
- gap:24px;
-}
-
-.ufo-lights i{
- width:8px;
- height:8px;
- border-radius:50%;
- background:#ff4165;
- box-shadow:0 0 15px #ff4165;
- animation:lightBlink .7s infinite alternate;
-}
-
-@keyframes lightBlink{to{opacity:.2}}
-
-@keyframes ufoArrival{
- from{transform:translateY(-150px) scale(.5);opacity:0}
- to{transform:translateY(0) scale(1);opacity:1}
-}
-
-@keyframes ufoHover{
- 0%,100%{translate:0 0}
- 50%{translate:0 -12px}
-}
-
-/* TELEPORT BEAM */
-
-.alien-beam{
- position:absolute;
- top:23%;
- width:180px;
- height:0;
- background:linear-gradient(to bottom,#70bfff88,#087ccb22,transparent);
- clip-path:polygon(35% 0,65% 0,100% 100%,0 100%);
- animation:beamAppear 1.2s 1.8s forwards;
- filter:blur(5px);
-}
-
-@keyframes beamAppear{
- to{height:330px}
-}
-
-/* ALIEN */
-
-.alien-character{
- position:absolute;
- top:36%;
- font-size:100px;
- opacity:0;
- z-index:4;
- filter:drop-shadow(0 0 25px #70ffb0);
- animation:alienAppear 1.5s 2.5s forwards,
- alienFloat 3s 4s ease-in-out infinite;
-}
-
-@keyframes alienAppear{
- 0%{
-  opacity:0;
-  transform:translateY(100px) scale(.2);
-  filter:blur(15px);
- }
- 60%{
-  opacity:1;
-  transform:translateY(-10px) scale(1.2);
-  filter:blur(0);
- }
- 100%{
-  opacity:1;
-  transform:translateY(0) scale(1);
-  filter:drop-shadow(0 0 25px #70ffb0);
- }
-}
-
-@keyframes alienFloat{
- 0%,100%{translate:0 0}
- 50%{translate:0 -15px}
-}
-
-/* INTRO TEXT */
 
 .alien-caption{
  position:absolute;
- bottom:13%;
+ bottom:10%;
  width:100%;
  text-align:center;
  z-index:5;
  padding:0 15px;
+ pointer-events:none;
 }
 
 .alien-caption span{
@@ -278,7 +177,7 @@ button{font:inherit}
  width:0;
  height:100%;
  background:linear-gradient(90deg,#e3264f,#70bfff);
- animation:loading 5s linear forwards;
+ animation:loading 6s linear forwards;
 }
 
 @keyframes loading{to{width:100%}}
@@ -914,9 +813,19 @@ footer{
  .skills-grid{grid-template-columns:repeat(2,1fr)}
  .contact-box{padding:40px 18px}
 
- .alien-character{font-size:85px}
- .ufo{transform:scale(.8)}
- .alien-caption h1{letter-spacing:1px}
+ .alien-caption{
+  bottom:12%;
+ }
+
+ .alien-caption h1{
+  font-size:clamp(17px,5vw,27px);
+  letter-spacing:1px;
+ }
+
+ .alien-caption span{
+  font-size:8px;
+  letter-spacing:2px;
+ }
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -936,23 +845,13 @@ footer{
 <div class="meteor two"></div>
 <div class="meteor three"></div>
 
-<!-- ALIEN INTRO -->
+<!-- 3D CGI INTRO -->
 
 <div id="intro">
 
  <div class="space-stars"></div>
 
- <div class="ufo">
-  <div class="ufo-dome"></div>
-  <div class="ufo-body"></div>
-  <div class="ufo-lights">
-   <i></i><i></i><i></i><i></i>
-  </div>
- </div>
-
- <div class="alien-beam"></div>
-
- <div class="alien-character">👽</div>
+ <div id="space3d"></div>
 
  <div class="alien-caption">
   <span>UNKNOWN LIFEFORM DETECTED</span>
@@ -1229,9 +1128,11 @@ footer{
  © 2026 — FACHRIANSYAH ALFIGO
 </footer>
 
+<!-- ORIGINAL WEBSITE JAVASCRIPT -->
+
 <script>
 
-/* ALIEN INTRO */
+/* INTRO */
 
 const intro=document.getElementById('intro');
 
@@ -1315,6 +1216,416 @@ document.addEventListener("keydown",e=>{
   document.body.style.overflow="";
  }
 });
+
+</script>
+
+<!-- THREE.JS CGI ENGINE -->
+
+<script type="module">
+
+import * as THREE from
+'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
+
+const container=document.getElementById('space3d');
+
+if(container){
+
+/* SCENE */
+
+const scene=new THREE.Scene();
+
+const camera=new THREE.PerspectiveCamera(
+ 50,
+ window.innerWidth/window.innerHeight,
+ 0.1,
+ 1000
+);
+
+camera.position.set(0,1,13);
+
+const renderer=new THREE.WebGLRenderer({
+ alpha:true,
+ antialias:true
+});
+
+renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+
+renderer.setSize(
+ container.clientWidth,
+ container.clientHeight
+);
+
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+container.appendChild(renderer.domElement);
+
+
+/* LIGHTING */
+
+scene.add(new THREE.AmbientLight(0x8abfff,2));
+
+const blueLight=new THREE.PointLight(0x168cff,180,30);
+blueLight.position.set(0,5,5);
+scene.add(blueLight);
+
+const whiteLight=new THREE.PointLight(0xffffff,100,20);
+whiteLight.position.set(0,4,-3);
+scene.add(whiteLight);
+
+
+/* UFO */
+
+const ufo=new THREE.Group();
+scene.add(ufo);
+
+const metal=new THREE.MeshStandardMaterial({
+ color:0x899db8,
+ metalness:0.9,
+ roughness:0.2
+});
+
+const blueMaterial=new THREE.MeshBasicMaterial({
+ color:0x22aaff
+});
+
+const saucer=new THREE.Mesh(
+ new THREE.SphereGeometry(2,48,32),
+ metal
+);
+
+saucer.scale.set(1.8,0.25,1.2);
+ufo.add(saucer);
+
+
+/* UFO DOME */
+
+const dome=new THREE.Mesh(
+ new THREE.SphereGeometry(
+  0.85,32,24,0,Math.PI*2,0,Math.PI/2
+ ),
+ new THREE.MeshPhysicalMaterial({
+  color:0x65caff,
+  metalness:0.3,
+  roughness:0.1,
+  transparent:true,
+  opacity:0.8
+ })
+);
+
+dome.position.y=0.35;
+ufo.add(dome);
+
+
+/* UFO RING */
+
+const ring=new THREE.Mesh(
+ new THREE.TorusGeometry(2.5,0.045,12,100),
+ blueMaterial
+);
+
+ring.rotation.x=Math.PI/2;
+ring.position.y=-0.05;
+ufo.add(ring);
+
+
+/* UFO LIGHTS */
+
+for(let i=0;i<12;i++){
+
+ const angle=(i/12)*Math.PI*2;
+
+ const light=new THREE.Mesh(
+  new THREE.SphereGeometry(0.09,16,16),
+  new THREE.MeshBasicMaterial({
+   color:i%2===0?0x38caff:0xff315e
+  })
+ );
+
+ light.position.set(
+  Math.cos(angle)*2.4,
+  -0.1,
+  Math.sin(angle)*1.1
+ );
+
+ ufo.add(light);
+
+}
+
+
+/* ALIEN */
+
+const alien=new THREE.Group();
+scene.add(alien);
+
+const skin=new THREE.MeshStandardMaterial({
+ color:0x829c9c,
+ roughness:0.48,
+ metalness:0.1
+});
+
+const black=new THREE.MeshPhysicalMaterial({
+ color:0x010711,
+ roughness:0.08,
+ metalness:0.2,
+ clearcoat:1
+});
+
+
+/* ALIEN HEAD */
+
+const head=new THREE.Mesh(
+ new THREE.SphereGeometry(0.85,48,48),
+ skin
+);
+
+head.scale.set(0.9,1.15,0.8);
+head.position.y=2.2;
+alien.add(head);
+
+
+/* ALIEN EYES */
+
+for(const side of [-1,1]){
+
+ const eye=new THREE.Mesh(
+  new THREE.SphereGeometry(0.31,32,32),
+  black
+ );
+
+ eye.scale.set(1,1.35,0.5);
+
+ eye.position.set(
+  side*0.37,
+  2.3,
+  0.68
+ );
+
+ eye.rotation.z=side*-0.18;
+
+ alien.add(eye);
+
+}
+
+
+/* ALIEN BODY */
+
+const body=new THREE.Mesh(
+ new THREE.CapsuleGeometry(0.48,1.1,8,20),
+ skin
+);
+
+body.position.y=0.65;
+body.scale.set(0.9,1,0.7);
+alien.add(body);
+
+
+/* ALIEN ARMS */
+
+for(const side of [-1,1]){
+
+ const arm=new THREE.Mesh(
+  new THREE.CapsuleGeometry(0.13,1,6,12),
+  skin
+ );
+
+ arm.position.set(side*0.75,0.8,0);
+ arm.rotation.z=side*0.4;
+
+ alien.add(arm);
+
+}
+
+
+/* ALIEN LEGS */
+
+for(const side of [-1,1]){
+
+ const leg=new THREE.Mesh(
+  new THREE.CapsuleGeometry(0.17,0.9,6,12),
+  skin
+ );
+
+ leg.position.set(side*0.25,-0.45,0);
+
+ alien.add(leg);
+
+}
+
+
+/* TELEPORT BEAM */
+
+const beam=new THREE.Mesh(
+ new THREE.CylinderGeometry(
+  1.4,
+  0.7,
+  5,
+  48,
+  1,
+  true
+ ),
+ new THREE.MeshBasicMaterial({
+  color:0x35aaff,
+  transparent:true,
+  opacity:0.13,
+  side:THREE.DoubleSide,
+  depthWrite:false
+ })
+);
+
+beam.position.y=-2.2;
+ufo.add(beam);
+
+
+/* SPACE PARTICLES */
+
+const particleCount=1500;
+const positions=new Float32Array(particleCount*3);
+
+for(let i=0;i<particleCount;i++){
+
+ positions[i*3]=(Math.random()-0.5)*40;
+ positions[i*3+1]=(Math.random()-0.5)*25;
+ positions[i*3+2]=(Math.random()-0.5)*30;
+
+}
+
+const particleGeometry=new THREE.BufferGeometry();
+
+particleGeometry.setAttribute(
+ 'position',
+ new THREE.BufferAttribute(positions,3)
+);
+
+const particles=new THREE.Points(
+ particleGeometry,
+ new THREE.PointsMaterial({
+  color:0xaadfff,
+  size:0.035,
+  transparent:true,
+  opacity:0.8
+ })
+);
+
+scene.add(particles);
+
+
+/* PLANET */
+
+const planet=new THREE.Mesh(
+ new THREE.SphereGeometry(2.5,48,48),
+ new THREE.MeshStandardMaterial({
+  color:0x153e73,
+  roughness:0.85,
+  metalness:0.2
+ })
+);
+
+planet.position.set(-7,1,-8);
+scene.add(planet);
+
+
+/* SECOND PLANET */
+
+const moon=new THREE.Mesh(
+ new THREE.SphereGeometry(0.8,32,32),
+ new THREE.MeshStandardMaterial({
+  color:0x8c5572,
+  roughness:0.9
+ })
+);
+
+moon.position.set(7,3,-6);
+scene.add(moon);
+
+
+/* ANIMATION */
+
+const clock=new THREE.Clock();
+
+function animate(){
+
+ requestAnimationFrame(animate);
+
+ const t=clock.getElapsedTime();
+
+
+ // UFO turun dari atas
+ ufo.position.set(
+  0,
+  5.5-Math.min(t*1.1,3.5),
+  -1
+ );
+
+ ufo.rotation.y=Math.sin(t*0.4)*0.12;
+ ufo.rotation.z=Math.sin(t*0.6)*0.035;
+
+
+ // Alien muncul perlahan
+ const appear=THREE.MathUtils.smoothstep(t,2.2,4.5);
+
+ alien.position.set(
+  0,
+  -3.8+appear*2+
+  Math.sin(t*1.5)*0.08,
+  0
+ );
+
+ alien.scale.setScalar(Math.max(0.001,appear));
+
+
+ // Kepala alien bergerak
+ head.rotation.y=Math.sin(t*0.7)*0.12;
+ head.rotation.x=Math.sin(t*0.5)*0.04;
+
+
+ // Beam berdenyut
+ beam.material.opacity=0.08+Math.sin(t*4)*0.04;
+
+
+ // Planet bergerak perlahan
+ planet.rotation.y=t*0.08;
+ moon.rotation.y=-t*0.12;
+
+
+ // Partikel bergerak
+ particles.rotation.y=t*0.015;
+
+
+ // Kamera cinematic
+ camera.position.x=Math.sin(t*0.25)*0.25;
+ camera.lookAt(0,0,0);
+
+
+ renderer.render(scene,camera);
+
+}
+
+animate();
+
+
+/* RESPONSIVE */
+
+window.addEventListener('resize',()=>{
+
+ camera.aspect=container.clientWidth/container.clientHeight;
+
+ camera.updateProjectionMatrix();
+
+ renderer.setSize(
+  container.clientWidth,
+  container.clientHeight
+ );
+
+});
+
+
+/* CLEANUP */
+
+window.addEventListener('pagehide',()=>{
+ renderer.dispose();
+ particleGeometry.dispose();
+});
+
+}
 
 </script>
 
