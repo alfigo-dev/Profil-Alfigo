@@ -22,16 +22,13 @@
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
-
 html{scroll-behavior:smooth}
-
 body{
  background:var(--dark);
  color:var(--white);
  font-family:Inter,sans-serif;
  overflow-x:hidden;
 }
-
 a{text-decoration:none;color:inherit}
 button{font:inherit}
 
@@ -65,7 +62,7 @@ button{font:inherit}
  to{background-position:300px 500px,-300px 400px,200px -300px}
 }
 
-/* METEOR */
+/* METEORS */
 
 .meteor{
  position:fixed;
@@ -77,7 +74,6 @@ button{font:inherit}
  opacity:0;
  animation:meteor 7s linear infinite;
 }
-
 .meteor.one{top:20%;left:75%;animation-delay:1s}
 .meteor.two{top:55%;left:20%;animation-delay:4s}
 .meteor.three{top:75%;left:80%;animation-delay:6s}
@@ -89,7 +85,7 @@ button{font:inherit}
  100%{opacity:0}
 }
 
-/* OPENING */
+/* ALIEN INTRO */
 
 #intro{
  position:fixed;
@@ -99,48 +95,193 @@ button{font:inherit}
  align-items:center;
  justify-content:center;
  flex-direction:column;
- background:#080914;
  overflow:hidden;
+ background:radial-gradient(ellipse at center,#14253b 0%,#080914 65%);
  transition:opacity 1s,visibility 1s;
 }
 
 #intro.hide{
  opacity:0;
  visibility:hidden;
+ pointer-events:none;
 }
 
-.welcome-track{
- overflow:hidden;
+.space-stars{
+ position:absolute;
+ inset:0;
+ background-image:
+ radial-gradient(2px 2px at 20% 20%,white 80%,transparent),
+ radial-gradient(2px 2px at 80% 35%,#70bfff 80%,transparent),
+ radial-gradient(1px 1px at 45% 75%,white 80%,transparent);
+ background-size:150px 150px;
+ animation:starDrift 15s linear infinite;
+}
+
+@keyframes starDrift{
+ to{transform:translateY(-150px)}
+}
+
+/* UFO */
+
+.ufo{
+ position:absolute;
+ top:12%;
+ width:160px;
+ height:80px;
+ z-index:3;
+ animation:ufoArrival 2s ease-out forwards,
+ ufoHover 3s 2s ease-in-out infinite;
+}
+
+.ufo-dome{
+ position:absolute;
+ width:65px;
+ height:40px;
+ top:0;
+ left:48px;
+ border-radius:60px 60px 10px 10px;
+ background:linear-gradient(120deg,#d9f6ff,#087ccb,#74152d);
+ box-shadow:0 0 25px #70bfff;
+}
+
+.ufo-body{
+ position:absolute;
+ width:160px;
+ height:40px;
+ bottom:5px;
+ border-radius:50%;
+ background:linear-gradient(#e6f7ff,#596c91 55%,#202b48);
+ border:2px solid #70bfff;
+ box-shadow:0 0 25px #087ccb;
+}
+
+.ufo-lights{
+ position:absolute;
+ bottom:18px;
+ left:25px;
+ display:flex;
+ gap:24px;
+}
+
+.ufo-lights i{
+ width:8px;
+ height:8px;
+ border-radius:50%;
+ background:#ff4165;
+ box-shadow:0 0 15px #ff4165;
+ animation:lightBlink .7s infinite alternate;
+}
+
+@keyframes lightBlink{to{opacity:.2}}
+
+@keyframes ufoArrival{
+ from{transform:translateY(-150px) scale(.5);opacity:0}
+ to{transform:translateY(0) scale(1);opacity:1}
+}
+
+@keyframes ufoHover{
+ 0%,100%{translate:0 0}
+ 50%{translate:0 -12px}
+}
+
+/* TELEPORT BEAM */
+
+.alien-beam{
+ position:absolute;
+ top:23%;
+ width:180px;
+ height:0;
+ background:linear-gradient(to bottom,#70bfff88,#087ccb22,transparent);
+ clip-path:polygon(35% 0,65% 0,100% 100%,0 100%);
+ animation:beamAppear 1.2s 1.8s forwards;
+ filter:blur(5px);
+}
+
+@keyframes beamAppear{
+ to{height:330px}
+}
+
+/* ALIEN */
+
+.alien-character{
+ position:absolute;
+ top:36%;
+ font-size:100px;
+ opacity:0;
+ z-index:4;
+ filter:drop-shadow(0 0 25px #70ffb0);
+ animation:alienAppear 1.5s 2.5s forwards,
+ alienFloat 3s 4s ease-in-out infinite;
+}
+
+@keyframes alienAppear{
+ 0%{
+  opacity:0;
+  transform:translateY(100px) scale(.2);
+  filter:blur(15px);
+ }
+ 60%{
+  opacity:1;
+  transform:translateY(-10px) scale(1.2);
+  filter:blur(0);
+ }
+ 100%{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  filter:drop-shadow(0 0 25px #70ffb0);
+ }
+}
+
+@keyframes alienFloat{
+ 0%,100%{translate:0 0}
+ 50%{translate:0 -15px}
+}
+
+/* INTRO TEXT */
+
+.alien-caption{
+ position:absolute;
+ bottom:13%;
  width:100%;
- white-space:nowrap;
  text-align:center;
+ z-index:5;
+ padding:0 15px;
 }
 
-.welcome-track span{
- display:inline-block;
- font-family:Orbitron,sans-serif;
- font-size:clamp(25px,6vw,55px);
- font-weight:900;
- letter-spacing:5px;
- color:white;
- text-shadow:0 0 15px #087ccb,0 0 35px #e3264f;
- animation:welcomeMove 5s ease-in-out infinite alternate;
+.alien-caption span{
+ font:10px Orbitron,sans-serif;
+ letter-spacing:4px;
+ color:#70bfff;
 }
 
-@keyframes welcomeMove{
- from{transform:translateX(-35px);opacity:.55}
- to{transform:translateX(35px);opacity:1}
+.alien-caption h1{
+ font:900 clamp(22px,5vw,43px) Orbitron,sans-serif;
+ margin:17px 0;
+ white-space:nowrap;
+ text-shadow:0 0 20px #087ccb;
+ animation:textGlow 2s infinite alternate;
 }
 
-.intro-line{
- width:0;
+@keyframes textGlow{
+ to{text-shadow:0 0 30px #e3264f,0 0 45px #087ccb}
+}
+
+.loading-line{
+ width:180px;
  height:3px;
- margin-top:25px;
- background:linear-gradient(90deg,#e3264f,white,#087ccb);
- animation:lineIn 1.5s .4s forwards;
+ margin:auto;
+ background:#ffffff25;
+ overflow:hidden;
 }
 
-@keyframes lineIn{to{width:min(300px,70vw)}}
+.loading-line div{
+ width:0;
+ height:100%;
+ background:linear-gradient(90deg,#e3264f,#70bfff);
+ animation:loading 5s linear forwards;
+}
+
+@keyframes loading{to{width:100%}}
 
 /* HEADER */
 
@@ -163,14 +304,9 @@ header{
  font:800 24px Orbitron;
  letter-spacing:3px;
 }
-
 .brand span{color:var(--red)}
 
-nav{
- display:flex;
- gap:25px;
- align-items:center;
-}
+nav{display:flex;gap:25px;align-items:center}
 
 nav a{
  font-size:10px;
@@ -178,7 +314,6 @@ nav a{
  color:#c3c8d8;
  transition:.3s;
 }
-
 nav a:hover{
  color:white;
  text-shadow:0 0 12px var(--blue);
@@ -325,8 +460,7 @@ section{
  animation:float 5s ease-in-out infinite;
 }
 
-.hero-orbit:before,
-.hero-orbit:after{
+.hero-orbit:before,.hero-orbit:after{
  content:"";
  position:absolute;
  border:1px solid #e3264f65;
@@ -363,7 +497,6 @@ section{
  color:#c9dfff;
  animation:float 5s ease-in-out infinite;
 }
-
 .f1{right:8%;top:20%}
 .f2{right:3%;bottom:18%;animation-delay:1s}
 .f3{left:2%;bottom:22%;animation-delay:2s}
@@ -437,7 +570,6 @@ section{
  color:#dce6fa;
  transition:.3s;
 }
-
 .tag:hover{
  transform:translateY(-5px);
  border-color:var(--blue);
@@ -497,7 +629,7 @@ section{
  line-height:1.8;
 }
 
-/* BMX GALLERY */
+/* BMX */
 
 .bmx-grid{
  display:grid;
@@ -519,7 +651,6 @@ section{
 .bmx-card:nth-child(3){animation-delay:1.4s}
 
 .bmx-card:hover{
- transform:translateY(-8px);
  border-color:var(--blue);
  box-shadow:0 15px 35px #087ccb35;
 }
@@ -533,13 +664,8 @@ section{
 }
 
 .bmx-card:hover img{transform:scale(1.06)}
-
 .bmx-card div{padding:18px}
-
-.bmx-card h3{
- font:600 13px Orbitron;
-}
-
+.bmx-card h3{font:600 13px Orbitron}
 .bmx-card p{
  font-size:10px;
  color:var(--muted);
@@ -602,18 +728,15 @@ section{
 }
 
 .modal-caption{padding:25px}
-
 .modal-caption small{
  color:#65baff;
  font-size:9px;
  letter-spacing:3px;
 }
-
 .modal-caption h2{
  font-family:Orbitron,sans-serif;
  margin:12px 0;
 }
-
 .modal-caption p{
  color:#aeb4ca;
  font-size:12px;
@@ -652,16 +775,11 @@ section{
 .skill:nth-child(even){animation-delay:.7s}
 
 .skill:hover{
- transform:translateY(-7px);
  border-color:#65baff;
  box-shadow:0 0 24px #087ccb30;
 }
 
-.skill .icon{
- font-size:27px;
- margin-bottom:15px;
-}
-
+.skill .icon{font-size:27px;margin-bottom:15px}
 .skill h3{
  font:600 10px Orbitron;
  line-height:1.6;
@@ -711,7 +829,6 @@ section{
 .contact-links a:hover{
  background:var(--burgundy);
  border-color:var(--red);
- transform:translateY(-5px);
  box-shadow:0 0 20px #087ccb55;
 }
 
@@ -750,7 +867,6 @@ footer{
 
 @media(max-width:650px){
  header{padding:17px 6%}
-
  .menu{display:block}
 
  nav{
@@ -768,7 +884,6 @@ footer{
 
  nav.open{display:flex}
  nav a{font-size:11px}
-
  section{padding:85px 7%}
 
  .hero{
@@ -794,13 +909,14 @@ footer{
  }
 
  .about-art{min-height:260px}
-
  .bmx-grid{grid-template-columns:1fr}
  .bmx-card img{height:280px}
-
  .skills-grid{grid-template-columns:repeat(2,1fr)}
-
  .contact-box{padding:40px 18px}
+
+ .alien-character{font-size:85px}
+ .ufo{transform:scale(.8)}
+ .alien-caption h1{letter-spacing:1px}
 }
 
 @media(prefers-reduced-motion:reduce){
@@ -820,13 +936,30 @@ footer{
 <div class="meteor two"></div>
 <div class="meteor three"></div>
 
-<!-- OPENING -->
+<!-- ALIEN INTRO -->
 
 <div id="intro">
- <div class="welcome-track">
-  <span>WELCOME MY UNIVERSE</span>
+
+ <div class="space-stars"></div>
+
+ <div class="ufo">
+  <div class="ufo-dome"></div>
+  <div class="ufo-body"></div>
+  <div class="ufo-lights">
+   <i></i><i></i><i></i><i></i>
+  </div>
  </div>
- <div class="intro-line"></div>
+
+ <div class="alien-beam"></div>
+
+ <div class="alien-character">👽</div>
+
+ <div class="alien-caption">
+  <span>UNKNOWN LIFEFORM DETECTED</span>
+  <h1>WELCOME MY UNIVERSE</h1>
+  <div class="loading-line"><div></div></div>
+ </div>
+
 </div>
 
 <!-- HEADER -->
@@ -868,13 +1001,8 @@ footer{
   </p>
 
   <div class="hero-buttons">
-   <a class="btn btn-primary" href="#about">
-    DISCOVER MY STORY ↗
-   </a>
-
-   <a class="btn" href="#bmx">
-    EXPLORE MY WORLD
-   </a>
+   <a class="btn btn-primary" href="#about">DISCOVER MY STORY ↗</a>
+   <a class="btn" href="#bmx">EXPLORE MY WORLD</a>
   </div>
  </div>
 
@@ -905,7 +1033,6 @@ footer{
   </div>
 
   <div class="about-copy">
-
    <h3>THE PERSON BEHIND THE STORY.</h3>
 
    <p>
@@ -925,10 +1052,9 @@ footer{
     <span class="tag">BMX Enthusiast</span>
     <span class="tag">Explorer</span>
    </div>
-
   </div>
- </div>
 
+ </div>
 </section>
 
 <!-- JOURNEY -->
@@ -971,7 +1097,6 @@ footer{
   </div>
 
  </div>
-
 </section>
 
 <!-- BMX -->
@@ -1014,7 +1139,6 @@ footer{
   </article>
 
  </div>
-
 </section>
 
 <!-- PHOTO POPUP -->
@@ -1024,7 +1148,6 @@ footer{
  <button class="close-modal" onclick="closePhoto()">×</button>
 
  <div class="modal-content" onclick="event.stopPropagation()">
-
   <img id="modalImage" src="" alt="BMX Photo">
 
   <div class="modal-caption">
@@ -1032,7 +1155,6 @@ footer{
    <h2 id="modalTitle"></h2>
    <p id="modalDescription"></p>
   </div>
-
  </div>
 
 </div>
@@ -1075,7 +1197,6 @@ footer{
   </div>
 
  </div>
-
 </section>
 
 <!-- CONTACT -->
@@ -1094,25 +1215,12 @@ footer{
   </p>
 
   <div class="contact-links">
-
-   <a href="https://instagram.com/a.figo19"
-      target="_blank" rel="noopener">
-    INSTAGRAM ↗
-   </a>
-
-   <a href="https://wa.me/6283139998411"
-      target="_blank" rel="noopener">
-    WHATSAPP ↗
-   </a>
-
-   <a href="mailto:masfigo41@gmail.com">
-    EMAIL ↗
-   </a>
-
+   <a href="https://instagram.com/a.figo19" target="_blank" rel="noopener">INSTAGRAM ↗</a>
+   <a href="https://wa.me/6283139998411" target="_blank" rel="noopener">WHATSAPP ↗</a>
+   <a href="mailto:masfigo41@gmail.com">EMAIL ↗</a>
   </div>
 
  </div>
-
 </section>
 
 </main>
@@ -1123,14 +1231,14 @@ footer{
 
 <script>
 
-/* OPENING */
+/* ALIEN INTRO */
 
 const intro=document.getElementById('intro');
 
 window.addEventListener('load',()=>{
  setTimeout(()=>{
   intro.classList.add('hide');
- },3000);
+ },6500);
 });
 
 /* MOBILE MENU */
@@ -1187,26 +1295,17 @@ const photoFiles=[
 ];
 
 function openPhoto(index){
-
  document.getElementById("modalImage").src=photoFiles[index];
-
- document.getElementById("modalTitle").textContent=
-  photoData[index].title;
-
- document.getElementById("modalDescription").textContent=
-  photoData[index].description;
-
+ document.getElementById("modalTitle").textContent=photoData[index].title;
+ document.getElementById("modalDescription").textContent=photoData[index].description;
  document.getElementById("photoModal").classList.add("active");
-
  document.body.style.overflow="hidden";
 }
 
 function closePhoto(event){
-
  if(event && event.target.id!=="photoModal")return;
 
  document.getElementById("photoModal").classList.remove("active");
-
  document.body.style.overflow="";
 }
 
