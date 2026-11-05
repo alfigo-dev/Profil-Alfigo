@@ -12,215 +12,100 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --bg:#080914;
-  --panel:#111426;
-  --white:#f4f5ff;
-  --muted:#a0a4bc;
-  --red:#ff365f;
-  --blue:#42c9ff;
-  --green:#43ff83;
+:root{
+--bg:#080914;--panel:#111426;--white:#f4f5ff;
+--muted:#a0a4bc;--red:#ff365f;--blue:#42c9ff;
+--purple:#8b6cff;--green:#43ff83;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{
-  background:var(--bg);
-  color:var(--white);
-  font-family:'Outfit',sans-serif;
-  overflow-x:hidden;
-}
+body{background:var(--bg);color:var(--white);font-family:Outfit,sans-serif;overflow-x:hidden}
 a{text-decoration:none;color:inherit}
-button{font:inherit}
-
-#stars{
-  position:fixed;inset:0;z-index:-2;
-  pointer-events:none;
-  background:
-  radial-gradient(circle at 20% 20%,#29204c 0,transparent 35%),
-  radial-gradient(circle at 80% 60%,#102d4c 0,transparent 35%),
-  #080914;
-}
-#stars:after{
-  content:"";position:absolute;inset:0;
-  background-image:
-  radial-gradient(1px 1px at 10% 20%,white 99%,transparent),
-  radial-gradient(2px 2px at 30% 80%,#9bbcff 99%,transparent),
-  radial-gradient(1px 1px at 70% 30%,white 99%,transparent),
-  radial-gradient(2px 2px at 90% 70%,#ff7594 99%,transparent);
-  background-size:180px 180px;
-  animation:starMove 30s linear infinite;
-}
-@keyframes starMove{
-  to{background-position:180px 180px}
-}
-.cursor-glow{
-  position:fixed;width:250px;height:250px;
-  border-radius:50%;
-  background:radial-gradient(circle,#3e74ff18,transparent 70%);
-  pointer-events:none;z-index:-1;
-  transform:translate(-50%,-50%);
-}
+button{font:inherit;cursor:pointer}
+#stars{position:fixed;inset:0;z-index:-3;pointer-events:none;background:radial-gradient(circle at 20% 20%,#29204c,transparent 35%),radial-gradient(circle at 80% 60%,#102d4c,transparent 35%),#080914}
+#stars:after{content:"";position:absolute;inset:0;background-image:radial-gradient(1px 1px at 10% 20%,white 99%,transparent),radial-gradient(2px 2px at 30% 80%,#9bbcff 99%,transparent),radial-gradient(1px 1px at 70% 30%,white 99%,transparent),radial-gradient(2px 2px at 90% 70%,#ff7594 99%,transparent);background-size:180px 180px;animation:starMove 30s linear infinite}
+@keyframes starMove{to{background-position:180px 180px}}
+.cursor-glow{position:fixed;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,#3e74ff18,transparent 70%);pointer-events:none;z-index:-1;transform:translate(-50%,-50%)}
 section{padding:110px 8%;position:relative}
-.section-label{
-  color:var(--blue);font-family:Orbitron,sans-serif;
-  font-size:11px;letter-spacing:4px;margin-bottom:15px;
-}
-.section-title{
-  font-family:Orbitron,sans-serif;
-  font-size:clamp(28px,5vw,48px);
-  margin-bottom:20px;
-}
-.section-desc{
-  color:var(--muted);line-height:1.8;max-width:650px;
-}
-.gradient{
-  background:linear-gradient(90deg,#ff365f,#8b6cff,#42c9ff);
-  -webkit-background-clip:text;
-  background-clip:text;color:transparent;
-}
+.section-label{color:var(--blue);font-family:Orbitron,sans-serif;font-size:11px;letter-spacing:4px;margin-bottom:15px}
+.section-title{font-family:Orbitron,sans-serif;font-size:clamp(28px,5vw,48px);margin-bottom:20px}
+.section-desc{color:var(--muted);line-height:1.8;max-width:650px}
+.gradient{background:linear-gradient(90deg,#ff365f,#8b6cff,#42c9ff);-webkit-background-clip:text;background-clip:text;color:transparent}
 
 /* INTRO */
-#intro{
-  position:fixed;inset:0;z-index:1000;
-  background:radial-gradient(ellipse at center,#182b4d,#060710 75%);
-  overflow:hidden;
-  transition:opacity 1s,visibility 1s;
-}
-#intro.hide{
-  opacity:0;visibility:hidden;pointer-events:none;
-}
+#intro{position:fixed;inset:0;z-index:1000;background:radial-gradient(ellipse at center,#182b4d,#060710 75%);overflow:hidden;transition:opacity .65s,visibility .65s}
+#intro.hide{opacity:0;visibility:hidden;pointer-events:none}
 #space3d{position:absolute;inset:0}
 #space3d canvas{width:100%;height:100%;display:block}
-.intro-vignette{
-  position:absolute;inset:0;z-index:1;
-  pointer-events:none;
-  background:
-  linear-gradient(180deg,#03040a44,transparent 35%,#03040a88),
-  radial-gradient(ellipse at center,transparent 40%,#02030b88);
-}
-.intro-copy{
-  position:absolute;bottom:9%;left:5%;right:5%;
-  text-align:center;pointer-events:none;z-index:3;
-}
-.intro-copy h1{
-  font-family:Orbitron,sans-serif;
-  font-size:clamp(25px,5.2vw,60px);
-  letter-spacing:5px;
-  text-shadow:0 0 15px #dff7ff,0 0 35px #42c9ff;
-}
-.intro-copy p{
-  color:#a7b5d8;letter-spacing:5px;
-  font-size:11px;margin-top:12px;
-}
-.intro-skip{
-  position:absolute;right:25px;top:25px;z-index:5;
-  border:1px solid #ffffff44;
-  background:#ffffff0c;color:white;
-  padding:10px 17px;border-radius:30px;
-  cursor:pointer;font-size:11px;letter-spacing:2px;
-  backdrop-filter:blur(10px);
-}
-.intro-orbit-line{
-  width:min(500px,75vw);height:30px;
-  border:1px solid #7bdfff99;border-top:0;
-  border-radius:0 0 50% 50%;
-  margin:8px auto 0;
-  filter:drop-shadow(0 0 8px #42c9ff);
-}
+.intro-vignette{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,#03040a44,transparent 35%,#03040a88),radial-gradient(ellipse at center,transparent 40%,#02030b88)}
+.intro-copy{position:absolute;bottom:9%;left:5%;right:5%;text-align:center;pointer-events:none;z-index:3}
+.intro-copy h1{font-family:Orbitron,sans-serif;font-size:clamp(25px,5.2vw,60px);letter-spacing:5px;text-shadow:0 0 15px #dff7ff,0 0 35px #42c9ff}
+.intro-copy p{color:#a7b5d8;letter-spacing:4px;font-size:11px;margin-top:12px}
+.intro-skip{position:absolute;right:25px;top:25px;z-index:5;border:1px solid #ffffff44;background:#ffffff0c;color:white;padding:10px 17px;border-radius:30px;font-size:11px;letter-spacing:2px;backdrop-filter:blur(10px)}
+.intro-progress{position:absolute;bottom:5%;left:50%;transform:translateX(-50%);width:130px;height:2px;background:#ffffff22;z-index:4;overflow:hidden}
+.intro-progress:after{content:"";display:block;height:100%;width:0;background:var(--blue);animation:loading 1.8s linear forwards}
+@keyframes loading{to{width:100%}}
 
-/* NAVBAR */
-header{
-  position:fixed;top:0;left:0;width:100%;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:22px 8%;background:#080914a8;
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid #ffffff0c;
-}
-.logo{
-  font-family:Orbitron,sans-serif;
-  font-size:27px;font-weight:800;letter-spacing:3px;
-}
+/* NAV */
+header{position:fixed;top:0;left:0;width:100%;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:20px 8%;background:#080914c9;backdrop-filter:blur(16px);border-bottom:1px solid #ffffff0c}
+.logo{font-family:Orbitron,sans-serif;font-size:27px;font-weight:800;letter-spacing:3px}
 .logo span{color:var(--red)}
-nav{display:flex;gap:28px}
-nav a{
-  color:#b8bbce;font-size:12px;
-  letter-spacing:1px;transition:.3s;
-}
+nav{display:flex;gap:25px}
+nav a{color:#b8bbce;font-size:11px;letter-spacing:1px;transition:.3s}
 nav a:hover{color:var(--blue)}
-.menu-btn{
-  display:none;background:none;border:0;
-  color:white;font-size:26px;cursor:pointer;
-}
+.menu-btn{display:none;background:none;border:0;color:white;font-size:26px}
+
+/* HUD */
+.hud{position:fixed;right:22px;bottom:22px;z-index:80;background:#101629d9;border:1px solid #42c9ff35;border-radius:14px;padding:13px 17px;backdrop-filter:blur(15px);font-family:Orbitron,sans-serif;box-shadow:0 0 30px #42c9ff0c}
+.hud-top{display:flex;align-items:center;gap:8px;color:var(--green);font-size:9px;letter-spacing:2px}
+.hud-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+.hud-time{font-size:19px;margin-top:7px;letter-spacing:2px}
+.hud-date{font-family:Outfit,sans-serif;font-size:10px;color:var(--muted);margin-top:3px}
 
 /* HERO */
-#home{
-  min-height:100vh;display:flex;
-  align-items:center;padding-top:140px;
-}
-.hero-content{max-width:780px}
-.hero-tag{
-  color:var(--blue);letter-spacing:4px;
-  font-size:11px;margin-bottom:25px;
-}
-.hero-title{
-  font-family:Orbitron,sans-serif;
-  font-size:clamp(36px,7vw,76px);
-  line-height:1.18;letter-spacing:-2px;
-}
-.hero-sub{
-  color:var(--muted);font-size:16px;
-  line-height:1.9;margin-top:25px;max-width:590px;
-}
-.hero-buttons{
-  display:flex;gap:15px;margin-top:35px;flex-wrap:wrap;
-}
-.btn{
-  padding:14px 24px;border-radius:30px;
-  font-size:12px;letter-spacing:1px;
-  border:1px solid #ffffff30;transition:.3s;
-  display:inline-flex;align-items:center;justify-content:center;
-}
-.btn-primary{
-  background:linear-gradient(100deg,#ff365f,#814bff);
-  border:0;color:white;
-}
-.btn:hover{
-  transform:translateY(-5px);
-  box-shadow:0 10px 35px #5a6aff35;
-}
-.hero-orbit{
-  position:absolute;width:360px;height:360px;
-  right:10%;top:28%;border:1px solid #42c9ff30;
-  border-radius:50%;animation:orbit 25s linear infinite;
-  pointer-events:none;
-}
-.hero-orbit:before{
-  content:"";position:absolute;width:15px;height:15px;
-  border-radius:50%;background:var(--blue);
-  box-shadow:0 0 30px var(--blue);
-  top:50px;left:40px;
-}
+#home{min-height:100vh;display:flex;align-items:center;padding-top:140px}
+.hero-content{max-width:780px;position:relative;z-index:2}
+.hero-tag{color:var(--blue);letter-spacing:4px;font-size:11px;margin-bottom:25px}
+.hero-title{font-family:Orbitron,sans-serif;font-size:clamp(36px,7vw,76px);line-height:1.18;letter-spacing:-2px}
+.hero-sub{color:var(--muted);font-size:16px;line-height:1.9;margin-top:25px;max-width:590px}
+.hero-buttons{display:flex;gap:15px;margin-top:35px;flex-wrap:wrap}
+.btn{padding:14px 24px;border-radius:30px;font-size:12px;letter-spacing:1px;border:1px solid #ffffff30;transition:.3s;display:inline-flex;align-items:center;justify-content:center}
+.btn-primary{background:linear-gradient(100deg,#ff365f,#814bff);border:0;color:white}
+.btn:hover{transform:translateY(-5px);box-shadow:0 10px 35px #5a6aff35}
+.hero-orbit{position:absolute;width:360px;height:360px;right:10%;top:28%;border:1px solid #42c9ff30;border-radius:50%;animation:orbit 25s linear infinite;pointer-events:none}
+.hero-orbit:before{content:"";position:absolute;width:15px;height:15px;border-radius:50%;background:var(--blue);box-shadow:0 0 30px var(--blue);top:50px;left:40px}
 @keyframes orbit{to{transform:rotate(360deg)}}
 
+/* MISSION CONTROL */
+#mission{padding-top:65px}
+.control-panel{margin-top:35px;display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.control-card{background:linear-gradient(145deg,#151b31,#0c1020);border:1px solid #ffffff13;border-radius:17px;padding:22px;position:relative;overflow:hidden}
+.control-card:after{content:"";position:absolute;width:90px;height:90px;background:#42c9ff12;filter:blur(35px);right:-25px;top:-25px}
+.control-card small{font-family:Orbitron,sans-serif;font-size:9px;color:var(--blue);letter-spacing:2px}
+.control-card h3{font-family:Orbitron,sans-serif;font-size:22px;margin-top:13px}
+.control-card p{font-size:11px;color:var(--muted);margin-top:5px}
+
+/* PLANET EXPLORER */
+#explorer{overflow:hidden}
+.planet-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:45px}
+.planet-card{min-height:220px;background:linear-gradient(145deg,#151a30,#0b0e1b);border:1px solid #ffffff15;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:17px;transition:.35s;cursor:pointer;position:relative;overflow:hidden}
+.planet-card:hover{transform:translateY(-9px);border-color:#42c9ff80;box-shadow:0 15px 40px #42c9ff12}
+.planet-sphere{width:95px;height:95px;border-radius:50%;position:relative;box-shadow:inset -18px -12px 25px #0009,0 0 35px #ffffff15;animation:planetFloat 5s ease-in-out infinite}
+.planet-sphere:after{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(110deg,#ffffff55,transparent 55%)}
+@keyframes planetFloat{50%{transform:translateY(-9px) rotate(8deg)}}
+.p-home{background:radial-gradient(circle at 30% 30%,#72e4ff,#2455a9 55%,#101b52)}
+.p-about{background:radial-gradient(circle at 30% 30%,#ffdb8a,#b85b37 55%,#572044)}
+.p-bmx{background:radial-gradient(circle at 30% 30%,#8affb0,#168b64 55%,#073c36)}
+.p-contact{background:radial-gradient(circle at 30% 30%,#df9aff,#7543c7 55%,#26104f)}
+.planet-ring{position:absolute;width:135px;height:35px;border:3px solid #d8c6ff99;border-radius:50%;transform:rotate(-22deg)}
+.planet-card h3{font-family:Orbitron,sans-serif;font-size:13px;letter-spacing:2px}
+.planet-card p{font-size:11px;color:var(--muted)}
+
 /* ABOUT */
-.about-grid{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:60px;align-items:center;margin-top:40px;
-}
-.about-card{
-  background:linear-gradient(145deg,#171b31,#0c0e1b);
-  border:1px solid #ffffff12;border-radius:25px;
-  padding:35px;position:relative;overflow:hidden;
-}
-.about-card:after{
-  content:"";position:absolute;width:200px;height:200px;
-  background:#416eff18;filter:blur(60px);
-  right:-70px;top:-70px;
-}
-.about-mark{
-  font-family:Orbitron,sans-serif;font-size:90px;
-  font-weight:800;color:#ffffff0b;
-}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:40px}
+.about-card{background:linear-gradient(145deg,#171b31,#0c0e1b);border:1px solid #ffffff12;border-radius:25px;padding:35px;position:relative;overflow:hidden}
+.about-card:after{content:"";position:absolute;width:200px;height:200px;background:#416eff18;filter:blur(60px);right:-70px;top:-70px}
+.about-mark{font-family:Orbitron,sans-serif;font-size:90px;font-weight:800;color:#ffffff0b}
 .about-card h3{font-size:25px;margin:10px 0}
 .about-card p{color:var(--muted);line-height:1.9}
 .about-info{display:grid;gap:20px}
@@ -230,148 +115,99 @@ nav a:hover{color:var(--blue)}
 
 /* JOURNEY */
 .timeline{margin-top:45px;max-width:800px;position:relative}
-.timeline:before{
-  content:"";position:absolute;left:8px;top:0;bottom:0;
-  width:1px;background:linear-gradient(var(--blue),var(--red));
-}
+.timeline:before{content:"";position:absolute;left:8px;top:0;bottom:0;width:1px;background:linear-gradient(var(--blue),var(--red))}
 .timeline-item{padding:0 0 38px 40px;position:relative}
-.timeline-item:before{
-  content:"";position:absolute;left:2px;top:5px;
-  width:13px;height:13px;border-radius:50%;
-  background:var(--blue);box-shadow:0 0 20px var(--blue);
-}
+.timeline-item:before{content:"";position:absolute;left:2px;top:5px;width:13px;height:13px;border-radius:50%;background:var(--blue);box-shadow:0 0 20px var(--blue)}
 .timeline-item small{color:var(--blue);letter-spacing:2px}
 .timeline-item h3{margin:10px 0;font-size:21px}
 .timeline-item p{color:var(--muted);line-height:1.8}
 
 /* BMX */
-.bmx-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:22px;margin-top:40px;
-}
-.bmx-card{
-  border-radius:20px;overflow:hidden;
-  background:#121629;border:1px solid #ffffff15;
-  cursor:pointer;transition:.4s;
-}
-.bmx-card:hover{
-  transform:translateY(-10px);border-color:#42c9ff80;
-}
-.bmx-card img{
-  width:100%;height:260px;object-fit:cover;
-  display:block;transition:.5s;
-}
+.bmx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+.bmx-card{border-radius:20px;overflow:hidden;background:#121629;border:1px solid #ffffff15;cursor:pointer;transition:.4s}
+.bmx-card:hover{transform:translateY(-10px);border-color:#42c9ff80}
+.bmx-card img{width:100%;height:260px;object-fit:cover;display:block;transition:.5s}
 .bmx-card:hover img{transform:scale(1.06)}
 .bmx-caption{padding:20px}
 .bmx-caption h3{font-size:18px}
-.bmx-caption p{
-  color:var(--muted);font-size:12px;margin-top:7px;
-}
+.bmx-caption p{color:var(--muted);font-size:12px;margin-top:7px}
 
 /* SKILLS */
-.skills-grid{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:18px;margin-top:40px;
-}
-.skill{
-  padding:27px;border:1px solid #ffffff15;
-  border-radius:18px;background:#111426;transition:.3s;
-}
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.skill{padding:27px;border:1px solid #ffffff15;border-radius:18px;background:#111426;transition:.3s}
 .skill:hover{border-color:var(--blue);transform:translateY(-6px)}
 .skill .number{font-family:Orbitron;color:var(--blue);font-size:12px}
 .skill h3{margin:15px 0 8px}
 .skill p{color:var(--muted);font-size:13px;line-height:1.7}
 
 /* CONTACT */
-.contact-box{
-  margin-top:40px;padding:45px;
-  background:linear-gradient(120deg,#172044,#171126);
-  border:1px solid #ffffff17;border-radius:25px;
-  display:flex;justify-content:space-between;
-  align-items:center;gap:30px;flex-wrap:wrap;
-}
+.contact-box{margin-top:40px;padding:45px;background:linear-gradient(120deg,#172044,#171126);border:1px solid #ffffff17;border-radius:25px;display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
 .contact-links{display:flex;gap:12px;flex-wrap:wrap}
-.contact-links a{
-  padding:12px 18px;border-radius:25px;
-  border:1px solid #ffffff35;font-size:12px;
-}
+.contact-links a{padding:12px 18px;border-radius:25px;border:1px solid #ffffff35;font-size:12px}
 .contact-links a:hover{background:#ffffff15}
-footer{
-  padding:30px 8%;border-top:1px solid #ffffff12;
-  color:#777e9a;font-size:12px;
-  display:flex;justify-content:space-between;
-  gap:15px;flex-wrap:wrap;
-}
+footer{padding:30px 8%;border-top:1px solid #ffffff12;color:#777e9a;font-size:12px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+
+/* ASSISTANT */
+.assistant-toggle{position:fixed;right:22px;bottom:115px;z-index:150;width:55px;height:55px;border-radius:50%;border:1px solid #42c9ff88;background:linear-gradient(145deg,#193e64,#37245f);color:white;font-size:22px;box-shadow:0 0 25px #42c9ff35}
+.assistant{position:fixed;right:22px;bottom:180px;width:min(340px,calc(100vw - 35px));z-index:151;background:#101629;border:1px solid #42c9ff55;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px #0009;display:none}
+.assistant.show{display:block;animation:modalIn .25s ease}
+.assistant-head{padding:17px;background:linear-gradient(100deg,#16314d,#30204b);display:flex;justify-content:space-between;align-items:center}
+.assistant-head h3{font-family:Orbitron,sans-serif;font-size:12px;letter-spacing:1px}
+.assistant-head small{display:block;color:#a9c6e6;font-size:10px;margin-top:5px}
+.assistant-close{border:0;background:transparent;color:white;font-size:22px}
+.assistant-body{padding:17px}
+.assistant-message{background:#1b2540;border-radius:12px;padding:12px;font-size:12px;line-height:1.6;color:#dce7ff;margin-bottom:13px}
+.assistant-options{display:grid;gap:8px}
+.assistant-options button{border:1px solid #ffffff1c;background:#ffffff08;color:white;border-radius:10px;padding:10px;text-align:left;font-size:11px;transition:.2s}
+.assistant-options button:hover{border-color:var(--blue);background:#42c9ff12}
+.assistant-answer{font-size:12px;color:#b9c7df;line-height:1.6;margin-top:12px;min-height:35px}
 
 /* MODAL */
-.modal{
-  position:fixed;inset:0;z-index:500;
-  background:#03040bdc;backdrop-filter:blur(15px);
-  display:none;align-items:center;justify-content:center;padding:20px;
-}
+.modal{position:fixed;inset:0;z-index:500;background:#03040bdc;backdrop-filter:blur(15px);display:none;align-items:center;justify-content:center;padding:20px}
 .modal.show{display:flex}
-.modal-content{
-  max-width:850px;width:100%;background:#111426;
-  border:1px solid #ffffff25;border-radius:20px;
-  overflow:hidden;animation:modalIn .3s ease;
-}
-@keyframes modalIn{
-  from{transform:scale(.9);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-.modal-content img{
-  width:100%;max-height:65vh;
-  object-fit:contain;background:#05060d;
-}
+.modal-content{max-width:850px;width:100%;background:#111426;border:1px solid #ffffff25;border-radius:20px;overflow:hidden;animation:modalIn .3s ease}
+@keyframes modalIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-content img{width:100%;max-height:65vh;object-fit:contain;background:#05060d}
 .modal-info{padding:22px}
 .modal-info p{color:var(--muted);margin-top:8px;line-height:1.7}
-.modal-close{
-  position:absolute;top:20px;right:25px;
-  background:#ffffff20;color:white;border:0;
-  width:40px;height:40px;border-radius:50%;
-  font-size:22px;cursor:pointer;
-}
+.modal-close{position:absolute;top:20px;right:25px;background:#ffffff20;color:white;border:0;width:40px;height:40px;border-radius:50%;font-size:22px}
 
 /* REVEAL */
-.reveal{
-  opacity:0;transform:translateY(35px);
-  transition:opacity .8s ease,transform .8s ease;
-}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
 .reveal.active{opacity:1;transform:translateY(0)}
 
 @media(max-width:850px){
-  header{padding:18px 6%}
-  nav{
-    display:none;position:absolute;top:75px;left:5%;
-    width:90%;padding:25px;background:#111426;
-    border:1px solid #ffffff20;border-radius:18px;
-    flex-direction:column;gap:22px;
-  }
-  nav.open{display:flex}
-  .menu-btn{display:block}
-  section{padding:90px 7%}
-  .hero-orbit{right:-180px;opacity:.5}
-  .about-grid{grid-template-columns:1fr;gap:30px}
-  .bmx-grid{grid-template-columns:1fr 1fr}
-  .skills-grid{grid-template-columns:1fr 1fr}
+header{padding:18px 6%}
+nav{display:none;position:absolute;top:75px;left:5%;width:90%;padding:25px;background:#111426;border:1px solid #ffffff20;border-radius:18px;flex-direction:column;gap:22px}
+nav.open{display:flex}
+.menu-btn{display:block}
+section{padding:90px 7%}
+.hero-orbit{right:-180px;opacity:.5}
+.about-grid{grid-template-columns:1fr;gap:30px}
+.bmx-grid{grid-template-columns:1fr 1fr}
+.skills-grid{grid-template-columns:1fr 1fr}
+.control-panel{grid-template-columns:1fr 1fr}
+.planet-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:550px){
-  .bmx-grid,.skills-grid{grid-template-columns:1fr}
-  .bmx-card img{height:240px}
-  .contact-box{padding:27px}
-  .hero-title{font-size:38px}
-  .intro-copy{bottom:13%}
-  .intro-copy h1{font-size:clamp(23px,7vw,36px);letter-spacing:2px}
-  .intro-copy p{letter-spacing:2px;font-size:8px}
-  .intro-orbit-line{height:20px}
-  .intro-skip{top:15px;right:15px}
+.bmx-grid,.skills-grid{grid-template-columns:1fr}
+.bmx-card img{height:240px}
+.contact-box{padding:27px}
+.hero-title{font-size:38px}
+.intro-copy{bottom:13%}
+.intro-copy h1{font-size:clamp(23px,7vw,36px);letter-spacing:2px}
+.intro-copy p{letter-spacing:2px;font-size:8px}
+.intro-skip{top:15px;right:15px}
+.hud{right:12px;bottom:12px;padding:10px 13px}
+.hud-time{font-size:15px}
+.assistant-toggle{right:14px;bottom:95px}
+.assistant{right:12px;bottom:158px}
+.control-card{padding:16px}
+.control-card h3{font-size:17px}
+.planet-card{min-height:190px}
 }
 @media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{
-    scroll-behavior:auto!important;
-    animation-duration:.01ms!important;
-    transition-duration:.01ms!important;
-  }
+*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
 </style>
 </head>
@@ -387,15 +223,17 @@ footer{
   <button class="intro-skip" id="skipIntro">SKIP INTRO ✕</button>
   <div class="intro-copy">
     <h1>HELLO, HUMAN!</h1>
-    <p>AN UNKNOWN VISITOR HAS ARRIVED</p>
-    <div class="intro-orbit-line"></div>
+    <p>WELCOME TO MY PERSONAL UNIVERSE</p>
   </div>
+  <div class="intro-progress"></div>
 </div>
 
 <header>
   <a href="#home" class="logo">AL<span>.</span></a>
   <nav id="navigation">
     <a href="#home">HOME</a>
+    <a href="#mission">MISSION</a>
+    <a href="#explorer">EXPLORER</a>
     <a href="#about">ABOUT</a>
     <a href="#journey">JOURNEY</a>
     <a href="#bmx">BMX</a>
@@ -405,11 +243,18 @@ footer{
   <button class="menu-btn" id="menuBtn">☰</button>
 </header>
 
+<!-- HUD -->
+<div class="hud">
+  <div class="hud-top"><span class="hud-dot"></span> SYSTEM ONLINE</div>
+  <div class="hud-time" id="clock">00:00:00</div>
+  <div class="hud-date" id="date">LOADING DATE...</div>
+</div>
+
 <main>
 <section id="home">
   <div class="hero-orbit"></div>
   <div class="hero-content reveal">
-    <div class="hero-tag">WELCOME MY UNIVERSE</div>
+    <div class="hero-tag">WELCOME TO MY UNIVERSE // 2026</div>
     <h1 class="hero-title">
       HELLO, I'M<br>
       <span class="gradient">FACHRIANSYAH</span><br>
@@ -421,20 +266,80 @@ footer{
       Every journey has its own story. This is mine.
     </p>
     <div class="hero-buttons">
-      <a class="btn btn-primary" href="#about">EXPLORE MY WORLD ↗</a>
+      <a class="btn btn-primary" href="#explorer">EXPLORE MY WORLD ↗</a>
       <a class="btn" href="#contact">GET IN TOUCH</a>
     </div>
   </div>
 </section>
 
+<!-- MISSION CONTROL -->
+<section id="mission">
+  <div class="reveal">
+    <div class="section-label">SYSTEM / 00</div>
+    <h2 class="section-title">MISSION <span class="gradient">CONTROL.</span></h2>
+    <p class="section-desc">A quick overview of my personal universe.</p>
+  </div>
+  <div class="control-panel">
+    <div class="control-card reveal">
+      <small>IDENTITY</small>
+      <h3>AL.</h3>
+      <p>Personal Universe</p>
+    </div>
+    <div class="control-card reveal">
+      <small>FOCUS</small>
+      <h3>CREATIVE</h3>
+      <p>Multimedia & Digital</p>
+    </div>
+    <div class="control-card reveal">
+      <small>PASSION</small>
+      <h3>BMX</h3>
+      <p>Life on two wheels</p>
+    </div>
+    <div class="control-card reveal">
+      <small>STATUS</small>
+      <h3 style="color:var(--green)">ACTIVE</h3>
+      <p>Always learning</p>
+    </div>
+  </div>
+</section>
+
+<!-- PLANET EXPLORER -->
+<section id="explorer">
+  <div class="reveal">
+    <div class="section-label">SYSTEM / 01</div>
+    <h2 class="section-title">PLANET <span class="gradient">EXPLORER.</span></h2>
+    <p class="section-desc">Choose a planet to explore a different part of my universe.</p>
+  </div>
+
+  <div class="planet-grid">
+    <a href="#home" class="planet-card reveal">
+      <div class="planet-sphere p-home"></div>
+      <h3>PLANET HOME</h3>
+      <p>Welcome to my world</p>
+    </a>
+    <a href="#about" class="planet-card reveal">
+      <div class="planet-sphere p-about"><div class="planet-ring"></div></div>
+      <h3>PLANET ABOUT</h3>
+      <p>Discover my identity</p>
+    </a>
+    <a href="#bmx" class="planet-card reveal">
+      <div class="planet-sphere p-bmx"></div>
+      <h3>PLANET BMX</h3>
+      <p>Explore my passion</p>
+    </a>
+    <a href="#contact" class="planet-card reveal">
+      <div class="planet-sphere p-contact"></div>
+      <h3>PLANET CONTACT</h3>
+      <p>Connect with me</p>
+    </a>
+  </div>
+</section>
+
 <section id="about">
   <div class="reveal">
-    <div class="section-label">01 / ABOUT ME</div>
+    <div class="section-label">02 / ABOUT ME</div>
     <h2 class="section-title">THE PERSON <span class="gradient">BEHIND AL.</span></h2>
-    <p class="section-desc">
-      A little introduction about who I am, what I enjoy,
-      and the things that inspire me.
-    </p>
+    <p class="section-desc">A little introduction about who I am, what I enjoy, and the things that inspire me.</p>
   </div>
   <div class="about-grid">
     <div class="about-card reveal">
@@ -458,12 +363,9 @@ footer{
 
 <section id="journey">
   <div class="reveal">
-    <div class="section-label">02 / MY JOURNEY</div>
+    <div class="section-label">03 / MY JOURNEY</div>
     <h2 class="section-title">EVERY STEP <span class="gradient">MATTERS.</span></h2>
-    <p class="section-desc">
-      A continuous journey of learning, discovering,
-      and building experiences.
-    </p>
+    <p class="section-desc">A continuous journey of learning, discovering, and building experiences.</p>
   </div>
   <div class="timeline">
     <div class="timeline-item reveal">
@@ -486,12 +388,9 @@ footer{
 
 <section id="bmx">
   <div class="reveal">
-    <div class="section-label">03 / MY PASSION</div>
+    <div class="section-label">04 / MY PASSION</div>
     <h2 class="section-title">LIFE ON <span class="gradient">TWO WHEELS.</span></h2>
-    <p class="section-desc">
-      BMX is more than a hobby. It's a way to enjoy the ride,
-      challenge myself, and create memories. Tap a picture to see it closer.
-    </p>
+    <p class="section-desc">BMX is more than a hobby. It's a way to enjoy the ride, challenge myself, and create memories. Tap a picture to see it closer.</p>
   </div>
   <div class="bmx-grid">
     <div class="bmx-card reveal" data-image="IMG-20261104-WA0006.jpg" data-title="BMX MOMENT 01" data-description="A moment from my BMX journey. Every ride brings a new experience.">
@@ -511,7 +410,7 @@ footer{
 
 <section id="abilities">
   <div class="reveal">
-    <div class="section-label">04 / WHAT I BRING</div>
+    <div class="section-label">05 / WHAT I BRING</div>
     <h2 class="section-title">MY <span class="gradient">ABILITIES.</span></h2>
     <p class="section-desc">Skills and qualities that I continue to develop.</p>
   </div>
@@ -527,12 +426,9 @@ footer{
 
 <section id="contact">
   <div class="reveal">
-    <div class="section-label">05 / CONTACT</div>
+    <div class="section-label">06 / CONTACT</div>
     <h2 class="section-title">LET'S <span class="gradient">CONNECT.</span></h2>
-    <p class="section-desc">
-      Have an idea, a project, or just want to say hello?
-      Feel free to reach out.
-    </p>
+    <p class="section-desc">Have an idea, a project, or just want to say hello? Feel free to reach out.</p>
   </div>
   <div class="contact-box reveal">
     <div>
@@ -553,6 +449,28 @@ footer{
   <span>MADE WITH CREATIVITY & CURIOSITY.</span>
 </footer>
 
+<!-- AI STYLE ASSISTANT -->
+<button class="assistant-toggle" id="assistantToggle" aria-label="Open assistant">✦</button>
+<div class="assistant" id="assistant">
+  <div class="assistant-head">
+    <div>
+      <h3>AL PORTFOLIO ASSISTANT</h3>
+      <small>PERSONAL INFORMATION SYSTEM</small>
+    </div>
+    <button class="assistant-close" id="assistantClose">×</button>
+  </div>
+  <div class="assistant-body">
+    <div class="assistant-message">Hello! I'm the virtual guide for this portfolio. What would you like to know?</div>
+    <div class="assistant-options">
+      <button data-answer="Fachriansyah Alfigo is a Multimedia and Digital Management student who enjoys creative media, technology, communication, and visual storytelling.">Who is Fachriansyah?</button>
+      <button data-answer="His interests include multimedia, creative technology, digital experiences, BMX, and visual storytelling.">What are his interests?</button>
+      <button data-answer="You can explore the BMX gallery to see some personal moments and memories from his BMX journey.">Tell me about BMX</button>
+      <button data-answer="You can contact Fachriansyah through Instagram, WhatsApp, or email in the Contact section.">How can I contact him?</button>
+    </div>
+    <div class="assistant-answer" id="assistantAnswer">Select a question above to get an answer.</div>
+  </div>
+</div>
+
 <!-- PHOTO MODAL -->
 <div class="modal" id="photoModal">
   <button class="modal-close" id="modalClose">×</button>
@@ -569,12 +487,33 @@ footer{
 /* NAVIGATION */
 const menuBtn=document.getElementById("menuBtn");
 const navigation=document.getElementById("navigation");
-menuBtn.addEventListener("click",()=>{
-  navigation.classList.toggle("open");
-});
+menuBtn.addEventListener("click",()=>navigation.classList.toggle("open"));
 navigation.querySelectorAll("a").forEach(link=>{
   link.addEventListener("click",()=>navigation.classList.remove("open"));
 });
+
+/* FAST INTRO */
+const intro=document.getElementById("intro");
+let introFinished=false;
+function finishIntro(){
+  if(introFinished)return;
+  introFinished=true;
+  intro.classList.add("hide");
+}
+document.getElementById("skipIntro").addEventListener("click",finishIntro);
+const introDuration=window.matchMedia("(prefers-reduced-motion: reduce)").matches?300:2100;
+setTimeout(finishIntro,introDuration);
+
+/* LIVE CLOCK */
+function updateClock(){
+  const now=new Date();
+  document.getElementById("clock").textContent=
+    now.toLocaleTimeString("id-ID",{hour12:false});
+  document.getElementById("date").textContent=
+    now.toLocaleDateString("id-ID",{weekday:"short",day:"2-digit",month:"short",year:"numeric"}).toUpperCase();
+}
+updateClock();
+setInterval(updateClock,1000);
 
 /* REVEAL */
 const observer=new IntersectionObserver(entries=>{
@@ -599,11 +538,28 @@ document.querySelectorAll(".bmx-card").forEach(card=>{
 });
 function closeModal(){modal.classList.remove("show")}
 document.getElementById("modalClose").addEventListener("click",closeModal);
-modal.addEventListener("click",e=>{
-  if(e.target===modal)closeModal();
+modal.addEventListener("click",e=>{if(e.target===modal)closeModal()});
+
+/* PORTFOLIO ASSISTANT */
+const assistant=document.getElementById("assistant");
+document.getElementById("assistantToggle").addEventListener("click",()=>{
+  assistant.classList.toggle("show");
 });
+document.getElementById("assistantClose").addEventListener("click",()=>{
+  assistant.classList.remove("show");
+});
+document.querySelectorAll(".assistant-options button").forEach(button=>{
+  button.addEventListener("click",()=>{
+    document.getElementById("assistantAnswer").textContent=button.dataset.answer;
+  });
+});
+
+/* ESCAPE KEY */
 document.addEventListener("keydown",e=>{
-  if(e.key==="Escape")closeModal();
+  if(e.key==="Escape"){
+    closeModal();
+    assistant.classList.remove("show");
+  }
 });
 
 /* CURSOR LIGHT */
@@ -616,6 +572,7 @@ if(matchMedia("(pointer:fine)").matches){
 }
 </script>
 
+<!-- THREE JS -->
 <script type="importmap">
 {
   "imports":{
@@ -626,10 +583,8 @@ if(matchMedia("(pointer:fine)").matches){
 
 <script type="module">
 import * as THREE from "three";
-import {GLTFLoader} from
-"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js";
+import {GLTFLoader} from "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js";
 
-/* SCENE */
 const container=document.getElementById("space3d");
 const scene=new THREE.Scene();
 scene.fog=new THREE.FogExp2(0x070914,.018);
@@ -648,15 +603,12 @@ container.appendChild(renderer.domElement);
 
 /* LIGHTS */
 scene.add(new THREE.HemisphereLight(0xb8d9ff,0x17203c,2));
-
 const keyLight=new THREE.DirectionalLight(0xffffff,2.2);
 keyLight.position.set(3,7,6);
 scene.add(keyLight);
-
 const cyanLight=new THREE.PointLight(0x42dfff,30,16);
 cyanLight.position.set(0,2,1);
 scene.add(cyanLight);
-
 const blueLight=new THREE.PointLight(0x426dff,25,18);
 blueLight.position.set(-4,1,2);
 scene.add(blueLight);
@@ -664,35 +616,20 @@ scene.add(blueLight);
 /* STARS */
 const starPositions=[];
 for(let i=0;i<1600;i++){
-  starPositions.push(
-    (Math.random()-.5)*55,
-    (Math.random()-.5)*34,
-    (Math.random()-.5)*42-5
-  );
+  starPositions.push((Math.random()-.5)*55,(Math.random()-.5)*34,(Math.random()-.5)*42-5);
 }
 const starGeometry=new THREE.BufferGeometry();
-starGeometry.setAttribute(
-  "position",
-  new THREE.Float32BufferAttribute(starPositions,3)
-);
-const stars=new THREE.Points(
-  starGeometry,
-  new THREE.PointsMaterial({
-    color:0xdceaff,size:.045,transparent:true,opacity:.9
-  })
-);
+starGeometry.setAttribute("position",new THREE.Float32BufferAttribute(starPositions,3));
+const stars=new THREE.Points(starGeometry,new THREE.PointsMaterial({color:0xdceaff,size:.045,transparent:true,opacity:.9}));
 scene.add(stars);
 
 /* PLANET */
 const planetGroup=new THREE.Group();
 const planet=new THREE.Mesh(
   new THREE.SphereGeometry(1.65,48,48),
-  new THREE.MeshStandardMaterial({
-    color:0x244caa,roughness:.78,metalness:.12
-  })
+  new THREE.MeshStandardMaterial({color:0x244caa,roughness:.78,metalness:.12})
 );
 planetGroup.add(planet);
-
 const planetRing=new THREE.Mesh(
   new THREE.TorusGeometry(2.18,.035,8,120),
   new THREE.MeshBasicMaterial({color:0x80baff})
@@ -706,35 +643,25 @@ scene.add(planetGroup);
 /* MOON */
 const moon=new THREE.Mesh(
   new THREE.SphereGeometry(.42,28,28),
-  new THREE.MeshStandardMaterial({
-    color:0x6e79b5,roughness:1
-  })
+  new THREE.MeshStandardMaterial({color:0x6e79b5,roughness:1})
 );
 moon.position.set(5.4,2.3,-4.5);
 scene.add(moon);
 
 /* UFO */
 const ufo=new THREE.Group();
-
 const saucer=new THREE.Mesh(
   new THREE.SphereGeometry(1.55,56,28),
-  new THREE.MeshPhysicalMaterial({
-    color:0x9eafc8,metalness:.88,roughness:.2,clearcoat:.8
-  })
+  new THREE.MeshPhysicalMaterial({color:0x9eafc8,metalness:.88,roughness:.2,clearcoat:.8})
 );
 saucer.scale.set(1,.2,1);
 ufo.add(saucer);
-
 const dome=new THREE.Mesh(
   new THREE.SphereGeometry(.66,40,24,0,Math.PI*2,0,Math.PI/2),
-  new THREE.MeshPhysicalMaterial({
-    color:0x8df4ff,transparent:true,opacity:.72,
-    metalness:.15,roughness:.08,clearcoat:1
-  })
+  new THREE.MeshPhysicalMaterial({color:0x8df4ff,transparent:true,opacity:.72,metalness:.15,roughness:.08,clearcoat:1})
 );
 dome.position.y=.16;
 ufo.add(dome);
-
 const rim=new THREE.Mesh(
   new THREE.TorusGeometry(1.43,.055,12,100),
   new THREE.MeshBasicMaterial({color:0x42dcff})
@@ -742,16 +669,10 @@ const rim=new THREE.Mesh(
 rim.rotation.x=Math.PI/2;
 rim.position.y=-.1;
 ufo.add(rim);
-
 for(let i=0;i<12;i++){
-  const bulb=new THREE.Mesh(
-    new THREE.SphereGeometry(.065,16,16),
-    new THREE.MeshBasicMaterial({color:0x8ef7ff})
-  );
+  const bulb=new THREE.Mesh(new THREE.SphereGeometry(.065,16,16),new THREE.MeshBasicMaterial({color:0x8ef7ff}));
   const angle=i/12*Math.PI*2;
-  bulb.position.set(
-    Math.cos(angle)*1.28,-.06,Math.sin(angle)*1.28
-  );
+  bulb.position.set(Math.cos(angle)*1.28,-.06,Math.sin(angle)*1.28);
   ufo.add(bulb);
 }
 ufo.position.set(0,4.25,-1.1);
@@ -760,70 +681,45 @@ scene.add(ufo);
 
 /* LIGHT BEAM */
 const beamGroup=new THREE.Group();
-
 const beamOuter=new THREE.Mesh(
   new THREE.CylinderGeometry(.78,1.28,3.45,40,1,true),
-  new THREE.MeshBasicMaterial({
-    color:0x3bcfff,transparent:true,opacity:.085,
-    side:THREE.DoubleSide,depthWrite:false
-  })
+  new THREE.MeshBasicMaterial({color:0x3bcfff,transparent:true,opacity:.085,side:THREE.DoubleSide,depthWrite:false})
 );
 const beamInner=new THREE.Mesh(
   new THREE.CylinderGeometry(.34,.72,3.35,40,1,true),
-  new THREE.MeshBasicMaterial({
-    color:0x8af4ff,transparent:true,opacity:.09,
-    side:THREE.DoubleSide,depthWrite:false
-  })
+  new THREE.MeshBasicMaterial({color:0x8af4ff,transparent:true,opacity:.09,side:THREE.DoubleSide,depthWrite:false})
 );
 beamOuter.position.y=1.95;
 beamInner.position.y=1.95;
 beamGroup.add(beamOuter,beamInner);
 scene.add(beamGroup);
 
-/* ALIEN ROOT */
+/* ALIEN */
 const alienRoot=new THREE.Group();
 alienRoot.position.set(0,.05,0);
 scene.add(alienRoot);
-
 let mixer=null;
 let modelReady=false;
 
 function fitModel(model){
-  // Keep the GLB original material and anatomy.
   const box=new THREE.Box3().setFromObject(model);
   const size=box.getSize(new THREE.Vector3());
   const center=box.getCenter(new THREE.Vector3());
-
-  const targetHeight=2.45;
-  const scale=targetHeight/(size.y||1);
-
+  const scale=2.45/(size.y||1);
   model.scale.setScalar(scale);
-  model.position.set(
-    -center.x*scale,
-    -box.min.y*scale,
-    -center.z*scale
-  );
-
+  model.position.set(-center.x*scale,-box.min.y*scale,-center.z*scale);
   alienRoot.add(model);
   modelReady=true;
 }
 
-/* FALLBACK ALIEN */
 function createFallbackAlien(){
   const group=new THREE.Group();
-
-  const skin=new THREE.MeshStandardMaterial({
-    color:0x9be8d1,roughness:.42,metalness:.08
-  });
-  const dark=new THREE.MeshPhysicalMaterial({
-    color:0x050b19,roughness:.08,metalness:.22,clearcoat:1
-  });
+  const skin=new THREE.MeshStandardMaterial({color:0x9be8d1,roughness:.42,metalness:.08});
+  const dark=new THREE.MeshPhysicalMaterial({color:0x050b19,roughness:.08,metalness:.22,clearcoat:1});
   const glow=new THREE.MeshBasicMaterial({color:0x53eaff});
 
   function sphere(parent,material,pos,scale){
-    const mesh=new THREE.Mesh(
-      new THREE.SphereGeometry(1,28,24),material
-    );
+    const mesh=new THREE.Mesh(new THREE.SphereGeometry(1,28,24),material);
     mesh.position.set(...pos);
     mesh.scale.set(...scale);
     parent.add(mesh);
@@ -832,16 +728,12 @@ function createFallbackAlien(){
 
   sphere(group,skin,[0,.82,0],[.43,.65,.32]);
   sphere(group,skin,[0,1.85,0],[.72,.83,.58]);
-
   sphere(group,dark,[-.31,1.94,.49],[.22,.31,.12]);
   sphere(group,dark,[.31,1.94,.49],[.22,.31,.12]);
-
   sphere(group,glow,[-.37,2.08,.60],[.035,.055,.018]);
   sphere(group,glow,[.25,2.08,.60],[.035,.055,.018]);
-
   sphere(group,skin,[0,1.17,0],[.22,.22,.22]);
 
-  // Two complete arms with palms and five fingers.
   for(const side of [-1,1]){
     const shoulder=[side*.39,1.12,0];
     const elbow=[side*.69,.91,.06];
@@ -851,106 +743,63 @@ function createFallbackAlien(){
       const va=new THREE.Vector3(...a);
       const vb=new THREE.Vector3(...b);
       const direction=new THREE.Vector3().subVectors(vb,va);
-      const mesh=new THREE.Mesh(
-        new THREE.CylinderGeometry(r*.8,r,direction.length(),16),
-        skin
-      );
+      const mesh=new THREE.Mesh(new THREE.CylinderGeometry(r*.8,r,direction.length(),16),skin);
       mesh.position.copy(va).add(vb).multiplyScalar(.5);
-      mesh.quaternion.setFromUnitVectors(
-        new THREE.Vector3(0,1,0),direction.normalize()
-      );
+      mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),direction.normalize());
       group.add(mesh);
       sphere(group,skin,a,[r,r,r]);
       sphere(group,skin,b,[r*.8,r*.8,r*.8]);
     }
-
     segment(shoulder,elbow,.14);
     segment(elbow,wrist,.11);
     sphere(group,skin,[side*.99,.68,.16],[.15,.13,.09]);
 
     for(let f=0;f<4;f++){
-      const x=side*(.91+f*.075);
-      const finger=new THREE.Mesh(
-        new THREE.CapsuleGeometry(.035,.13,4,8),skin
-      );
-      finger.position.set(x,.52,.17);
+      const finger=new THREE.Mesh(new THREE.CapsuleGeometry(.035,.13,4,8),skin);
+      finger.position.set(side*(.91+f*.075),.52,.17);
       group.add(finger);
     }
-
-    const thumb=new THREE.Mesh(
-      new THREE.CapsuleGeometry(.04,.12,4,8),skin
-    );
+    const thumb=new THREE.Mesh(new THREE.CapsuleGeometry(.04,.12,4,8),skin);
     thumb.position.set(side*1.02,.68,.24);
     thumb.rotation.z=side*.8;
     group.add(thumb);
   }
-
   for(const side of [-1,1]){
     sphere(group,skin,[side*.19,.18,0],[.15,.42,.17]);
     sphere(group,skin,[side*.2,-.12,.13],[.19,.12,.28]);
   }
-
   sphere(group,glow,[0,.94,.31],[.105,.105,.035]);
-
   alienRoot.add(group);
   modelReady=true;
 }
 
-/* LOAD FLOCKBAY GLB */
+/* LOAD MODEL */
 const loader=new GLTFLoader();
-
 loader.load(
   "https://api.flockbay.com/bootstrap/library/models/v1/560ed1bc0f8de11683bf57432f045aedc9a130f647b7707f962a0572577e3c6c/alien.glb",
   gltf=>{
     fitModel(gltf.scene);
-
-    if(gltf.animations && gltf.animations.length){
+    if(gltf.animations&&gltf.animations.length){
       mixer=new THREE.AnimationMixer(gltf.scene);
       mixer.clipAction(gltf.animations[0]).reset().fadeIn(.4).play();
     }
-
-    gltf.scene.traverse(obj=>{
-      if(obj.isMesh){
-        obj.castShadow=true;
-        obj.receiveShadow=true;
-
-        // Do not recolor the GLB or replace its hand/body geometry.
-        const materials=Array.isArray(obj.material)
-          ? obj.material : [obj.material];
-
-        materials.forEach(material=>{
-          if(material && "roughness" in material){
-            material.roughness=Math.min(material.roughness??.5,.55);
-          }
-        });
-      }
-    });
   },
   undefined,
   error=>{
     console.error("Alien GLB gagal dimuat:",error);
-    createFallbackAlien();
+    if(!modelReady)createFallbackAlien();
   }
 );
 
-/* INTRO CONTROL */
-let introFinished=false;
-const intro=document.getElementById("intro");
-const startTime=performance.now();
-
-function finishIntro(){
-  if(introFinished)return;
-  introFinished=true;
-  intro.classList.add("hide");
-}
-document.getElementById("skipIntro").addEventListener("click",finishIntro);
+/* FALLBACK TIMER */
+setTimeout(()=>{
+  if(!modelReady)createFallbackAlien();
+},4500);
 
 /* ANIMATION */
 const clock=new THREE.Clock();
-
 function animate(){
   requestAnimationFrame(animate);
-
   const delta=clock.getDelta();
   const t=clock.elapsedTime;
 
@@ -959,19 +808,12 @@ function animate(){
   planetRing.rotation.z=t*.025;
   moon.rotation.y=t*.12;
 
-  // UFO descends and hovers above alien.
   const descent=Math.min(t/2.2,1);
   ufo.position.y=4.8-descent*.55+Math.sin(t*1.1)*.055;
   ufo.rotation.y=Math.sin(t*.42)*.09;
   ufo.rotation.z=Math.sin(t*.7)*.018;
 
-  // Beam is locked to UFO position.
-  beamGroup.position.set(
-    ufo.position.x,
-    ufo.position.y-2.15,
-    ufo.position.z
-  );
-
+  beamGroup.position.set(ufo.position.x,ufo.position.y-2.15,ufo.position.z);
   beamGroup.scale.y=1+Math.sin(t*2.3)*.025;
   beamOuter.material.opacity=.075+Math.sin(t*2.5)*.018;
   beamInner.material.opacity=.08+Math.sin(t*2.5+1)*.02;
@@ -982,24 +824,15 @@ function animate(){
     alienRoot.rotation.y=Math.sin(t*.48)*.08;
     alienRoot.rotation.z=Math.sin(t*.8)*.012;
   }
-
   if(mixer)mixer.update(delta);
-
-  if(!introFinished && performance.now()-startTime>8500){
-    finishIntro();
-  }
-
   renderer.render(scene,camera);
 }
 animate();
 
 /* RESPONSIVE */
 function resizeScene(){
-  const w=innerWidth;
-  const h=innerHeight;
-
+  const w=innerWidth,h=innerHeight;
   camera.aspect=w/h;
-
   if(w<600){
     camera.fov=49;
     camera.position.set(0,1.5,14.2);
@@ -1017,7 +850,6 @@ function resizeScene(){
     moon.position.set(5.4,2.3,-4.5);
     ufo.scale.setScalar(.92);
   }
-
   camera.updateProjectionMatrix();
   renderer.setSize(w,h);
 }
