@@ -12,18 +12,22 @@
 
 <style>
 :root{
- --bg:#10090d;
- --panel:#1a1016;
+ --bg:#0d080c;
+ --panel:#191018;
  --panel2:#24151e;
  --red:#8e173c;
  --red2:#c22d59;
  --white:#f8f4f6;
- --muted:#a99ba2;
+ --muted:#aa9ca4;
  --cyan:#79eaff;
  --line:rgba(255,255,255,.12);
 }
 
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
+}
 
 html{scroll-behavior:smooth}
 
@@ -35,6 +39,7 @@ body{
 }
 
 button{font-family:inherit;cursor:pointer}
+.hidden{display:none!important}
 
 #particles{
  position:fixed;
@@ -47,40 +52,38 @@ button{font-family:inherit;cursor:pointer}
 .scanlines{
  position:fixed;
  inset:0;
- z-index:10;
+ z-index:150;
  pointer-events:none;
- opacity:.08;
+ opacity:.045;
  background:repeating-linear-gradient(
  transparent 0px,
  transparent 3px,
- rgba(255,255,255,.12) 4px
+ rgba(255,255,255,.2) 4px
  );
 }
 
-.hidden{display:none!important}
-
-/* INTRO */
+/* =================================
+   OPENING CINEMATIC
+================================= */
 
 #intro{
  position:fixed;
  inset:0;
  z-index:100;
  background:
- radial-gradient(ellipse at center,rgba(113,18,54,.25),transparent 55%),
+ radial-gradient(ellipse at center,rgba(113,18,54,.3),transparent 55%),
  #09070a;
  display:flex;
  align-items:center;
  justify-content:center;
  padding:24px;
- overflow:hidden;
+ transition:opacity 1s;
 }
 
 .intro-content{
  width:100%;
  max-width:650px;
  text-align:center;
- position:relative;
- z-index:2;
 }
 
 .intro-top{
@@ -88,24 +91,25 @@ button{font-family:inherit;cursor:pointer}
  color:var(--cyan);
  font-size:10px;
  letter-spacing:5px;
- margin-bottom:32px;
+ margin-bottom:35px;
 }
 
 .reactor{
  width:145px;
  height:145px;
- border:2px solid rgba(121,234,255,.5);
+ border:2px solid rgba(121,234,255,.55);
  border-radius:50%;
- margin:0 auto 32px;
+ margin:0 auto 35px;
  display:grid;
  place-items:center;
  position:relative;
- box-shadow:0 0 30px rgba(121,234,255,.15),
+ box-shadow:0 0 30px rgba(121,234,255,.2),
  inset 0 0 25px rgba(121,234,255,.12);
  animation:reactorPulse 3s infinite;
 }
 
-.reactor:before,.reactor:after{
+.reactor:before,
+.reactor:after{
  content:"";
  position:absolute;
  border:1px solid var(--cyan);
@@ -124,7 +128,9 @@ button{font-family:inherit;cursor:pointer}
 .reactor-core{
  width:55px;
  height:55px;
- background:radial-gradient(circle,#fff 0%,#79eaff 25%,#227d9c 70%,transparent 100%);
+ background:radial-gradient(
+ circle,#fff 0%,#79eaff 25%,#227d9c 70%,transparent 100%
+ );
  border-radius:50%;
  box-shadow:0 0 25px var(--cyan),0 0 65px var(--cyan);
 }
@@ -134,11 +140,13 @@ button{font-family:inherit;cursor:pointer}
  50%{transform:scale(1.06);filter:brightness(1.5)}
 }
 
-@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes spin{
+ to{transform:rotate(360deg)}
+}
 
 .intro-title{
  font-family:Orbitron;
- font-size:clamp(27px,7vw,48px);
+ font-size:clamp(28px,7vw,48px);
  letter-spacing:4px;
  margin-bottom:12px;
 }
@@ -166,7 +174,6 @@ button{font-family:inherit;cursor:pointer}
  background:#30232b;
  border-radius:10px;
  overflow:hidden;
- margin-bottom:10px;
 }
 
 .loading-bar{
@@ -174,7 +181,7 @@ button{font-family:inherit;cursor:pointer}
  height:100%;
  background:var(--cyan);
  box-shadow:0 0 15px var(--cyan);
- animation:load 3s forwards;
+ animation:load 3.5s forwards;
 }
 
 @keyframes load{to{width:100%}}
@@ -186,19 +193,22 @@ button{font-family:inherit;cursor:pointer}
  margin-top:20px;
 }
 
-/* JARVIS INTRO */
+/* =================================
+   JARVIS INTRODUCTION
+================================= */
 
 #briefing{
  position:fixed;
  inset:0;
  z-index:90;
  background:
- radial-gradient(ellipse at 50% 35%,rgba(26,111,140,.14),transparent 55%),
+ radial-gradient(ellipse at 50% 35%,rgba(26,111,140,.16),transparent 55%),
  #090b10;
  display:flex;
  align-items:center;
  justify-content:center;
  padding:22px;
+ transition:opacity 1s;
 }
 
 .briefing-inner{
@@ -221,7 +231,8 @@ button{font-family:inherit;cursor:pointer}
  animation:float 3s ease-in-out infinite;
 }
 
-.jarvis-orb:before,.jarvis-orb:after{
+.jarvis-orb:before,
+.jarvis-orb:after{
  content:"";
  position:absolute;
  inset:-12px;
@@ -274,7 +285,6 @@ button{font-family:inherit;cursor:pointer}
  line-height:1.9;
  color:#d8eaf0;
  font-size:14px;
- position:relative;
 }
 
 .briefing-box:before{
@@ -312,12 +322,181 @@ button{font-family:inherit;cursor:pointer}
  width:0;
  height:100%;
  background:var(--cyan);
- transition:width .4s;
+ transition:width .2s;
+}
+
+/* =================================
+   INFINITY STONES & SNAP
+================================= */
+
+.snap-scene{
+ display:none;
+ margin:25px auto 10px;
+ position:relative;
+ height:160px;
+ max-width:320px;
+ align-items:center;
+ justify-content:center;
+}
+
+.snap-scene.active{
+ display:flex;
+ animation:sceneAppear .8s ease;
+}
+
+@keyframes sceneAppear{
+ from{opacity:0;transform:scale(.5)}
+ to{opacity:1;transform:scale(1)}
+}
+
+.infinity-gauntlet{
+ width:110px;
+ height:125px;
+ position:relative;
+ display:grid;
+ place-items:center;
+ border:2px solid #c99a55;
+ border-radius:35px 35px 45px 45px;
+ background:linear-gradient(145deg,#9b6a28,#382313);
+ box-shadow:0 0 25px rgba(255,190,70,.35);
+ transform:rotate(-12deg);
+}
+
+.infinity-gauntlet:before{
+ content:"";
+ position:absolute;
+ width:65px;
+ height:65px;
+ border:2px solid #e4b85e;
+ border-radius:50%;
+ background:rgba(20,10,5,.5);
+}
+
+.stone{
+ position:absolute;
+ width:17px;
+ height:17px;
+ border-radius:50%;
+ z-index:2;
+ animation:stoneGlow 1s infinite alternate;
+}
+
+.stone:nth-child(1){
+ color:#a94aff;background:#a94aff;
+ top:15px;left:25px;
+}
+.stone:nth-child(2){
+ color:#f5d34d;background:#f5d34d;
+ top:15px;right:25px;
+}
+.stone:nth-child(3){
+ color:#40dfff;background:#40dfff;
+ top:52px;left:10px;
+}
+.stone:nth-child(4){
+ color:#55e878;background:#55e878;
+ top:52px;right:10px;
+}
+.stone:nth-child(5){
+ color:#ff8a32;background:#ff8a32;
+ bottom:12px;left:27px;
+}
+.stone:nth-child(6){
+ color:#ff456d;background:#ff456d;
+ bottom:12px;right:27px;
+}
+
+@keyframes stoneGlow{
+ from{filter:brightness(.7);box-shadow:0 0 5px currentColor}
+ to{filter:brightness(2.2);box-shadow:0 0 20px currentColor}
+}
+
+.snap-hand{
+ position:absolute;
+ font-size:55px;
+ opacity:0;
+ transform:scale(.2);
+ z-index:5;
+}
+
+.snap-scene.snap .snap-hand{
+ animation:snapHand .7s forwards;
+}
+
+@keyframes snapHand{
+ 0%{opacity:0;transform:scale(.2)}
+ 60%{opacity:1;transform:scale(1.3)}
+ 100%{opacity:1;transform:scale(1)}
+}
+
+.snap-flash{
+ position:fixed;
+ inset:0;
+ background:white;
+ z-index:200;
+ opacity:0;
+ pointer-events:none;
+}
+
+.snap-flash.active{
+ animation:flashEffect 1.2s ease;
+}
+
+@keyframes flashEffect{
+ 0%{opacity:0}
+ 15%{opacity:1}
+ 35%{opacity:.85}
+ 100%{opacity:0}
+}
+
+.jarvis-disappear{
+ animation:dissolveJarvis 1.5s forwards;
+}
+
+@keyframes dissolveJarvis{
+ 0%{opacity:1;filter:brightness(1)}
+ 35%{opacity:.8;filter:brightness(4) blur(2px)}
+ 100%{
+  opacity:0;
+  filter:blur(15px);
+  transform:scale(1.3);
+ }
+}
+
+.final-identity{
+ display:none;
+ margin-top:25px;
+ animation:identityReveal 1.5s ease;
+}
+
+.final-identity.show{display:block}
+
+.final-identity h1{
+ font-family:Orbitron;
+ font-size:clamp(32px,9vw,55px);
+ letter-spacing:3px;
+ color:white;
+ text-shadow:0 0 25px rgba(194,45,89,.7);
+}
+
+.final-identity h1 span{color:var(--red2)}
+
+.final-identity p{
+ color:var(--cyan);
+ font-family:Orbitron;
+ font-size:11px;
+ letter-spacing:4px;
+ margin-top:12px;
+}
+
+@keyframes identityReveal{
+ from{opacity:0;transform:translateY(25px);filter:blur(8px)}
+ to{opacity:1;transform:translateY(0);filter:blur(0)}
 }
 
 .enter-button{
  display:none;
- margin:20px auto 0;
+ margin:22px auto 0;
  border:1px solid var(--red2);
  color:white;
  background:linear-gradient(110deg,#76132f,#a51f48);
@@ -330,7 +509,11 @@ button{font-family:inherit;cursor:pointer}
 }
 
 .enter-button.show{display:block}
-.enter-button:hover{transform:translateY(-3px);box-shadow:0 0 35px rgba(194,45,89,.5)}
+
+.enter-button:hover{
+ transform:translateY(-3px);
+ box-shadow:0 0 35px rgba(194,45,89,.5);
+}
 
 .skip-button{
  background:transparent;
@@ -341,7 +524,9 @@ button{font-family:inherit;cursor:pointer}
  margin-top:18px;
 }
 
-/* MAIN */
+/* =================================
+   MAIN WEBSITE
+================================= */
 
 #mainWebsite{
  display:none;
@@ -354,7 +539,7 @@ header{
  position:sticky;
  top:0;
  z-index:50;
- background:rgba(13,8,12,.92);
+ background:rgba(13,8,12,.93);
  backdrop-filter:blur(18px);
  border-bottom:1px solid var(--line);
 }
@@ -575,7 +760,7 @@ header{
 .c3{bottom:-12px;left:-12px;border-width:0 0 2px 2px}
 .c4{bottom:-12px;right:-12px;border-width:0 2px 2px 0}
 
-/* INFO STRIP */
+/* HOME INFO */
 
 .info-strip{
  display:grid;
@@ -608,16 +793,12 @@ header{
  line-height:1.7;
 }
 
-/* SECTIONS */
-
 .section{
  padding:65px 0;
  border-top:1px solid var(--line);
 }
 
-.section-heading{
- margin-bottom:28px;
-}
+.section-heading{margin-bottom:28px}
 
 .section-heading .description{max-width:600px}
 
@@ -662,7 +843,9 @@ header{
  line-height:1.9;
 }
 
-/* STORY PAGE */
+/* =================================
+   MY STORY PAGE
+================================= */
 
 .story-hero{
  padding:65px 0 40px;
@@ -723,7 +906,10 @@ header{
  letter-spacing:1px;
 }
 
-.profile-row span:last-child{color:#e7dfe3;line-height:1.7}
+.profile-row span:last-child{
+ color:#e7dfe3;
+ line-height:1.7;
+}
 
 .story-block{
  padding:50px 0;
@@ -804,7 +990,6 @@ header{
  border:1px solid rgba(194,45,89,.5);
  background:linear-gradient(120deg,rgba(142,23,60,.18),rgba(20,12,18,.8));
  padding:30px;
- position:relative;
 }
 
 .vision-panel h3{
@@ -819,7 +1004,9 @@ header{
  font-size:13px;
 }
 
-/* JARVIS CHAT */
+/* =================================
+   JARVIS CHAT
+================================= */
 
 .jarvis-launch{
  position:fixed;
@@ -851,7 +1038,10 @@ header{
  box-shadow:0 0 30px rgba(0,0,0,.6);
 }
 
-.chat-panel.open{display:block;animation:pageIn .3s}
+.chat-panel.open{
+ display:block;
+ animation:pageIn .3s;
+}
 
 .chat-head{
  padding:15px;
@@ -937,29 +1127,71 @@ footer{
  line-height:2;
 }
 
+/* =================================
+   MOBILE RESPONSIVE
+================================= */
+
 @media(max-width:750px){
- .navbar{padding:13px 5%;flex-wrap:wrap;gap:12px}
+
+ .navbar{
+  padding:13px 5%;
+  flex-wrap:wrap;
+  gap:12px;
+ }
+
  .nav-status{display:none}
- .hero{grid-template-columns:1fr;gap:45px;padding-top:45px}
+
+ .hero{
+  grid-template-columns:1fr;
+  gap:45px;
+  padding-top:45px;
+ }
+
  .hero-photo-wrap{max-width:310px}
+
  .photo-frame img{height:370px}
+
  .info-strip{grid-template-columns:1fr}
+
  .card-grid{grid-template-columns:1fr}
+
  .story-hero{grid-template-columns:1fr}
- .story-photo{max-width:290px;margin:auto}
- .story-intro{text-align:left}
+
+ .story-photo{
+  max-width:290px;
+  margin:auto;
+ }
+
  .gallery{grid-template-columns:1fr}
+
  .gallery-item img{height:330px}
+
  .container{padding:35px 6%}
+
  .section{padding:45px 0}
- .nav-buttons button{padding:9px 10px;font-size:9px}
+
+ .nav-buttons button{
+  padding:9px 10px;
+  font-size:9px;
+ }
 }
 
 @media(max-width:390px){
+
  .logo{font-size:17px}
- .nav-buttons button{padding:8px;font-size:8px}
- .briefing-box{padding:17px;font-size:12px}
+
+ .nav-buttons button{
+  padding:8px;
+  font-size:8px;
+ }
+
+ .briefing-box{
+  padding:17px;
+  font-size:12px;
+ }
+
  .photo-frame img{height:340px}
+
 }
 </style>
 </head>
@@ -969,81 +1201,156 @@ footer{
 <canvas id="particles"></canvas>
 <div class="scanlines"></div>
 
-<!-- OPENING -->
+<!-- OPENING SCREEN -->
+
 <section id="intro">
  <div class="intro-content">
-  <div class="intro-top">STARK INDUSTRIES // PERSONAL SYSTEM</div>
+
+  <div class="intro-top">
+   STARK INDUSTRIES // PERSONAL SYSTEM
+  </div>
 
   <div class="reactor">
    <div class="reactor-core"></div>
   </div>
 
-  <div class="intro-title">F.A <span>UNIVERSE</span></div>
-  <div class="intro-sub">PERSONAL LABORATORY EXPERIENCE</div>
+  <div class="intro-title">
+   F.A <span>UNIVERSE</span>
+  </div>
 
-  <div class="system-status" id="loadingText">INITIALIZING SYSTEM...</div>
-  <div class="loading-track"><div class="loading-bar"></div></div>
+  <div class="intro-sub">
+   PERSONAL LABORATORY EXPERIENCE
+  </div>
 
-  <div class="intro-footer">POWERED BY CURIOSITY & IMAGINATION</div>
+  <div class="system-status" id="loadingText">
+   INITIALIZING SYSTEM...
+  </div>
+
+  <div class="loading-track">
+   <div class="loading-bar"></div>
+  </div>
+
+  <div class="intro-footer">
+   POWERED BY CURIOSITY & IMAGINATION
+  </div>
+
  </div>
 </section>
 
+
 <!-- JARVIS BRIEFING -->
+
 <section id="briefing" class="hidden">
+
  <div class="briefing-inner">
 
-  <div class="jarvis-orb">
+  <div class="jarvis-orb" id="jarvisOrb">
    <div class="jarvis-eye"></div>
   </div>
 
-  <div class="jarvis-label">J.A.R.V.I.S. ONLINE</div>
-  <h2 class="briefing-title">WELCOME, VISITOR.</h2>
+  <div class="jarvis-label" id="jarvisLabel">
+   J.A.R.V.I.S. ONLINE
+  </div>
 
-  <div class="briefing-box">
-   <div id="jarvisText"></div><span class="cursor" id="cursor"></span>
+  <h2 class="briefing-title" id="briefingTitle">
+   WELCOME, VISITOR.
+  </h2>
+
+  <div class="briefing-box" id="briefingBox">
+   <div id="jarvisText"></div>
+   <span class="cursor" id="cursor"></span>
   </div>
 
   <div class="briefing-progress">
    <div id="briefProgress"></div>
   </div>
 
-  <button class="enter-button" id="enterButton" onclick="enterUniverse()">
+  <!-- INFINITY GAUNTLET -->
+
+  <div class="snap-scene" id="snapScene">
+
+   <div class="infinity-gauntlet">
+    <span class="stone"></span>
+    <span class="stone"></span>
+    <span class="stone"></span>
+    <span class="stone"></span>
+    <span class="stone"></span>
+    <span class="stone"></span>
+   </div>
+
+   <div class="snap-hand">🫰</div>
+
+  </div>
+
+  <!-- AL FIGO ENDING -->
+
+  <div class="final-identity" id="finalIdentity">
+   <h1>I'M <span>AL FIGO.</span></h1>
+   <p>THIS IS MY UNIVERSE.</p>
+  </div>
+
+  <button class="enter-button" id="enterButton"
+   onclick="enterUniverse()">
    ENTER MY UNIVERSE →
   </button>
 
-  <button class="skip-button" onclick="finishBriefing()">
+  <button class="skip-button" id="skipButton"
+   onclick="finishBriefing()">
    SKIP INTRODUCTION
   </button>
 
  </div>
+
 </section>
 
+<div class="snap-flash" id="snapFlash"></div>
+
+
 <!-- MAIN WEBSITE -->
+
 <div id="mainWebsite">
 
 <header>
  <div class="navbar">
+
   <div class="logo">F<span>.</span>A</div>
 
-  <div class="nav-status">SYSTEM ONLINE ●</div>
+  <div class="nav-status">
+   SYSTEM ONLINE ●
+  </div>
 
   <div class="nav-buttons">
-   <button class="active" onclick="showPage('home',this)">HOME</button>
-   <button onclick="showPage('story',this)">MY STORY</button>
+   <button class="active" onclick="showPage('home',this)">
+    HOME
+   </button>
+
+   <button onclick="showPage('story',this)">
+    MY STORY
+   </button>
   </div>
+
  </div>
 </header>
 
-<!-- PAGE 1 -->
+
+<!-- PAGE ONE: HOME -->
+
 <main id="home" class="page active">
+
  <div class="container">
 
   <section class="hero">
 
    <div>
-    <div class="hero-kicker">PERSONAL IDENTITY // FA-001</div>
 
-    <h1>WELCOME TO <span>MY UNIVERSE.</span></h1>
+    <div class="hero-kicker">
+     PERSONAL IDENTITY // FA-001
+    </div>
+
+    <h1>
+     WELCOME TO
+     <span>MY UNIVERSE.</span>
+    </h1>
 
     <p class="hero-text">
      Sebuah ruang digital yang menggambarkan siapa saya,
@@ -1054,18 +1361,24 @@ footer{
     </p>
 
     <div class="hero-actions">
-     <button class="primary-btn" onclick="showPage('story',document.querySelectorAll('.nav-buttons button')[1])">
+
+     <button class="primary-btn"
+      onclick="showPage('story',document.querySelectorAll('.nav-buttons button')[1])">
       EXPLORE MY STORY →
      </button>
 
      <button class="outline-btn" onclick="openJarvis()">
       TALK TO JARVIS
      </button>
+
     </div>
+
    </div>
 
    <div class="hero-photo-wrap">
+
     <div class="photo-frame">
+
      <span class="corner c1"></span>
      <span class="corner c2"></span>
      <span class="corner c3"></span>
@@ -1073,41 +1386,63 @@ footer{
 
      <img src="IMG-20261104-WA0009.jpg"
       alt="Foto profil F.A"
-      onerror="this.style.display='none';this.parentElement.insertAdjacentHTML('beforeend','<div style=&quot;height:420px;display:grid;place-items:center;color:#79eaff;font-family:Orbitron&quot;>F.A PROFILE IMAGE</div>')">
+      onerror="this.alt='Foto profil tidak ditemukan'">
 
      <div class="photo-caption">
       <span>SUBJECT: F.A</span>
       <span>IDENTITY VERIFIED</span>
      </div>
+
     </div>
+
    </div>
 
   </section>
 
+
   <div class="info-strip">
+
    <div class="info-box">
     <small>01 // IDENTITY</small>
     <h3>Who Am I?</h3>
-    <p>Mengenal identitas, karakter, dan cara saya memandang kehidupan.</p>
+    <p>
+     Mengenal identitas, karakter, dan cara saya
+     memandang kehidupan.
+    </p>
    </div>
 
    <div class="info-box">
     <small>02 // EDUCATION</small>
     <h3>My Journey</h3>
-    <p>Perjalanan belajar dan ketertarikan saya pada dunia multimedia digital.</p>
+    <p>
+     Perjalanan belajar dan ketertarikan saya
+     pada dunia multimedia digital.
+    </p>
    </div>
 
    <div class="info-box">
     <small>03 // FUTURE</small>
     <h3>My Vision</h3>
-    <p>Ide, impian, dan tujuan yang ingin saya bangun di masa mendatang.</p>
+    <p>
+     Ide, impian, dan tujuan yang ingin saya
+     bangun di masa mendatang.
+    </p>
    </div>
+
   </div>
 
+
   <section class="section">
+
    <div class="section-heading">
-    <div class="eyebrow">SYSTEM DATABASE // 001</div>
-    <h2 class="section-title">INSIDE MY <span>UNIVERSE.</span></h2>
+    <div class="eyebrow">
+     SYSTEM DATABASE // 001
+    </div>
+
+    <h2 class="section-title">
+     INSIDE MY <span>UNIVERSE.</span>
+    </h2>
+
     <p class="description">
      Setiap orang punya cerita dan perspektifnya sendiri.
      Ini adalah beberapa bagian yang membentuk universe saya.
@@ -1115,107 +1450,149 @@ footer{
    </div>
 
    <div class="card-grid">
+
     <div class="data-card">
      <div class="number">01</div>
      <h3>THE IDENTITY</h3>
-     <p>Mengenal Fachriansyah Alfigo, perjalanan pribadi,
-     prinsip, serta hal-hal yang membentuk karakter saya.</p>
+     <p>
+      Mengenal Fachriansyah Alfigo, perjalanan pribadi,
+      prinsip, serta hal-hal yang membentuk karakter saya.
+     </p>
     </div>
 
     <div class="data-card">
      <div class="number">02</div>
      <h3>THE CREATIVE MIND</h3>
-     <p>Ketertarikan pada teknologi, desain visual,
-     multimedia, dan berbagai kemungkinan kreatif
-     di dunia digital.</p>
+     <p>
+      Ketertarikan pada teknologi, desain visual,
+      multimedia, dan berbagai kemungkinan kreatif
+      di dunia digital.
+     </p>
     </div>
 
     <div class="data-card">
      <div class="number">03</div>
      <h3>THE NEXT CHAPTER</h3>
-     <p>Perjalanan untuk belajar, mencoba pengalaman baru,
-     mengembangkan kemampuan, dan membangun masa depan.</p>
+     <p>
+      Perjalanan untuk belajar, mencoba pengalaman baru,
+      mengembangkan kemampuan, dan membangun masa depan.
+     </p>
     </div>
+
    </div>
+
   </section>
 
+
   <section class="section">
-   <div class="eyebrow">PERSONAL INTEREST // 002</div>
-   <h2 class="section-title">THINGS THAT <span>INSPIRE ME.</span></h2>
+
+   <div class="eyebrow">
+    PERSONAL INTEREST // 002
+   </div>
+
+   <h2 class="section-title">
+    THINGS THAT <span>INSPIRE ME.</span>
+   </h2>
+
    <p class="description">
-    Ada banyak hal yang membuat saya tertarik dan terus ingin mengeksplorasi.
+    Ada banyak hal yang membuat saya tertarik
+    dan terus ingin mengeksplorasi.
    </p>
 
    <div class="card-grid" style="margin-top:25px">
+
     <div class="data-card">
      <div class="number">⌘</div>
      <h3>TECHNOLOGY</h3>
-     <p>Saya tertarik dengan perkembangan teknologi,
-     kecerdasan buatan, dan bagaimana teknologi
-     dapat membantu kehidupan manusia.</p>
+     <p>
+      Saya tertarik dengan perkembangan teknologi,
+      kecerdasan buatan, dan bagaimana teknologi
+      dapat membantu kehidupan manusia.
+     </p>
     </div>
 
     <div class="data-card">
      <div class="number">✦</div>
      <h3>CREATIVE DESIGN</h3>
-     <p>Dunia visual, desain, dan multimedia menjadi
-     ruang untuk menuangkan ide dan membangun
-     sesuatu yang memiliki karakter.</p>
+     <p>
+      Dunia visual, desain, dan multimedia menjadi
+      ruang untuk menuangkan ide dan membangun
+      sesuatu yang memiliki karakter.
+     </p>
     </div>
 
     <div class="data-card">
      <div class="number">⚽</div>
      <h3>FOOTBALL</h3>
-     <p>Sepak bola adalah salah satu hal yang saya ikuti,
-     terutama cerita, pemain, dan perjalanan
-     di balik dunia olahraga.</p>
+     <p>
+      Sepak bola adalah salah satu hal yang saya ikuti,
+      terutama cerita, pemain, dan perjalanan
+      di balik dunia olahraga.
+     </p>
     </div>
 
     <div class="data-card">
      <div class="number">◉</div>
      <h3>EXPLORATION</h3>
-     <p>Saya menyukai pengalaman baru, perjalanan,
-     dan kesempatan untuk melihat sesuatu
-     dari sudut pandang yang berbeda.</p>
+     <p>
+      Saya menyukai pengalaman baru, perjalanan,
+      dan kesempatan untuk melihat sesuatu
+      dari sudut pandang yang berbeda.
+     </p>
     </div>
 
     <div class="data-card">
      <div class="number">◈</div>
      <h3>MARVEL UNIVERSE</h3>
-     <p>Konsep teknologi futuristik, laboratorium,
-     dan karakter seperti Tony Stark menjadi
-     salah satu inspirasi visual saya.</p>
+     <p>
+      Konsep teknologi futuristik, laboratorium,
+      dan karakter seperti Tony Stark menjadi
+      salah satu inspirasi visual saya.
+     </p>
     </div>
 
     <div class="data-card">
      <div class="number">∞</div>
      <h3>SELF DEVELOPMENT</h3>
-     <p>Saya ingin terus belajar, mencoba hal baru,
-     dan mengembangkan kemampuan
-     dari waktu ke waktu.</p>
+     <p>
+      Saya ingin terus belajar, mencoba hal baru,
+      dan mengembangkan kemampuan dari waktu ke waktu.
+     </p>
     </div>
+
    </div>
+
   </section>
 
  </div>
+
 </main>
 
-<!-- PAGE 2 -->
+
+<!-- PAGE TWO: MY STORY -->
+
 <main id="story" class="page">
+
  <div class="container">
 
   <section class="story-hero">
 
    <div class="story-photo">
+
     <img src="IMG-20261104-WA0009.jpg"
-     alt="F.A profile"
-     onerror="this.style.display='none';this.parentElement.innerHTML+='<div style=&quot;height:390px;display:grid;place-items:center;color:#79eaff;font-family:Orbitron&quot;>F.A</div>'">
+     alt="F.A profile">
+
    </div>
 
    <div class="story-intro">
-    <div class="eyebrow">PERSONAL FILE // CLASSIFIED</div>
 
-    <h1>THE STORY <span>BEHIND F.A.</span></h1>
+    <div class="eyebrow">
+     PERSONAL FILE // CLASSIFIED
+    </div>
+
+    <h1>
+     THE STORY <span>BEHIND F.A.</span>
+    </h1>
 
     <p>
      Nama saya Fachriansyah Alfigo. Saya adalah seseorang
@@ -1230,6 +1607,7 @@ footer{
     </p>
 
     <div class="profile-table">
+
      <div class="profile-row">
       <span>FULL NAME</span>
       <span>Fachriansyah Alfigo</span>
@@ -1254,16 +1632,26 @@ footer{
       <span>PERSONAL MOTTO</span>
       <span>Keep Learning. Keep Creating. Keep Growing.</span>
      </div>
+
     </div>
+
    </div>
 
   </section>
 
+
   <section class="story-block">
-   <div class="eyebrow">EDUCATION DATABASE // 01</div>
-   <h2 class="section-title">MY LEARNING <span>JOURNEY.</span></h2>
+
+   <div class="eyebrow">
+    EDUCATION DATABASE // 01
+   </div>
+
+   <h2 class="section-title">
+    MY LEARNING <span>JOURNEY.</span>
+   </h2>
 
    <div class="timeline" style="margin-top:30px">
+
     <div class="timeline-item">
      <small>EDUCATION</small>
      <h3>Homeschooling HSPG Yogyakarta</h3>
@@ -1295,17 +1683,28 @@ footer{
       melalui pengalaman sehari-hari.
      </p>
     </div>
+
    </div>
+
   </section>
 
+
   <section class="story-block">
-   <div class="eyebrow">PERSONAL GALLERY // 02</div>
-   <h2 class="section-title">MY VISUAL <span>MEMORIES.</span></h2>
+
+   <div class="eyebrow">
+    PERSONAL GALLERY // 02
+   </div>
+
+   <h2 class="section-title">
+    MY VISUAL <span>MEMORIES.</span>
+   </h2>
+
    <p class="description">
     Beberapa potongan visual dari perjalanan personal saya.
    </p>
 
    <div class="gallery" style="margin-top:25px">
+
     <div class="gallery-item">
      <img src="IMG-20261104-WA0006.jpg"
       alt="Personal memory 01">
@@ -1317,15 +1716,26 @@ footer{
       alt="Personal memory 02">
      <p>MEMORY FILE // 002</p>
     </div>
+
    </div>
+
   </section>
 
+
   <section class="story-block">
-   <div class="eyebrow">FUTURE PROTOCOL // 03</div>
-   <h2 class="section-title">THE FUTURE <span>IS MINE TO BUILD.</span></h2>
+
+   <div class="eyebrow">
+    FUTURE PROTOCOL // 03
+   </div>
+
+   <h2 class="section-title">
+    THE FUTURE <span>IS MINE TO BUILD.</span>
+   </h2>
 
    <div class="vision-panel">
+
     <h3>MY VISION & AMBITION</h3>
+
     <p>
      Saya ingin menjadi pribadi yang terus berkembang,
      memiliki kemampuan yang bermanfaat, dan mampu
@@ -1337,11 +1747,15 @@ footer{
      Masa depan dibangun dari keputusan, proses belajar,
      dan usaha yang dilakukan hari ini.
     </p>
+
    </div>
+
   </section>
 
  </div>
+
 </main>
+
 
 <footer>
  F.A PERSONAL UNIVERSE<br>
@@ -1351,30 +1765,48 @@ footer{
 
 </div>
 
+
 <!-- JARVIS CHAT -->
-<button class="jarvis-launch" onclick="toggleChat()">J.A</button>
+
+<button class="jarvis-launch" onclick="toggleChat()">
+ J.A
+</button>
 
 <div class="chat-panel" id="chatPanel">
+
  <div class="chat-head">
   <span>J.A.R.V.I.S. INTERFACE</span>
   <button onclick="toggleChat()">×</button>
  </div>
 
  <div class="chat-messages" id="chatMessages">
+
   <div class="message bot">
    Selamat datang kembali. Saya JARVIS,
    asisten digital F.A. Ada yang ingin Anda ketahui?
   </div>
+
  </div>
 
  <div class="chat-input">
-  <input id="chatInput" placeholder="Ketik perintah..." onkeydown="if(event.key==='Enter')sendMessage()">
+
+  <input
+   id="chatInput"
+   placeholder="Ketik perintah..."
+   onkeydown="if(event.key==='Enter')sendMessage()">
+
   <button onclick="sendMessage()">SEND</button>
+
  </div>
+
 </div>
 
+
 <script>
-/* INTRO SEQUENCE */
+
+/* =================================
+   OPENING SYSTEM
+================================= */
 
 const intro=document.getElementById("intro");
 const briefing=document.getElementById("briefing");
@@ -1383,51 +1815,69 @@ const mainWebsite=document.getElementById("mainWebsite");
 const introMessages=[
  "POWER CORE ACTIVATED...",
  "SCANNING PERSONAL DATABASE...",
- "J.A.R.V.I.S. CONNECTION ESTABLISHED..."
+ "J.A.R.V.I.S. CONNECTION ESTABLISHED...",
+ "ALL SYSTEMS OPERATIONAL..."
 ];
 
 let messageIndex=0;
 
 function updateIntro(){
+
  document.getElementById("loadingText").textContent=
  introMessages[messageIndex];
 
  messageIndex++;
 
  if(messageIndex<introMessages.length){
+
   setTimeout(updateIntro,850);
+
  }else{
+
   setTimeout(()=>{
+
    intro.style.opacity="0";
-   intro.style.transition="opacity 1s";
+
    setTimeout(()=>{
+
     intro.classList.add("hidden");
     startBriefing();
+
    },1000);
+
   },900);
+
  }
+
 }
 
 setTimeout(updateIntro,500);
 
 
-/* JARVIS INTRO NARRATION */
+/* =================================
+   JARVIS BRIEFING
+================================= */
 
 const briefingText=
-"Selamat datang di F.A Personal Universe. Saya J.A.R.V.I.S., asisten digital yang akan memandu Anda menjelajahi ruang personal ini. Di halaman HOME, Anda akan mengenal identitas F.A, ketertarikan, dan hal-hal yang menginspirasinya. Selanjutnya, halaman MY STORY berisi perjalanan pendidikan, cerita personal, galeri foto, serta visi dan tujuan masa depan. Semua bagian dirancang untuk memperkenalkan sosok di balik inisial F.A. Sistem telah siap. Silakan jelajahi universe ini.";
+"Selamat datang di F.A Personal Universe. Saya J.A.R.V.I.S., asisten digital yang akan memandu Anda menjelajahi ruang personal ini. Di halaman HOME, Anda akan mengenal identitas F.A, ketertarikan, dan hal-hal yang menginspirasinya. Selanjutnya, halaman MY STORY berisi perjalanan pendidikan, cerita personal, galeri foto, serta visi dan tujuan masa depan. Semua bagian dirancang untuk memperkenalkan sosok di balik inisial F.A. Sistem telah siap. Bersiaplah untuk memasuki universe miliknya.";
 
 let charIndex=0;
 let typingTimer;
+let snapStarted=false;
 
 function startBriefing(){
+
  briefing.classList.remove("hidden");
  typeBriefing();
+
 }
 
 function typeBriefing(){
+
  const target=document.getElementById("jarvisText");
 
  if(charIndex<briefingText.length){
+
   target.textContent+=briefingText.charAt(charIndex);
   charIndex++;
 
@@ -1435,105 +1885,274 @@ function typeBriefing(){
    (charIndex/briefingText.length*100)+"%";
 
   typingTimer=setTimeout(typeBriefing,25);
+
  }else{
+
   document.getElementById("cursor").style.display="none";
-  document.getElementById("enterButton").classList.add("show");
+
+  setTimeout(startInfinitySnap,1200);
+
  }
+
 }
 
-function finishBriefing(){
- clearTimeout(typingTimer);
 
- document.getElementById("jarvisText").textContent=briefingText;
- document.getElementById("briefProgress").style.width="100%";
- document.getElementById("cursor").style.display="none";
- document.getElementById("enterButton").classList.add("show");
-}
+/* =================================
+   INFINITY SNAP SEQUENCE
+================================= */
 
-function enterUniverse(){
- briefing.style.opacity="0";
- briefing.style.transition="opacity .8s";
+function startInfinitySnap(){
+
+ if(snapStarted)return;
+ snapStarted=true;
+
+ const scene=document.getElementById("snapScene");
+
+ const orb=document.getElementById("jarvisOrb");
+ const label=document.getElementById("jarvisLabel");
+ const title=document.getElementById("briefingTitle");
+ const box=document.getElementById("briefingBox");
+ const progress=document.querySelector(".briefing-progress");
+
+ document.getElementById("skipButton").style.display="none";
+
+ /* Six stones appear */
+
+ scene.classList.add("active");
+
+ /* Gauntlet snap */
 
  setTimeout(()=>{
-  briefing.classList.add("hidden");
-  mainWebsite.style.display="block";
-  window.scrollTo(0,0);
- },800);
+
+  scene.classList.add("snap");
+
+ },1200);
+
+ /* Flash and JARVIS disappears */
+
+ setTimeout(()=>{
+
+  document.getElementById("snapFlash").classList.remove("active");
+
+  void document.getElementById("snapFlash").offsetWidth;
+
+  document.getElementById("snapFlash").classList.add("active");
+
+  orb.classList.add("jarvis-disappear");
+  label.classList.add("jarvis-disappear");
+  title.classList.add("jarvis-disappear");
+  box.classList.add("jarvis-disappear");
+  progress.classList.add("jarvis-disappear");
+
+ },1900);
+
+ /* AL FIGO REVEAL */
+
+ setTimeout(()=>{
+
+  scene.classList.remove("active");
+
+  document.getElementById("finalIdentity")
+   .classList.add("show");
+
+  document.getElementById("enterButton")
+   .classList.add("show");
+
+ },3500);
+
 }
 
 
-/* NAVIGATION */
+/* Skip button */
+
+function finishBriefing(){
+
+ clearTimeout(typingTimer);
+
+ document.getElementById("jarvisText").textContent=
+ briefingText;
+
+ document.getElementById("briefProgress").style.width="100%";
+
+ document.getElementById("cursor").style.display="none";
+
+ startInfinitySnap();
+
+}
+
+
+/* =================================
+   ENTER WEBSITE
+================================= */
+
+function enterUniverse(){
+
+ briefing.style.opacity="0";
+
+ setTimeout(()=>{
+
+  briefing.classList.add("hidden");
+
+  mainWebsite.style.display="block";
+
+  window.scrollTo(0,0);
+
+ },850);
+
+}
+
+
+/* =================================
+   NAVIGATION
+================================= */
 
 function showPage(page,button){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+
+ document.querySelectorAll(".page").forEach(p=>{
+  p.classList.remove("active");
+ });
+
  document.getElementById(page).classList.add("active");
 
- document.querySelectorAll(".nav-buttons button").forEach(b=>b.classList.remove("active"));
- if(button)button.classList.add("active");
+ document.querySelectorAll(".nav-buttons button").forEach(b=>{
+  b.classList.remove("active");
+ });
 
- window.scrollTo({top:0,behavior:"smooth"});
+ if(button){
+  button.classList.add("active");
+ }
+
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
+
 }
 
 
-/* JARVIS CHAT */
+/* =================================
+   JARVIS CHAT
+================================= */
 
 function toggleChat(){
- document.getElementById("chatPanel").classList.toggle("open");
+
+ document.getElementById("chatPanel")
+  .classList.toggle("open");
+
 }
 
 function openJarvis(){
- document.getElementById("chatPanel").classList.add("open");
+
+ document.getElementById("chatPanel")
+  .classList.add("open");
+
 }
 
 function addMessage(text,type){
+
  const messages=document.getElementById("chatMessages");
+
  const item=document.createElement("div");
 
  item.className="message "+type;
  item.textContent=text;
 
  messages.appendChild(item);
+
  messages.scrollTop=messages.scrollHeight;
+
 }
 
 function sendMessage(){
+
  const input=document.getElementById("chatInput");
- const question=input.value.trim().toLowerCase();
+
+ const original=input.value.trim();
+ const question=original.toLowerCase();
 
  if(!question)return;
 
- addMessage(input.value,"user");
+ addMessage(original,"user");
+
  input.value="";
 
- let answer="Maaf, saya belum memiliki informasi tersebut. Coba tanyakan tentang profil, pendidikan, minat, atau tujuan F.A.";
+ let answer=
+ "Maaf, saya belum memiliki informasi tersebut. Coba tanyakan tentang profil, pendidikan, minat, atau tujuan F.A.";
 
  if(question.includes("nama")||question.includes("siapa")){
-  answer="Nama lengkap pemilik universe ini adalah Fachriansyah Alfigo. Inisial personalnya adalah F.A.";
- }
- else if(question.includes("kuliah")||question.includes("pendidikan")||question.includes("belajar")){
-  answer="F.A menempuh pendidikan di bidang Manajemen Multimedia dan Digital. Fokus ketertarikannya mencakup teknologi, kreativitas, dan dunia digital.";
- }
- else if(question.includes("hobi")||question.includes("minat")||question.includes("suka")){
-  answer="Beberapa ketertarikan F.A adalah teknologi, desain kreatif, sepak bola, Marvel, perjalanan, dan pengembangan diri.";
- }
- else if(question.includes("tujuan")||question.includes("mimpi")||question.includes("masa depan")){
-  answer="F.A ingin terus berkembang, meningkatkan kemampuan digital, mengeksplorasi pengalaman baru, dan menciptakan karya yang bermanfaat.";
- }
- else if(question.includes("jarvis")){
-  answer="J.A.R.V.I.S. online. Saya siap membantu Anda menjelajahi F.A Personal Universe.";
- }
- else if(question.includes("website")||question.includes("isi")){
-  answer="Website ini memiliki dua halaman utama: HOME untuk pengenalan dan MY STORY untuk profil, pendidikan, galeri, serta visi masa depan.";
- }
- else if(question.includes("foto")||question.includes("galeri")){
-  answer="Galeri foto personal dapat Anda temukan di halaman MY STORY.";
+
+  answer=
+  "Nama lengkap pemilik universe ini adalah Fachriansyah Alfigo. Inisial personalnya adalah F.A.";
+
+ }else if(
+  question.includes("kuliah")||
+  question.includes("pendidikan")||
+  question.includes("belajar")
+ ){
+
+  answer=
+  "F.A menempuh pendidikan di bidang Manajemen Multimedia dan Digital. Fokus ketertarikannya mencakup teknologi, kreativitas, dan dunia digital.";
+
+ }else if(
+  question.includes("hobi")||
+  question.includes("minat")||
+  question.includes("suka")
+ ){
+
+  answer=
+  "Beberapa ketertarikan F.A adalah teknologi, desain kreatif, sepak bola, Marvel, perjalanan, dan pengembangan diri.";
+
+ }else if(
+  question.includes("tujuan")||
+  question.includes("mimpi")||
+  question.includes("masa depan")
+ ){
+
+  answer=
+  "F.A ingin terus berkembang, meningkatkan kemampuan digital, mengeksplorasi pengalaman baru, dan menciptakan karya yang bermanfaat.";
+
+ }else if(question.includes("jarvis")){
+
+  answer=
+  "J.A.R.V.I.S. online. Saya siap membantu Anda menjelajahi F.A Personal Universe.";
+
+ }else if(
+  question.includes("website")||
+  question.includes("isi")
+ ){
+
+  answer=
+  "Website ini memiliki dua halaman utama: HOME untuk pengenalan dan MY STORY untuk profil, pendidikan, galeri, serta visi masa depan.";
+
+ }else if(
+  question.includes("foto")||
+  question.includes("galeri")
+ ){
+
+  answer=
+  "Galeri foto personal dapat Anda temukan di halaman MY STORY.";
+
+ }else if(
+  question.includes("tony")||
+  question.includes("iron man")||
+  question.includes("marvel")
+ ){
+
+  answer=
+  "Tema laboratorium futuristik ini terinspirasi dari teknologi dan visual Marvel, khususnya konsep laboratorium Tony Stark.";
+
  }
 
- setTimeout(()=>addMessage(answer,"bot"),350);
+ setTimeout(()=>{
+  addMessage(answer,"bot");
+ },350);
+
 }
 
 
-/* PARTICLE BACKGROUND */
+/* =================================
+   PARTICLE BACKGROUND
+================================= */
 
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
@@ -1541,45 +2160,62 @@ const ctx=canvas.getContext("2d");
 let particles=[];
 
 function resizeCanvas(){
+
  canvas.width=window.innerWidth;
  canvas.height=window.innerHeight;
+
 }
 
 window.addEventListener("resize",resizeCanvas);
+
 resizeCanvas();
 
 for(let i=0;i<65;i++){
+
  particles.push({
+
   x:Math.random()*canvas.width,
   y:Math.random()*canvas.height,
   size:Math.random()*1.8+.4,
   speed:Math.random()*.35+.08,
   alpha:Math.random()*.6+.2
+
  });
+
 }
 
 function animateParticles(){
+
  ctx.clearRect(0,0,canvas.width,canvas.height);
 
  particles.forEach(p=>{
+
   p.y-=p.speed;
 
   if(p.y<0){
+
    p.y=canvas.height;
    p.x=Math.random()*canvas.width;
+
   }
 
   ctx.beginPath();
+
   ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+
   ctx.fillStyle=`rgba(180,80,115,${p.alpha})`;
+
   ctx.fill();
+
  });
 
  requestAnimationFrame(animateParticles);
+
 }
 
 animateParticles();
+
 </script>
 
 </body>
-      </html>
+ </html>
