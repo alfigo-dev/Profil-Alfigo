@@ -1,1196 +1,696 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#050b18">
 <title>F.A | Personal Universe</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 :root{
---bg:#050b18;--blue:#25c8ff;--cyan:#8cecff;
---line:rgba(66,205,255,.25);--glass:rgba(9,28,51,.78);
---text:#eafaff;--sub:#91adbf;
+ --bg:#050b18;
+ --panel:rgba(8,25,48,.85);
+ --cyan:#42dcff;
+ --blue:#168bff;
+ --text:#eaf8ff;
+ --muted:#9ab4c9;
+ --line:rgba(66,220,255,.25);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:80px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{
-background:radial-gradient(ellipse at 50% 0%,#102b50,transparent 55%),var(--bg);
-color:var(--text);font-family:Inter,sans-serif;overflow-x:hidden;transition:.4s;
+ margin:0;
+ background:radial-gradient(circle at top,#10345a,#050b18 75%);
+ color:var(--text);
+ font-family:Inter,sans-serif;
+ overflow-x:hidden;
 }
-body:before{
-content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
-background-image:linear-gradient(rgba(90,200,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(90,200,255,.08) 1px,transparent 1px);
-background-size:45px 45px;
+body.light{
+ --bg:#eaf5fb;
+ --panel:rgba(255,255,255,.88);
+ --text:#10243b;
+ --muted:#536d83;
+ --line:rgba(0,132,190,.25);
+ background:radial-gradient(circle at top,#ccefff,#edf7fc 75%);
 }
-button{cursor:pointer;font:inherit}
-a{text-decoration:none;color:inherit}
-.container{width:min(1100px,90%);margin:auto;position:relative;z-index:1}
-section{padding:90px 0;position:relative;z-index:1}
-.section-label{font:10px Orbitron;letter-spacing:4px;color:var(--blue);margin-bottom:15px}
-.section-title{font:700 clamp(27px,5vw,43px)/1.3 Orbitron;margin-bottom:17px}
-.section-desc{font-size:13px;line-height:1.9;color:var(--sub);max-width:650px}
-.glow{color:var(--cyan);text-shadow:0 0 20px rgba(37,200,255,.4)}
-.hidden{display:none!important}
+button,a{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.orbit{font-family:Orbitron,sans-serif;letter-spacing:.08em}
+.grid{
+ position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.15;
+ background-image:linear-gradient(var(--line) 1px,transparent 1px),
+ linear-gradient(90deg,var(--line) 1px,transparent 1px);
+ background-size:45px 45px;
+}
+.scanline{
+ position:fixed;inset:0;pointer-events:none;z-index:1000;
+ background:linear-gradient(transparent 50%,rgba(66,220,255,.025) 50%);
+ background-size:100% 4px;
+}
+.btn{
+ border:1px solid var(--cyan);
+ background:rgba(22,139,255,.13);
+ color:var(--text);
+ padding:12px 18px;
+ border-radius:5px;
+ font:600 11px Orbitron;
+ letter-spacing:.08em;
+ transition:.2s;
+}
+.btn:hover,.btn.primary{
+ background:var(--cyan);
+ color:#03101e;
+ box-shadow:0 0 24px #42dcff55;
+}
+.muted{color:var(--muted)}
+.eyebrow{
+ color:var(--cyan);
+ font:600 11px Orbitron;
+ letter-spacing:.2em;
+}
 
-/* QR GATE */
+/* ACCESS GATE */
 #gate{
-position:fixed;inset:0;z-index:9999;display:flex;
-align-items:center;justify-content:center;padding:20px;
-background:radial-gradient(ellipse at center,rgba(0,145,230,.22),transparent 55%),#030914;
-overflow-y:auto;
+ min-height:100vh;
+ display:grid;
+ place-items:center;
+ padding:20px;
 }
-#gate:before{
-content:"";position:absolute;inset:0;
-background-image:linear-gradient(rgba(68,197,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(68,197,255,.07) 1px,transparent 1px);
-background-size:38px 38px;
+.gatebox{
+ width:min(600px,100%);
+ padding:35px 25px;
+ text-align:center;
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:15px;
+ box-shadow:0 0 55px #168bff20;
+ backdrop-filter:blur(15px);
 }
-.gate-scan{
-position:absolute;top:0;left:0;width:100%;height:2px;
-background:linear-gradient(90deg,transparent,#31d8ff,transparent);
-box-shadow:0 0 20px #25c8ff;animation:scan 5s linear infinite;
+.logo{
+ width:75px;height:75px;
+ border:1px solid var(--cyan);
+ border-radius:50%;
+ display:grid;place-items:center;
+ margin:0 auto 22px;
+ color:var(--cyan);
+ font:800 25px Orbitron;
+ box-shadow:0 0 25px #42dcff44;
 }
-.gate-card{
-width:min(440px,100%);position:relative;z-index:2;text-align:center;
-padding:32px 24px;border:1px solid rgba(69,207,255,.4);
-border-radius:16px;background:linear-gradient(145deg,rgba(8,35,61,.94),rgba(3,13,27,.95));
-box-shadow:0 0 55px rgba(0,150,255,.15);
+.gatebox h1{font:700 28px Orbitron}
+.gatebox p{color:var(--muted);font-size:13px;line-height:1.7}
+.gate-actions{
+ display:flex;gap:10px;
+ justify-content:center;flex-wrap:wrap;
+ margin:25px 0;
 }
-.emblem{
-width:85px;height:85px;margin:0 auto 23px;border:1px solid var(--cyan);
-border-radius:50%;display:grid;place-items:center;font:800 27px Orbitron;color:white;
-box-shadow:0 0 25px rgba(37,200,255,.3);position:relative;
-}
-.emblem:after{
-content:"";position:absolute;inset:-9px;border:1px dashed var(--cyan);
-border-radius:50%;animation:spin 15s linear infinite;
-}
-.gate-kicker{font:10px Orbitron;letter-spacing:4px;color:var(--blue)}
-.gate-title{font:700 clamp(23px,6vw,31px)/1.5 Orbitron;margin:17px 0}
-.gate-sub{font:10px Orbitron;letter-spacing:3px;color:#8bbbd1}
-.gate-divider{height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);margin:25px 0}
-.qr-label{font:10px Orbitron;letter-spacing:2px;margin-bottom:15px;color:var(--cyan)}
-#qr-reader{
-width:100%;max-width:300px;min-height:220px;margin:0 auto;
-overflow:hidden;border:1px solid rgba(80,197,255,.35);
-border-radius:10px;background:#061426;
-}
-#qr-reader video{width:100%!important;border-radius:8px}
-.qr-button{
-width:100%;max-width:300px;margin-top:12px;padding:14px;
-border:1px solid var(--blue);border-radius:8px;
-background:rgba(20,120,170,.25);color:var(--cyan);
-font:10px Orbitron;letter-spacing:2px;
-}
-.qr-button:hover{background:rgba(37,200,255,.2)}
-.qr-button:disabled{opacity:.5;cursor:not-allowed}
-.gate-status{min-height:34px;margin-top:16px;color:#79cde9;font:10px/1.7 Orbitron;letter-spacing:1px}
-.gate-status.error{color:#ff737d}
-.gate-status.success{color:#73ffbd}
-.gate-footer{margin-top:20px;color:#547e99;font-size:9px;letter-spacing:2px}
+#reader{width:min(350px,100%);margin:auto}
 #phoneQrPanel{
-margin:17px auto 0;padding:17px;max-width:300px;
-border:1px solid var(--line);border-radius:10px;background:#fff;
+ display:none;
+ margin:20px auto;
+ padding:15px;
+ background:white;
+ color:#061426;
+ border-radius:10px;
+ width:max-content;
+ max-width:100%;
 }
-#phoneQrCode{display:flex;justify-content:center;align-items:center;min-height:220px}
-#phoneQrCode img,#phoneQrCode canvas{max-width:100%;height:auto}
-#phoneQrPanel p{font:9px/1.7 Inter;color:#234;text-align:center;margin-top:12px}
-.shake{animation:shake .3s}
+#phoneQrCode{display:flex;justify-content:center}
+#phoneQrPanel small{display:block;margin-top:10px;max-width:230px;line-height:1.5}
+.status{color:var(--cyan);font:600 10px Orbitron}
 
-/* OVERLAYS */
-#verification,#terminal{
-position:fixed;inset:0;z-index:10001;display:none;
-align-items:center;justify-content:center;flex-direction:column;
-background:rgba(3,15,28,.98);text-align:center;padding:20px;
+/* WEBSITE */
+#site{display:none}
+header{
+ position:sticky;top:0;z-index:100;
+ display:flex;align-items:center;justify-content:space-between;
+ flex-wrap:wrap;gap:15px;
+ padding:15px 5%;
+ background:rgba(4,13,27,.85);
+ border-bottom:1px solid var(--line);
+ backdrop-filter:blur(15px);
 }
-#verification.show,#terminal.show{display:flex}
-.check{
-width:80px;height:80px;border:2px solid #61ffc0;border-radius:50%;
-display:grid;place-items:center;color:#61ffc0;font-size:37px;margin-bottom:20px;
+body.light header{background:rgba(239,249,255,.9)}
+.brand{font:700 15px Orbitron;color:var(--cyan)}
+nav{display:flex;gap:17px;flex-wrap:wrap}
+nav a{font:500 10px Orbitron;color:var(--muted)}
+nav a:hover{color:var(--cyan)}
+
+.hero{
+ min-height:90vh;
+ display:grid;place-items:center;
+ text-align:center;padding:60px 20px;
 }
-#verification strong{font:20px Orbitron;color:#80ffd0}
-#verification small{font:10px Orbitron;color:#8cb7c9;letter-spacing:3px;margin-top:12px}
-.terminal-box{
-width:min(650px,100%);text-align:left;border:1px solid var(--line);
-background:#06182a;border-radius:12px;overflow:hidden;
+.hero-inner{max-width:850px}
+.orb{
+ width:145px;height:145px;
+ margin:0 auto 35px;
+ border:1px solid var(--cyan);
+ border-radius:50%;
+ display:grid;place-items:center;
+ position:relative;
+ box-shadow:0 0 35px #42dcff44,inset 0 0 30px #42dcff22;
 }
-.terminal-top,.terminal-bottom{
-padding:14px 17px;border-bottom:1px solid var(--line);
-font:10px Orbitron;letter-spacing:2px;color:var(--cyan);
+.orb:before,.orb:after{
+ content:"";position:absolute;
+ inset:-15px;border:1px dashed var(--cyan);
+ border-radius:50%;animation:spin 18s linear infinite;
 }
-.terminal-body{padding:22px;font:11px/2 "Courier New",monospace;color:#8cecff;min-height:230px}
-.terminal-progress{height:3px;background:#12334b;margin:0 20px 20px}
-.terminal-progress span{display:block;height:100%;width:0;background:#39d9ff;transition:.3s}
+.orb:after{inset:-28px;animation-direction:reverse}
+.orb span{font:800 32px Orbitron;color:var(--cyan)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero h1{font:800 clamp(38px,8vw,75px) Orbitron;margin:0 0 15px}
+.hero h1 em{font-style:normal;color:var(--cyan)}
+.hero p{color:var(--muted);line-height:1.8;max-width:600px;margin:0 auto 25px}
 
-/* NAVIGATION */
-nav{
-position:fixed;top:0;left:0;width:100%;z-index:100;padding:15px 0;
-background:rgba(4,12,25,.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);
+.section{
+ max-width:1150px;
+ margin:auto;
+ padding:85px 7%;
 }
-.nav-inner{width:min(1100px,90%);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.logo{font:800 20px Orbitron;letter-spacing:2px}
-.logo span{color:var(--blue)}
-.nav-links{display:flex;gap:20px}
-.nav-links a{font-size:10px;color:var(--sub);letter-spacing:1px}
-.nav-links a:hover{color:var(--blue)}
-.nav-controls{display:flex;gap:8px}
-.theme-btn,.menu-btn{
-padding:10px 12px;border:1px solid var(--line);
-border-radius:7px;background:var(--glass);color:var(--cyan);font:9px Orbitron;
+.section h2{font:700 clamp(23px,4vw,35px) Orbitron}
+.cards{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));
+ gap:17px;
 }
-.menu-btn{display:none}
-
-/* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;padding-top:120px}
-.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
-.eyebrow{display:inline-flex;gap:10px;align-items:center;border:1px solid var(--line);padding:10px 15px;border-radius:30px;color:var(--cyan);font-size:10px;letter-spacing:2px;margin-bottom:25px}
-.status-dot{width:7px;height:7px;border-radius:50%;background:#35e6ff;box-shadow:0 0 12px #35e6ff}
-.hero h1{font:700 clamp(35px,6vw,65px)/1.2 Orbitron}
-.hero h1 span{display:block;color:var(--blue)}
-.hero-text{color:var(--sub);margin-top:22px;line-height:1.9;font-size:14px}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-.btn{padding:14px 20px;border-radius:7px;font-size:10px;letter-spacing:1px;font-weight:700;display:inline-block}
-.btn-primary{background:var(--blue);color:#03101d}
-.btn-outline{border:1px solid var(--blue);color:var(--cyan)}
-.hero-visual{min-height:430px;display:flex;align-items:center;justify-content:center;position:relative;perspective:900px}
-.holo-ring{position:absolute;width:min(360px,85vw);aspect-ratio:1;border:1px solid rgba(53,207,255,.35);border-radius:50%;animation:spin 20s linear infinite}
-.holo-ring:before{content:"";position:absolute;inset:22px;border:1px dashed var(--cyan);border-radius:50%}
-.profile-frame{width:235px;height:310px;position:relative;z-index:2;border-radius:15px;overflow:hidden;border:1px solid var(--cyan);box-shadow:0 0 35px rgba(0,174,255,.2);transition:.15s}
-.profile-frame img{width:100%;height:100%;object-fit:cover}
-.visual-tag{position:absolute;z-index:3;padding:10px;background:var(--glass);border:1px solid var(--line);border-radius:7px;color:var(--cyan);font:9px Orbitron}
-.tag-one{top:65px;left:0}.tag-two{bottom:65px;right:0}
-.info-strip{border-block:1px solid var(--line);padding:24px 0;background:var(--glass)}
-.strip-inner{display:flex;justify-content:space-around;gap:20px;flex-wrap:wrap}
-.strip-item{text-align:center;font-size:10px;color:var(--sub);letter-spacing:2px}
-.strip-item strong{display:block;color:var(--cyan);font:16px Orbitron;margin-bottom:6px}
-
-/* ABOUT */
-.about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:45px;align-items:center}
-.about-visual{min-height:300px;border:1px solid var(--line);border-radius:15px;background:var(--glass);display:grid;place-items:center}
-.about-orbit{width:200px;height:200px;border:1px solid var(--cyan);border-radius:50%;display:grid;place-items:center;position:relative}
-.about-orbit:after{content:"";position:absolute;inset:15px;border:1px dashed var(--cyan);border-radius:50%;animation:spin 12s linear infinite}
-.about-orbit span{font:42px Orbitron;color:var(--cyan)}
-.about-content p{color:var(--sub);font-size:13px;line-height:2;margin-bottom:15px}
-.about-details{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
-.detail{border-left:2px solid var(--blue);padding:10px;background:rgba(30,140,190,.07)}
-.detail small{display:block;color:var(--sub);font-size:9px;margin-bottom:6px}
-.detail strong{font-size:12px}
-
-/* STORY */
-.story-section{background:linear-gradient(180deg,transparent,var(--glass),transparent)}
-.center-heading{text-align:center;margin-bottom:45px}
-.center-heading .section-desc{margin:auto}
-.timeline{max-width:800px;margin:auto;position:relative}
-.timeline:before{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--blue)}
-.story-item{width:50%;padding:0 35px 30px 0;position:relative}
-.story-item:nth-child(even){margin-left:50%;padding:0 0 30px 35px}
-.story-item:after{content:"";position:absolute;right:-5px;top:10px;width:10px;height:10px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px var(--blue)}
-.story-item:nth-child(even):after{left:-5px}
-.story-card{padding:22px;border:1px solid var(--line);border-radius:12px;background:var(--glass)}
-.story-card small{font:9px Orbitron;color:var(--blue)}
-.story-card h3{font:14px Orbitron;margin:12px 0}
-.story-card p{color:var(--sub);line-height:1.8;font-size:12px}
-
-/* MEMORIES */
-.archive-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.archive-card{height:320px;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:13px;cursor:pointer}
-.archive-card img{width:100%;height:100%;object-fit:cover;transition:.5s}
-.archive-card:hover img{transform:scale(1.06)}
-.archive-caption{position:absolute;bottom:0;left:0;right:0;padding:45px 20px 20px;background:linear-gradient(transparent,rgba(1,9,20,.95))}
-.archive-caption small{font:9px Orbitron;color:var(--cyan)}
-.archive-caption h3{font:14px Orbitron;margin-top:8px;color:white}
-.archive-caption p{font-size:11px;color:#d4eaf5;margin-top:7px}
-#photoViewer{position:fixed;inset:0;z-index:10002;background:rgba(0,5,14,.95);display:none;align-items:center;justify-content:center;padding:20px}
-#photoViewer.show{display:flex}
-#photoViewer img{max-width:95%;max-height:85%;object-fit:contain}
-#photoClose{position:absolute;top:20px;right:20px;border:1px solid var(--line);background:#06182a;color:var(--cyan);font-size:25px;width:42px;height:42px;border-radius:50%}
-
-/* INTERESTS */
-.interest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:35px}
-.interest-card{padding:25px 20px;border:1px solid var(--line);background:var(--glass);border-radius:12px;min-height:170px}
-.interest-icon{font-size:27px;display:block;margin-bottom:18px}
-.interest-card h3{font:12px Orbitron;margin-bottom:10px}
-.interest-card p{color:var(--sub);font-size:11px;line-height:1.8}
-
-/* JARVIS */
-.core-section{background:radial-gradient(ellipse at center,rgba(0,130,210,.15),transparent 65%)}
-.jarvis-shell{max-width:950px;margin:40px auto 0;padding:18px;border:1px solid var(--line);border-radius:15px;background:rgba(3,17,32,.8)}
-.jarvis-topbar{display:flex;justify-content:space-between;gap:12px;padding-bottom:15px;border-bottom:1px solid var(--line);font:10px Orbitron}
-.jarvis-brand{color:var(--cyan)}.jarvis-live{color:#72ffc1}
-.jarvis-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;padding-top:18px}
-.holo-display{min-height:350px;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:radial-gradient(circle,rgba(0,145,220,.2),transparent 65%),#061629;display:flex;align-items:center;justify-content:center}
-.holo-object{width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 30% 25%,white,#7cecff 12%,#168bc9 40%,#05264b 75%,#010918);box-shadow:0 0 35px #25c8ff,0 0 80px rgba(0,165,255,.4);transition:.15s}
-.holo-radar{position:absolute;width:260px;height:260px;border:1px solid rgba(75,210,255,.4);border-radius:50%;animation:spin 18s linear infinite}
-.holo-radar:before{content:"";position:absolute;inset:20px;border:1px dashed var(--cyan);border-radius:50%}
-.holo-label{position:absolute;bottom:17px;font:9px Orbitron;color:var(--cyan);letter-spacing:3px}
-.holo-coordinates{position:absolute;top:14px;left:14px;font:8px/1.8 Orbitron;color:var(--cyan)}
-.holo-coordinates.right{left:auto;right:14px;text-align:right}
-.jarvis-side{display:flex;flex-direction:column;gap:11px}
-.camera-box{position:relative;min-height:175px;background:#010914;border:1px solid var(--line);border-radius:9px;overflow:hidden}
-#cameraVideo{width:100%;height:175px;object-fit:cover;transform:scaleX(-1);display:block}
-#handCanvas{position:absolute;inset:0;width:100%;height:100%;transform:scaleX(-1);pointer-events:none}
-.camera-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:var(--cyan);font:9px Orbitron}
-.camera-placeholder b{font-size:25px}
-.camera-state{position:absolute;top:8px;left:8px;background:#031321;padding:6px;font:8px Orbitron;color:var(--cyan)}
-.gesture-status{padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--glass)}
-.gesture-status small{display:block;color:var(--sub);font:8px Orbitron;margin-bottom:7px}
-.gesture-status strong{font:10px Orbitron;color:var(--cyan)}
-.jarvis-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.jarvis-btn{padding:12px 7px;border:1px solid var(--line);border-radius:7px;background:var(--glass);color:var(--cyan);font:9px Orbitron}
-.jarvis-btn.primary{background:#159dcc;color:#03101d}
-.jarvis-btn:disabled{opacity:.4}
-.gesture-guide{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:17px}
-.gesture-card{padding:12px 5px;text-align:center;border:1px solid var(--line);border-radius:8px;background:var(--glass)}
-.gesture-card span{font-size:22px;display:block;margin-bottom:7px}
-.gesture-card strong{font:8px Orbitron;color:var(--cyan)}
-.gesture-card small{display:block;font-size:9px;color:var(--sub);margin-top:6px}
-.log-panel{margin-top:15px;border:1px solid var(--line);border-radius:8px;padding:12px;background:var(--glass)}
-.log-title{font:9px Orbitron;color:var(--cyan);margin-bottom:8px}
-#jarvisLog{font:10px/1.8 monospace;color:var(--sub);max-height:100px;overflow:auto}
-.core-status{text-align:center;color:var(--sub);font:9px Orbitron;letter-spacing:1px;margin-top:18px}
-
-/* GLOBAL HUD */
-#globalGestureHud{
-position:fixed;right:14px;bottom:14px;z-index:500;display:none;
-padding:11px 13px;border:1px solid var(--blue);border-radius:9px;
-background:rgba(3,17,32,.94);color:#9cecff;font:9px Orbitron;
-pointer-events:none;max-width:65%;
+.card{
+ padding:25px;
+ min-height:145px;
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:10px;
+ transition:.25s;
 }
-#globalGestureHud.active{display:block}
-#globalHudSub{display:block;font:8px Inter;margin-top:5px;color:#8bbbd1}
-#floatingControls{position:fixed;left:13px;bottom:13px;z-index:600;display:flex;flex-direction:column;gap:8px}
-.float-control{padding:12px 14px;border:1px solid rgba(65,205,255,.6);border-radius:8px;background:rgba(3,17,32,.95);color:#9cecff;font:9px Orbitron}
-.float-control.online{border-color:#62ffc0;color:#aaffd9}
-.float-control:disabled{opacity:.4}
+.card:hover{
+ transform:translateY(-4px);
+ border-color:var(--cyan);
+ box-shadow:0 0 25px #168bff22;
+}
+.card h3{font:600 13px Orbitron;color:var(--cyan)}
+.card p{font-size:14px;line-height:1.8;color:var(--muted)}
+.storyline{border-left:1px solid var(--cyan);padding:5px 0 5px 25px;margin:25px 0}
+.storyline strong{font:600 12px Orbitron;color:var(--cyan)}
+.contact{text-align:center}
+footer{
+ text-align:center;padding:30px;
+ border-top:1px solid var(--line);
+ color:var(--muted);font-size:12px;
+}
 
-/* HAND POINTER */
+/* JARVIS HUD */
+#hud{
+ display:none;
+ position:fixed;right:15px;bottom:15px;
+ z-index:2000;
+ flex-direction:column;align-items:flex-end;gap:8px;
+}
+.hudbtn{
+ background:#06182b;
+ border:1px solid var(--cyan);
+ color:var(--cyan);
+ border-radius:30px;
+ padding:12px 17px;
+ font:600 10px Orbitron;
+}
+#hudpanel{
+ display:none;width:245px;
+ padding:16px;
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:10px;
+ font-size:12px;line-height:1.7;
+}
+#hudpanel.show{display:block}
+#camera{width:100%;display:none;border-radius:8px}
 #gesturePointer{
-position:fixed;left:0;top:0;width:36px;height:36px;
-border:2px solid #72eaff;border-radius:50%;
-transform:translate(-50%,-50%);z-index:10050;
-pointer-events:none;display:none;
-box-shadow:0 0 15px #25c8ff, inset 0 0 10px rgba(37,200,255,.4);
-transition:width .08s,height .08s,border-color .08s;
+ position:fixed;z-index:9999;
+ width:35px;height:35px;
+ border:2px solid var(--cyan);
+ border-radius:50%;
+ transform:translate(-50%,-50%);
+ pointer-events:none;
+ display:none;
+ box-shadow:0 0 18px #42dcff99;
 }
 #gesturePointer:before,#gesturePointer:after{
-content:"";position:absolute;background:#72eaff;
+ content:"";position:absolute;background:var(--cyan);
+ left:50%;top:50%;transform:translate(-50%,-50%);
 }
-#gesturePointer:before{width:2px;height:52px;left:15px;top:-10px}
-#gesturePointer:after{height:2px;width:52px;top:15px;left:-10px}
+#gesturePointer:before{width:48px;height:1px}
+#gesturePointer:after{height:48px;width:1px}
 #gesturePointer.active{display:block}
-#gesturePointer.clicking{
-width:54px;height:54px;border-color:#75ffc2;
-box-shadow:0 0 25px #75ffc2;
-}
-#gesturePointer.clicking:before,#gesturePointer.clicking:after{background:#75ffc2}
+#gesturePointer.clicking{transform:translate(-50%,-50%) scale(.7);background:#42dcff55}
 .gesture-hover{
-outline:2px solid #57dcff!important;
-outline-offset:4px!important;
-filter:brightness(1.18);
+ outline:2px solid var(--cyan)!important;
+ outline-offset:4px!important;
+ filter:drop-shadow(0 0 12px #42dcff99)!important;
 }
-body[data-theme="light"] #gesturePointer{
-border-color:#087eae;
-box-shadow:0 0 15px #087eae;
-}
-body[data-theme="light"] #gesturePointer:before,
-body[data-theme="light"] #gesturePointer:after{background:#087eae}
-
-/* CONTACT */
-.contact-box{text-align:center;padding:50px 25px;border:1px solid var(--line);border-radius:15px;background:var(--glass)}
-.contact-box .section-desc{margin:0 auto 25px}
-.contact-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-footer{border-top:1px solid var(--line);padding:25px;text-align:center;color:var(--sub);font-size:10px;letter-spacing:1px;position:relative;z-index:1}
-.reveal{opacity:0;transform:translateY(20px);transition:.7s}
-.reveal.visible{opacity:1;transform:translateY(0)}
-
-/* WHITE MODE */
-body[data-theme="light"]{
---bg:#edf4f8;--blue:#087fbd;--cyan:#087eae;
---line:rgba(16,123,169,.23);--glass:rgba(255,255,255,.85);
---text:#102b3c;--sub:#526d7d;background:#edf4f8;color:var(--text);
-}
-body[data-theme="light"]:before{opacity:.4}
-body[data-theme="light"] nav{background:rgba(245,250,253,.92)}
-body[data-theme="light"] .jarvis-shell{background:#fff}
-body[data-theme="light"] .holo-display{background:radial-gradient(circle,#d8f3fc,transparent 65%),#f8fcff}
-body[data-theme="light"] .holo-object{background:radial-gradient(circle at 30% 25%,white,#9deaff 12%,#299acb 42%,#07517b 75%);box-shadow:0 0 30px #4bcaff}
-body[data-theme="light"] .camera-box{background:#dceaf0}
-body[data-theme="light"] .camera-placeholder{color:#087eae}
-body[data-theme="light"] .archive-caption{background:linear-gradient(transparent,rgba(1,9,20,.95))}
-body[data-theme="light"] .archive-caption h3{color:white}
-body[data-theme="light"] .archive-caption p{color:#d4eaf5}
-body[data-theme="light"] .float-control{background:white;color:#087eae}
-body[data-theme="light"] #globalGestureHud{background:white;color:#087eae}
-body[data-theme="light"] #globalHudSub{color:#526d7d}
-
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes scan{to{top:100%}}
-@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
-@media(max-width:800px){
-.nav-links{display:none;position:absolute;top:60px;left:5%;width:90%;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;flex-direction:column;gap:0}
-.nav-links.open{display:flex}
-.nav-links a{padding:13px}
-.menu-btn{display:block}
-.hero-grid,.about-grid{grid-template-columns:1fr}
-.hero-content{text-align:center}
-.hero-text{max-width:550px;margin:20px auto}
-.hero-actions{justify-content:center}
-.hero-visual{min-height:380px}
-.jarvis-grid{grid-template-columns:1fr}
-}
-@media(max-width:520px){
-section{padding:70px 0}
-.hero{padding-top:125px}
-.hero h1{font-size:36px}
-.profile-frame{width:195px;height:260px}
-.strip-inner{display:grid;grid-template-columns:1fr 1fr;row-gap:20px}
-.about-details{grid-template-columns:1fr 1fr}
-.timeline:before{left:7px}
-.story-item,.story-item:nth-child(even){width:100%;margin-left:0;padding:0 0 25px 30px}
-.story-item:after,.story-item:nth-child(even):after{left:2px;right:auto}
-.archive-grid,.interest-grid{grid-template-columns:1fr}
-.archive-card{height:280px}
-.gesture-guide{grid-template-columns:repeat(2,1fr)}
-.holo-display{min-height:300px}
-.holo-object{width:130px;height:130px}
-.holo-radar{width:220px;height:220px}
-#floatingControls{left:8px;bottom:8px}
-.float-control{padding:10px;font-size:8px}
-#globalGestureHud{right:8px;bottom:8px}
+@media(max-width:700px){
+ header{flex-direction:column;align-items:flex-start}
+ nav{gap:12px}
+ .section{padding:60px 20px}
 }
 </style>
 </head>
 
-<body data-theme="dark">
+<body>
+<div class="grid"></div>
+<div class="scanline"></div>
 
-<!-- QR ACCESS -->
+<!-- ACCESS QR -->
 <div id="gate">
-<div class="gate-scan"></div>
-<div class="gate-card">
-<div class="emblem">F.A</div>
-<div class="gate-kicker">PRIVATE DIGITAL SPACE</div>
-<h1 class="gate-title">WELCOME TO<br><span class="glow">THE SECRET ROOM</span></h1>
-<div class="gate-sub">QR IDENTITY VERIFICATION // F.A</div>
-<div class="gate-divider"></div>
+ <div class="gatebox">
+  <div class="logo">F.A</div>
+  <div class="eyebrow">PERSONAL ACCESS PROTOCOL</div>
+  <h1 class="orbit">WELCOME BACK</h1>
+  <p>F.A PERSONAL UNIVERSE<br>
+  Sistem akses menggunakan QR. Tidak ada PIN atau sandi angka.</p>
 
-<div class="qr-label">LAPTOP: SCAN QR FROM YOUR PHONE</div>
-<div id="qr-reader"></div>
-<button class="qr-button" id="startQR">◉ START QR SCANNER</button>
+  <div class="gate-actions">
+   <button class="btn primary" id="startQR">START QR SCANNER</button>
+   <button class="btn" id="showPhoneQR">DISPLAY ACCESS QR</button>
+  </div>
 
-<button class="qr-button" id="showQR">▣ DISPLAY MY ACCESS QR</button>
-<div id="phoneQrPanel" class="hidden">
-<div id="phoneQrCode"></div>
-<p>FA PERSONAL ACCESS ID<br>Show this QR to your laptop camera.</p>
-</div>
+  <div id="reader"></div>
 
-<div class="gate-status" id="gateStatus">CAMERA STANDBY — PRESS START</div>
-<div class="gate-footer">IDENTITY VERIFICATION SYSTEM · F.A</div>
-</div>
-</div>
+  <div id="phoneQrPanel">
+   <div id="phoneQrCode"></div>
+   <small>Tampilkan QR ini di HP, lalu pindai menggunakan kamera laptop.</small>
+  </div>
 
-<div id="verification">
-<div class="check">✓</div>
-<strong>IDENTITY VERIFIED</strong>
-<small>ACCESS GRANTED</small>
+  <p>Gunakan alamat website yang sama di HP dan laptop.</p>
+  <div class="status" id="gateStatus">SYSTEM STANDBY</div>
+ </div>
 </div>
 
-<div id="terminal">
-<div class="terminal-box">
-<div class="terminal-top">F.A // J.A.R.V.I.S SYSTEM</div>
-<div class="terminal-body">
-<strong>INITIALIZING PERSONAL UNIVERSE...</strong>
-<div id="terminalLines"></div>
-</div>
-<div class="terminal-progress"><span id="terminalProgress"></span></div>
-<div class="terminal-bottom" id="terminalPercent">0%</div>
-</div>
+<!-- MAIN WEBSITE -->
+<div id="site">
+<header>
+ <div class="brand">F.A // UNIVERSE</div>
+ <nav>
+  <a href="#home">HOME</a>
+  <a href="#about">ABOUT</a>
+  <a href="#story">STORY</a>
+  <a href="#archive">ARCHIVE</a>
+  <a href="#interests">INTERESTS</a>
+  <a href="#contact">CONTACT</a>
+ </nav>
+ <button class="btn" id="themeToggle">◐ THEME</button>
+</header>
+
+<main>
+<section class="hero" id="home">
+ <div class="hero-inner">
+  <div class="orb"><span>F.A</span></div>
+  <div class="eyebrow">PERSONAL DIGITAL UNIVERSE</div>
+  <h1>I'M <em>ALFIGO</em></h1>
+  <p>Welcome to my personal universe. Sebuah ruang digital untuk menyimpan cerita, perjalanan, minat, dan hal-hal yang membentuk diriku.</p>
+  <a class="btn primary" href="#about">EXPLORE MY UNIVERSE ↓</a>
+ </div>
+</section>
+
+<section class="section" id="about">
+ <div class="eyebrow">01 // IDENTITY</div>
+ <h2>ABOUT ME</h2>
+ <div class="cards">
+  <article class="card"><h3>WHO I AM</h3><p>A curious person who enjoys technology, creativity, digital experiences, and learning something new.</p></article>
+  <article class="card"><h3>MY PRINCIPLE</h3><p>Keep growing, stay curious, and turn every experience into a lesson for the next journey.</p></article>
+  <article class="card"><h3>MY VISION</h3><p>Build meaningful things, explore new possibilities, and create a future worth being proud of.</p></article>
+ </div>
+</section>
+
+<section class="section" id="story">
+ <div class="eyebrow">02 // JOURNEY</div>
+ <h2>MY STORY</h2>
+ <div class="storyline"><strong>THE BEGINNING</strong><p class="muted">Every journey starts with curiosity and the courage to try.</p></div>
+ <div class="storyline"><strong>THE PROCESS</strong><p class="muted">Learning, creating, making mistakes, and improving one step at a time.</p></div>
+ <div class="storyline"><strong>THE NEXT CHAPTER</strong><p class="muted">The story is still being written. The best parts are yet to come.</p></div>
+</section>
+
+<section class="section" id="archive">
+ <div class="eyebrow">03 // MEMORIES</div>
+ <h2>MEMORY ARCHIVE</h2>
+ <div class="cards">
+  <article class="card" tabindex="0"><h3>01 / MOMENTS</h3><p>Little moments that become meaningful memories.</p></article>
+  <article class="card" tabindex="0"><h3>02 / ADVENTURES</h3><p>Places explored, roads travelled, and stories collected.</p></article>
+  <article class="card" tabindex="0"><h3>03 / MILESTONES</h3><p>Small achievements that remind me to keep moving forward.</p></article>
+ </div>
+</section>
+
+<section class="section" id="interests">
+ <div class="eyebrow">04 // FOCUS</div>
+ <h2>MY INTERESTS</h2>
+ <div class="cards">
+  <article class="card"><h3>TECHNOLOGY</h3><p>Digital systems, futuristic interfaces, AI, and web development.</p></article>
+  <article class="card"><h3>CREATIVITY</h3><p>Visual design, multimedia, storytelling, and interactive experiences.</p></article>
+  <article class="card"><h3>EXPLORATION</h3><p>Discovering new places, ideas, and experiences.</p></article>
+ </div>
+</section>
+
+<section class="section contact" id="contact">
+ <div class="eyebrow">05 // CONNECTION</div>
+ <h2>END OF TRANSMISSION</h2>
+ <p class="muted">Thanks for exploring my personal universe.</p>
+ <button class="btn" id="backTop">BACK TO TOP ↑</button>
+</section>
+</main>
+<footer>F.A PERSONAL UNIVERSE · ALL SYSTEMS ONLINE</footer>
 </div>
 
-<div id="photoViewer">
-<button id="photoClose">×</button>
-<img id="viewerImage" src="" alt="Memory">
+<!-- JARVIS CONTROL -->
+<div id="hud">
+ <div id="hudpanel">
+  <div class="status" id="gestureStatus">GESTURE SYSTEM READY</div>
+  <p id="gestureHelp">
+   OPEN PALM: SCROLL<br>
+   INDEX FINGER: POINT<br>
+   PINCH: CLICK<br>
+   FIST: LOCK CONTROL
+  </p>
+  <button class="btn" id="startHands">ACTIVATE HAND CONTROL</button>
+  <button class="btn" id="stopHands">STOP CAMERA</button>
+  <video id="camera" autoplay playsinline muted></video>
+ </div>
+ <button class="hudbtn" id="jarvisBtn">✦ J.A.R.V.I.S</button>
 </div>
 
 <div id="gesturePointer"></div>
 
-<div id="globalGestureHud">
-<strong id="globalHudTitle">JARVIS ONLINE</strong>
-<span id="globalHudSub">SHOW OPEN PALM TO ACTIVATE</span>
-</div>
-
-<div id="floatingControls">
-<button id="floatingCamera" class="float-control">◉ START JARVIS</button>
-<button id="floatingCalibrate" class="float-control" disabled>⌖ CALIBRATE</button>
-</div>
-
-<div id="mainWebsite" class="hidden">
-
-<nav>
-<div class="nav-inner">
-<a class="logo" href="#home">F<span>.</span>A</a>
-<div class="nav-links" id="navLinks">
-<a href="#home">HOME</a><a href="#about">ABOUT</a><a href="#story">MY STORY</a>
-<a href="#memories">MEMORY</a><a href="#interests">INTERESTS</a><a href="#universe">JARVIS</a><a href="#contact">CONTACT</a>
-</div>
-<div class="nav-controls">
-<button class="theme-btn" id="themeToggle">☼ WHITE MODE</button>
-<button class="menu-btn" id="menuBtn">☰</button>
-</div>
-</div>
-</nav>
-
-<section class="hero" id="home">
-<div class="container hero-grid">
-<div class="hero-content reveal">
-<div class="eyebrow"><span class="status-dot"></span> PERSONAL UNIVERSE ONLINE</div>
-<h1>HELLO, I'M <span>FACHRIANSYAH.</span></h1>
-<p class="hero-text">Welcome to my personal universe. A digital space that represents my journey, creativity, interests, and everything that makes me who I am.</p>
-<div class="hero-actions">
-<a href="#about" class="btn btn-primary">EXPLORE MY WORLD ↗</a>
-<a href="#story" class="btn btn-outline">MY JOURNEY</a>
-</div>
-</div>
-<div class="hero-visual reveal" id="heroVisual">
-<div class="holo-ring"></div>
-<div class="visual-tag tag-one">SYSTEM ACTIVE</div>
-<div class="profile-frame" id="profile3d"><img src="IMG-20261104-WA0009.jpg" alt="Profile"></div>
-<div class="visual-tag tag-two">LEVEL: EVOLVING</div>
-</div>
-</div>
-</section>
-
-<div class="info-strip">
-<div class="container strip-inner">
-<div class="strip-item"><strong>01</strong>MY JOURNEY</div>
-<div class="strip-item"><strong>02</strong>MY PASSION</div>
-<div class="strip-item"><strong>03</strong>MY UNIVERSE</div>
-<div class="strip-item"><strong>∞</strong>KEEP EVOLVING</div>
-</div>
-</div>
-
-<section id="about">
-<div class="container about-grid">
-<div class="about-visual reveal"><div class="about-orbit"><span>F.A</span></div></div>
-<div class="about-content reveal">
-<div class="section-label">01 / ABOUT ME</div>
-<h2 class="section-title">MORE THAN JUST <span class="glow">A NAME.</span></h2>
-<p>I'm Fachriansyah Alfigo. Someone who believes that every experience has a story, every challenge brings a lesson, and every new day is an opportunity to become better.</p>
-<p>I'm interested in digital creativity, technology, multimedia, and discovering new things. This website is my own little universe — a place to express ideas and document my journey.</p>
-<div class="about-details">
-<div class="detail"><small>NAME</small><strong>Fachriansyah Alfigo</strong></div>
-<div class="detail"><small>FIELD</small><strong>Digital Multimedia</strong></div>
-<div class="detail"><small>PERSONALITY</small><strong>Creative Explorer</strong></div>
-<div class="detail"><small>PHILOSOPHY</small><strong>Keep Growing</strong></div>
-</div>
-</div>
-</div>
-</section>
-
-<section class="story-section" id="story">
-<div class="container">
-<div class="center-heading reveal">
-<div class="section-label">02 / MY STORY</div>
-<h2 class="section-title">THE JOURNEY <span class="glow">CONTINUES.</span></h2>
-<p class="section-desc">Every chapter has its own meaning. These are some of the things that shape my journey and the person I am becoming.</p>
-</div>
-<div class="timeline">
-<div class="story-item reveal"><div class="story-card"><small>CHAPTER 01</small><h3>THE BEGINNING</h3><p>Every journey starts somewhere. This is where curiosity, dreams, and the desire to explore new possibilities begin.</p></div></div>
-<div class="story-item reveal"><div class="story-card"><small>CHAPTER 02</small><h3>DISCOVERING MY PASSION</h3><p>Exploring technology, digital media, creativity, and learning how ideas can become something meaningful.</p></div></div>
-<div class="story-item reveal"><div class="story-card"><small>CHAPTER 03</small><h3>LEARNING & GROWING</h3><p>Not everything goes perfectly. Every challenge becomes an opportunity to learn, improve, and move forward.</p></div></div>
-<div class="story-item reveal"><div class="story-card"><small>CHAPTER 04</small><h3>THE NEXT CHAPTER</h3><p>The story is still being written. There are more things to discover, more goals to achieve, and more memories to create.</p></div></div>
-</div>
-</div>
-</section>
-
-<section id="memories">
-<div class="container">
-<div class="center-heading reveal">
-<div class="section-label">02.5 / MEMORY ARCHIVE</div>
-<h2 class="section-title">MOMENTS <span class="glow">TO REMEMBER.</span></h2>
-<p class="section-desc">A small collection of memories from my personal journey.</p>
-</div>
-<div class="archive-grid">
-<div class="archive-card reveal" data-image="IMG-20261104-WA0006.jpg">
-<img src="IMG-20261104-WA0006.jpg" alt="Memory 1">
-<div class="archive-caption"><small>MEMORY ARCHIVE 01</small><h3>A MOMENT IN TIME</h3><p>Tap to explore this memory ↗</p></div>
-</div>
-<div class="archive-card reveal" data-image="IMG-20261104-WA0011.jpg">
-<img src="IMG-20261104-WA0011.jpg" alt="Memory 2">
-<div class="archive-caption"><small>MEMORY ARCHIVE 02</small><h3>ANOTHER CHAPTER</h3><p>Tap to explore this memory ↗</p></div>
-</div>
-</div>
-</div>
-</section>
-
-<section id="interests">
-<div class="container">
-<div class="reveal">
-<div class="section-label">03 / MY INTERESTS</div>
-<h2 class="section-title">THINGS THAT <span class="glow">INSPIRE ME.</span></h2>
-<p class="section-desc">A collection of interests that keep my curiosity alive and inspire me to explore more.</p>
-</div>
-<div class="interest-grid">
-<div class="interest-card reveal"><span class="interest-icon">✦</span><h3>TECHNOLOGY</h3><p>Exploring digital innovation, websites, and how technology changes the world.</p></div>
-<div class="interest-card reveal"><span class="interest-icon">◈</span><h3>CREATIVITY</h3><p>Turning ideas into visual experiences through design and digital media.</p></div>
-<div class="interest-card reveal"><span class="interest-icon">⌘</span><h3>MULTIMEDIA</h3><p>Discovering the combination of visuals, stories, and interactive experiences.</p></div>
-<div class="interest-card reveal"><span class="interest-icon">⚽</span><h3>FOOTBALL</h3><p>A passion for the game, legendary players, unforgettable moments, and stories.</p></div>
-<div class="interest-card reveal"><span class="interest-icon">◎</span><h3>EXPLORATION</h3><p>Discovering new places, experiences, and perspectives along the way.</p></div>
-<div class="interest-card reveal"><span class="interest-icon">∞</span><h3>PERSONAL GROWTH</h3><p>Learning from experiences and continuing to become a better version of myself.</p></div>
-</div>
-</div>
-</section>
-
-<section class="core-section" id="universe">
-<div class="container">
-<div class="center-heading reveal">
-<div class="section-label">04 / F.A ADVANCED SYSTEM</div>
-<h2 class="section-title">J.A.R.V.I.S. <span class="glow">INTERFACE.</span></h2>
-<p class="section-desc">A gesture-controlled holographic interface. Activate your camera and interact with the digital core and the entire website using your hand.</p>
-</div>
-<div class="jarvis-shell reveal">
-<div class="jarvis-topbar"><div class="jarvis-brand">F.A // J.A.R.V.I.S CONTROL CENTER</div><div class="jarvis-live" id="systemLive">SYSTEM STANDBY</div></div>
-<div class="jarvis-grid">
-<div class="holo-display" id="holoDisplay">
-<div class="holo-coordinates">HOLO CORE<br>AXIS: X / Y / Z</div>
-<div class="holo-coordinates right">TRACKING<br><span id="trackingText">STANDBY</span></div>
-<div class="holo-radar"></div>
-<div class="holo-object" id="holoObject"></div>
-<div class="holo-label" id="holoLabel">F.A DIGITAL CORE</div>
-</div>
-<div class="jarvis-side">
-<div class="camera-box">
-<video id="cameraVideo" autoplay playsinline muted></video>
-<canvas id="handCanvas"></canvas>
-<div class="camera-placeholder" id="cameraPlaceholder"><b>⌖</b><span>CAMERA SENSOR STANDBY</span><span>ACTIVATE TO BEGIN TRACKING</span></div>
-<div class="camera-state" id="cameraState">CAMERA OFFLINE</div>
-</div>
-<div class="gesture-status"><small>DETECTED COMMAND</small><strong id="gestureName">AWAITING HAND INPUT</strong></div>
-<div class="gesture-status"><small>INTERFACE RESPONSE</small><strong id="responseText">SYSTEM READY</strong></div>
-<div class="jarvis-actions">
-<button class="jarvis-btn primary" id="startCamera">ACTIVATE CAMERA</button>
-<button class="jarvis-btn" id="stopCamera" disabled>DEACTIVATE</button>
-<button class="jarvis-btn" id="calibrateCamera" disabled>CALIBRATE</button>
-<button class="jarvis-btn" id="resetHolo">RESET HOLOGRAM</button>
-<button class="jarvis-btn" id="voiceTest">JARVIS VOICE</button>
-</div>
-</div>
-</div>
-
-<div class="gesture-guide">
-<div class="gesture-card"><span>🖐️</span><strong>OPEN PALM</strong><small>Scroll website</small></div>
-<div class="gesture-card"><span>☝️</span><strong>INDEX FINGER</strong><small>Move pointer</small></div>
-<div class="gesture-card"><span>🤏</span><strong>PINCH</strong><small>Click target</small></div>
-<div class="gesture-card"><span>✊</span><strong>FIST</strong><small>Lock control</small></div>
-<div class="gesture-card"><span>↔️</span><strong>HAND MOVE</strong><small>Rotate core</small></div>
-</div>
-<div class="log-panel"><div class="log-title">◈ J.A.R.V.I.S // SYSTEM LOG</div><div id="jarvisLog">[SYSTEM] Interface initialized. Waiting for activation.</div></div>
-</div>
-<div class="core-status">JARVIS CORE // GLOBAL GESTURE MODULE READY</div>
-</div>
-</section>
-
-<section id="contact">
-<div class="container">
-<div class="contact-box reveal">
-<div class="section-label">05 / CONTACT</div>
-<h2 class="section-title">LET'S CONNECT.</h2>
-<p class="section-desc">Every connection can lead to a new story. Feel free to reach out and say hello.</p>
-<div class="contact-links">
-<a href="#" class="btn btn-primary">INSTAGRAM ↗</a>
-<a href="mailto:hello@example.com" class="btn btn-outline">EMAIL ME ↗</a>
-</div>
-</div>
-</div>
-</section>
-
-<footer>© <span id="year"></span> F.A PERSONAL UNIVERSE — DESIGNED TO EVOLVE.</footer>
-</div>
-
-<script type="module">
-const $=id=>document.getElementById(id);
-let audioContext=null;
-
-/* AUDIO */
-function unlockAudio(){
-try{
-const AC=window.AudioContext||window.webkitAudioContext;
-if(AC&&!audioContext)audioContext=new AC();
-if(audioContext?.state==="suspended")audioContext.resume();
-}catch(e){}
-}
-function tone(freq=650,duration=.12,delay=0){
-try{
-unlockAudio();if(!audioContext)return;
-const o=audioContext.createOscillator(),g=audioContext.createGain();
-const t=audioContext.currentTime+delay;
-o.frequency.value=freq;
-g.gain.setValueAtTime(.001,t);
-g.gain.exponentialRampToValueAtTime(.04,t+.02);
-g.gain.exponentialRampToValueAtTime(.001,t+duration);
-o.connect(g);g.connect(audioContext.destination);
-o.start(t);o.stop(t+duration+.03);
-}catch(e){}
-}
-function speak(message,priority=false){
-if(!("speechSynthesis"in window))return;
-if(priority)speechSynthesis.cancel();
-const u=new SpeechSynthesisUtterance(message);
-u.lang="en-US";u.rate=.9;u.pitch=.85;
-speechSynthesis.speak(u);
-}
-function wait(ms){return new Promise(r=>setTimeout(r,ms))}
-
-/* QR ACCESS */
+<script>
 const ACCESS_KEY="FA-JARVIS-ACCESS-ALFIGO-2026";
-let qrScanner=null,qrBusy=false,lastRejected="";
+const $=id=>document.getElementById(id);
 
-function generatePhoneQR(){
-const panel=$("phoneQrPanel");
-panel.classList.toggle("hidden");
-if(!panel.classList.contains("hidden")){
-if(!window.QRCode){
-$("gateStatus").textContent="QR GENERATOR GAGAL DIMUAT. PERIKSA INTERNET.";
-$("gateStatus").className="gate-status error";
-return;
-}
-$("phoneQrCode").innerHTML="";
-new QRCode($("phoneQrCode"),{
-text:ACCESS_KEY,width:220,height:220,
-colorDark:"#061426",colorLight:"#ffffff",
-correctLevel:QRCode.CorrectLevel.H
-});
-$("gateStatus").textContent="PERSONAL QR READY — SCAN FROM LAPTOP";
-$("gateStatus").className="gate-status success";
-}
-}
-$("showQR").onclick=generatePhoneQR;
-
-async function startQRScanner(){
-if(qrScanner||qrBusy)return;
-unlockAudio();
-const button=$("startQR");
-button.disabled=true;
-button.textContent="INITIALIZING SCANNER...";
-$("gateStatus").textContent="REQUESTING CAMERA ACCESS...";
-try{
-if(!window.Html5Qrcode)throw new Error("QR library gagal dimuat. Periksa koneksi internet.");
-qrScanner=new Html5Qrcode("qr-reader");
-const cameras=await Html5Qrcode.getCameras();
-if(!cameras.length)throw new Error("Kamera tidak ditemukan.");
-const selectedCamera=cameras.find(c=>/back|environment/i.test(c.label))||cameras[0];
-await qrScanner.start(selectedCamera.id,
-{fps:12,qrbox:{width:230,height:230},aspectRatio:1},
-async(decodedText)=>{
-if(qrBusy)return;
-if(decodedText.trim()===ACCESS_KEY){
-qrBusy=true;
-$("gateStatus").textContent="IDENTITY VERIFIED";
-$("gateStatus").className="gate-status success";
-button.textContent="ACCESS GRANTED";
-try{await qrScanner.stop();}catch(e){}
-try{await qrScanner.clear();}catch(e){}
-qrScanner=null;
-[440,554,659,880].forEach((f,i)=>tone(f,.4,i*.1));
-speak("Identity verified. Welcome back, Alfigo.",true);
-await wait(900);
-$("verification").classList.add("show");
-await wait(1300);
-$("verification").classList.remove("show");
-$("gate").style.display="none";
-await runTerminal();
-}else if(decodedText!==lastRejected){
-lastRejected=decodedText;
-$("gateStatus").textContent="INVALID QR CODE — TRY YOUR PERSONAL QR";
-$("gateStatus").className="gate-status error";
-tone(250,.15);
-}
-},()=>{});
-button.textContent="SCANNER ACTIVE";
-$("gateStatus").textContent="SHOW YOUR PERSONAL QR TO CAMERA";
-$("gateStatus").className="gate-status";
-}catch(e){
-console.error(e);
-$("gateStatus").textContent=e.message||"CAMERA COULD NOT START";
-$("gateStatus").className="gate-status error";
-button.disabled=false;button.textContent="◉ TRY AGAIN";
-if(qrScanner){try{await qrScanner.clear()}catch(err){}qrScanner=null;}
-qrBusy=false;
-}
-}
-$("startQR").onclick=startQRScanner;
-
-/* TERMINAL */
-async function runTerminal(){
-$("terminal").classList.add("show");
-const messages=[
-"Authentication confirmed.",
-"Initializing J.A.R.V.I.S interface...",
-"Loading personal universe modules...",
-"Profile database connected.",
-"Memory archive synchronized.",
-"Visual interface calibrated.",
-"Security protocols verified.",
-"All systems operational.",
-"Welcome."
-];
-for(let i=0;i<messages.length;i++){
-const line=document.createElement("div");
-line.textContent="[ JARVIS ] "+messages[i];
-$("terminalLines").appendChild(line);
-const p=Math.round((i+1)/messages.length*100);
-$("terminalProgress").style.width=p+"%";
-$("terminalPercent").textContent=p+"%";
-tone(700,.05);await wait(400);
-}
-await wait(500);
-$("terminal").classList.remove("show");
-$("mainWebsite").classList.remove("hidden");
-document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
-}
-
-/* THEME */
-function setTheme(theme){
-document.body.dataset.theme=theme;
-$("themeToggle").textContent=theme==="dark"?"☼ WHITE MODE":"☾ BLUE MODE";
-try{localStorage.setItem("fa-theme",theme)}catch(e){}
-}
-let saved="dark";
-try{saved=localStorage.getItem("fa-theme")||"dark"}catch(e){}
-setTheme(saved);
-$("themeToggle").onclick=()=>{
-setTheme(document.body.dataset.theme==="dark"?"light":"dark");
-tone(700);
+/* QR GENERATOR */
+let qrGenerated=false;
+$("showPhoneQR").onclick=()=>{
+ const panel=$("phoneQrPanel");
+ panel.style.display=panel.style.display==="block"?"none":"block";
+ if(!qrGenerated){
+  new QRCode($("phoneQrCode"),{
+   text:ACCESS_KEY,
+   width:220,
+   height:220,
+   colorDark:"#061426",
+   colorLight:"#ffffff",
+   correctLevel:QRCode.CorrectLevel.H
+  });
+  qrGenerated=true;
+ }
+ $("gateStatus").textContent="ACCESS QR READY";
 };
 
-/* NAVIGATION */
-$("menuBtn").onclick=()=>$("navLinks").classList.toggle("open");
-document.querySelectorAll(".nav-links a").forEach(a=>a.onclick=()=>$("navLinks").classList.remove("open"));
+/* QR SCANNER */
+let qrScanner=null;
+let qrBusy=false;
 
-/* PROFILE */
-const heroVisual=$("heroVisual"),profile=$("profile3d");
-heroVisual.addEventListener("mousemove",e=>{
-const r=heroVisual.getBoundingClientRect();
-const x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
-profile.style.transform=`rotateX(${(0.5-y)*20}deg) rotateY(${(x-.5)*20}deg)`;
-});
-heroVisual.addEventListener("mouseleave",()=>profile.style.transform="");
+$("startQR").onclick=async()=>{
+ try{
+  if(!window.Html5Qrcode)throw new Error("QR library belum termuat");
+  $("gateStatus").textContent="REQUESTING CAMERA...";
+  if(qrScanner){
+   await qrScanner.stop().catch(()=>{});
+   qrScanner.clear();
+  }
+  qrScanner=new Html5Qrcode("reader");
+  const cameras=await Html5Qrcode.getCameras();
+  if(!cameras.length)throw new Error("Kamera tidak ditemukan");
+  const camera=cameras[0];
 
-/* REVEAL */
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}
-});
-},{threshold:.12});
-document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
-
-/* MEMORY VIEWER */
-document.querySelectorAll(".archive-card").forEach(card=>{
-card.onclick=()=>{
-$("viewerImage").src=card.dataset.image;
-$("photoViewer").classList.add("show");tone(650);
+  await qrScanner.start(
+   camera.id,
+   {fps:12,qrbox:{width:240,height:240}},
+   async decoded=>{
+    if(qrBusy)return;
+    if(decoded.trim()===ACCESS_KEY){
+     qrBusy=true;
+     $("gateStatus").textContent="ACCESS GRANTED";
+     await qrScanner.stop().catch(()=>{});
+     $("gate").style.display="none";
+     $("site").style.display="block";
+     $("hud").style.display="flex";
+     window.scrollTo(0,0);
+    }else{
+     $("gateStatus").textContent="QR NOT RECOGNIZED";
+    }
+   }
+  );
+  $("gateStatus").textContent="SCAN ACCESS QR NOW";
+ }catch(error){
+  $("gateStatus").textContent="CAMERA ERROR: "+error.message;
+ }
 };
-});
-$("photoClose").onclick=()=>$("photoViewer").classList.remove("show");
-$("photoViewer").onclick=e=>{
-if(e.target===$("photoViewer"))$("photoViewer").classList.remove("show");
-};
-$("year").textContent=new Date().getFullYear();
 
-/* JARVIS HAND TRACKING */
-const video=$("cameraVideo"),canvas=$("handCanvas");
-const ctx=canvas.getContext("2d"),holo=$("holoObject");
+/* WEBSITE CONTROLS */
+$("themeToggle").onclick=()=>document.body.classList.toggle("light");
+$("backTop").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+$("jarvisBtn").onclick=()=>$("hudpanel").classList.toggle("show");
+
+/* HAND TRACKING */
 const pointer=$("gesturePointer");
+const video=$("camera");
 
-let stream=null,landmarker=null,running=false,raf=null,lastTime=-1;
-let enabled=false,locked=false,pointerMode=false;
-let lastGesture="",lastY=null,lastX=null,smoothY=null,smoothX=null;
-let rotationX=0,rotationY=0,lastLock=0,lastClick=0;
-let hoveredElement=null;
+let stream=null;
+let running=false;
+let landmarker=null;
+let lastVideoTime=-1;
+let lastGesture="";
+let lastY=null;
+let smoothY=null;
+let locked=false;
+let pointerMode=false;
+let lastClick=0;
+let hovered=null;
 
-function log(message){
-const el=document.createElement("div");
-el.textContent="[ "+new Date().toLocaleTimeString()+" ] "+message;
-$("jarvisLog").prepend(el);
-while($("jarvisLog").children.length>10)$("jarvisLog").lastChild.remove();
+function status(message){
+ $("gestureStatus").textContent=message;
 }
-function status(command,response){
-$("gestureName").textContent=command;
-$("responseText").textContent=response;
+
+function dist(a,b){
+ return Math.hypot(a.x-b.x,a.y-b.y);
 }
-function hud(){
-$("globalGestureHud").classList.toggle("active",running);
-$("floatingCamera").classList.toggle("online",running);
-$("floatingCamera").textContent=running?"■ STOP JARVIS":"◉ START JARVIS";
-$("floatingCalibrate").disabled=!running;
-if(!running)return;
-if(locked){
-$("globalHudTitle").textContent="CONTROL LOCKED";
-$("globalHudSub").textContent="SHOW OPEN PALM TO UNLOCK";
-}else if(pointerMode){
-$("globalHudTitle").textContent="HOLOGRAPHIC POINTER ACTIVE";
-$("globalHudSub").textContent="POINT AT A CONTROL — PINCH TO CLICK";
-}else if(enabled){
-$("globalHudTitle").textContent="GLOBAL SCROLL ACTIVE";
-$("globalHudSub").textContent="MOVE YOUR OPEN PALM UP OR DOWN";
-}else{
-$("globalHudTitle").textContent="JARVIS CAMERA ONLINE";
-$("globalHudSub").textContent="SHOW OPEN PALM TO SCROLL";
-}
-}
-function resetPosition(){
-lastY=null;lastX=null;smoothY=null;smoothX=null;
-}
-function updateHolo(){
-holo.style.transform=`rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
-}
-function calibrate(){
-resetPosition();
-status("CALIBRATION COMPLETE","HAND POSITION RESET");
-log("Hand tracking recalibrated.");tone(850);
-}
-function clearHover(){
-if(hoveredElement)hoveredElement.classList.remove("gesture-hover");
-hoveredElement=null;
-}
-function hidePointer(){
-pointer.classList.remove("active","clicking");
-clearHover();
-}
-function toggleLock(){
-if(Date.now()-lastLock<1500)return;
-lastLock=Date.now();
-locked=!locked;enabled=false;pointerMode=false;
-resetPosition();hidePointer();
-status(locked?"CONTROL LOCKED":"CONTROL UNLOCKED",
-locked?"SHOW OPEN PALM TO UNLOCK":"SHOW OPEN PALM TO ACTIVATE");
-log(locked?"Gesture control locked.":"Gesture control unlocked.");
-tone(locked?350:750);hud();
-}
-function distance(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
+
 function fingerExtended(lm,tip,pip){
-return lm[tip].y<lm[pip].y;
+ return lm[tip].y<lm[pip].y-.018;
 }
+
 function classify(lm){
-const index=fingerExtended(lm,8,6);
-const middle=fingerExtended(lm,12,10);
-const ring=fingerExtended(lm,16,14);
-const pinky=fingerExtended(lm,20,18);
-const count=[index,middle,ring,pinky].filter(Boolean).length;
-const pinch=distance(lm[4],lm[8])<.055;
+ const fingers=[
+  fingerExtended(lm,8,6),
+  fingerExtended(lm,12,10),
+  fingerExtended(lm,16,14),
+  fingerExtended(lm,20,18)
+ ];
 
-if(pinch)return "PINCH";
-if(index&&!middle&&!ring&&!pinky)return "POINT";
-if(count>=4)return "OPEN";
-if(count===0)return "FIST";
-return "MOVE";
+ if(dist(lm[4],lm[8])<.052)return "PINCH";
+
+ const count=fingers.filter(Boolean).length;
+
+ if(count===4)return "OPEN";
+
+ if(fingers[0]&&!fingers[1]&&!fingers[2]&&!fingers[3]){
+  return "POINT";
+ }
+
+ if(count===0)return "FIST";
+
+ return "MOVE";
 }
 
-/* HAND DRAWING */
-function drawHand(lm){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-const links=[[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[17,18],[18,19],[19,20],[0,17]];
-ctx.strokeStyle="#55e5ff";ctx.lineWidth=3;ctx.shadowBlur=8;ctx.shadowColor="#25c8ff";
-links.forEach(([a,b])=>{
-ctx.beginPath();
-ctx.moveTo(lm[a].x*canvas.width,lm[a].y*canvas.height);
-ctx.lineTo(lm[b].x*canvas.width,lm[b].y*canvas.height);
-ctx.stroke();
-});
-lm.forEach(p=>{
-ctx.beginPath();ctx.arc(p.x*canvas.width,p.y*canvas.height,4,0,Math.PI*2);
-ctx.fillStyle="#fff";ctx.fill();
-});
-}
-
-/* GLOBAL SCROLL */
+/* SCROLL SELURUH HALAMAN */
 function scrollByHand(y){
-if(lastY===null){lastY=y;smoothY=y;return;}
-smoothY+=(y-smoothY)*.55;
-const delta=lastY-smoothY;
-lastY=smoothY;
-if(Math.abs(delta)>.0015){
-const amount=Math.max(-55,Math.min(55,delta*1600));
-window.scrollBy({top:amount,left:0,behavior:"auto"});
-}
+ if(lastY===null){
+  lastY=y;
+  smoothY=y;
+  return;
+ }
+
+ smoothY+=(y-smoothY)*.62;
+
+ const delta=lastY-smoothY;
+ lastY=smoothY;
+
+ if(Math.abs(delta)>.0012){
+  window.scrollBy(0,Math.max(-58,Math.min(58,delta*1900)));
+ }
 }
 
-/* HOLOGRAM ROTATION */
-function rotateByHand(x,y){
-if(lastX===null){lastX=x;smoothX=x;return;}
-smoothX+=(x-smoothX)*.5;
-const delta=smoothX-lastX;
-if(Math.abs(delta)>.001){
-rotationY=Math.max(-180,Math.min(180,rotationY-delta*420));
-rotationX=Math.max(-70,Math.min(70,(y-.5)*100));
-updateHolo();
-}
-lastX=smoothX;
+/* POINTER TELUNJUK */
+function clearHover(){
+ if(hovered)hovered.classList.remove("gesture-hover");
+ hovered=null;
 }
 
-/* POINTER MOVEMENT */
 function movePointer(lm){
-const tip=lm[8];
-const screenX=(1-tip.x)*window.innerWidth;
-const screenY=tip.y*window.innerHeight;
+ const x=(1-lm[8].x)*window.innerWidth;
+ const y=lm[8].y*window.innerHeight;
 
-pointer.style.left=screenX+"px";
-pointer.style.top=screenY+"px";
-pointer.classList.add("active");
+ pointer.style.left=x+"px";
+ pointer.style.top=y+"px";
+ pointer.classList.add("active");
 
-const rawTarget=document.elementFromPoint(screenX,screenY);
-const target=rawTarget?.closest(
-'a,button,input,select,textarea,[role="button"],.archive-card,.theme-btn,.menu-btn'
-);
+ const element=document.elementFromPoint(x,y);
+ const target=element&&element.closest(
+  'a,button,[role="button"],.card,[tabindex="0"],input,select,textarea'
+ );
 
-if(target!==hoveredElement){
-clearHover();
-if(target){
-hoveredElement=target;
-hoveredElement.classList.add("gesture-hover");
-}
-}
+ if(target!==hovered){
+  clearHover();
+  hovered=target;
+  if(hovered)hovered.classList.add("gesture-hover");
+ }
 }
 
-/* PINCH = CLICK */
-function clickAtPointer(){
-if(Date.now()-lastClick<650)return;
-lastClick=Date.now();
+/* PINCH UNTUK KLIK */
+function gestureClick(){
+ if(Date.now()-lastClick<550)return;
+ lastClick=Date.now();
 
-const x=parseFloat(pointer.style.left);
-const y=parseFloat(pointer.style.top);
-const raw=document.elementFromPoint(x,y);
-const target=raw?.closest(
-'a,button,input,select,textarea,[role="button"],.archive-card,.theme-btn,.menu-btn'
-);
-
-pointer.classList.add("clicking");
-setTimeout(()=>pointer.classList.remove("clicking"),220);
-
-if(!target){
-status("POINTER ACTIVE","NO CLICKABLE TARGET");
-tone(260,.1);
-return;
+ if(hovered&&document.contains(hovered)){
+  pointer.classList.add("clicking");
+  hovered.click();
+  setTimeout(()=>pointer.classList.remove("clicking"),180);
+ }
 }
 
-if(target.disabled)return;
+/* PROSES GESTURE */
+function processGesture(gesture,lm){
 
-target.click();
-status("GESTURE CLICK","CONTROL ACTIVATED");
-log("Pointer clicked: "+(target.innerText||target.tagName).trim().slice(0,45));
-tone(850,.08);
-}
+ if(gesture==="FIST"){
+  locked=true;
+  pointerMode=false;
+  pointer.classList.remove("active");
+  clearHover();
+  lastY=null;
+  status("CONTROL LOCKED · OPEN PALM TO UNLOCK");
+  return;
+ }
 
-/* GESTURE ENGINE */
-function handleHand(lm){
-const gesture=classify(lm);
-const x=lm[9].x,y=lm[9].y;
-const previous=lastGesture;
+ if(gesture==="OPEN"){
+  locked=false;
+  pointerMode=false;
+  pointer.classList.remove("active");
+  clearHover();
+  scrollByHand(lm[9].y);
+  status("SCROLL MODE · MOVE HAND UP/DOWN");
+  lastGesture=gesture;
+  return;
+ }
 
-$("trackingText").textContent="HAND DETECTED";
+ if(locked)return;
 
-if(gesture==="FIST"){
-if(previous!=="FIST"&&!locked)toggleLock();
-lastGesture=gesture;
-return;
-}
+ if(gesture==="POINT"){
+  pointerMode=true;
+  movePointer(lm);
+  status("POINTING MODE · PINCH TO CLICK");
+ }
 
-if(locked){
-if(gesture==="OPEN"&&previous!=="OPEN"){
-locked=false;
-enabled=true;
-resetPosition();
-status("CONTROL UNLOCKED","GLOBAL CONTROL READY");
-log("Open palm detected. Control unlocked.");
-tone(750);
-}
-lastGesture=gesture;
-hud();
-return;
-}
+ else if(gesture==="PINCH"){
+  if(pointerMode&&lastGesture==="POINT"){
+   gestureClick();
+   status("CLICK");
+  }else{
+   status("SCROLL PAUSED");
+  }
+ }
 
-if(gesture==="OPEN"){
-if(previous!=="OPEN"){
-enabled=true;pointerMode=false;
-hidePointer();resetPosition();
-status("OPEN PALM","GLOBAL SCROLL ENABLED");
-log("Open palm detected. Global scroll active.");
-tone(650);
-}
-scrollByHand(y);
-rotateByHand(x,y);
-}else if(gesture==="POINT"){
-enabled=false;pointerMode=true;
-movePointer(lm);
-status("INDEX POINTER","AIM AT A BUTTON — PINCH TO CLICK");
-}else if(gesture==="PINCH"){
-if(pointerMode){
-if(previous!=="PINCH")clickAtPointer();
-status("PINCH CLICK","TARGET ACTIVATED");
-}else{
-enabled=false;
-status("PINCH DETECTED","SCROLL PAUSED");
-}
-}else{
-if(pointerMode)hidePointer();
-pointerMode=false;
-if(gesture==="MOVE"){
-status("HAND MOVEMENT","OPEN PALM TO SCROLL / INDEX TO POINT");
-}
+ else{
+  status("HAND DETECTED");
+ }
+
+ lastGesture=gesture;
 }
 
-lastGesture=gesture;
-hud();
+/* AKTIFKAN KAMERA */
+async function startHandControl(){
+ try{
+  status("LOADING HAND TRACKING...");
+
+  const mp=await import(
+   "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14"
+  );
+
+  const vision=await mp.FilesetResolver.forVisionTasks(
+   "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
+  );
+
+  landmarker=await mp.HandLandmarker.createFromOptions(vision,{
+   baseOptions:{
+    modelAssetPath:"https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+    delegate:"GPU"
+   },
+   runningMode:"VIDEO",
+   numHands:1
+  });
+
+  stream=await navigator.mediaDevices.getUserMedia({
+   video:{facingMode:"user",width:640,height:480},
+   audio:false
+  });
+
+  video.srcObject=stream;
+  video.style.display="block";
+  await video.play();
+
+  running=true;
+  status("HAND CONTROL ACTIVE");
+  requestAnimationFrame(handLoop);
+
+ }catch(error){
+  status("ERROR · "+error.message);
+ }
 }
 
-/* LOAD MEDIAPIPE */
-async function loadModel(){
-if(landmarker)return landmarker;
-$("cameraState").textContent="LOADING AI MODEL...";
-const mp=await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14");
-const vision=await mp.FilesetResolver.forVisionTasks(
-"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
-);
-const options={
-baseOptions:{
-modelAssetPath:"https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task"
-},
-runningMode:"VIDEO",numHands:1,
-minHandDetectionConfidence:.55,
-minHandPresenceConfidence:.55,
-minTrackingConfidence:.55
-};
-try{
-landmarker=await mp.HandLandmarker.createFromOptions(vision,{
-...options,
-baseOptions:{...options.baseOptions,delegate:"GPU"}
-});
-}catch(e){
-landmarker=await mp.HandLandmarker.createFromOptions(vision,options);
-}
-return landmarker;
+function handLoop(){
+ if(!running)return;
+
+ if(video.readyState>=2&&video.currentTime!==lastVideoTime){
+  lastVideoTime=video.currentTime;
+
+  const result=landmarker.detectForVideo(
+   video,performance.now()
+  );
+
+  if(result.landmarks&&result.landmarks.length){
+   const hand=result.landmarks[0];
+   processGesture(classify(hand),hand);
+  }else{
+   status("SHOW ONE HAND TO CAMERA");
+   lastY=null;
+  }
+ }
+
+ requestAnimationFrame(handLoop);
 }
 
-/* TRACKING LOOP */
-function detectLoop(){
-if(!running)return;
-if(video.readyState>=2&&video.currentTime!==lastTime){
-lastTime=video.currentTime;
-try{
-const result=landmarker.detectForVideo(video,performance.now());
-ctx.clearRect(0,0,canvas.width,canvas.height);
-if(result.landmarks?.length){
-const lm=result.landmarks[0];
-drawHand(lm);
-handleHand(lm);
-}else{
-lastGesture="NONE";
-resetPosition();
-pointerMode=false;
-hidePointer();
-$("trackingText").textContent="SEARCHING";
-status("NO HAND DETECTED","SHOW YOUR HAND TO CAMERA");
-hud();
-}
-}catch(e){console.error(e);}
-}
-raf=requestAnimationFrame(detectLoop);
+/* MATIKAN KAMERA */
+function stopHandControl(){
+ running=false;
+
+ if(stream){
+  stream.getTracks().forEach(track=>track.stop());
+  stream=null;
+ }
+
+ video.srcObject=null;
+ video.style.display="none";
+ pointer.classList.remove("active");
+ clearHover();
+
+ lastY=null;
+ lastGesture="";
+ status("CAMERA STOPPED");
 }
 
-/* START CAMERA */
-async function startCamera(){
-if(running)return;
-unlockAudio();
-$("startCamera").disabled=true;
-$("floatingCamera").disabled=true;
-try{
-if(!navigator.mediaDevices?.getUserMedia){
-throw new Error("Gunakan localhost atau HTTPS untuk mengakses kamera.");
-}
-stream=await navigator.mediaDevices.getUserMedia({
-audio:false,
-video:{facingMode:"user",width:{ideal:640},height:{ideal:480}}
-});
-video.srcObject=stream;
-await video.play();
-await loadModel();
-
-running=true;enabled=false;locked=false;pointerMode=false;
-lastGesture="";lastTime=-1;resetPosition();
-$("cameraPlaceholder").style.display="none";
-$("cameraState").textContent="CAMERA ONLINE";
-$("systemLive").textContent="GESTURE SYSTEM ACTIVE";
-$("stopCamera").disabled=false;
-$("calibrateCamera").disabled=false;
-canvas.width=video.videoWidth||640;
-canvas.height=video.videoHeight||480;
-status("AWAITING HAND","SHOW YOUR OPEN PALM");
-log("Camera online. Hand tracking started.");
-hud();
-speak("Camera online. Show your open palm to activate gesture control.",true);
-detectLoop();
-}catch(e){
-console.error(e);
-$("cameraState").textContent="CAMERA ERROR";
-status("SYSTEM ERROR",e.message);
-log("Camera error: "+e.message);
-stopCamera(false);
-}finally{
-$("startCamera").disabled=false;
-$("floatingCamera").disabled=false;
-}
-}
-
-/* STOP CAMERA */
-function stopCamera(writeLog=true){
-running=false;
-if(raf){cancelAnimationFrame(raf);raf=null;}
-if(stream)stream.getTracks().forEach(t=>t.stop());
-stream=null;video.srcObject=null;
-ctx.clearRect(0,0,canvas.width,canvas.height);
-$("cameraPlaceholder").style.display="flex";
-$("cameraState").textContent="CAMERA OFFLINE";
-$("systemLive").textContent="SYSTEM STANDBY";
-$("trackingText").textContent="STANDBY";
-$("startCamera").disabled=false;
-$("stopCamera").disabled=true;
-$("calibrateCamera").disabled=true;
-enabled=false;locked=false;pointerMode=false;lastGesture="";
-resetPosition();hidePointer();
-$("globalGestureHud").classList.remove("active");
-$("floatingCamera").classList.remove("online");
-$("floatingCamera").textContent="◉ START JARVIS";
-status("AWAITING HAND INPUT","SYSTEM READY");
-if(writeLog)log("Camera deactivated.");
-hud();
-}
-
-/* BUTTONS */
-$("startCamera").onclick=startCamera;
-$("floatingCamera").onclick=()=>running?stopCamera():startCamera();
-$("stopCamera").onclick=()=>stopCamera();
-$("calibrateCamera").onclick=calibrate;
-$("floatingCalibrate").onclick=calibrate;
-
-$("resetHolo").onclick=()=>{
-rotationX=0;rotationY=0;updateHolo();
-$("holoLabel").textContent="F.A DIGITAL CORE";
-status("SYSTEM RESET","HOLOGRAM RESTORED");
-log("Hologram reset.");tone(700);
-};
-$("voiceTest").onclick=()=>{
-unlockAudio();
-speak("JARVIS interface online. How can I assist you?",true);
-log("Voice assistant activated.");tone(800);
-};
+$("startHands").onclick=startHandControl;
+$("stopHands").onclick=stopHandControl;
 
 window.addEventListener("pagehide",()=>{
-stopCamera(false);
-if(qrScanner)qrScanner.stop().catch(()=>{});
+ stopHandControl();
+ if(qrScanner)qrScanner.stop().catch(()=>{});
 });
 </script>
 </body>
