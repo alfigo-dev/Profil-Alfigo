@@ -7,20 +7,19 @@
 <meta name="theme-color" content="#050b18">
 <title>F.A | Personal Universe</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/html5-qrcode"></script>
 
 <style>
 :root{
 --bg:#050b18;--blue:#25c8ff;--cyan:#8cecff;
---line:rgba(66,205,255,.25);
---glass:rgba(9,28,51,.78);
+--line:rgba(66,205,255,.25);--glass:rgba(9,28,51,.78);
 --text:#eafaff;--sub:#91adbf;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 body{
 background:radial-gradient(ellipse at 50% 0%,#102b50,transparent 55%),var(--bg);
-color:var(--text);font-family:Inter,sans-serif;overflow-x:hidden;
-transition:.4s;
+color:var(--text);font-family:Inter,sans-serif;overflow-x:hidden;transition:.4s;
 }
 body:before{
 content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
@@ -37,11 +36,10 @@ section{padding:90px 0;position:relative;z-index:1}
 .glow{color:var(--cyan);text-shadow:0 0 20px rgba(37,200,255,.4)}
 .hidden{display:none!important}
 
-/* LOGIN */
+/* QR ACCESS GATE */
 #gate{
-position:fixed;inset:0;z-index:9999;
-display:flex;align-items:center;justify-content:center;
-padding:20px;
+position:fixed;inset:0;z-index:9999;display:flex;
+align-items:center;justify-content:center;padding:20px;
 background:radial-gradient(ellipse at center,rgba(0,145,230,.22),transparent 55%),#030914;
 }
 #gate:before{
@@ -55,17 +53,15 @@ background:linear-gradient(90deg,transparent,#31d8ff,transparent);
 box-shadow:0 0 20px #25c8ff;animation:scan 5s linear infinite;
 }
 .gate-card{
-width:min(420px,100%);position:relative;z-index:2;text-align:center;
-padding:35px 24px;border:1px solid rgba(69,207,255,.4);
+width:min(440px,100%);position:relative;z-index:2;text-align:center;
+padding:32px 24px;border:1px solid rgba(69,207,255,.4);
 border-radius:16px;background:linear-gradient(145deg,rgba(8,35,61,.94),rgba(3,13,27,.95));
 box-shadow:0 0 55px rgba(0,150,255,.15);
 }
 .emblem{
 width:85px;height:85px;margin:0 auto 23px;border:1px solid var(--cyan);
-border-radius:50%;display:grid;place-items:center;
-font:800 27px Orbitron;color:white;
-box-shadow:0 0 25px rgba(37,200,255,.3);
-position:relative;
+border-radius:50%;display:grid;place-items:center;font:800 27px Orbitron;color:white;
+box-shadow:0 0 25px rgba(37,200,255,.3);position:relative;
 }
 .emblem:after{
 content:"";position:absolute;inset:-9px;border:1px dashed var(--cyan);
@@ -75,28 +71,32 @@ border-radius:50%;animation:spin 15s linear infinite;
 .gate-title{font:700 clamp(23px,6vw,31px)/1.5 Orbitron;margin:17px 0}
 .gate-sub{font:10px Orbitron;letter-spacing:3px;color:#8bbbd1}
 .gate-divider{height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);margin:25px 0}
-.pin-label{font:10px Orbitron;letter-spacing:3px;margin-bottom:18px}
-.pin-display{display:flex;justify-content:center;gap:13px;margin-bottom:23px}
-.pin-dot{width:12px;height:12px;border:1px solid var(--cyan);border-radius:50%}
-.pin-dot.filled{background:var(--cyan);box-shadow:0 0 13px var(--blue)}
-.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:270px;margin:auto}
-.key{
-height:54px;border:1px solid rgba(80,197,255,.3);
-background:rgba(16,66,100,.25);color:white;border-radius:8px;
-font:600 17px Orbitron;transition:.2s;
+.qr-label{font:10px Orbitron;letter-spacing:2px;margin-bottom:15px;color:var(--cyan)}
+#qr-reader{
+width:100%;max-width:300px;min-height:220px;margin:0 auto;
+overflow:hidden;border:1px solid rgba(80,197,255,.35);
+border-radius:10px;background:#061426;
 }
-.key:hover,.key:active{background:rgba(27,145,200,.4);border-color:var(--blue)}
-.key.utility{font-size:10px;color:var(--cyan)}
-.gate-status{min-height:20px;margin-top:19px;color:#79cde9;font:10px Orbitron;letter-spacing:1px}
+#qr-reader video{border-radius:8px}
+#qr-reader img{max-width:100%}
+.qr-button{
+width:100%;max-width:300px;margin-top:15px;padding:14px;
+border:1px solid var(--blue);border-radius:8px;
+background:rgba(20,120,170,.25);color:var(--cyan);
+font:10px Orbitron;letter-spacing:2px;
+}
+.qr-button:hover{background:rgba(37,200,255,.2)}
+.qr-button:disabled{opacity:.5;cursor:not-allowed}
+.gate-status{min-height:34px;margin-top:16px;color:#79cde9;font:10px/1.7 Orbitron;letter-spacing:1px}
 .gate-status.error{color:#ff737d}
 .gate-status.success{color:#73ffbd}
-.gate-footer{margin-top:23px;color:#547e99;font-size:9px;letter-spacing:2px}
+.gate-footer{margin-top:20px;color:#547e99;font-size:9px;letter-spacing:2px}
 .shake{animation:shake .3s}
 
 /* VERIFICATION */
 #verification,#terminal{
-position:fixed;inset:0;z-index:10001;
-display:none;align-items:center;justify-content:center;flex-direction:column;
+position:fixed;inset:0;z-index:10001;display:none;
+align-items:center;justify-content:center;flex-direction:column;
 background:rgba(3,15,28,.98);text-align:center;padding:20px;
 }
 #verification.show,#terminal.show{display:flex}
@@ -120,9 +120,8 @@ font:10px Orbitron;letter-spacing:2px;color:var(--cyan);
 
 /* NAVIGATION */
 nav{
-position:fixed;top:0;left:0;width:100%;z-index:100;
-padding:15px 0;background:rgba(4,12,25,.85);
-backdrop-filter:blur(18px);border-bottom:1px solid var(--line);
+position:fixed;top:0;left:0;width:100%;z-index:100;padding:15px 0;
+background:rgba(4,12,25,.85);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);
 }
 .nav-inner{width:min(1100px,90%);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .logo{font:800 20px Orbitron;letter-spacing:2px}
@@ -133,8 +132,7 @@ backdrop-filter:blur(18px);border-bottom:1px solid var(--line);
 .nav-controls{display:flex;gap:8px}
 .theme-btn,.menu-btn{
 padding:10px 12px;border:1px solid var(--line);
-border-radius:7px;background:var(--glass);color:var(--cyan);
-font:9px Orbitron;
+border-radius:7px;background:var(--glass);color:var(--cyan);font:9px Orbitron;
 }
 .menu-btn{display:none}
 
@@ -214,8 +212,7 @@ font:9px Orbitron;
 .core-section{background:radial-gradient(ellipse at center,rgba(0,130,210,.15),transparent 65%)}
 .jarvis-shell{max-width:950px;margin:40px auto 0;padding:18px;border:1px solid var(--line);border-radius:15px;background:rgba(3,17,32,.8)}
 .jarvis-topbar{display:flex;justify-content:space-between;gap:12px;padding-bottom:15px;border-bottom:1px solid var(--line);font:10px Orbitron}
-.jarvis-brand{color:var(--cyan)}
-.jarvis-live{color:#72ffc1}
+.jarvis-brand{color:var(--cyan)}.jarvis-live{color:#72ffc1}
 .jarvis-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;padding-top:18px}
 .holo-display{min-height:350px;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:12px;background:radial-gradient(circle,rgba(0,145,220,.2),transparent 65%),#061629;display:flex;align-items:center;justify-content:center}
 .holo-object{width:160px;height:160px;border-radius:50%;background:radial-gradient(circle at 30% 25%,white,#7cecff 12%,#168bc9 40%,#05264b 75%,#010918);box-shadow:0 0 35px #25c8ff,0 0 80px rgba(0,165,255,.4);transition:.15s}
@@ -274,8 +271,7 @@ footer{border-top:1px solid var(--line);padding:25px;text-align:center;color:var
 body[data-theme="light"]{
 --bg:#edf4f8;--blue:#087fbd;--cyan:#087eae;
 --line:rgba(16,123,169,.23);--glass:rgba(255,255,255,.85);
---text:#102b3c;--sub:#526d7d;
-background:#edf4f8;color:var(--text);
+--text:#102b3c;--sub:#526d7d;background:#edf4f8;color:var(--text);
 }
 body[data-theme="light"]:before{opacity:.4}
 body[data-theme="light"] nav{background:rgba(245,250,253,.92)}
@@ -332,27 +328,19 @@ section{padding:70px 0}
 
 <body data-theme="dark">
 
-<!-- LOGIN SCREEN -->
+<!-- QR LOGIN SCREEN -->
 <div id="gate">
 <div class="gate-scan"></div>
 <div class="gate-card" id="gateCard">
 <div class="emblem">F.A</div>
 <div class="gate-kicker">PRIVATE DIGITAL SPACE</div>
 <h1 class="gate-title">WELCOME TO<br><span class="glow">THE SECRET ROOM</span></h1>
-<div class="gate-sub">RESTRICTED ACCESS // F.A</div>
+<div class="gate-sub">QR IDENTITY VERIFICATION // F.A</div>
 <div class="gate-divider"></div>
-<div class="pin-label">ENTER YOUR PASSCODE</div>
-<div class="pin-display" id="pinDisplay">
-<span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
-<span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
-</div>
-<div class="keypad" id="keypad">
-<button class="key" data-num="1">1</button><button class="key" data-num="2">2</button><button class="key" data-num="3">3</button>
-<button class="key" data-num="4">4</button><button class="key" data-num="5">5</button><button class="key" data-num="6">6</button>
-<button class="key" data-num="7">7</button><button class="key" data-num="8">8</button><button class="key" data-num="9">9</button>
-<button class="key utility" data-action="clear">CLEAR</button><button class="key" data-num="0">0</button><button class="key utility" data-action="delete">⌫</button>
-</div>
-<div class="gate-status" id="gateStatus">AWAITING AUTHENTICATION...</div>
+<div class="qr-label">SCAN YOUR PERSONAL ACCESS QR</div>
+<div id="qr-reader"></div>
+<button class="qr-button" id="startQR">◉ START QR SCANNER</button>
+<div class="gate-status" id="gateStatus">CAMERA STANDBY — PRESS START</div>
 <div class="gate-footer">IDENTITY VERIFICATION SYSTEM · F.A</div>
 </div>
 </div>
@@ -574,9 +562,6 @@ section{padding:70px 0}
 
 <script type="module">
 const $=id=>document.getElementById(id);
-const PIN="414141";
-let enteredPin="";
-let busy=false;
 let audioContext=null;
 let welcomed=false;
 
@@ -612,60 +597,85 @@ speechSynthesis.speak(u);
 }
 function wait(ms){return new Promise(r=>setTimeout(r,ms))}
 
-/* PIN SYSTEM */
-function updateDots(){
-document.querySelectorAll(".pin-dot").forEach((d,i)=>d.classList.toggle("filled",i<enteredPin.length));
-}
-async function submitPin(){
-if(busy)return;
-busy=true;
-if(enteredPin===PIN){
-$("gateStatus").textContent="VERIFYING IDENTITY...";
+/* QR ACCESS SYSTEM */
+const ACCESS_KEY="FA-JARVIS-ACCESS-ALFIGO-2026";
+let qrScanner=null;
+let qrBusy=false;
+let lastRejected="";
+
+async function startQRScanner(){
+if(qrScanner||qrBusy)return;
+unlockAudio();
+
+const button=$("startQR");
+button.disabled=true;
+button.textContent="INITIALIZING SCANNER...";
+$("gateStatus").textContent="REQUESTING CAMERA ACCESS...";
+
+try{
+if(!window.Html5Qrcode)throw new Error("QR library gagal dimuat. Periksa koneksi internet.");
+
+qrScanner=new Html5Qrcode("qr-reader");
+const cameras=await Html5Qrcode.getCameras();
+if(!cameras.length)throw new Error("Kamera tidak ditemukan.");
+
+const selectedCamera=cameras.find(c=>/back|environment/i.test(c.label))||cameras[0];
+
+await qrScanner.start(
+selectedCamera.id,
+{fps:10,qrbox:{width:230,height:230},aspectRatio:1},
+async(decodedText)=>{
+if(qrBusy)return;
+
+if(decodedText.trim()===ACCESS_KEY){
+qrBusy=true;
+$("gateStatus").textContent="IDENTITY VERIFIED";
 $("gateStatus").className="gate-status success";
+button.textContent="ACCESS GRANTED";
+
+try{await qrScanner.stop();}catch(e){}
+try{await qrScanner.clear();}catch(e){}
+qrScanner=null;
+
 [440,554,659,880].forEach((f,i)=>tone(f,.4,i*.1));
-if(!welcomed){welcomed=true;speak("Welcome.",true)}
-await wait(650);
+speak("Identity verified. Welcome back, Alfigo.",true);
+
+await wait(900);
 $("verification").classList.add("show");
-await wait(1000);
+await wait(1300);
 $("verification").classList.remove("show");
 $("gate").style.display="none";
+
 await runTerminal();
-}else{
-$("gateStatus").textContent="ACCESS DENIED — INVALID PASSCODE";
+
+}else if(decodedText!==lastRejected){
+lastRejected=decodedText;
+$("gateStatus").textContent="INVALID QR CODE — TRY YOUR PERSONAL QR";
 $("gateStatus").className="gate-status error";
-$("gateCard").classList.remove("shake");
-void $("gateCard").offsetWidth;
-$("gateCard").classList.add("shake");
-tone(200,.25);
-await wait(1000);
-enteredPin="";
-updateDots();
-$("gateStatus").textContent="AWAITING AUTHENTICATION...";
+tone(250,.15);
+}
+},
+()=>{}
+);
+
+button.textContent="SCANNER ACTIVE";
+$("gateStatus").textContent="SHOW YOUR PERSONAL QR TO CAMERA";
 $("gateStatus").className="gate-status";
-busy=false;
+
+}catch(e){
+console.error(e);
+$("gateStatus").textContent=e.message||"CAMERA COULD NOT START";
+$("gateStatus").className="gate-status error";
+button.disabled=false;
+button.textContent="◉ TRY AGAIN";
+if(qrScanner){
+try{await qrScanner.clear();}catch(err){}
+qrScanner=null;
+}
+qrBusy=false;
 }
 }
-function pressNumber(n){
-if(busy||enteredPin.length>=6)return;
-unlockAudio();
-enteredPin+=n;
-updateDots();
-tone(650,.06);
-if(enteredPin.length===6)submitPin();
-}
-$("keypad").addEventListener("click",e=>{
-const b=e.target.closest("button");
-if(!b||busy)return;
-if(b.dataset.num!==undefined)pressNumber(b.dataset.num);
-if(b.dataset.action==="clear"){enteredPin="";updateDots();tone(350)}
-if(b.dataset.action==="delete"){enteredPin=enteredPin.slice(0,-1);updateDots();tone(350)}
-});
-document.addEventListener("keydown",e=>{
-if($("gate").style.display==="none"||busy)return;
-if(/^[0-9]$/.test(e.key))pressNumber(e.key);
-if(e.key==="Backspace"){enteredPin=enteredPin.slice(0,-1);updateDots()}
-if(e.key==="Escape"){enteredPin="";updateDots()}
-});
+$("startQR").onclick=startQRScanner;
 
 /* TERMINAL */
 async function runTerminal(){
@@ -1014,7 +1024,12 @@ log("Voice assistant activated.");
 tone(800);
 };
 
-window.addEventListener("pagehide",()=>stopCamera(false));
+window.addEventListener("pagehide",()=>{
+stopCamera(false);
+if(qrScanner){
+qrScanner.stop().catch(()=>{});
+}
+});
 </script>
 </body>
 </html>
