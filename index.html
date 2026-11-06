@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#080b14">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#050a13">
 <title>F.A | Personal Universe</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,10 +14,9 @@
 :root{
 --bg:#f8f7f8;--ink:#201820;--muted:#817780;
 --burgundy:#701d3c;--burgundy2:#a32e55;
---cyan:#00c9d8;--blue:#16baff;
+--cyan:#00c9d8;--blue:#16baff;--gold:#d5a33e;
 --line:rgba(65,30,48,.12);
 --shadow:0 20px 60px rgba(56,20,39,.10);
---gold:#d5a33e;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;background:var(--bg)}
@@ -45,11 +43,11 @@ letter-spacing:2px;margin-bottom:16px
 .section-title span{color:var(--burgundy)}
 .section-desc{color:var(--muted);line-height:1.8;font-size:14px;max-width:600px;margin-top:15px}
 .glass{background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);backdrop-filter:blur(18px)}
-.reveal{opacity:0;transform:translateY(35px) rotateX(4deg);transition:opacity 4s ease,transform 4s cubic-bezier(.2,.8,.2,1)}
-.reveal.show{opacity:1;transform:translateY(0) rotateX(0)}
+.reveal{opacity:0;transform:translateY(25px);transition:opacity 1s ease,transform 1s ease}
+.reveal.show{opacity:1;transform:translateY(0)}
 #particles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .particle{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--cyan);opacity:.35;animation:particleFloat 4s ease-in-out infinite alternate}
-@keyframes particleFloat{from{transform:translate3d(0,0,0);opacity:.15}to{transform:translate3d(12px,-38px,0);opacity:.7}}
+@keyframes particleFloat{to{transform:translate3d(12px,-38px,0);opacity:.7}}
 main,header,footer{position:relative;z-index:1}
 
 /* NAVBAR */
@@ -57,23 +55,23 @@ main,header,footer{position:relative;z-index:1}
 position:fixed;z-index:100;top:14px;left:50%;transform:translateX(-50%);
 width:min(1120px,calc(100% - 28px));padding:12px 17px;border-radius:20px;
 display:flex;justify-content:space-between;align-items:center;
-background:rgba(255,255,255,.84);backdrop-filter:blur(20px);
+background:rgba(255,255,255,.88);backdrop-filter:blur(20px);
 border:1px solid rgba(112,29,60,.1);box-shadow:0 10px 35px rgba(30,10,20,.07)
 }
 .brand{font-family:Orbitron,sans-serif;font-weight:800;font-size:16px;color:var(--burgundy);letter-spacing:1px}
 .brand small{display:block;font-family:Inter,sans-serif;font-size:8px;color:var(--muted);letter-spacing:2px;margin-top:3px}
 .nav-links{display:flex;align-items:center;gap:7px}
-.nav-btn{border:0;background:transparent;color:var(--muted);font-size:11px;font-weight:800;padding:11px 16px;border-radius:12px;transition:background .4s,color .4s,transform .4s}
+.nav-btn{border:0;background:transparent;color:var(--muted);font-size:11px;font-weight:800;padding:11px 16px;border-radius:12px;transition:.3s}
 .nav-btn.active,.nav-btn:hover{background:var(--burgundy);color:white;transform:translateY(-2px)}
 .nav-status{display:flex;align-items:center;gap:7px;font-size:9px;font-weight:700;color:var(--muted)}
 .status-dot{width:7px;height:7px;border-radius:50%;background:#16c784;box-shadow:0 0 10px #16c784}
 
-/* PAGE */
-.page{display:none;animation:pageIn 4s ease both}
+/* PAGES */
+.page{display:none;animation:pageIn .8s ease both}
 .page.active{display:block}
-@keyframes pageIn{from{opacity:0;transform:translateY(25px);filter:blur(5px)}to{opacity:1;transform:translateY(0);filter:blur(0)}}
+@keyframes pageIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 .page-transition{position:fixed;inset:0;z-index:200;pointer-events:none;background:linear-gradient(135deg,var(--burgundy),#190d17,var(--cyan));clip-path:circle(0% at 50% 50%)}
-.page-transition.run{animation:liquidTransition 4s ease-in-out}
+.page-transition.run{animation:liquidTransition 1s ease-in-out}
 @keyframes liquidTransition{0%{clip-path:circle(0% at 50% 50%);opacity:0}40%,60%{clip-path:circle(100% at 50% 50%);opacity:1}100%{clip-path:circle(0% at 50% 50%);opacity:0}}
 
 /* HOME */
@@ -86,7 +84,7 @@ border:1px solid rgba(112,29,60,.1);box-shadow:0 10px 35px rgba(30,10,20,.07)
 .hero h1 .outline{color:transparent;-webkit-text-stroke:1.5px var(--burgundy)}
 .hero-subtitle{margin-top:25px;max-width:510px;font-size:14px;line-height:1.9;color:var(--muted)}
 .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
-.btn{border:0;border-radius:13px;padding:15px 21px;font-size:11px;font-weight:800;transition:all .4s;display:inline-flex;align-items:center;justify-content:center;gap:9px}
+.btn{border:0;border-radius:13px;padding:15px 21px;font-size:11px;font-weight:800;transition:.3s;display:inline-flex;align-items:center;justify-content:center;gap:9px}
 .btn-primary{color:white;background:var(--burgundy);box-shadow:0 10px 25px rgba(112,29,60,.2)}
 .btn-primary:hover{background:var(--burgundy2);transform:translateY(-4px)}
 .btn-secondary{color:var(--burgundy);background:white;border:1px solid var(--line)}
@@ -104,19 +102,19 @@ border:1px solid rgba(112,29,60,.1);box-shadow:0 10px 35px rgba(30,10,20,.07)
 .profile-frame img{width:100%;height:100%;object-fit:cover;object-position:center}
 .profile-scan{position:absolute;z-index:3;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);box-shadow:0 0 15px var(--cyan);animation:scan 4s ease-in-out infinite alternate}
 @keyframes scan{from{top:10%;opacity:.2}to{top:90%;opacity:.9}}
-.holo-ring{position:absolute;inset:0;border:1px solid rgba(0,201,216,.35);border-radius:50%;transform:rotateX(65deg) rotateZ(-20deg) translateZ(-15px);animation:ringSpin 4s linear infinite}
-.holo-ring.two{inset:12%;border-color:rgba(112,29,60,.3);transform:rotateX(70deg) rotateZ(30deg) translateZ(-30px);animation-direction:reverse}
+.holo-ring{position:absolute;inset:0;border:1px solid rgba(0,201,216,.35);border-radius:50%;transform:rotateX(65deg) rotateZ(-20deg) translateZ(-15px);animation:ringSpin 15s linear infinite}
+.holo-ring.two{inset:12%;border-color:rgba(112,29,60,.3);animation:ringSpin 18s linear infinite reverse}
 @keyframes ringSpin{to{transform:rotateX(65deg) rotateZ(340deg) translateZ(-15px)}}
-.floating-label{position:absolute;z-index:4;background:rgba(255,255,255,.9);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:12px;padding:12px 15px;font-family:Orbitron,sans-serif;font-size:9px;letter-spacing:1px;transform:translateZ(70px);animation:floatLabel 4s ease-in-out infinite alternate}
+.floating-label{position:absolute;z-index:4;background:rgba(255,255,255,.95);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:12px;padding:12px 15px;font-family:Orbitron,sans-serif;font-size:9px;letter-spacing:1px;transform:translateZ(70px);animation:floatLabel 4s ease-in-out infinite alternate}
 .floating-label.one{top:18%;right:-3%}
 .floating-label.two{bottom:15%;left:-5%;animation-delay:1s}
 .floating-label span{display:block;font-family:Inter,sans-serif;font-size:8px;color:var(--muted);margin-top:5px}
 @keyframes floatLabel{to{translate:0 -12px}}
-.arc-reactor{position:absolute;bottom:2%;right:12%;z-index:5;width:55px;height:55px;border-radius:50%;border:4px solid #d7faff;background:radial-gradient(circle,#fff 0 15%,var(--cyan) 25%,#087d9b 60%,#fff 70%);box-shadow:0 0 20px var(--cyan),inset 0 0 12px white;animation:reactorPulse 4s ease-in-out infinite alternate;transform:translateZ(90px)}
+.arc-reactor{position:absolute;bottom:2%;right:12%;z-index:5;width:55px;height:55px;border-radius:50%;border:4px solid #d7faff;background:radial-gradient(circle,#fff 0 15%,var(--cyan) 25%,#087d9b 60%,#fff 70%);box-shadow:0 0 20px var(--cyan);animation:reactorPulse 4s ease-in-out infinite alternate;transform:translateZ(90px)}
 @keyframes reactorPulse{to{box-shadow:0 0 35px var(--cyan),0 0 65px rgba(0,201,216,.3),inset 0 0 15px white}}
 .tech-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:55px}
-.tech-card{background:white;border:1px solid var(--line);border-radius:16px;padding:18px;transition:transform .4s,box-shadow .4s}
-.tech-card:hover{transform:translateY(-8px) rotateX(5deg);box-shadow:var(--shadow)}
+.tech-card{background:white;border:1px solid var(--line);border-radius:16px;padding:18px;transition:.3s}
+.tech-card:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
 .tech-card small{font-size:8px;color:var(--muted);letter-spacing:1.5px}
 .tech-card strong{display:block;margin-top:8px;font-size:13px;color:var(--burgundy)}
 
@@ -127,7 +125,7 @@ border:1px solid rgba(112,29,60,.1);box-shadow:0 10px 35px rgba(30,10,20,.07)
 .story-heading h1{font-size:clamp(43px,8vw,78px);line-height:1;letter-spacing:-4px;font-weight:900}
 .story-heading h1 span{color:var(--burgundy)}
 .story-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;margin-top:55px;align-items:stretch}
-.story-photo-card{padding:15px;border-radius:24px;position:relative;overflow:hidden;transform-style:preserve-3d;transition:transform .18s ease-out;will-change:transform}
+.story-photo-card{padding:15px;border-radius:24px;position:relative;overflow:hidden;transform-style:preserve-3d;transition:transform .18s ease-out}
 .story-photo{height:100%;min-height:410px;border-radius:17px;overflow:hidden;position:relative}
 .story-photo img{width:100%;height:100%;min-height:410px;object-fit:cover;transition:transform .4s}
 .story-photo:hover img{transform:scale(1.07)}
@@ -135,13 +133,13 @@ border:1px solid rgba(112,29,60,.1);box-shadow:0 10px 35px rgba(30,10,20,.07)
 .photo-caption strong{display:block;color:var(--burgundy);font-size:12px}
 .photo-caption span{font-size:9px;color:var(--muted)}
 .story-content{display:flex;flex-direction:column;gap:17px}
-.story-card{border-radius:20px;padding:25px;transition:transform .4s,box-shadow .4s}
+.story-card{border-radius:20px;padding:25px;transition:.3s}
 .story-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
 .story-card h3{font-size:18px;margin-bottom:12px}
 .story-card p{color:var(--muted);font-size:12px;line-height:1.9}
 .story-quote{border-left:3px solid var(--cyan);padding:5px 0 5px 17px;margin-top:17px;color:var(--burgundy);font-size:13px;font-weight:800;line-height:1.7}
 .profile-data{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
-.data-item{background:#faf7f9;border:1px solid var(--line);border-radius:12px;padding:13px;transition:transform .4s}
+.data-item{background:#faf7f9;border:1px solid var(--line);border-radius:12px;padding:13px;transition:.3s}
 .data-item:hover{transform:translateY(-5px)}
 .data-item small{color:var(--muted);display:block;font-size:9px;margin-bottom:6px}
 .data-item strong{font-size:11px;color:var(--burgundy)}
@@ -151,13 +149,13 @@ border:1px solid rgba(112,29,60,.1);box-shadow:0 10px 35px rgba(30,10,20,.07)
 .timeline-item{position:relative;padding:0 0 35px 25px}
 .timeline-item:before{content:"";position:absolute;top:5px;left:-28px;width:13px;height:13px;background:white;border:3px solid var(--cyan);border-radius:50%;box-shadow:0 0 15px rgba(0,201,216,.5)}
 .timeline-date{color:var(--burgundy);font-family:Orbitron,sans-serif;font-size:10px;font-weight:700;letter-spacing:1px}
-.timeline-card{margin-top:12px;padding:21px;border-radius:16px;transition:transform .4s}
+.timeline-card{margin-top:12px;padding:21px;border-radius:16px;transition:.3s}
 .timeline-card:hover{transform:translateX(8px)}
 .timeline-card h3{font-size:15px;margin-bottom:7px}
 .timeline-card p{font-size:11px;line-height:1.8;color:var(--muted)}
 .values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:35px}
-.value-card{background:white;border:1px solid var(--line);padding:25px;border-radius:18px;transition:all .4s}
-.value-card:hover{transform:translateY(-9px) rotateY(4deg);box-shadow:var(--shadow);border-color:rgba(0,201,216,.5)}
+.value-card{background:white;border:1px solid var(--line);padding:25px;border-radius:18px;transition:.3s}
+.value-card:hover{transform:translateY(-9px);box-shadow:var(--shadow);border-color:rgba(0,201,216,.5)}
 .value-icon{width:42px;height:42px;display:grid;place-items:center;background:rgba(0,201,216,.1);color:var(--burgundy);border-radius:13px;font-size:18px;margin-bottom:17px}
 .value-card h3{font-size:14px;margin-bottom:9px}
 .value-card p{font-size:11px;line-height:1.8;color:var(--muted)}
@@ -172,10 +170,10 @@ border:1px solid rgba(112,29,60,.1);box-shadow:0 10px 35px rgba(30,10,20,.07)
 .future-card h2{font-size:clamp(25px,5vw,42px);position:relative;z-index:1}
 .future-card p{position:relative;z-index:1;max-width:620px;margin-top:15px;font-size:12px;line-height:1.9;color:rgba(255,255,255,.75)}
 .future-tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:25px;position:relative;z-index:1}
-.future-tags span{border:1px solid rgba(255,255,255,.25);border-radius:50px;padding:9px 13px;font-size:9px;color:white;transition:transform .4s}
+.future-tags span{border:1px solid rgba(255,255,255,.25);border-radius:50px;padding:9px 13px;font-size:9px;color:white;transition:.3s}
 .future-tags span:hover{transform:translateY(-5px)}
 .contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:35px}
-.contact-card{display:flex;align-items:center;gap:13px;padding:20px;background:white;border:1px solid var(--line);border-radius:17px;transition:all .4s}
+.contact-card{display:flex;align-items:center;gap:13px;padding:20px;background:white;border:1px solid var(--line);border-radius:17px;transition:.3s}
 .contact-card:hover{transform:translateY(-7px);border-color:var(--cyan);box-shadow:var(--shadow)}
 .contact-icon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:rgba(112,29,60,.08);color:var(--burgundy);font-weight:900;font-size:15px}
 .contact-card small{display:block;color:var(--muted);font-size:9px;margin-bottom:5px}
@@ -184,8 +182,8 @@ footer{padding:35px 0;border-top:1px solid var(--line);text-align:center}
 footer strong{font-family:Orbitron,sans-serif;color:var(--burgundy);font-size:12px;letter-spacing:2px}
 footer p{color:var(--muted);font-size:9px;margin-top:9px}
 
-/* JARVIS */
-.jarvis-toggle{position:fixed;z-index:120;right:20px;bottom:20px;width:55px;height:55px;border:0;border-radius:50%;color:white;font-family:Orbitron,sans-serif;font-weight:800;background:linear-gradient(135deg,var(--burgundy),#a32e55);box-shadow:0 8px 30px rgba(112,29,60,.35);transition:transform .4s}
+/* JARVIS CHAT */
+.jarvis-toggle{position:fixed;z-index:120;right:20px;bottom:20px;width:55px;height:55px;border:0;border-radius:50%;color:white;font-family:Orbitron,sans-serif;font-weight:800;background:linear-gradient(135deg,var(--burgundy),#a32e55);box-shadow:0 8px 30px rgba(112,29,60,.35);transition:.3s}
 .jarvis-toggle:hover{transform:scale(1.1)}
 .chat-panel{position:fixed;z-index:119;right:20px;bottom:88px;width:min(340px,calc(100% - 40px));background:white;border:1px solid var(--line);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.2);overflow:hidden;display:none}
 .chat-panel.open{display:block;animation:pageIn .4s ease}
@@ -203,37 +201,76 @@ footer p{color:var(--muted);font-size:9px;margin-top:9px}
 .lightbox img{max-width:95%;max-height:85vh;object-fit:contain;border-radius:12px}
 .lightbox button{position:absolute;top:20px;right:25px;color:white;background:transparent;border:0;font-size:35px}
 
-/* LAB INTRO */
+/* ================= LAB INTRO ================= */
 .intro{
 position:fixed;z-index:1000;inset:0;background:#050a13;color:white;
 display:flex;align-items:center;justify-content:center;overflow:hidden;isolation:isolate;
-perspective:1200px;transition:opacity 1.2s ease,visibility 1.2s ease
+perspective:1200px;transition:opacity .9s ease,visibility .9s ease;
+padding:25px 15px
 }
 .intro.hidden{opacity:0;visibility:hidden;pointer-events:none}
 .lab-background{
-position:absolute;inset:0;z-index:-3;
+position:absolute;inset:0;z-index:-5;
 background:
-radial-gradient(ellipse at 50% 45%,rgba(0,115,210,.19),transparent 55%),
-radial-gradient(circle at 15% 20%,rgba(0,201,255,.12),transparent 30%),
-radial-gradient(circle at 85% 75%,rgba(0,100,255,.1),transparent 30%),#050a13
+radial-gradient(ellipse at 50% 45%,rgba(0,115,210,.24),transparent 55%),
+radial-gradient(circle at 15% 20%,rgba(0,201,255,.14),transparent 30%),
+radial-gradient(circle at 85% 75%,rgba(0,100,255,.12),transparent 30%),#050a13
 }
+
+/* FLOOR */
+.lab-floor{
+position:absolute;z-index:-3;left:-35%;right:-35%;bottom:-25%;
+height:68%;transform:perspective(650px) rotateX(62deg);
+transform-origin:center top;
+background:
+radial-gradient(ellipse at 50% 15%,rgba(0,195,255,.25),transparent 38%),
+linear-gradient(rgba(0,155,255,.16) 1px,transparent 1px),
+linear-gradient(90deg,rgba(0,155,255,.16) 1px,transparent 1px),
+linear-gradient(135deg,#07182a,#07101e 45%,#061426);
+background-size:auto,55px 55px,55px 55px,auto;
+box-shadow:0 -20px 90px rgba(0,140,255,.16);
+animation:floorMove 5s linear infinite;
+mask-image:linear-gradient(to bottom,transparent 0%,black 15%,black 85%,transparent)
+}
+@keyframes floorMove{to{background-position:0 0,0 55px,55px 0,0 0}}
+.floor-platform{
+position:absolute;z-index:-2;left:50%;bottom:8%;
+width:min(65vw,650px);height:min(25vw,230px);
+transform:translateX(-50%) perspective(500px) rotateX(65deg);
+border:2px solid rgba(0,195,255,.4);border-radius:50%;
+box-shadow:0 0 20px rgba(0,170,255,.2),inset 0 0 35px rgba(0,170,255,.15);
+animation:platformPulse 4s ease-in-out infinite alternate
+}
+.floor-platform:before,.floor-platform:after{
+content:"";position:absolute;inset:12%;border:1px dashed rgba(0,195,255,.5);border-radius:50%;
+}
+.floor-platform:after{inset:28%;border:2px solid rgba(0,195,255,.22)}
+@keyframes platformPulse{to{box-shadow:0 0 40px rgba(0,170,255,.4),inset 0 0 55px rgba(0,170,255,.25)}}
+.floor-light{
+position:absolute;z-index:-2;left:50%;bottom:17%;width:min(45vw,450px);height:2px;
+transform:translateX(-50%);background:linear-gradient(90deg,transparent,#14caff,transparent);
+box-shadow:0 0 20px #14caff;animation:floorBeam 4s ease-in-out infinite alternate
+}
+@keyframes floorBeam{to{opacity:.25;transform:translateX(-50%) scaleX(.55)}}
+
 .lab-grid{
-position:absolute;inset:-50%;z-index:-2;
-background-image:linear-gradient(rgba(0,174,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(0,174,255,.12) 1px,transparent 1px);
+position:absolute;inset:-50%;z-index:-4;
+background-image:linear-gradient(rgba(0,174,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(0,174,255,.09) 1px,transparent 1px);
 background-size:45px 45px;transform:perspective(450px) rotateX(65deg) translateY(20%);
 transform-origin:center;mask-image:linear-gradient(to bottom,transparent,black 40%,black 70%,transparent);
-animation:gridMove 4s linear infinite
+animation:gridMove 5s linear infinite
 }
 @keyframes gridMove{to{background-position:0 45px,45px 0}}
 .lab-orbit{
-position:absolute;width:min(90vw,750px);aspect-ratio:1;border:1px solid rgba(0,174,255,.14);
-border-radius:50%;box-shadow:0 0 50px rgba(0,140,255,.06),inset 0 0 50px rgba(0,140,255,.05);
-animation:orbitRotate 4s linear infinite
+position:absolute;z-index:-1;width:min(90vw,750px);aspect-ratio:1;
+border:1px solid rgba(0,174,255,.14);border-radius:50%;
+box-shadow:0 0 50px rgba(0,140,255,.06),inset 0 0 50px rgba(0,140,255,.05);
+animation:orbitRotate 30s linear infinite
 }
 .lab-orbit:before,.lab-orbit:after{content:"";position:absolute;inset:12%;border:1px dashed rgba(0,190,255,.18);border-radius:50%}
 .lab-orbit:after{inset:28%;border-style:solid;border-color:rgba(0,190,255,.12)}
 @keyframes orbitRotate{to{transform:rotate(360deg)}}
-.lab-corner{position:absolute;color:rgba(46,190,255,.65);font-family:Orbitron,sans-serif;font-size:9px;letter-spacing:2px;line-height:2}
+.lab-corner{position:absolute;z-index:4;color:rgba(46,190,255,.75);font-family:Orbitron,sans-serif;font-size:9px;letter-spacing:2px;line-height:2;text-shadow:0 0 10px #008cff}
 .lab-corner.tl{top:25px;left:25px}
 .lab-corner.tr{top:25px;right:25px;text-align:right}
 .lab-corner.bl{bottom:25px;left:25px}
@@ -243,123 +280,176 @@ animation:orbitRotate 4s linear infinite
 .lab-cross:before{width:1px;height:40px;left:50%}
 .lab-cross:after{height:1px;width:40px;top:50%}
 
-/* INTERACTIVE 3D WELCOME */
+/* WELCOME CONTENT */
 .intro-content{
-width:min(700px,92%);text-align:center;position:relative;z-index:2;
+width:min(700px,94%);text-align:center;position:relative;z-index:10;
 display:flex;flex-direction:column;align-items:center;
 transform-style:preserve-3d;will-change:transform;
 transition:transform .16s ease-out;
+text-shadow:0 2px 12px rgba(0,0,0,.8)
 }
-.jarvis-label{font-family:Orbitron,sans-serif;color:#28c8ff;font-size:10px;letter-spacing:5px;text-shadow:0 0 15px #009dff;transform:translateZ(65px)}
+.jarvis-label{font-family:Orbitron,sans-serif;color:#28c8ff;font-size:10px;letter-spacing:5px;text-shadow:0 0 15px #009dff;transform:translateZ(35px)}
 .intro-title{
-margin-top:23px;font-family:Orbitron,sans-serif;font-size:clamp(25px,6vw,49px);
+margin-top:20px;font-family:Orbitron,sans-serif;font-size:clamp(25px,6vw,49px);
 letter-spacing:3px;line-height:1.35;color:#42caff;
 text-shadow:0 0 10px #009dff,0 0 30px rgba(0,153,255,.8),0 0 60px rgba(0,153,255,.35);
-transform:translateZ(100px);animation:welcomeGlow 4s ease-in-out infinite alternate
+transform:translateZ(55px);animation:welcomeGlow 4s ease-in-out infinite alternate
 }
-.intro-title span{display:block;color:#d8f5ff;font-size:.55em;letter-spacing:6px;margin-bottom:9px}
+.intro-title span{display:block;color:#e6f8ff;font-size:.55em;letter-spacing:6px;margin-bottom:9px}
 @keyframes welcomeGlow{to{text-shadow:0 0 20px #00cfff,0 0 55px #009dff,0 0 90px rgba(0,153,255,.7)}}
-.intro-sub{color:#70cfff;font-size:10px;letter-spacing:4px;margin-top:14px;transform:translateZ(55px)}
-.intro-log{margin:28px auto 0;width:min(420px,100%);min-height:55px;font-family:monospace;font-size:10px;line-height:2;color:#45caff;text-align:left;border-left:2px solid #13baff;padding-left:15px;text-shadow:0 0 10px #008cff;transform:translateZ(45px)}
-.lab-loading{width:min(300px,80%);height:2px;background:rgba(0,155,255,.18);margin:17px auto 0;overflow:hidden;transform:translateZ(35px)}
-.lab-loading span{display:block;height:100%;width:0;background:#26caff;box-shadow:0 0 12px #00aaff;transition:width 4s linear}
+.intro-sub{color:#70cfff;font-size:10px;letter-spacing:4px;margin-top:14px;transform:translateZ(30px)}
+.intro-log{margin:25px auto 0;width:min(420px,100%);min-height:45px;font-family:monospace;font-size:10px;line-height:2;color:#65d8ff;text-align:left;border-left:2px solid #13baff;padding-left:15px;text-shadow:0 0 10px #008cff;transform:translateZ(25px)}
+.lab-loading{width:min(300px,80%);height:2px;background:rgba(0,155,255,.18);margin:15px auto 0;overflow:hidden}
+.lab-loading span{display:block;height:100%;width:0;background:#26caff;box-shadow:0 0 12px #00aaff;transition:width 3s linear}
 .lab-loading.run span{width:100%}
 
-/* GAUNTLET */
+/* GAUNTLET - CONNECTED HAND SILHOUETTE */
 .gauntlet-stage{
-width:300px;height:245px;margin:25px auto 0;position:relative;perspective:700px;
-opacity:0;transform:translateY(30px) scale(.8);transform-style:preserve-3d;
-transition:opacity 1s ease,transform 1s ease
+width:min(300px,85vw);height:220px;margin:14px auto 0;position:relative;perspective:700px;
+opacity:0;transform:translateY(25px) scale(.8);transform-style:preserve-3d;
+transition:opacity .8s ease,transform .8s ease
 }
 .gauntlet-stage.visible{opacity:1;transform:translateY(0) scale(1)}
-.gauntlet{position:absolute;width:170px;height:205px;left:50%;bottom:0;transform:translateX(-50%);transform-style:preserve-3d;filter:drop-shadow(0 12px 20px rgba(0,0,0,.6))}
+.gauntlet{
+position:absolute;width:180px;height:205px;left:50%;bottom:0;
+transform:translateX(-50%);transform-style:preserve-3d;
+filter:drop-shadow(0 12px 20px rgba(0,0,0,.6))
+}
+.gold-metal{
+background:linear-gradient(100deg,#70470e 0%,#bd8427 15%,#ffe18b 36%,#d6a13c 56%,#80500f 82%,#f3ce70 100%);
+border:2px solid #f5d17b;
+box-shadow:inset 2px 0 6px rgba(255,255,255,.5),inset -4px 0 8px rgba(60,35,5,.35)
+}
+.gauntlet-hand{
+position:absolute;z-index:1;left:20px;top:7px;width:140px;height:158px;
+background:linear-gradient(110deg,#71480f,#d6a33c 20%,#ffe08b 43%,#bd8125 75%,#70450c);
+border:3px solid #f5d17b;
+border-radius:48% 48% 38% 38%;
+clip-path:polygon(2% 30%,4% 12%,17% 5%,30% 0,39% 0,46% 9%,55% 0,67% 0,75% 9%,84% 4%,94% 12%,98% 29%,95% 57%,100% 73%,91% 89%,77% 100%,23% 100%,8% 87%,0 68%);
+box-shadow:inset 0 0 20px rgba(255,240,180,.35)
+}
+.gauntlet-hand:before{
+content:"";position:absolute;inset:12px 13px 10px;
+border:1px solid rgba(255,239,183,.65);border-radius:40% 40% 28% 28%
+}
+.gauntlet-palm{
+position:absolute;z-index:3;left:31px;top:83px;width:118px;height:83px;
+border-radius:48% 48% 35% 35%; 
+background:linear-gradient(115deg,#f8d67d,#bd8125 25%,#f5ce68 48%,#976018 78%,#e6b750);
+border:3px solid #f5d17b;box-shadow:inset 0 0 18px rgba(255,235,165,.6)
+}
+.gauntlet-palm:before{content:"";position:absolute;inset:8px;border:1px solid rgba(255,239,183,.65);border-radius:40%}
+.gauntlet-finger{
+position:absolute;z-index:2;width:27px;height:94px;border-radius:15px 15px 9px 9px;
+background:linear-gradient(90deg,#775016,#d6a33c 22%,#ffe08b 48%,#a36a1b 80%,#70460e);
+border:2px solid #edc46b;box-shadow:inset 2px 0 5px rgba(255,255,255,.5),inset -3px 0 5px rgba(60,35,5,.3)
+}
+.gauntlet-finger:before,.gauntlet-finger:after{
+content:"";position:absolute;left:2px;right:2px;height:5px;border-top:1px solid #ffe9a8;border-bottom:1px solid #82510f;border-radius:50%
+}
+.gauntlet-finger:before{top:35%}.gauntlet-finger:after{top:66%}
+.gauntlet-finger:nth-child(2){left:29px;top:7px;height:83px;transform:rotate(-9deg)}
+.gauntlet-finger:nth-child(3){left:57px;top:0;height:96px}
+.gauntlet-finger:nth-child(4){left:85px;top:2px;height:91px}
+.gauntlet-finger:nth-child(5){left:112px;top:16px;height:78px;transform:rotate(10deg)}
+.gauntlet-thumb{
+position:absolute;z-index:4;left:132px;top:95px;width:32px;height:65px;border-radius:17px;
+transform:rotate(-35deg);
+background:linear-gradient(90deg,#70450c,#dcae48 25%,#ffe08b 50%,#9d6516 85%);
+border:2px solid #e9bf60;box-shadow:inset 2px 0 5px rgba(255,255,255,.5)
+}
+.gauntlet-thumb:after{content:"";position:absolute;left:3px;right:3px;top:45%;height:5px;border-block:1px solid #ffe9a8}
+.gauntlet-wrist{
+position:absolute;z-index:2;left:31px;bottom:25px;width:118px;height:35px;border-radius:9px;
+background:linear-gradient(180deg,#f8d77b,#a66b16 45%,#f2c45f);border:2px solid #f5d98a
+}
 .gauntlet-cuff{
-position:absolute;left:24px;bottom:0;width:122px;height:45px;border-radius:12px 12px 28px 28px;
+position:absolute;z-index:3;left:25px;bottom:0;width:130px;height:40px;border-radius:12px 12px 28px 28px;
 background:linear-gradient(90deg,#69400e,#d69e32 18%,#ffe08a 45%,#b7791e 75%,#633b0c);
 border:3px solid #edc46b;box-shadow:inset 0 0 12px #ffe8a0,0 0 20px rgba(230,171,63,.25)
 }
 .gauntlet-cuff:before{content:"";position:absolute;inset:5px 9px;border:1px solid rgba(255,235,170,.8);border-radius:8px 8px 18px 18px}
-.gauntlet-wrist{position:absolute;left:31px;bottom:35px;width:108px;height:32px;border-radius:9px;background:linear-gradient(180deg,#f8d77b,#a66b16 45%,#f2c45f);border:2px solid #f5d98a}
-.gauntlet-palm{
-position:absolute;left:23px;bottom:55px;width:124px;height:112px;z-index:2;
-border-radius:45% 45% 30% 30%;
-background:linear-gradient(115deg,rgba(255,255,255,.55),transparent 22%,transparent 72%,rgba(75,43,8,.55)),linear-gradient(135deg,#f8d67d 0%,#bd8125 23%,#f5ce68 43%,#976018 70%,#e6b750 100%);
-border:3px solid #f5d17b;box-shadow:inset 0 0 18px rgba(255,235,165,.6),inset 0 -10px 20px rgba(75,40,5,.25)
-}
-.gauntlet-palm:before{content:"";position:absolute;inset:8px;border:1px solid rgba(255,239,183,.65);border-radius:40% 40% 25% 25%}
-.gauntlet-palm:after{content:"";position:absolute;left:12px;right:12px;bottom:7px;height:13px;border-radius:50%;border-top:2px solid rgba(255,235,170,.65)}
-.gauntlet-finger{
-position:absolute;z-index:1;width:24px;border-radius:13px 13px 9px 9px;
-background:linear-gradient(90deg,#775016,#d6a33c 22%,#ffe08b 48%,#a36a1b 80%,#70460e);
-border:2px solid #edc46b;box-shadow:inset 2px 0 5px rgba(255,255,255,.5),inset -3px 0 5px rgba(60,35,5,.3)
-}
-.gauntlet-finger:before,.gauntlet-thumb:before{content:"";position:absolute;left:2px;right:2px;top:35%;height:5px;border-top:1px solid #ffe9a8;border-bottom:1px solid #82510f;border-radius:50%}
-.gauntlet-finger:nth-child(1){left:13px;top:35px;height:72px;transform:rotate(-12deg)}
-.gauntlet-finger:nth-child(2){left:40px;top:7px;height:91px}
-.gauntlet-finger:nth-child(3){left:69px;top:0;height:98px}
-.gauntlet-finger:nth-child(4){left:98px;top:15px;height:83px;transform:rotate(8deg)}
-.gauntlet-thumb{position:absolute;z-index:3;left:126px;top:91px;width:27px;height:68px;border-radius:14px;background:linear-gradient(90deg,#70450c,#dcae48 25%,#ffe08b 50%,#9d6516 85%);border:2px solid #e9bf60;transform:rotate(-34deg);box-shadow:inset 2px 0 5px rgba(255,255,255,.5)}
-.gauntlet-knuckle{position:absolute;z-index:3;width:20px;height:12px;border-radius:8px;background:linear-gradient(180deg,#ffe7a0,#bd832a,#71470d);border:1px solid #f6d782}
-.knuckle-one{left:15px;top:80px}.knuckle-two{left:42px;top:63px}.knuckle-three{left:71px;top:61px}.knuckle-four{left:100px;top:69px}
-.gauntlet-engraving{position:absolute;z-index:4;left:50%;bottom:69px;transform:translateX(-50%);font-family:Orbitron,sans-serif;font-size:7px;letter-spacing:2px;color:#ffe5a0;text-shadow:0 1px 2px #70420c}
+.gauntlet-engraving{position:absolute;z-index:7;left:50%;bottom:49px;transform:translateX(-50%);font-family:Orbitron,sans-serif;font-size:7px;letter-spacing:2px;color:#ffe5a0;text-shadow:0 1px 2px #70420c;white-space:nowrap}
 
-/* SIX STONES */
+/* STONES */
 .stone{
-position:absolute;z-index:8;width:22px;height:22px;border-radius:50%;opacity:0;
+position:absolute;z-index:8;width:23px;height:23px;border-radius:50%;opacity:0;
 border:3px solid #f8d67d;background:var(--gem);
 box-shadow:0 0 0 3px #93601a,0 0 12px var(--gem),inset 0 0 7px white;
 transform:translate(var(--sx),var(--sy)) scale(.2)
 }
 .stone:before{content:"";position:absolute;inset:3px;border-radius:50%;border:1px solid rgba(255,255,255,.8)}
-.stone.fly{animation:stoneLand 4s cubic-bezier(.2,.8,.2,1) forwards}
+.stone.fly{animation:stoneLand 1.5s cubic-bezier(.2,.8,.2,1) forwards}
 @keyframes stoneLand{
 0%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(.2)}
-20%{opacity:1;transform:translate(var(--sx),var(--sy)) scale(1.3)}
-70%{opacity:1;transform:translate(0,0) scale(.95)}
-85%{transform:translate(0,0) scale(1.12)}
+30%{opacity:1;transform:translate(var(--sx),var(--sy)) scale(1.3)}
+75%{opacity:1;transform:translate(0,0) scale(.95)}
 100%{opacity:1;transform:translate(0,0) scale(1)}
 }
-.stone-space{left:47px;top:115px;--gem:#168cff}
-.stone-mind{left:75px;top:91px;--gem:#ffdc22}
-.stone-reality{left:103px;top:115px;--gem:#ef263e}
-.stone-power{left:47px;top:141px;--gem:#a64cff}
-.stone-time{left:103px;top:141px;--gem:#19d477}
-.stone-soul{left:75px;top:164px;--gem:#ff8a19}
+.stone-space{left:55px;top:112px;--gem:#168cff}
+.stone-mind{left:79px;top:91px;--gem:#ffdc22}
+.stone-reality{left:103px;top:112px;--gem:#ef263e}
+.stone-power{left:55px;top:136px;--gem:#a64cff}
+.stone-time{left:103px;top:136px;--gem:#19d477}
+.stone-soul{left:79px;top:159px;--gem:#ff8a19}
 
 /* SNAP */
-.gauntlet.snap-action{animation:handSnap 4s ease-in-out forwards}
+.gauntlet.snap-action{animation:handSnap 1.1s ease-in-out forwards}
 @keyframes handSnap{
 0%{transform:translateX(-50%) rotate(0) scale(1)}
-25%{transform:translateX(-50%) rotate(-8deg) scale(1.05)}
-45%{transform:translateX(-50%) rotate(8deg) scale(.94)}
-60%{transform:translateX(-50%) rotate(-5deg) scale(1.08)}
-75%,100%{transform:translateX(-50%) rotate(0) scale(1.1)}
+30%{transform:translateX(-50%) rotate(-10deg) scale(1.08)}
+55%{transform:translateX(-50%) rotate(9deg) scale(.95)}
+75%{transform:translateX(-50%) rotate(-4deg) scale(1.12)}
+100%{transform:translateX(-50%) rotate(0) scale(1.08)}
 }
 .snap-text{font-family:Orbitron,sans-serif;font-size:clamp(35px,10vw,75px);font-weight:900;color:white;letter-spacing:8px;opacity:0;text-shadow:0 0 20px #00aeff,0 0 50px #0077ff}
-.snap-text.show{animation:snapReveal 4s ease both}
+.snap-text.show{animation:snapReveal 1.2s ease both}
 @keyframes snapReveal{0%{opacity:0;transform:scale(.5);filter:blur(15px)}25%{opacity:1;transform:scale(1.15);filter:blur(0)}65%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.4);filter:blur(10px)}}
-.snap-flash{position:fixed;inset:0;z-index:5;background:white;opacity:0;pointer-events:none}
-.snap-flash.active{animation:flash .7s ease}
+.snap-flash{position:fixed;inset:0;z-index:20;background:white;opacity:0;pointer-events:none}
+.snap-flash.active{animation:flash .45s ease}
 @keyframes flash{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
 
-/* SYSTEM CRASH */
-.crash-screen{position:fixed;z-index:1100;inset:0;background:#050505;color:#e8e8e8;display:none;padding:12vh 10vw;font-family:monospace}
-.crash-screen.show{display:block;animation:crashIn 4s steps(8)}
+/* SYSTEM ERROR */
+.crash-screen{
+position:fixed;z-index:1100;inset:0;background:#030407;color:#e8e8e8;
+display:none;padding:12vh 10vw;font-family:monospace;overflow:hidden
+}
+.crash-screen.show{display:block;animation:crashIn .5s steps(5)}
 @keyframes crashIn{0%{filter:invert(1);transform:translateX(-8px)}25%{filter:brightness(3);transform:translateX(8px)}50%{filter:contrast(2);transform:translateX(-4px)}100%{filter:none;transform:none}}
-.crash-screen h2{font-size:clamp(20px,5vw,35px);color:#ff4e65;margin-bottom:25px}
+.crash-screen:before{
+content:"";position:absolute;inset:0;pointer-events:none;
+background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.035) 4px);
+animation:scanError .12s linear infinite
+}
+@keyframes scanError{to{transform:translateY(4px)}}
+.crash-screen h2{font-size:clamp(20px,5vw,35px);color:#ff4e65;margin-bottom:25px;text-shadow:0 0 20px red}
 .crash-screen p{font-size:12px;line-height:2;color:#aaa}
+.crash-code{color:#ff6075!important;margin-top:20px}
 .crash-progress{margin-top:30px;width:min(400px,100%);height:5px;background:#222}
-.crash-progress span{display:block;width:0;height:100%;background:var(--cyan);animation:reboot 4s linear forwards}
+.crash-progress span{display:block;width:0;height:100%;background:var(--cyan)}
+.crash-screen.recovering .crash-progress span{animation:reboot 5s linear forwards}
 @keyframes reboot{to{width:100%}}
+.recovery-label{color:#42d9ff!important;margin-top:22px;letter-spacing:2px}
 
 /* IDENTITY */
-.reveal-name{position:fixed;z-index:1050;inset:0;display:none;align-items:center;justify-content:center;text-align:center;background:#08090d;color:white}
+.reveal-name{
+position:fixed;z-index:1150;inset:0;display:none;align-items:center;justify-content:center;
+text-align:center;background:radial-gradient(circle,#10243a,#08090d 65%);color:white;padding:20px
+}
 .reveal-name.show{display:flex}
-.reveal-name h1{font-family:Orbitron,sans-serif;font-size:clamp(35px,10vw,85px);letter-spacing:4px;animation:identityReveal 4s ease both}
+.reveal-name h1{font-family:Orbitron,sans-serif;font-size:clamp(35px,10vw,85px);letter-spacing:4px;animation:identityReveal 3.8s ease both}
 .reveal-name h1 span{color:#35caff;text-shadow:0 0 20px #008dff}
 .reveal-name p{color:#aaa;letter-spacing:4px;font-size:10px;margin-top:15px}
-@keyframes identityReveal{0%{opacity:0;transform:translateY(35px);filter:blur(15px)}30%{opacity:1;transform:translateY(0);filter:blur(0)}80%{opacity:1}100%{opacity:0;transform:scale(1.1)}}
-.intro-skip{position:absolute;bottom:25px;right:25px;border:1px solid rgba(100,190,255,.3);border-radius:30px;color:#75caff;background:rgba(0,30,60,.3);padding:10px 15px;font-size:9px;letter-spacing:1px;z-index:10}
+@keyframes identityReveal{0%{opacity:0;transform:translateY(35px);filter:blur(15px)}25%{opacity:1;transform:translateY(0);filter:blur(0)}80%{opacity:1}100%{opacity:0;transform:scale(1.08)}}
+.intro-skip{position:absolute;bottom:22px;right:22px;border:1px solid rgba(100,190,255,.3);border-radius:30px;color:#75caff;background:rgba(0,30,60,.55);padding:10px 15px;font-size:9px;letter-spacing:1px;z-index:30}
+.sound-activate{
+position:absolute;z-index:40;bottom:22px;left:50%;transform:translateX(-50%);
+border:1px solid rgba(0,195,255,.6);border-radius:30px;
+color:#d9f7ff;background:rgba(0,35,65,.8);padding:11px 17px;
+font-family:Orbitron,sans-serif;font-size:9px;letter-spacing:1px;
+box-shadow:0 0 20px rgba(0,170,255,.15);white-space:nowrap
+}
+.sound-activate.active{color:#72ffc3;border-color:#72ffc3}
 
 /* RESPONSIVE */
 @media(max-width:800px){
@@ -398,10 +488,23 @@ transform:translate(var(--sx),var(--sy)) scale(.2)
 .future-card{padding:27px}
 .floating-label{font-size:8px}
 .intro-log{font-size:9px}
-.lab-corner{font-size:7px}
-.gauntlet-stage{margin-top:10px}
-.intro-title{letter-spacing:1px}
+.lab-corner{font-size:6px;letter-spacing:1px}
+.lab-corner.tl,.lab-corner.bl{left:10px}
+.lab-corner.tr,.lab-corner.br{right:10px}
+.intro-title{letter-spacing:1px;font-size:clamp(23px,7vw,38px)}
+.intro-title span{letter-spacing:3px}
 .intro-sub{font-size:8px;letter-spacing:2px}
+.gauntlet-stage{margin-top:8px;transform:scale(.88)}
+.gauntlet-stage.visible{transform:scale(.88)}
+.sound-activate{bottom:18px;font-size:8px}
+.intro-skip{bottom:18px;right:10px;font-size:8px;padding:9px}
+}
+@media(max-height:700px){
+.intro-content{transform:scale(.82)}
+.gauntlet-stage{margin-top:0}
+.intro-title{margin-top:10px}
+.intro-log{margin-top:12px;min-height:35px}
+.lab-corner{font-size:6px}
 }
 @media(prefers-reduced-motion:reduce){
 *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
@@ -413,361 +516,477 @@ transform:translate(var(--sx),var(--sy)) scale(.2)
 <div id="particles"></div>
 <div class="page-transition" id="pageTransition"></div>
 
-<!-- AUTOMATIC LABORATORY INTRO -->
+<!-- LABORATORY INTRO -->
 <div class="intro" id="intro">
-<div class="lab-background"></div>
-<div class="lab-grid"></div>
-<div class="lab-orbit"></div>
+  <div class="lab-background"></div>
+  <div class="lab-grid"></div>
+  <div class="lab-orbit"></div>
+  <div class="lab-floor"></div>
+  <div class="floor-platform"></div>
+  <div class="floor-light"></div>
 
-<div class="lab-corner tl">A.L TECHNOLOGY<br>LABORATORY SYSTEM</div>
-<div class="lab-corner tr">STARK-STYLE INTERFACE<br>VERSION 2026.01</div>
-<div class="lab-corner bl">POWER SOURCE: ONLINE<br>ENERGY CORE: STABLE</div>
-<div class="lab-corner br">PERSONAL ACCESS<br>AUTHORIZED</div>
-<div class="lab-cross"></div>
-<div class="snap-flash" id="snapFlash"></div>
+  <div class="lab-corner tl">A.L TECHNOLOGY<br>LABORATORY SYSTEM</div>
+  <div class="lab-corner tr">STARK-STYLE INTERFACE<br>VERSION 2026.02</div>
+  <div class="lab-corner bl">POWER SOURCE: ONLINE<br>ENERGY CORE: STABLE</div>
+  <div class="lab-corner br">PERSONAL ACCESS<br>AUTHORIZED</div>
+  <div class="lab-cross"></div>
+  <div class="snap-flash" id="snapFlash"></div>
 
-<div class="intro-content" id="introContent">
-<div class="jarvis-label">A.L ADVANCED SYSTEM // ONLINE</div>
-<div class="intro-title"><span>WELCOME TO</span>LABORATORIUM A.L</div>
-<div class="intro-sub">ADVANCED TECHNOLOGY • PERSONAL UNIVERSE</div>
-<div class="intro-log" id="introLog">J.A.R.V.I.S. INITIALIZING...</div>
-<div class="lab-loading" id="labLoading"><span></span></div>
+  <div class="intro-content" id="introContent">
+    <div class="jarvis-label">A.L ADVANCED SYSTEM // ONLINE</div>
+    <div class="intro-title"><span>WELCOME TO</span>LABORATORIUM A.L</div>
+    <div class="intro-sub">ADVANCED TECHNOLOGY • PERSONAL UNIVERSE</div>
+    <div class="intro-log" id="introLog">J.A.R.V.I.S. INITIALIZING...</div>
+    <div class="lab-loading" id="labLoading"><span></span></div>
 
-<div class="gauntlet-stage" id="gauntletStage">
-<div class="gauntlet" id="gauntlet">
-<div class="gauntlet-finger"></div>
-<div class="gauntlet-finger"></div>
-<div class="gauntlet-finger"></div>
-<div class="gauntlet-finger"></div>
-<div class="gauntlet-thumb"></div>
-<div class="gauntlet-knuckle knuckle-one"></div>
-<div class="gauntlet-knuckle knuckle-two"></div>
-<div class="gauntlet-knuckle knuckle-three"></div>
-<div class="gauntlet-knuckle knuckle-four"></div>
-<div class="gauntlet-palm"></div>
-<div class="gauntlet-wrist"></div>
-<div class="gauntlet-cuff"></div>
-<div class="gauntlet-engraving">A.L POWER CORE</div>
-<div class="stone stone-space" style="--sx:-150px;--sy:-150px"></div>
-<div class="stone stone-mind" style="--sx:0px;--sy:-190px"></div>
-<div class="stone stone-reality" style="--sx:150px;--sy:-150px"></div>
-<div class="stone stone-power" style="--sx:-150px;--sy:-30px"></div>
-<div class="stone stone-time" style="--sx:150px;--sy:-30px"></div>
-<div class="stone stone-soul" style="--sx:0px;--sy:100px"></div>
-</div>
-</div>
-<div class="snap-text" id="snapText">SNAP.</div>
-</div>
-<button class="intro-skip" id="introSkip">SKIP INTRO ↗</button>
+    <div class="gauntlet-stage" id="gauntletStage">
+      <div class="gauntlet" id="gauntlet">
+        <div class="gauntlet-hand"></div>
+        <div class="gauntlet-finger"></div>
+        <div class="gauntlet-finger"></div>
+        <div class="gauntlet-finger"></div>
+        <div class="gauntlet-finger"></div>
+        <div class="gauntlet-thumb"></div>
+        <div class="gauntlet-palm"></div>
+        <div class="gauntlet-wrist"></div>
+        <div class="gauntlet-cuff"></div>
+        <div class="gauntlet-engraving">A.L POWER CORE</div>
+
+        <div class="stone stone-space" style="--sx:-150px;--sy:-150px"></div>
+        <div class="stone stone-mind" style="--sx:0px;--sy:-190px"></div>
+        <div class="stone stone-reality" style="--sx:150px;--sy:-150px"></div>
+        <div class="stone stone-power" style="--sx:-150px;--sy:-30px"></div>
+        <div class="stone stone-time" style="--sx:150px;--sy:-30px"></div>
+        <div class="stone stone-soul" style="--sx:0px;--sy:100px"></div>
+      </div>
+    </div>
+    <div class="snap-text" id="snapText">SNAP.</div>
+  </div>
+
+  <button class="sound-activate" id="soundActivate">♫ ACTIVATE SOUND</button>
+  <button class="intro-skip" id="introSkip">SKIP INTRO ↗</button>
 </div>
 
+<!-- SYSTEM ERROR -->
 <div class="crash-screen" id="crashScreen">
-<h2>⚠ SYSTEM FAILURE</h2>
-<p>A.L PERSONAL SYSTEM</p>
-<p>Unexpected energy overload detected...</p>
-<p>Memory sectors unstable.</p>
-<p>Rebuilding personal universe...</p>
-<p>RECOVERY INITIALIZING...</p>
-<div class="crash-progress"><span></span></div>
+  <h2>⚠ SYSTEM FAILURE</h2>
+  <p>A.L PERSONAL SYSTEM</p>
+  <p>Unexpected energy overload detected...</p>
+  <p>Memory sectors unstable.</p>
+  <p>Core system disconnected.</p>
+  <p class="crash-code">ERROR CODE: AL-∞-SNAP</p>
+  <p class="recovery-label" id="recoveryLabel">WAITING FOR J.A.R.V.I.S. RECOVERY...</p>
+  <div class="crash-progress"><span></span></div>
 </div>
 
+<!-- IDENTITY REVEAL -->
 <div class="reveal-name" id="revealName">
-<div><h1>I'M <span>AL FIGO.</span></h1><p>WELCOME TO MY PERSONAL UNIVERSE</p></div>
+  <div>
+    <h1>I'M <span>AL FIGO.</span></h1>
+    <p>WELCOME TO MY PERSONAL UNIVERSE</p>
+  </div>
 </div>
 
 <header class="navbar">
-<a class="brand" href="#" onclick="showPage('home');return false">F.A<small>PERSONAL UNIVERSE</small></a>
-<nav class="nav-links">
-<button class="nav-btn active" id="navHome" onclick="showPage('home')">HOME</button>
-<button class="nav-btn" id="navStory" onclick="showPage('story')">MY STORY</button>
-</nav>
-<div class="nav-status"><span class="status-dot"></span>SYSTEM ONLINE</div>
+  <a class="brand" href="#" onclick="showPage('home');return false">F.A<small>PERSONAL UNIVERSE</small></a>
+  <nav class="nav-links">
+    <button class="nav-btn active" id="navHome" onclick="showPage('home')">HOME</button>
+    <button class="nav-btn" id="navStory" onclick="showPage('story')">MY STORY</button>
+  </nav>
+  <div class="nav-status"><span class="status-dot"></span>SYSTEM ONLINE</div>
 </header>
 
 <main>
 <!-- HOME -->
 <div class="page active" id="home">
-<section class="hero">
-<div class="container hero-grid">
-<div class="hero-copy">
-<div class="hero-tag"><i></i> PERSONAL IDENTITY SYSTEM</div>
-<h1>HELLO,<span class="name">I'M FIGO.</span><span class="outline">WELCOME.</span></h1>
-<p class="hero-subtitle">Sebuah ruang digital yang berisi cerita, perjalanan, pemikiran, dan hal-hal yang sedang aku bangun. Bukan sekadar website, ini adalah bagian kecil dari personal universe milikku.</p>
-<div class="hero-actions">
-<button class="btn btn-primary" onclick="showPage('story')">EXPLORE MY STORY ↗</button>
-<a class="btn btn-secondary" href="https://instagram.com/a.figo19" target="_blank" rel="noopener">CONNECT WITH ME</a>
-</div>
-<div class="hero-meta">
-<div class="meta-item"><strong>F.A</strong><span>IDENTITY</span></div>
-<div class="meta-item"><strong>∞</strong><span>POSSIBILITIES</span></div>
-<div class="meta-item"><strong>2026</strong><span>THE JOURNEY</span></div>
-</div>
-</div>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="hero-tag"><i></i> PERSONAL IDENTITY SYSTEM</div>
+        <h1>HELLO,<span class="name">I'M FIGO.</span><span class="outline">WELCOME.</span></h1>
+        <p class="hero-subtitle">Sebuah ruang digital yang berisi cerita, perjalanan, pemikiran, dan hal-hal yang sedang aku bangun. Bukan sekadar website, ini adalah bagian kecil dari personal universe milikku.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" onclick="showPage('story')">EXPLORE MY STORY ↗</button>
+          <a class="btn btn-secondary" href="https://instagram.com/a.figo19" target="_blank" rel="noopener">CONNECT WITH ME</a>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-item"><strong>F.A</strong><span>IDENTITY</span></div>
+          <div class="meta-item"><strong>∞</strong><span>POSSIBILITIES</span></div>
+          <div class="meta-item"><strong>2026</strong><span>THE JOURNEY</span></div>
+        </div>
+      </div>
 
-<div class="hero-visual">
-<div class="profile-scene" id="profileScene">
-<div class="profile-glow"></div><div class="holo-ring"></div><div class="holo-ring two"></div>
-<div class="profile-frame">
-<img src="IMG-20261104-WA0009.jpg" alt="Foto profil Figo">
-<div class="profile-scan"></div>
-</div>
-<div class="floating-label one">F.A / 001<span>IDENTITY VERIFIED</span></div>
-<div class="floating-label two">PERSONAL FILE<span>ACCESS GRANTED</span></div>
-<div class="arc-reactor"></div>
-</div>
-</div>
-</div>
-</section>
+      <div class="hero-visual">
+        <div class="profile-scene" id="profileScene">
+          <div class="profile-glow"></div><div class="holo-ring"></div><div class="holo-ring two"></div>
+          <div class="profile-frame">
+            <img src="IMG-20261104-WA0009.jpg" alt="Foto profil Figo">
+            <div class="profile-scan"></div>
+          </div>
+          <div class="floating-label one">F.A / 001<span>IDENTITY VERIFIED</span></div>
+          <div class="floating-label two">PERSONAL FILE<span>ACCESS GRANTED</span></div>
+          <div class="arc-reactor"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="container" style="padding-bottom:90px">
-<div class="tech-strip">
-<div class="tech-card reveal"><small>01 / IDENTITY</small><strong>Personal Universe</strong></div>
-<div class="tech-card reveal"><small>02 / SYSTEM</small><strong>Creative Mindset</strong></div>
-<div class="tech-card reveal"><small>03 / DIRECTION</small><strong>Keep Growing</strong></div>
-</div>
-</section>
+  <section class="container" style="padding-bottom:90px">
+    <div class="tech-strip">
+      <div class="tech-card reveal"><small>01 / IDENTITY</small><strong>Personal Universe</strong></div>
+      <div class="tech-card reveal"><small>02 / SYSTEM</small><strong>Creative Mindset</strong></div>
+      <div class="tech-card reveal"><small>03 / DIRECTION</small><strong>Keep Growing</strong></div>
+    </div>
+  </section>
 
-<section class="section">
-<div class="container reveal">
-<div class="section-label">BEHIND THE IDENTITY</div>
-<h2 class="section-title">More than just a <span>name.</span></h2>
-<p class="section-desc">Setiap orang punya perjalanan yang berbeda. Ini adalah tempat untuk mengenal sedikit tentang siapa aku, apa yang aku pelajari, dan ke mana aku ingin melangkah.</p>
-<button class="btn btn-primary" style="margin-top:25px" onclick="showPage('story')">DISCOVER MY STORY ↗</button>
-</div>
-</section>
+  <section class="section">
+    <div class="container reveal">
+      <div class="section-label">BEHIND THE IDENTITY</div>
+      <h2 class="section-title">More than just a <span>name.</span></h2>
+      <p class="section-desc">Setiap orang punya perjalanan yang berbeda. Ini adalah tempat untuk mengenal sedikit tentang siapa aku, apa yang aku pelajari, dan ke mana aku ingin melangkah.</p>
+      <button class="btn btn-primary" style="margin-top:25px" onclick="showPage('story')">DISCOVER MY STORY ↗</button>
+    </div>
+  </section>
 </div>
 
 <!-- MY STORY -->
 <div class="page" id="story">
-<section class="story-hero">
-<div class="container">
-<div class="story-heading reveal">
-<div class="section-label">THE PERSON BEHIND F.A</div>
-<h1>THIS IS <span>MY STORY.</span></h1>
-<p class="section-desc">Bukan tentang menjadi sempurna, tetapi tentang perjalanan untuk terus belajar, berkembang, dan menemukan versi terbaik dari diri sendiri.</p>
-</div>
+  <section class="story-hero">
+    <div class="container">
+      <div class="story-heading reveal">
+        <div class="section-label">THE PERSON BEHIND F.A</div>
+        <h1>THIS IS <span>MY STORY.</span></h1>
+        <p class="section-desc">Bukan tentang menjadi sempurna, tetapi tentang perjalanan untuk terus belajar, berkembang, dan menemukan versi terbaik dari diri sendiri.</p>
+      </div>
 
-<div class="story-layout">
-<div class="story-photo-card glass reveal" data-tilt>
-<div class="story-photo">
-<img src="IMG-20261104-WA0009.jpg" alt="Figo portrait">
-<div class="photo-caption"><strong>FACHRIANSYAH ALFIGO</strong><span>THE PERSON BEHIND THE UNIVERSE</span></div>
-</div>
-</div>
+      <div class="story-layout">
+        <div class="story-photo-card glass reveal" data-tilt>
+          <div class="story-photo">
+            <img src="IMG-20261104-WA0009.jpg" alt="Figo portrait">
+            <div class="photo-caption"><strong>FACHRIANSYAH ALFIGO</strong><span>THE PERSON BEHIND THE UNIVERSE</span></div>
+          </div>
+        </div>
 
-<div class="story-content">
-<article class="story-card glass reveal">
-<div class="section-label">01 / INTRODUCTION</div>
-<h3>Who am I?</h3>
-<p>Halo, aku Fachriansyah Alfigo. Aku adalah seseorang yang masih terus belajar mengenal diri sendiri, mencoba hal baru, dan mengembangkan kemampuan. Aku percaya bahwa setiap pengalaman, sekecil apa pun, punya sesuatu yang bisa dipelajari.</p>
-<div class="story-quote">"Small steps today can create a different future tomorrow."</div>
-</article>
+        <div class="story-content">
+          <article class="story-card glass reveal">
+            <div class="section-label">01 / INTRODUCTION</div>
+            <h3>Who am I?</h3>
+            <p>Halo, aku Fachriansyah Alfigo. Aku adalah seseorang yang masih terus belajar mengenal diri sendiri, mencoba hal baru, dan mengembangkan kemampuan. Aku percaya bahwa setiap pengalaman, sekecil apa pun, punya sesuatu yang bisa dipelajari.</p>
+            <div class="story-quote">"Small steps today can create a different future tomorrow."</div>
+          </article>
 
-<article class="story-card glass reveal">
-<div class="section-label">02 / PERSONAL PROFILE</div>
-<h3>A little about me.</h3>
-<p>Beberapa informasi sederhana tentang diriku. Sebuah identitas kecil di balik F.A Personal Universe.</p>
-<div class="profile-data">
-<div class="data-item"><small>FULL NAME</small><strong>Fachriansyah Alfigo</strong></div>
-<div class="data-item"><small>CALL ME</small><strong>Figo</strong></div>
-<div class="data-item"><small>INTEREST</small><strong>Digital & Creativity</strong></div>
-<div class="data-item"><small>PERSONAL MOTTO</small><strong>Keep Moving Forward</strong></div>
-</div>
-</article>
-</div>
-</div>
-</div>
-</section>
+          <article class="story-card glass reveal">
+            <div class="section-label">02 / PERSONAL PROFILE</div>
+            <h3>A little about me.</h3>
+            <p>Beberapa informasi sederhana tentang diriku. Sebuah identitas kecil di balik F.A Personal Universe.</p>
+            <div class="profile-data">
+              <div class="data-item"><small>FULL NAME</small><strong>Fachriansyah Alfigo</strong></div>
+              <div class="data-item"><small>CALL ME</small><strong>Figo</strong></div>
+              <div class="data-item"><small>INTEREST</small><strong>Digital & Creativity</strong></div>
+              <div class="data-item"><small>PERSONAL MOTTO</small><strong>Keep Moving Forward</strong></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="section journey-section">
-<div class="container">
-<div class="reveal">
-<div class="section-label">03 / MY JOURNEY</div>
-<h2 class="section-title">Every chapter has a <span>meaning.</span></h2>
-<p class="section-desc">Perjalanan bukan hanya tentang tujuan akhir. Setiap proses memberikan pengalaman dan pelajaran baru.</p>
-</div>
-<div class="timeline">
-<div class="timeline-item reveal"><div class="timeline-date">CHAPTER 01</div><div class="timeline-card glass"><h3>Early Experiences</h3><p>Masa untuk mengenal banyak hal, membangun pengalaman, dan mulai memahami apa yang ingin dilakukan.</p></div></div>
-<div class="timeline-item reveal"><div class="timeline-date">CHAPTER 02</div><div class="timeline-card glass"><h3>High School — HSPG Yogyakarta</h3><p>Menyelesaikan perjalanan pendidikan menengah dan mendapatkan pengalaman yang menjadi bagian dari proses perkembangan diri.</p></div></div>
-<div class="timeline-item reveal"><div class="timeline-date">CHAPTER 03</div><div class="timeline-card glass"><h3>Digital Learning Journey</h3><p>Mulai mendalami dunia multimedia dan digital, termasuk kreativitas, teknologi, komunikasi, serta pengembangan ide.</p></div></div>
-<div class="timeline-item reveal"><div class="timeline-date">CHAPTER 04</div><div class="timeline-card glass"><h3>The Next Chapter</h3><p>Masih banyak hal yang ingin dipelajari dan dicapai. Perjalanan ini terus berjalan, dan ceritanya belum selesai.</p></div></div>
-</div>
-</div>
-</section>
+  <section class="section journey-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">03 / MY JOURNEY</div>
+        <h2 class="section-title">Every chapter has a <span>meaning.</span></h2>
+        <p class="section-desc">Perjalanan bukan hanya tentang tujuan akhir. Setiap proses memberikan pengalaman dan pelajaran baru.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item reveal"><div class="timeline-date">CHAPTER 01</div><div class="timeline-card glass"><h3>Early Experiences</h3><p>Masa untuk mengenal banyak hal, membangun pengalaman, dan mulai memahami apa yang ingin dilakukan.</p></div></div>
+        <div class="timeline-item reveal"><div class="timeline-date">CHAPTER 02</div><div class="timeline-card glass"><h3>High School — HSPG Yogyakarta</h3><p>Menyelesaikan perjalanan pendidikan menengah dan mendapatkan pengalaman yang menjadi bagian dari proses perkembangan diri.</p></div></div>
+        <div class="timeline-item reveal"><div class="timeline-date">CHAPTER 03</div><div class="timeline-card glass"><h3>Digital Learning Journey</h3><p>Mulai mendalami dunia multimedia dan digital, termasuk kreativitas, teknologi, komunikasi, serta pengembangan ide.</p></div></div>
+        <div class="timeline-item reveal"><div class="timeline-date">CHAPTER 04</div><div class="timeline-card glass"><h3>The Next Chapter</h3><p>Masih banyak hal yang ingin dipelajari dan dicapai. Perjalanan ini terus berjalan, dan ceritanya belum selesai.</p></div></div>
+      </div>
+    </div>
+  </section>
 
-<section class="section">
-<div class="container">
-<div class="reveal">
-<div class="section-label">04 / WHAT DEFINES ME</div>
-<h2 class="section-title">My personal <span>principles.</span></h2>
-<p class="section-desc">Hal-hal sederhana yang ingin aku bawa dalam setiap perjalanan dan proses perkembangan diri.</p>
-</div>
-<div class="values-grid">
-<div class="value-card reveal" data-tilt><div class="value-icon">✦</div><h3>Curiosity</h3><p>Selalu punya rasa ingin tahu dan terbuka untuk mempelajari sesuatu yang baru.</p></div>
-<div class="value-card reveal" data-tilt><div class="value-icon">◈</div><h3>Creativity</h3><p>Berani mencoba ide baru dan melihat sesuatu dari sudut pandang yang berbeda.</p></div>
-<div class="value-card reveal" data-tilt><div class="value-icon">↗</div><h3>Growth</h3><p>Menghargai proses, belajar dari pengalaman, dan terus memperbaiki diri.</p></div>
-</div>
-</div>
-</section>
+  <section class="section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">04 / WHAT DEFINES ME</div>
+        <h2 class="section-title">My personal <span>principles.</span></h2>
+        <p class="section-desc">Hal-hal sederhana yang ingin aku bawa dalam setiap perjalanan dan proses perkembangan diri.</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card reveal" data-tilt><div class="value-icon">✦</div><h3>Curiosity</h3><p>Selalu punya rasa ingin tahu dan terbuka untuk mempelajari sesuatu yang baru.</p></div>
+        <div class="value-card reveal" data-tilt><div class="value-icon">◈</div><h3>Creativity</h3><p>Berani mencoba ide baru dan melihat sesuatu dari sudut pandang yang berbeda.</p></div>
+        <div class="value-card reveal" data-tilt><div class="value-icon">↗</div><h3>Growth</h3><p>Menghargai proses, belajar dari pengalaman, dan terus memperbaiki diri.</p></div>
+      </div>
+    </div>
+  </section>
 
-<section class="section journey-section">
-<div class="container">
-<div class="reveal">
-<div class="section-label">05 / PERSONAL ARCHIVE</div>
-<h2 class="section-title">Moments & <span>memories.</span></h2>
-<p class="section-desc">Beberapa potongan momen yang menjadi bagian dari perjalanan personal.</p>
-</div>
-<div class="gallery-grid">
-<div class="gallery-item reveal" data-tilt onclick="openLightbox(this)"><img src="IMG-20261104-WA0006.jpg" alt="Personal moment one"></div>
-<div class="gallery-item reveal" data-tilt onclick="openLightbox(this)"><img src="IMG-20261104-WA0011.jpg" alt="Personal moment two"></div>
-<div class="gallery-item reveal" data-tilt onclick="openLightbox(this)"><img src="IMG-20261104-WA0009.jpg" alt="Personal portrait"></div>
-</div>
-</div>
-</section>
+  <section class="section journey-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">05 / PERSONAL ARCHIVE</div>
+        <h2 class="section-title">Moments & <span>memories.</span></h2>
+        <p class="section-desc">Beberapa potongan momen yang menjadi bagian dari perjalanan personal.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal" data-tilt onclick="openLightbox(this)"><img src="IMG-20261104-WA0006.jpg" alt="Personal moment one"></div>
+        <div class="gallery-item reveal" data-tilt onclick="openLightbox(this)"><img src="IMG-20261104-WA0011.jpg" alt="Personal moment two"></div>
+        <div class="gallery-item reveal" data-tilt onclick="openLightbox(this)"><img src="IMG-20261104-WA0009.jpg" alt="Personal portrait"></div>
+      </div>
+    </div>
+  </section>
 
-<section class="section">
-<div class="container">
-<div class="future-card reveal">
-<div class="section-label" style="color:#8df7ff">06 / LOOKING FORWARD</div>
-<h2>The future is still being written.</h2>
-<p>Aku tidak harus mengetahui semua jawaban hari ini. Yang penting adalah tetap melangkah, berani mencoba, dan tidak berhenti mengembangkan diri. Masih banyak pengalaman, kesempatan, dan cerita yang menunggu untuk dijalani.</p>
-<div class="future-tags"><span>LEARN</span><span>CREATE</span><span>EXPLORE</span><span>IMPROVE</span><span>REPEAT</span></div>
-</div>
-</div>
-</section>
+  <section class="section">
+    <div class="container">
+      <div class="future-card reveal">
+        <div class="section-label" style="color:#8df7ff">06 / LOOKING FORWARD</div>
+        <h2>The future is still being written.</h2>
+        <p>Aku tidak harus mengetahui semua jawaban hari ini. Yang penting adalah tetap melangkah, berani mencoba, dan tidak berhenti mengembangkan diri. Masih banyak pengalaman, kesempatan, dan cerita yang menunggu untuk dijalani.</p>
+        <div class="future-tags"><span>LEARN</span><span>CREATE</span><span>EXPLORE</span><span>IMPROVE</span><span>REPEAT</span></div>
+      </div>
+    </div>
+  </section>
 
-<section class="section journey-section">
-<div class="container">
-<div class="reveal">
-<div class="section-label">07 / LET'S CONNECT</div>
-<h2 class="section-title">Find me <span>somewhere.</span></h2>
-<p class="section-desc">Terhubung denganku melalui beberapa platform berikut.</p>
-</div>
-<div class="contact-grid">
-<a class="contact-card reveal" href="https://instagram.com/a.figo19" target="_blank" rel="noopener"><div class="contact-icon">IG</div><div><small>INSTAGRAM</small><strong>@a.figo19</strong></div></a>
-<a class="contact-card reveal" href="https://wa.me/6283139998411" target="_blank" rel="noopener"><div class="contact-icon">WA</div><div><small>WHATSAPP</small><strong>+62 831-3999-8411</strong></div></a>
-<a class="contact-card reveal" href="mailto:masfigo41@gmail.com"><div class="contact-icon">@</div><div><small>EMAIL</small><strong>masfigo41@gmail.com</strong></div></a>
-</div>
-</div>
-</section>
+  <section class="section journey-section">
+    <div class="container">
+      <div class="reveal">
+        <div class="section-label">07 / LET'S CONNECT</div>
+        <h2 class="section-title">Find me <span>somewhere.</span></h2>
+        <p class="section-desc">Terhubung denganku melalui beberapa platform berikut.</p>
+      </div>
+      <div class="contact-grid">
+        <a class="contact-card reveal" href="https://instagram.com/a.figo19" target="_blank" rel="noopener"><div class="contact-icon">IG</div><div><small>INSTAGRAM</small><strong>@a.figo19</strong></div></a>
+        <a class="contact-card reveal" href="https://wa.me/6283139998411" target="_blank" rel="noopener"><div class="contact-icon">WA</div><div><small>WHATSAPP</small><strong>+62 831-3999-8411</strong></div></a>
+        <a class="contact-card reveal" href="mailto:masfigo41@gmail.com"><div class="contact-icon">@</div><div><small>EMAIL</small><strong>masfigo41@gmail.com</strong></div></a>
+      </div>
+    </div>
+  </section>
 </div>
 </main>
 
 <footer>
-<div class="container"><strong>F.A PERSONAL UNIVERSE</strong><p>Designed as a reflection of a journey. © 2026 F.A</p></div>
+  <div class="container"><strong>F.A PERSONAL UNIVERSE</strong><p>Designed as a reflection of a journey. © 2026 F.A</p></div>
 </footer>
 
-<!-- JARVIS -->
+<!-- JARVIS CHAT -->
 <button class="jarvis-toggle" onclick="toggleChat()">J</button>
 <div class="chat-panel" id="chatPanel">
-<div class="chat-head"><strong>J.A.R.V.I.S.</strong><button onclick="toggleChat()">×</button></div>
-<div class="chat-body"><div class="chat-message" id="chatMessage">Good evening. I am J.A.R.V.I.S. How can I assist you in exploring this universe?</div></div>
-<div class="chat-options">
-<button onclick="jarvisReply('home')">HOME</button>
-<button onclick="jarvisReply('story')">MY STORY</button>
-<button onclick="jarvisReply('contact')">CONTACT</button>
-</div>
+  <div class="chat-head"><strong>J.A.R.V.I.S.</strong><button onclick="toggleChat()">×</button></div>
+  <div class="chat-body"><div class="chat-message" id="chatMessage">Good evening. I am J.A.R.V.I.S. How can I assist you in exploring this universe?</div></div>
+  <div class="chat-options">
+    <button onclick="jarvisReply('home')">HOME</button>
+    <button onclick="jarvisReply('story')">MY STORY</button>
+    <button onclick="jarvisReply('contact')">CONTACT</button>
+  </div>
 </div>
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-<button aria-label="Close">&times;</button>
-<img id="lightboxImage" src="" alt="Expanded gallery image">
+  <button aria-label="Close">&times;</button>
+  <img id="lightboxImage" src="" alt="Expanded gallery image">
 </div>
 
 <script>
 /* PARTICLES */
 const particleArea=document.getElementById("particles");
 for(let i=0;i<35;i++){
-const p=document.createElement("span");
-p.className="particle";
-p.style.left=Math.random()*100+"%";
-p.style.top=Math.random()*100+"%";
-p.style.animationDelay=Math.random()*4+"s";
-particleArea.appendChild(p);
+  const p=document.createElement("span");
+  p.className="particle";
+  p.style.left=Math.random()*100+"%";
+  p.style.top=Math.random()*100+"%";
+  p.style.animationDelay=Math.random()*4+"s";
+  particleArea.appendChild(p);
 }
 
 /* PAGE NAVIGATION */
 let currentPage="home",pageTimer=null;
 function showPage(page){
-if(!["home","story"].includes(page)||page===currentPage)return;
-const transition=document.getElementById("pageTransition");
-transition.classList.remove("run");
-void transition.offsetWidth;
-transition.classList.add("run");
-clearTimeout(pageTimer);
-pageTimer=setTimeout(()=>{
-document.querySelectorAll(".page").forEach(el=>el.classList.remove("active"));
-document.getElementById(page).classList.add("active");
-document.getElementById("navHome").classList.toggle("active",page==="home");
-document.getElementById("navStory").classList.toggle("active",page==="story");
-currentPage=page;
-window.scrollTo({top:0,behavior:"smooth"});
-revealElements();
-},1800);
+  if(!["home","story"].includes(page)||page===currentPage)return;
+  const transition=document.getElementById("pageTransition");
+  transition.classList.remove("run");
+  void transition.offsetWidth;
+  transition.classList.add("run");
+  clearTimeout(pageTimer);
+  pageTimer=setTimeout(()=>{
+    document.querySelectorAll(".page").forEach(el=>el.classList.remove("active"));
+    document.getElementById(page).classList.add("active");
+    document.getElementById("navHome").classList.toggle("active",page==="home");
+    document.getElementById("navStory").classList.toggle("active",page==="story");
+    currentPage=page;
+    window.scrollTo({top:0,behavior:"smooth"});
+    revealElements();
+  },500);
 }
 
 /* SCROLL REVEAL */
 function revealElements(){
-const elements=document.querySelectorAll(".page.active .reveal:not(.show)");
-if(!("IntersectionObserver" in window)){
-elements.forEach(el=>el.classList.add("show"));
-return;
-}
-const observer=new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("show");
-observer.unobserve(entry.target);
-}
-});
-},{threshold:.1});
-elements.forEach(el=>observer.observe(el));
+  const elements=document.querySelectorAll(".page.active .reveal:not(.show)");
+  if(!("IntersectionObserver" in window)){
+    elements.forEach(el=>el.classList.add("show"));
+    return;
+  }
+  const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
+        observer.unobserve(entry.target);
+      }
+    });
+  },{threshold:.1});
+  elements.forEach(el=>observer.observe(el));
 }
 revealElements();
 
 /* PROFILE 3D */
 const profileScene=document.getElementById("profileScene");
 function moveProfile(x,y,rect){
-const nx=(x-rect.left)/rect.width,ny=(y-rect.top)/rect.height;
-const ry=(nx-.5)*28,rx=(.5-ny)*28;
-profileScene.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.025,1.025,1.025)`;
+  const nx=(x-rect.left)/rect.width,ny=(y-rect.top)/rect.height;
+  const ry=(nx-.5)*28,rx=(.5-ny)*28;
+  profileScene.style.transform=`rotateX(${rx}deg) rotateY(${ry}deg) scale3d(1.025,1.025,1.025)`;
 }
 if(profileScene){
-profileScene.addEventListener("mousemove",e=>moveProfile(e.clientX,e.clientY,profileScene.getBoundingClientRect()));
-profileScene.addEventListener("mouseleave",()=>profileScene.style.transform="rotateX(0) rotateY(0) scale(1)");
-profileScene.addEventListener("touchmove",e=>{
-const t=e.touches[0];
-moveProfile(t.clientX,t.clientY,profileScene.getBoundingClientRect());
-},{passive:true});
-profileScene.addEventListener("touchend",()=>profileScene.style.transform="rotateX(0) rotateY(0) scale(1)");
+  profileScene.addEventListener("mousemove",e=>moveProfile(e.clientX,e.clientY,profileScene.getBoundingClientRect()));
+  profileScene.addEventListener("mouseleave",()=>profileScene.style.transform="rotateX(0) rotateY(0) scale(1)");
+  profileScene.addEventListener("touchmove",e=>{
+    const t=e.touches[0];
+    moveProfile(t.clientX,t.clientY,profileScene.getBoundingClientRect());
+  },{passive:true});
+  profileScene.addEventListener("touchend",()=>profileScene.style.transform="rotateX(0) rotateY(0) scale(1)");
 }
 
 /* 3D TILT */
 document.querySelectorAll("[data-tilt]").forEach(card=>{
-card.addEventListener("mousemove",e=>{
-if(window.innerWidth<700)return;
-const r=card.getBoundingClientRect();
-const x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
-card.style.transform=`perspective(900px) rotateX(${(.5-y)*7}deg) rotateY(${(x-.5)*8}deg) translateY(-3px)`;
-});
-card.addEventListener("mouseleave",()=>card.style.transform="perspective(900px) rotateX(0) rotateY(0) translateY(0)");
+  card.addEventListener("mousemove",e=>{
+    if(window.innerWidth<700)return;
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    card.style.transform=`perspective(900px) rotateX(${(.5-y)*7}deg) rotateY(${(x-.5)*8}deg) translateY(-3px)`;
+  });
+  card.addEventListener("mouseleave",()=>card.style.transform="perspective(900px) rotateX(0) rotateY(0) translateY(0)");
 });
 
 /* LIGHTBOX */
 function openLightbox(item){
-const image=item.querySelector("img");
-document.getElementById("lightboxImage").src=image.src;
-document.getElementById("lightbox").classList.add("open");
+  const image=item.querySelector("img");
+  document.getElementById("lightboxImage").src=image.src;
+  document.getElementById("lightbox").classList.add("open");
 }
 function closeLightbox(){document.getElementById("lightbox").classList.remove("open")}
 
-/* JARVIS */
+/* JARVIS CHAT */
 function toggleChat(){document.getElementById("chatPanel").classList.toggle("open")}
 function jarvisReply(topic){
-const message=document.getElementById("chatMessage");
-if(topic==="home"){message.textContent="Welcome to the HOME section. This is the main entrance to F.A Personal Universe.";showPage("home")}
-if(topic==="story"){message.textContent="Accessing personal archive. Welcome to the MY STORY section.";showPage("story")}
-if(topic==="contact"){message.textContent="You can connect through Instagram, WhatsApp, or email. The contact hub is available in MY STORY.";showPage("story")}
+  const message=document.getElementById("chatMessage");
+  if(topic==="home"){
+    message.textContent="Welcome to the HOME section. This is the main entrance to F.A Personal Universe.";
+    showPage("home");
+  }
+  if(topic==="story"){
+    message.textContent="Accessing personal archive. Welcome to the MY STORY section.";
+    showPage("story");
+  }
+  if(topic==="contact"){
+    message.textContent="You can connect through Instagram, WhatsApp, or email. The contact hub is available in MY STORY.";
+    showPage("story");
+  }
+}
+
+/* ================= SOUND ENGINE =================
+   Semua efek suara dibuat langsung oleh Web Audio API.
+   Tidak perlu file MP3 tambahan.
+================================================= */
+let audioContext=null;
+let masterGain=null;
+let soundEnabled=false;
+
+function initAudio(){
+  const AudioCtx=window.AudioContext||window.webkitAudioContext;
+  if(!AudioCtx)return false;
+  if(!audioContext){
+    audioContext=new AudioCtx();
+    masterGain=audioContext.createGain();
+    masterGain.gain.value=.25;
+    masterGain.connect(audioContext.destination);
+  }
+  if(audioContext.state==="suspended")audioContext.resume();
+  soundEnabled=true;
+  document.getElementById("soundActivate").textContent="♫ SOUND ACTIVATED";
+  document.getElementById("soundActivate").classList.add("active");
+  return true;
+}
+
+function tone(freq,duration,type="sine",volume=.15,delay=0){
+  if(!soundEnabled||!audioContext)return;
+  const start=audioContext.currentTime+delay;
+  const osc=audioContext.createOscillator();
+  const gain=audioContext.createGain();
+  osc.type=type;
+  osc.frequency.setValueAtTime(freq,start);
+  gain.gain.setValueAtTime(.001,start);
+  gain.gain.exponentialRampToValueAtTime(volume,start+.025);
+  gain.gain.exponentialRampToValueAtTime(.001,start+duration);
+  osc.connect(gain);
+  gain.connect(masterGain);
+  osc.start(start);
+  osc.stop(start+duration+.03);
+}
+
+function playStartup(){
+  tone(180,.4,"sine",.12);
+  tone(360,.5,"triangle",.08,.2);
+  tone(540,.7,"sine",.08,.45);
+}
+function playStone(){
+  tone(420,.3,"sine",.12);
+  tone(650,.35,"triangle",.1,.12);
+  tone(880,.5,"sine",.1,.25);
+}
+function playSnap(){
+  tone(110,.35,"sawtooth",.25);
+  tone(65,.6,"sine",.3,.02);
+  tone(950,.12,"square",.12,.04);
+}
+function playError(){
+  tone(90,.5,"sawtooth",.18);
+  tone(130,.35,"square",.12,.18);
+  tone(65,.8,"sawtooth",.18,.35);
+}
+function playRecovery(){
+  tone(260,.25,"triangle",.1);
+  tone(390,.3,"sine",.1,.3);
+  tone(520,.35,"sine",.1,.65);
+  tone(780,.55,"sine",.12,1);
+}
+function playSuccess(){
+  tone(392,.35,"sine",.12);
+  tone(523,.4,"sine",.12,.18);
+  tone(659,.5,"sine",.12,.38);
+  tone(784,.8,"triangle",.13,.6);
+}
+
+/* JARVIS ROBOT VOICE */
+function jarvisSpeak(text){
+  if(!soundEnabled||!("speechSynthesis" in window))return;
+  window.speechSynthesis.cancel();
+
+  const utterance=new SpeechSynthesisUtterance(text);
+  const voices=window.speechSynthesis.getVoices();
+
+  // Pilih suara yang tersedia, lalu beri karakter robot melalui pitch dan rate.
+  const preferred=voices.find(v=>/en-US|en-GB/i.test(v.lang)&&/Google|Microsoft|English/i.test(v.name))
+    ||voices.find(v=>/en/i.test(v.lang));
+
+  if(preferred)utterance.voice=preferred;
+  utterance.lang=preferred?.lang||"en-US";
+  utterance.rate=.88;
+  utterance.pitch=.55;
+  utterance.volume=.9;
+
+  // Beep digital pendek sebelum suara AI.
+  tone(700,.08,"square",.07);
+  tone(950,.08,"square",.06,.1);
+
+  setTimeout(()=>window.speechSynthesis.speak(utterance),180);
 }
 
 /* INTRO ELEMENTS */
@@ -778,121 +997,157 @@ const loading=document.getElementById("labLoading");
 const gauntletStage=document.getElementById("gauntletStage");
 const gauntlet=document.getElementById("gauntlet");
 const stones=document.querySelectorAll(".stone");
-let introFinished=false,introRunning=false;
+const crash=document.getElementById("crashScreen");
+const identity=document.getElementById("revealName");
+
+let introFinished=false;
+let introRunning=false;
+let soundWasActivated=false;
 
 const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 function setLog(text){introLog.textContent=text}
 
-/* INTRO 3D POINTER + TOUCH */
+/* 3D INTRO POINTER + TOUCH */
 function moveIntro3D(x,y){
-if(!introContent||introFinished)return;
-const rect=intro.getBoundingClientRect();
-const nx=(x-rect.left)/rect.width;
-const ny=(y-rect.top)/rect.height;
-const rotateY=(nx-.5)*18;
-const rotateX=(.5-ny)*14;
-introContent.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(25px)`;
+  if(!introContent||introFinished)return;
+  const rect=intro.getBoundingClientRect();
+  const nx=(x-rect.left)/rect.width;
+  const ny=(y-rect.top)/rect.height;
+  const rotateY=(nx-.5)*18;
+  const rotateX=(.5-ny)*14;
+  introContent.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(25px)`;
 }
 intro.addEventListener("mousemove",e=>moveIntro3D(e.clientX,e.clientY));
-intro.addEventListener("mouseleave",()=>{
-introContent.style.transform="rotateX(0deg) rotateY(0deg) translateZ(0)";
-});
+intro.addEventListener("mouseleave",()=>introContent.style.transform="rotateX(0deg) rotateY(0deg)");
 intro.addEventListener("touchmove",e=>{
-const t=e.touches[0];
-moveIntro3D(t.clientX,t.clientY);
+  const t=e.touches[0];
+  moveIntro3D(t.clientX,t.clientY);
 },{passive:true});
-intro.addEventListener("touchend",()=>{
-introContent.style.transform="rotateX(0deg) rotateY(0deg) translateZ(0)";
+intro.addEventListener("touchend",()=>introContent.style.transform="rotateX(0deg) rotateY(0deg)");
+
+/* SOUND ACTIVATION */
+document.getElementById("soundActivate").addEventListener("click",()=>{
+  if(initAudio()){
+    soundWasActivated=true;
+    playStartup();
+  }
 });
 
-/* AUTOMATIC CINEMATIC INTRO */
+/* CINEMATIC INTRO SEQUENCE */
 async function startIntro(){
-if(introRunning||introFinished)return;
-introRunning=true;
+  if(introRunning||introFinished)return;
+  introRunning=true;
 
-const phases=[
-"J.A.R.V.I.S. INITIALIZING...",
-"SCANNING PERSONAL IDENTITY...",
-"IDENTITY CONFIRMED: FACHRIANSYAH ALFIGO.",
-"LABORATORIUM A.L SYSTEM ONLINE.",
-"INFINITY STONE ENERGY DETECTED...",
-"GAUNTLET SYSTEM READY."
-];
+  const phases=[
+    "J.A.R.V.I.S. INITIALIZING...",
+    "SCANNING PERSONAL IDENTITY...",
+    "IDENTITY CONFIRMED: FACHRIANSYAH ALFIGO.",
+    "LABORATORIUM A.L SYSTEM ONLINE.",
+    "INFINITY STONE ENERGY DETECTED...",
+    "GAUNTLET SYSTEM READY."
+  ];
 
-for(const phase of phases){
-if(introFinished)return;
-setLog(phase);
-loading.classList.add("run");
-await wait(650);
+  for(const phase of phases){
+    if(introFinished)return;
+    setLog(phase);
+    loading.classList.add("run");
+    await wait(600);
+  }
+
+  if(introFinished)return;
+  setLog("ENERGY CORE ACTIVATED...");
+  if(soundEnabled)playStartup();
+  await wait(700);
+
+  if(introFinished)return;
+  gauntletStage.classList.add("visible");
+  setLog("INFINITY GAUNTLET MATERIALIZING...");
+  await wait(700);
+
+  if(introFinished)return;
+  stones.forEach((stone,index)=>{
+    stone.style.animationDelay=(index*.12)+"s";
+    stone.classList.add("fly");
+  });
+  setLog("ALL SIX INFINITY STONES CONNECTED...");
+  if(soundEnabled)playStone();
+  await wait(1900);
+
+  if(introFinished)return;
+  setLog("ALL SYSTEMS CHARGED. SNAP SEQUENCE INITIATED...");
+  gauntlet.classList.add("snap-action");
+  await wait(700);
+
+  if(introFinished)return;
+
+  // SNAP: ERROR LANGSUNG MUNCUL SETELAH JENTIKAN.
+  document.getElementById("snapFlash").classList.add("active");
+  document.getElementById("snapText").classList.add("show");
+  setLog("ENERGY RELEASED...");
+  if(soundEnabled)playSnap();
+
+  await wait(450);
+  if(introFinished)return;
+
+  intro.classList.add("hidden");
+  crash.classList.add("show");
+  if(soundEnabled)playError();
+
+  setLog("SYSTEM FAILURE DETECTED...");
+  await wait(900);
+
+  if(introFinished)return;
+
+  // JARVIS mengambil alih dan pemulihan berlangsung tepat 5 detik.
+  document.getElementById("recoveryLabel").textContent="J.A.R.V.I.S. RECOVERY PROTOCOL ACTIVATED...";
+  crash.classList.add("recovering");
+
+  if(soundEnabled){
+    playRecovery();
+    jarvisSpeak("Warning. System failure detected. J.A.R.V.I.S. recovery protocol activated. Restoring all systems.");
+  }
+
+  await wait(5000);
+  if(introFinished)return;
+
+  crash.classList.remove("show","recovering");
+
+  if(soundEnabled){
+    playSuccess();
+    jarvisSpeak("System recovery completed. Welcome back, Al Figo.");
+  }
+
+  identity.classList.add("show");
+  await wait(3800);
+
+  if(introFinished)return;
+  identity.classList.remove("show");
+  introFinished=true;
+  introRunning=false;
 }
-if(introFinished)return;
 
-setLog("ENERGY CORE ACTIVATED...");
-await wait(1000);
-if(introFinished)return;
-
-gauntletStage.classList.add("visible");
-setLog("INFINITY GAUNTLET MATERIALIZING...");
-await wait(700);
-if(introFinished)return;
-
-stones.forEach((stone,index)=>{
-stone.style.animationDelay=(index*.12)+"s";
-stone.classList.add("fly");
-});
-setLog("ALL SIX INFINITY STONES CONNECTED...");
-await wait(4000);
-if(introFinished)return;
-
-setLog("ALL SYSTEMS CHARGED. SNAP SEQUENCE INITIATED...");
-gauntlet.classList.add("snap-action");
-await wait(1600);
-if(introFinished)return;
-
-document.getElementById("snapFlash").classList.add("active");
-document.getElementById("snapText").classList.add("show");
-setLog("ENERGY RELEASED...");
-await wait(4000);
-if(introFinished)return;
-
-intro.classList.add("hidden");
-const crash=document.getElementById("crashScreen");
-crash.classList.add("show");
-await wait(4000);
-if(introFinished)return;
-
-crash.classList.remove("show");
-const identity=document.getElementById("revealName");
-identity.classList.add("show");
-await wait(4000);
-if(introFinished)return;
-
-identity.classList.remove("show");
-introFinished=true;
-introRunning=false;
-}
-
-/* OPTIONAL SKIP */
+/* SKIP INTRO */
 function skipIntro(){
-if(introFinished)return;
-introFinished=true;
-introRunning=false;
-intro.classList.add("hidden");
-document.getElementById("crashScreen").classList.remove("show");
-document.getElementById("revealName").classList.remove("show");
+  if(introFinished)return;
+  introFinished=true;
+  introRunning=false;
+  intro.classList.add("hidden");
+  crash.classList.remove("show","recovering");
+  identity.classList.remove("show");
+  if("speechSynthesis" in window)window.speechSynthesis.cancel();
 }
 
 /* START AUTOMATICALLY */
 window.addEventListener("load",()=>{
-setTimeout(startIntro,500);
+  setTimeout(startIntro,500);
 });
 
 /* KEYBOARD */
 document.addEventListener("keydown",e=>{
-if(e.key==="Escape"){
-closeLightbox();
-document.getElementById("chatPanel").classList.remove("open");
-}
+  if(e.key==="Escape"){
+    closeLightbox();
+    document.getElementById("chatPanel").classList.remove("open");
+  }
 });
 document.getElementById("introSkip").addEventListener("click",skipIntro);
 </script>
