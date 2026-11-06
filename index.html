@@ -6,8 +6,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#050b18">
 <title>F.A | Personal Universe</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/html5-qrcode"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 :root{
@@ -36,11 +38,12 @@ section{padding:90px 0;position:relative;z-index:1}
 .glow{color:var(--cyan);text-shadow:0 0 20px rgba(37,200,255,.4)}
 .hidden{display:none!important}
 
-/* QR ACCESS GATE */
+/* QR GATE */
 #gate{
 position:fixed;inset:0;z-index:9999;display:flex;
 align-items:center;justify-content:center;padding:20px;
 background:radial-gradient(ellipse at center,rgba(0,145,230,.22),transparent 55%),#030914;
+overflow-y:auto;
 }
 #gate:before{
 content:"";position:absolute;inset:0;
@@ -77,10 +80,9 @@ width:100%;max-width:300px;min-height:220px;margin:0 auto;
 overflow:hidden;border:1px solid rgba(80,197,255,.35);
 border-radius:10px;background:#061426;
 }
-#qr-reader video{border-radius:8px}
-#qr-reader img{max-width:100%}
+#qr-reader video{width:100%!important;border-radius:8px}
 .qr-button{
-width:100%;max-width:300px;margin-top:15px;padding:14px;
+width:100%;max-width:300px;margin-top:12px;padding:14px;
 border:1px solid var(--blue);border-radius:8px;
 background:rgba(20,120,170,.25);color:var(--cyan);
 font:10px Orbitron;letter-spacing:2px;
@@ -91,9 +93,16 @@ font:10px Orbitron;letter-spacing:2px;
 .gate-status.error{color:#ff737d}
 .gate-status.success{color:#73ffbd}
 .gate-footer{margin-top:20px;color:#547e99;font-size:9px;letter-spacing:2px}
+#phoneQrPanel{
+margin:17px auto 0;padding:17px;max-width:300px;
+border:1px solid var(--line);border-radius:10px;background:#fff;
+}
+#phoneQrCode{display:flex;justify-content:center;align-items:center;min-height:220px}
+#phoneQrCode img,#phoneQrCode canvas{max-width:100%;height:auto}
+#phoneQrPanel p{font:9px/1.7 Inter;color:#234;text-align:center;margin-top:12px}
 .shake{animation:shake .3s}
 
-/* VERIFICATION */
+/* OVERLAYS */
 #verification,#terminal{
 position:fixed;inset:0;z-index:10001;display:none;
 align-items:center;justify-content:center;flex-direction:column;
@@ -245,7 +254,7 @@ border-radius:7px;background:var(--glass);color:var(--cyan);font:9px Orbitron;
 #jarvisLog{font:10px/1.8 monospace;color:var(--sub);max-height:100px;overflow:auto}
 .core-status{text-align:center;color:var(--sub);font:9px Orbitron;letter-spacing:1px;margin-top:18px}
 
-/* FLOATING CONTROLS */
+/* GLOBAL HUD */
 #globalGestureHud{
 position:fixed;right:14px;bottom:14px;z-index:500;display:none;
 padding:11px 13px;border:1px solid var(--blue);border-radius:9px;
@@ -258,6 +267,38 @@ pointer-events:none;max-width:65%;
 .float-control{padding:12px 14px;border:1px solid rgba(65,205,255,.6);border-radius:8px;background:rgba(3,17,32,.95);color:#9cecff;font:9px Orbitron}
 .float-control.online{border-color:#62ffc0;color:#aaffd9}
 .float-control:disabled{opacity:.4}
+
+/* HAND POINTER */
+#gesturePointer{
+position:fixed;left:0;top:0;width:36px;height:36px;
+border:2px solid #72eaff;border-radius:50%;
+transform:translate(-50%,-50%);z-index:10050;
+pointer-events:none;display:none;
+box-shadow:0 0 15px #25c8ff, inset 0 0 10px rgba(37,200,255,.4);
+transition:width .08s,height .08s,border-color .08s;
+}
+#gesturePointer:before,#gesturePointer:after{
+content:"";position:absolute;background:#72eaff;
+}
+#gesturePointer:before{width:2px;height:52px;left:15px;top:-10px}
+#gesturePointer:after{height:2px;width:52px;top:15px;left:-10px}
+#gesturePointer.active{display:block}
+#gesturePointer.clicking{
+width:54px;height:54px;border-color:#75ffc2;
+box-shadow:0 0 25px #75ffc2;
+}
+#gesturePointer.clicking:before,#gesturePointer.clicking:after{background:#75ffc2}
+.gesture-hover{
+outline:2px solid #57dcff!important;
+outline-offset:4px!important;
+filter:brightness(1.18);
+}
+body[data-theme="light"] #gesturePointer{
+border-color:#087eae;
+box-shadow:0 0 15px #087eae;
+}
+body[data-theme="light"] #gesturePointer:before,
+body[data-theme="light"] #gesturePointer:after{background:#087eae}
 
 /* CONTACT */
 .contact-box{text-align:center;padding:50px 25px;border:1px solid var(--line);border-radius:15px;background:var(--glass)}
@@ -290,7 +331,6 @@ body[data-theme="light"] #globalHudSub{color:#526d7d}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes scan{to{top:100%}}
 @keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
-@keyframes pulse{50%{opacity:.5}}
 @media(max-width:800px){
 .nav-links{display:none;position:absolute;top:60px;left:5%;width:90%;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:10px;flex-direction:column;gap:0}
 .nav-links.open{display:flex}
@@ -328,18 +368,26 @@ section{padding:70px 0}
 
 <body data-theme="dark">
 
-<!-- QR LOGIN SCREEN -->
+<!-- QR ACCESS -->
 <div id="gate">
 <div class="gate-scan"></div>
-<div class="gate-card" id="gateCard">
+<div class="gate-card">
 <div class="emblem">F.A</div>
 <div class="gate-kicker">PRIVATE DIGITAL SPACE</div>
 <h1 class="gate-title">WELCOME TO<br><span class="glow">THE SECRET ROOM</span></h1>
 <div class="gate-sub">QR IDENTITY VERIFICATION // F.A</div>
 <div class="gate-divider"></div>
-<div class="qr-label">SCAN YOUR PERSONAL ACCESS QR</div>
+
+<div class="qr-label">LAPTOP: SCAN QR FROM YOUR PHONE</div>
 <div id="qr-reader"></div>
 <button class="qr-button" id="startQR">◉ START QR SCANNER</button>
+
+<button class="qr-button" id="showQR">▣ DISPLAY MY ACCESS QR</button>
+<div id="phoneQrPanel" class="hidden">
+<div id="phoneQrCode"></div>
+<p>FA PERSONAL ACCESS ID<br>Show this QR to your laptop camera.</p>
+</div>
+
 <div class="gate-status" id="gateStatus">CAMERA STANDBY — PRESS START</div>
 <div class="gate-footer">IDENTITY VERIFICATION SYSTEM · F.A</div>
 </div>
@@ -367,6 +415,8 @@ section{padding:70px 0}
 <button id="photoClose">×</button>
 <img id="viewerImage" src="" alt="Memory">
 </div>
+
+<div id="gesturePointer"></div>
 
 <div id="globalGestureHud">
 <strong id="globalHudTitle">JARVIS ONLINE</strong>
@@ -530,10 +580,11 @@ section{padding:70px 0}
 </div>
 </div>
 </div>
+
 <div class="gesture-guide">
-<div class="gesture-card"><span>🖐️</span><strong>OPEN PALM</strong><small>Enable scroll</small></div>
-<div class="gesture-card"><span>↕️</span><strong>MOVE UP/DOWN</strong><small>Scroll website</small></div>
-<div class="gesture-card"><span>🤏</span><strong>PINCH</strong><small>Pause scrolling</small></div>
+<div class="gesture-card"><span>🖐️</span><strong>OPEN PALM</strong><small>Scroll website</small></div>
+<div class="gesture-card"><span>☝️</span><strong>INDEX FINGER</strong><small>Move pointer</small></div>
+<div class="gesture-card"><span>🤏</span><strong>PINCH</strong><small>Click target</small></div>
 <div class="gesture-card"><span>✊</span><strong>FIST</strong><small>Lock control</small></div>
 <div class="gesture-card"><span>↔️</span><strong>HAND MOVE</strong><small>Rotate core</small></div>
 </div>
@@ -563,7 +614,6 @@ section{padding:70px 0}
 <script type="module">
 const $=id=>document.getElementById(id);
 let audioContext=null;
-let welcomed=false;
 
 /* AUDIO */
 function unlockAudio(){
@@ -575,10 +625,8 @@ if(audioContext?.state==="suspended")audioContext.resume();
 }
 function tone(freq=650,duration=.12,delay=0){
 try{
-unlockAudio();
-if(!audioContext)return;
-const o=audioContext.createOscillator();
-const g=audioContext.createGain();
+unlockAudio();if(!audioContext)return;
+const o=audioContext.createOscillator(),g=audioContext.createGain();
 const t=audioContext.currentTime+delay;
 o.frequency.value=freq;
 g.gain.setValueAtTime(.001,t);
@@ -597,81 +645,80 @@ speechSynthesis.speak(u);
 }
 function wait(ms){return new Promise(r=>setTimeout(r,ms))}
 
-/* QR ACCESS SYSTEM */
+/* QR ACCESS */
 const ACCESS_KEY="FA-JARVIS-ACCESS-ALFIGO-2026";
-let qrScanner=null;
-let qrBusy=false;
-let lastRejected="";
+let qrScanner=null,qrBusy=false,lastRejected="";
+
+function generatePhoneQR(){
+const panel=$("phoneQrPanel");
+panel.classList.toggle("hidden");
+if(!panel.classList.contains("hidden")){
+if(!window.QRCode){
+$("gateStatus").textContent="QR GENERATOR GAGAL DIMUAT. PERIKSA INTERNET.";
+$("gateStatus").className="gate-status error";
+return;
+}
+$("phoneQrCode").innerHTML="";
+new QRCode($("phoneQrCode"),{
+text:ACCESS_KEY,width:220,height:220,
+colorDark:"#061426",colorLight:"#ffffff",
+correctLevel:QRCode.CorrectLevel.H
+});
+$("gateStatus").textContent="PERSONAL QR READY — SCAN FROM LAPTOP";
+$("gateStatus").className="gate-status success";
+}
+}
+$("showQR").onclick=generatePhoneQR;
 
 async function startQRScanner(){
 if(qrScanner||qrBusy)return;
 unlockAudio();
-
 const button=$("startQR");
 button.disabled=true;
 button.textContent="INITIALIZING SCANNER...";
 $("gateStatus").textContent="REQUESTING CAMERA ACCESS...";
-
 try{
 if(!window.Html5Qrcode)throw new Error("QR library gagal dimuat. Periksa koneksi internet.");
-
 qrScanner=new Html5Qrcode("qr-reader");
 const cameras=await Html5Qrcode.getCameras();
 if(!cameras.length)throw new Error("Kamera tidak ditemukan.");
-
 const selectedCamera=cameras.find(c=>/back|environment/i.test(c.label))||cameras[0];
-
-await qrScanner.start(
-selectedCamera.id,
-{fps:10,qrbox:{width:230,height:230},aspectRatio:1},
+await qrScanner.start(selectedCamera.id,
+{fps:12,qrbox:{width:230,height:230},aspectRatio:1},
 async(decodedText)=>{
 if(qrBusy)return;
-
 if(decodedText.trim()===ACCESS_KEY){
 qrBusy=true;
 $("gateStatus").textContent="IDENTITY VERIFIED";
 $("gateStatus").className="gate-status success";
 button.textContent="ACCESS GRANTED";
-
 try{await qrScanner.stop();}catch(e){}
 try{await qrScanner.clear();}catch(e){}
 qrScanner=null;
-
 [440,554,659,880].forEach((f,i)=>tone(f,.4,i*.1));
 speak("Identity verified. Welcome back, Alfigo.",true);
-
 await wait(900);
 $("verification").classList.add("show");
 await wait(1300);
 $("verification").classList.remove("show");
 $("gate").style.display="none";
-
 await runTerminal();
-
 }else if(decodedText!==lastRejected){
 lastRejected=decodedText;
 $("gateStatus").textContent="INVALID QR CODE — TRY YOUR PERSONAL QR";
 $("gateStatus").className="gate-status error";
 tone(250,.15);
 }
-},
-()=>{}
-);
-
+},()=>{});
 button.textContent="SCANNER ACTIVE";
 $("gateStatus").textContent="SHOW YOUR PERSONAL QR TO CAMERA";
 $("gateStatus").className="gate-status";
-
 }catch(e){
 console.error(e);
 $("gateStatus").textContent=e.message||"CAMERA COULD NOT START";
 $("gateStatus").className="gate-status error";
-button.disabled=false;
-button.textContent="◉ TRY AGAIN";
-if(qrScanner){
-try{await qrScanner.clear();}catch(err){}
-qrScanner=null;
-}
+button.disabled=false;button.textContent="◉ TRY AGAIN";
+if(qrScanner){try{await qrScanner.clear()}catch(err){}qrScanner=null;}
 qrBusy=false;
 }
 }
@@ -698,8 +745,7 @@ $("terminalLines").appendChild(line);
 const p=Math.round((i+1)/messages.length*100);
 $("terminalProgress").style.width=p+"%";
 $("terminalPercent").textContent=p+"%";
-tone(700,.05);
-await wait(400);
+tone(700,.05);await wait(400);
 }
 await wait(500);
 $("terminal").classList.remove("show");
@@ -726,12 +772,10 @@ $("menuBtn").onclick=()=>$("navLinks").classList.toggle("open");
 document.querySelectorAll(".nav-links a").forEach(a=>a.onclick=()=>$("navLinks").classList.remove("open"));
 
 /* PROFILE */
-const heroVisual=$("heroVisual");
-const profile=$("profile3d");
+const heroVisual=$("heroVisual"),profile=$("profile3d");
 heroVisual.addEventListener("mousemove",e=>{
 const r=heroVisual.getBoundingClientRect();
-const x=(e.clientX-r.left)/r.width;
-const y=(e.clientY-r.top)/r.height;
+const x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
 profile.style.transform=`rotateX(${(0.5-y)*20}deg) rotateY(${(x-.5)*20}deg)`;
 });
 heroVisual.addEventListener("mouseleave",()=>profile.style.transform="");
@@ -748,8 +792,7 @@ document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 document.querySelectorAll(".archive-card").forEach(card=>{
 card.onclick=()=>{
 $("viewerImage").src=card.dataset.image;
-$("photoViewer").classList.add("show");
-tone(650);
+$("photoViewer").classList.add("show");tone(650);
 };
 });
 $("photoClose").onclick=()=>$("photoViewer").classList.remove("show");
@@ -758,25 +801,16 @@ if(e.target===$("photoViewer"))$("photoViewer").classList.remove("show");
 };
 $("year").textContent=new Date().getFullYear();
 
-/* JARVIS */
-const video=$("cameraVideo");
-const canvas=$("handCanvas");
-const ctx=canvas.getContext("2d");
-const holo=$("holoObject");
+/* JARVIS HAND TRACKING */
+const video=$("cameraVideo"),canvas=$("handCanvas");
+const ctx=canvas.getContext("2d"),holo=$("holoObject");
+const pointer=$("gesturePointer");
 
-let stream=null;
-let landmarker=null;
-let running=false;
-let raf=null;
-let lastTime=-1;
-let enabled=false;
-let locked=false;
-let pinching=false;
-let lastGesture="";
-let lastY=null,lastX=null;
-let smoothY=null,smoothX=null;
-let rotationX=0,rotationY=0;
-let lastLock=0;
+let stream=null,landmarker=null,running=false,raf=null,lastTime=-1;
+let enabled=false,locked=false,pointerMode=false;
+let lastGesture="",lastY=null,lastX=null,smoothY=null,smoothX=null;
+let rotationX=0,rotationY=0,lastLock=0,lastClick=0;
+let hoveredElement=null;
 
 function log(message){
 const el=document.createElement("div");
@@ -797,121 +831,244 @@ if(!running)return;
 if(locked){
 $("globalHudTitle").textContent="CONTROL LOCKED";
 $("globalHudSub").textContent="SHOW OPEN PALM TO UNLOCK";
-}else if(pinching){
-$("globalHudTitle").textContent="SCROLL PAUSED";
-$("globalHudSub").textContent="RELEASE PINCH TO RESUME";
+}else if(pointerMode){
+$("globalHudTitle").textContent="HOLOGRAPHIC POINTER ACTIVE";
+$("globalHudSub").textContent="POINT AT A CONTROL — PINCH TO CLICK";
 }else if(enabled){
-$("globalHudTitle").textContent="GESTURE CONTROL ACTIVE";
-$("globalHudSub").textContent="MOVE HAND UP OR DOWN";
+$("globalHudTitle").textContent="GLOBAL SCROLL ACTIVE";
+$("globalHudSub").textContent="MOVE YOUR OPEN PALM UP OR DOWN";
 }else{
 $("globalHudTitle").textContent="JARVIS CAMERA ONLINE";
-$("globalHudSub").textContent="SHOW OPEN PALM TO ENABLE";
+$("globalHudSub").textContent="SHOW OPEN PALM TO SCROLL";
 }
 }
-function resetPosition(){lastY=null;lastX=null;smoothY=null;smoothX=null}
+function resetPosition(){
+lastY=null;lastX=null;smoothY=null;smoothX=null;
+}
 function updateHolo(){
 holo.style.transform=`rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
 }
 function calibrate(){
 resetPosition();
 status("CALIBRATION COMPLETE","HAND POSITION RESET");
-log("Hand tracking recalibrated.");
-tone(850);
+log("Hand tracking recalibrated.");tone(850);
+}
+function clearHover(){
+if(hoveredElement)hoveredElement.classList.remove("gesture-hover");
+hoveredElement=null;
+}
+function hidePointer(){
+pointer.classList.remove("active","clicking");
+clearHover();
 }
 function toggleLock(){
 if(Date.now()-lastLock<1500)return;
 lastLock=Date.now();
-locked=!locked;
-enabled=false;
-pinching=false;
-resetPosition();
-status(locked?"CONTROL LOCKED":"CONTROL UNLOCKED",locked?"SHOW OPEN PALM TO UNLOCK":"SHOW OPEN PALM TO ACTIVATE");
+locked=!locked;enabled=false;pointerMode=false;
+resetPosition();hidePointer();
+status(locked?"CONTROL LOCKED":"CONTROL UNLOCKED",
+locked?"SHOW OPEN PALM TO UNLOCK":"SHOW OPEN PALM TO ACTIVATE");
 log(locked?"Gesture control locked.":"Gesture control unlocked.");
-tone(locked?350:750);
-hud();
+tone(locked?350:750);hud();
 }
 function distance(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
-function extended(lm,tip,pip){return lm[tip].y<lm[pip].y}
+function fingerExtended(lm,tip,pip){
+return lm[tip].y<lm[pip].y;
+}
 function classify(lm){
-const fingers=[extended(lm,8,6),extended(lm,12,10),extended(lm,16,14),extended(lm,20,18)];
-if(distance(lm[4],lm[8])<.055)return "PINCH";
-const count=fingers.filter(Boolean).length;
-if(count===4)return "OPEN";
+const index=fingerExtended(lm,8,6);
+const middle=fingerExtended(lm,12,10);
+const ring=fingerExtended(lm,16,14);
+const pinky=fingerExtended(lm,20,18);
+const count=[index,middle,ring,pinky].filter(Boolean).length;
+const pinch=distance(lm[4],lm[8])<.055;
+
+if(pinch)return "PINCH";
+if(index&&!middle&&!ring&&!pinky)return "POINT";
+if(count>=4)return "OPEN";
 if(count===0)return "FIST";
 return "MOVE";
 }
+
+/* HAND DRAWING */
 function drawHand(lm){
 ctx.clearRect(0,0,canvas.width,canvas.height);
 const links=[[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[17,18],[18,19],[19,20],[0,17]];
 ctx.strokeStyle="#55e5ff";ctx.lineWidth=3;ctx.shadowBlur=8;ctx.shadowColor="#25c8ff";
 links.forEach(([a,b])=>{
-ctx.beginPath();ctx.moveTo(lm[a].x*canvas.width,lm[a].y*canvas.height);
-ctx.lineTo(lm[b].x*canvas.width,lm[b].y*canvas.height);ctx.stroke();
+ctx.beginPath();
+ctx.moveTo(lm[a].x*canvas.width,lm[a].y*canvas.height);
+ctx.lineTo(lm[b].x*canvas.width,lm[b].y*canvas.height);
+ctx.stroke();
 });
 lm.forEach(p=>{
 ctx.beginPath();ctx.arc(p.x*canvas.width,p.y*canvas.height,4,0,Math.PI*2);
 ctx.fillStyle="#fff";ctx.fill();
 });
 }
+
+/* GLOBAL SCROLL */
 function scrollByHand(y){
-if(lastY===null){lastY=y;smoothY=y;return}
-smoothY+=(y-smoothY)*.35;
+if(lastY===null){lastY=y;smoothY=y;return;}
+smoothY+=(y-smoothY)*.55;
 const delta=lastY-smoothY;
 lastY=smoothY;
-if(Math.abs(delta)>.004)window.scrollBy(0,Math.max(-24,Math.min(24,delta*1000)));
+if(Math.abs(delta)>.0015){
+const amount=Math.max(-55,Math.min(55,delta*1600));
+window.scrollBy({top:amount,left:0,behavior:"auto"});
 }
+}
+
+/* HOLOGRAM ROTATION */
 function rotateByHand(x,y){
-if(lastX===null){lastX=x;smoothX=x;return}
-smoothX+=(x-smoothX)*.3;
+if(lastX===null){lastX=x;smoothX=x;return;}
+smoothX+=(x-smoothX)*.5;
 const delta=smoothX-lastX;
-if(Math.abs(delta)>.002&&!locked){
-rotationY=Math.max(-180,Math.min(180,rotationY-delta*230));
-rotationX=Math.max(-55,Math.min(55,(y-.5)*75));
+if(Math.abs(delta)>.001){
+rotationY=Math.max(-180,Math.min(180,rotationY-delta*420));
+rotationX=Math.max(-70,Math.min(70,(y-.5)*100));
 updateHolo();
 }
 lastX=smoothX;
 }
+
+/* POINTER MOVEMENT */
+function movePointer(lm){
+const tip=lm[8];
+const screenX=(1-tip.x)*window.innerWidth;
+const screenY=tip.y*window.innerHeight;
+
+pointer.style.left=screenX+"px";
+pointer.style.top=screenY+"px";
+pointer.classList.add("active");
+
+const rawTarget=document.elementFromPoint(screenX,screenY);
+const target=rawTarget?.closest(
+'a,button,input,select,textarea,[role="button"],.archive-card,.theme-btn,.menu-btn'
+);
+
+if(target!==hoveredElement){
+clearHover();
+if(target){
+hoveredElement=target;
+hoveredElement.classList.add("gesture-hover");
+}
+}
+}
+
+/* PINCH = CLICK */
+function clickAtPointer(){
+if(Date.now()-lastClick<650)return;
+lastClick=Date.now();
+
+const x=parseFloat(pointer.style.left);
+const y=parseFloat(pointer.style.top);
+const raw=document.elementFromPoint(x,y);
+const target=raw?.closest(
+'a,button,input,select,textarea,[role="button"],.archive-card,.theme-btn,.menu-btn'
+);
+
+pointer.classList.add("clicking");
+setTimeout(()=>pointer.classList.remove("clicking"),220);
+
+if(!target){
+status("POINTER ACTIVE","NO CLICKABLE TARGET");
+tone(260,.1);
+return;
+}
+
+if(target.disabled)return;
+
+target.click();
+status("GESTURE CLICK","CONTROL ACTIVATED");
+log("Pointer clicked: "+(target.innerText||target.tagName).trim().slice(0,45));
+tone(850,.08);
+}
+
+/* GESTURE ENGINE */
 function handleHand(lm){
 const gesture=classify(lm);
 const x=lm[9].x,y=lm[9].y;
+const previous=lastGesture;
+
 $("trackingText").textContent="HAND DETECTED";
 
-if(gesture!==lastGesture){
+if(gesture==="FIST"){
+if(previous!=="FIST"&&!locked)toggleLock();
 lastGesture=gesture;
-if(gesture==="OPEN"){
-pinching=false;
-if(locked){locked=false;log("Control unlocked.");tone(750)}
-enabled=true;resetPosition();
-status("OPEN PALM","GLOBAL SCROLL ENABLED");
-log("Open palm detected. Global control active.");
-}else if(gesture==="PINCH"){
-pinching=true;resetPosition();
-status("PINCH DETECTED","SCROLL PAUSED");
-}else if(gesture==="FIST"){
-pinching=false;resetPosition();toggleLock();
-}else{
-pinching=false;
-}
-hud();
-}
-if(locked||!enabled||pinching||gesture==="FIST")return;
-scrollByHand(y);
-rotateByHand(x,y);
+return;
 }
 
-/* LOAD HAND MODEL */
+if(locked){
+if(gesture==="OPEN"&&previous!=="OPEN"){
+locked=false;
+enabled=true;
+resetPosition();
+status("CONTROL UNLOCKED","GLOBAL CONTROL READY");
+log("Open palm detected. Control unlocked.");
+tone(750);
+}
+lastGesture=gesture;
+hud();
+return;
+}
+
+if(gesture==="OPEN"){
+if(previous!=="OPEN"){
+enabled=true;pointerMode=false;
+hidePointer();resetPosition();
+status("OPEN PALM","GLOBAL SCROLL ENABLED");
+log("Open palm detected. Global scroll active.");
+tone(650);
+}
+scrollByHand(y);
+rotateByHand(x,y);
+}else if(gesture==="POINT"){
+enabled=false;pointerMode=true;
+movePointer(lm);
+status("INDEX POINTER","AIM AT A BUTTON — PINCH TO CLICK");
+}else if(gesture==="PINCH"){
+if(pointerMode){
+if(previous!=="PINCH")clickAtPointer();
+status("PINCH CLICK","TARGET ACTIVATED");
+}else{
+enabled=false;
+status("PINCH DETECTED","SCROLL PAUSED");
+}
+}else{
+if(pointerMode)hidePointer();
+pointerMode=false;
+if(gesture==="MOVE"){
+status("HAND MOVEMENT","OPEN PALM TO SCROLL / INDEX TO POINT");
+}
+}
+
+lastGesture=gesture;
+hud();
+}
+
+/* LOAD MEDIAPIPE */
 async function loadModel(){
 if(landmarker)return landmarker;
 $("cameraState").textContent="LOADING AI MODEL...";
 const mp=await import("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14");
-const vision=await mp.FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm");
+const vision=await mp.FilesetResolver.forVisionTasks(
+"https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
+);
 const options={
-baseOptions:{modelAssetPath:"https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task"},
+baseOptions:{
+modelAssetPath:"https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task"
+},
 runningMode:"VIDEO",numHands:1,
-minHandDetectionConfidence:.55,minHandPresenceConfidence:.55,minTrackingConfidence:.55
+minHandDetectionConfidence:.55,
+minHandPresenceConfidence:.55,
+minTrackingConfidence:.55
 };
 try{
-landmarker=await mp.HandLandmarker.createFromOptions(vision,{...options,baseOptions:{...options.baseOptions,delegate:"GPU"}});
+landmarker=await mp.HandLandmarker.createFromOptions(vision,{
+...options,
+baseOptions:{...options.baseOptions,delegate:"GPU"}
+});
 }catch(e){
 landmarker=await mp.HandLandmarker.createFromOptions(vision,options);
 }
@@ -931,11 +1088,15 @@ const lm=result.landmarks[0];
 drawHand(lm);
 handleHand(lm);
 }else{
-lastGesture="NONE";resetPosition();
+lastGesture="NONE";
+resetPosition();
+pointerMode=false;
+hidePointer();
 $("trackingText").textContent="SEARCHING";
 status("NO HAND DETECTED","SHOW YOUR HAND TO CAMERA");
+hud();
 }
-}catch(e){console.error(e)}
+}catch(e){console.error(e);}
 }
 raf=requestAnimationFrame(detectLoop);
 }
@@ -947,14 +1108,19 @@ unlockAudio();
 $("startCamera").disabled=true;
 $("floatingCamera").disabled=true;
 try{
-if(!navigator.mediaDevices?.getUserMedia)throw new Error("Gunakan localhost atau HTTPS untuk mengakses kamera.");
-stream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:"user",width:{ideal:640},height:{ideal:480}}});
+if(!navigator.mediaDevices?.getUserMedia){
+throw new Error("Gunakan localhost atau HTTPS untuk mengakses kamera.");
+}
+stream=await navigator.mediaDevices.getUserMedia({
+audio:false,
+video:{facingMode:"user",width:{ideal:640},height:{ideal:480}}
+});
 video.srcObject=stream;
 await video.play();
 await loadModel();
 
-running=true;enabled=false;locked=false;pinching=false;lastGesture="";
-lastTime=-1;resetPosition();
+running=true;enabled=false;locked=false;pointerMode=false;
+lastGesture="";lastTime=-1;resetPosition();
 $("cameraPlaceholder").style.display="none";
 $("cameraState").textContent="CAMERA ONLINE";
 $("systemLive").textContent="GESTURE SYSTEM ACTIVE";
@@ -982,7 +1148,7 @@ $("floatingCamera").disabled=false;
 /* STOP CAMERA */
 function stopCamera(writeLog=true){
 running=false;
-if(raf){cancelAnimationFrame(raf);raf=null}
+if(raf){cancelAnimationFrame(raf);raf=null;}
 if(stream)stream.getTracks().forEach(t=>t.stop());
 stream=null;video.srcObject=null;
 ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -993,8 +1159,8 @@ $("trackingText").textContent="STANDBY";
 $("startCamera").disabled=false;
 $("stopCamera").disabled=true;
 $("calibrateCamera").disabled=true;
-enabled=false;locked=false;pinching=false;lastGesture="";
-resetPosition();
+enabled=false;locked=false;pointerMode=false;lastGesture="";
+resetPosition();hidePointer();
 $("globalGestureHud").classList.remove("active");
 $("floatingCamera").classList.remove("online");
 $("floatingCamera").textContent="◉ START JARVIS";
@@ -1014,21 +1180,17 @@ $("resetHolo").onclick=()=>{
 rotationX=0;rotationY=0;updateHolo();
 $("holoLabel").textContent="F.A DIGITAL CORE";
 status("SYSTEM RESET","HOLOGRAM RESTORED");
-log("Hologram reset.");
-tone(700);
+log("Hologram reset.");tone(700);
 };
 $("voiceTest").onclick=()=>{
 unlockAudio();
 speak("JARVIS interface online. How can I assist you?",true);
-log("Voice assistant activated.");
-tone(800);
+log("Voice assistant activated.");tone(800);
 };
 
 window.addEventListener("pagehide",()=>{
 stopCamera(false);
-if(qrScanner){
-qrScanner.stop().catch(()=>{});
-}
+if(qrScanner)qrScanner.stop().catch(()=>{});
 });
 </script>
 </body>
