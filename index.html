@@ -1,295 +1,390 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050b18">
 <title>F.A | Personal Universe</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 :root{
- --bg:#050b18;
- --panel:rgba(8,25,48,.85);
+ --bg:#040a17;
+ --panel:rgba(8,24,46,.82);
  --cyan:#42dcff;
  --blue:#168bff;
  --text:#eaf8ff;
  --muted:#9ab4c9;
- --line:rgba(66,220,255,.25);
+ --line:rgba(66,220,255,.24);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{
  margin:0;
- background:radial-gradient(circle at top,#10345a,#050b18 75%);
+ background:radial-gradient(ellipse at 50% 0%,#12365b 0%,#07172b 42%,#040a17 100%);
  color:var(--text);
  font-family:Inter,sans-serif;
  overflow-x:hidden;
 }
 body.light{
  --bg:#eaf5fb;
- --panel:rgba(255,255,255,.88);
+ --panel:rgba(255,255,255,.86);
  --text:#10243b;
  --muted:#536d83;
  --line:rgba(0,132,190,.25);
- background:radial-gradient(circle at top,#ccefff,#edf7fc 75%);
+ background:radial-gradient(ellipse at top,#ccefff,#edf7fc 70%);
 }
-button,a{cursor:pointer}
 a{color:inherit;text-decoration:none}
-.orbit{font-family:Orbitron,sans-serif;letter-spacing:.08em}
-.grid{
- position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.15;
- background-image:linear-gradient(var(--line) 1px,transparent 1px),
+button{font:inherit;cursor:pointer}
+.orbit{font-family:Orbitron,sans-serif}
+.gridbg{
+ position:fixed;inset:0;z-index:-2;pointer-events:none;
+ background-image:
+ linear-gradient(var(--line) 1px,transparent 1px),
  linear-gradient(90deg,var(--line) 1px,transparent 1px);
- background-size:45px 45px;
+ background-size:48px 48px;opacity:.13;
+ mask-image:linear-gradient(to bottom,black,transparent 90%);
 }
 .scanline{
- position:fixed;inset:0;pointer-events:none;z-index:1000;
+ position:fixed;inset:0;z-index:1000;pointer-events:none;
  background:linear-gradient(transparent 50%,rgba(66,220,255,.025) 50%);
- background-size:100% 4px;
+ background-size:100% 4px;opacity:.3;
 }
-.btn{
- border:1px solid var(--cyan);
- background:rgba(22,139,255,.13);
- color:var(--text);
- padding:12px 18px;
- border-radius:5px;
- font:600 11px Orbitron;
- letter-spacing:.08em;
- transition:.2s;
-}
-.btn:hover,.btn.primary{
- background:var(--cyan);
- color:#03101e;
- box-shadow:0 0 24px #42dcff55;
+#particles{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.eyebrow{
+ color:var(--cyan);font:600 10px Orbitron;
+ letter-spacing:.24em;text-transform:uppercase;
 }
 .muted{color:var(--muted)}
-.eyebrow{
- color:var(--cyan);
- font:600 11px Orbitron;
- letter-spacing:.2em;
+.btn{
+ display:inline-flex;align-items:center;justify-content:center;
+ gap:8px;padding:13px 19px;
+ border:1px solid var(--cyan);border-radius:5px;
+ background:rgba(22,139,255,.13);color:var(--text);
+ font:600 10px Orbitron;letter-spacing:.1em;
+ transition:.25s;
+}
+.btn:hover,.btn.primary{
+ background:var(--cyan);color:#03101e;
+ box-shadow:0 0 25px #42dcff66;
+}
+.btn.small{padding:9px 12px}
+.section{
+ max-width:1250px;margin:auto;
+ padding:100px clamp(20px,7vw,100px);
+}
+.section-head{margin-bottom:35px}
+.section h2{
+ font:700 clamp(25px,4vw,39px) Orbitron;
+ margin:12px 0;
+}
+.line{
+ height:1px;width:100%;
+ background:linear-gradient(90deg,var(--cyan),transparent);
+ margin:20px 0;
 }
 
 /* ACCESS GATE */
 #gate{
- min-height:100vh;
- display:grid;
- place-items:center;
- padding:20px;
+ min-height:100svh;display:grid;place-items:center;padding:22px;
 }
 .gatebox{
- width:min(600px,100%);
- padding:35px 25px;
- text-align:center;
- background:var(--panel);
- border:1px solid var(--line);
- border-radius:15px;
- box-shadow:0 0 55px #168bff20;
- backdrop-filter:blur(15px);
+ width:min(600px,100%);padding:clamp(25px,5vw,48px);
+ text-align:center;background:var(--panel);
+ border:1px solid var(--line);border-radius:15px;
+ backdrop-filter:blur(18px);
+ box-shadow:0 0 70px #168bff22,inset 0 0 35px #168bff0b;
 }
 .logo{
- width:75px;height:75px;
- border:1px solid var(--cyan);
- border-radius:50%;
- display:grid;place-items:center;
- margin:0 auto 22px;
- color:var(--cyan);
- font:800 25px Orbitron;
- box-shadow:0 0 25px #42dcff44;
+ width:82px;height:82px;border-radius:50%;
+ border:1px solid var(--cyan);display:grid;place-items:center;
+ margin:0 auto 25px;color:var(--cyan);
+ font:800 26px Orbitron;
+ box-shadow:0 0 30px #42dcff55;
 }
-.gatebox h1{font:700 28px Orbitron}
-.gatebox p{color:var(--muted);font-size:13px;line-height:1.7}
-.gate-actions{
- display:flex;gap:10px;
- justify-content:center;flex-wrap:wrap;
- margin:25px 0;
-}
-#reader{width:min(350px,100%);margin:auto}
+.gatebox h1{font:700 clamp(23px,5vw,35px) Orbitron}
+.gatebox p{font-size:13px;color:var(--muted);line-height:1.8}
+.gate-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:25px 0}
+#reader{width:min(350px,100%);margin:20px auto}
 #phoneQrPanel{
- display:none;
- margin:20px auto;
- padding:15px;
- background:white;
- color:#061426;
- border-radius:10px;
- width:max-content;
- max-width:100%;
+ display:none;width:max-content;max-width:100%;
+ margin:20px auto;padding:16px;
+ border-radius:12px;background:white;color:#07172b;
 }
 #phoneQrCode{display:flex;justify-content:center}
-#phoneQrPanel small{display:block;margin-top:10px;max-width:230px;line-height:1.5}
-.status{color:var(--cyan);font:600 10px Orbitron}
+#phoneQrPanel small{display:block;max-width:230px;line-height:1.5;margin-top:10px}
+.status{color:var(--cyan);font:600 10px Orbitron;letter-spacing:.1em}
 
-/* WEBSITE */
-#site{display:none}
-header{
+/* NAVIGATION */
+.topbar{
  position:sticky;top:0;z-index:100;
  display:flex;align-items:center;justify-content:space-between;
- flex-wrap:wrap;gap:15px;
- padding:15px 5%;
- background:rgba(4,13,27,.85);
+ gap:18px;flex-wrap:wrap;padding:15px 5%;
+ background:rgba(4,13,27,.84);
  border-bottom:1px solid var(--line);
- backdrop-filter:blur(15px);
+ backdrop-filter:blur(18px);
 }
-body.light header{background:rgba(239,249,255,.9)}
+body.light .topbar{background:rgba(239,249,255,.9)}
 .brand{font:700 15px Orbitron;color:var(--cyan)}
-nav{display:flex;gap:17px;flex-wrap:wrap}
-nav a{font:500 10px Orbitron;color:var(--muted)}
+nav{display:flex;gap:19px;flex-wrap:wrap}
+nav a{font:500 10px Orbitron;color:var(--muted);transition:.2s}
 nav a:hover{color:var(--cyan)}
 
+/* HERO */
 .hero{
- min-height:90vh;
- display:grid;place-items:center;
- text-align:center;padding:60px 20px;
+ min-height:92svh;display:grid;place-items:center;
+ text-align:center;padding:75px 20px;position:relative;
 }
-.hero-inner{max-width:850px}
-.orb{
- width:145px;height:145px;
- margin:0 auto 35px;
+.hero-inner{max-width:950px;width:100%}
+.hero-photo-wrap{
+ width:min(270px,65vw);aspect-ratio:1;
+ margin:0 auto 36px;position:relative;
+ padding:8px;border-radius:50%;
  border:1px solid var(--cyan);
- border-radius:50%;
- display:grid;place-items:center;
- position:relative;
- box-shadow:0 0 35px #42dcff44,inset 0 0 30px #42dcff22;
+ box-shadow:0 0 35px #42dcff55,0 0 90px #168bff22;
 }
-.orb:before,.orb:after{
- content:"";position:absolute;
- inset:-15px;border:1px dashed var(--cyan);
- border-radius:50%;animation:spin 18s linear infinite;
+.hero-photo-wrap:before,.hero-photo-wrap:after{
+ content:"";position:absolute;inset:-13px;
+ border:1px dashed var(--cyan);border-radius:50%;
+ animation:spin 22s linear infinite;
 }
-.orb:after{inset:-28px;animation-direction:reverse}
-.orb span{font:800 32px Orbitron;color:var(--cyan)}
+.hero-photo-wrap:after{
+ inset:-25px;border-color:#168bff88;
+ animation-direction:reverse;animation-duration:30s;
+}
+.hero-photo{
+ width:100%;height:100%;object-fit:cover;
+ object-position:center 30%;border-radius:50%;
+}
 @keyframes spin{to{transform:rotate(360deg)}}
-.hero h1{font:800 clamp(38px,8vw,75px) Orbitron;margin:0 0 15px}
-.hero h1 em{font-style:normal;color:var(--cyan)}
-.hero p{color:var(--muted);line-height:1.8;max-width:600px;margin:0 auto 25px}
-
-.section{
- max-width:1150px;
- margin:auto;
- padding:85px 7%;
+.hero h1{
+ font:800 clamp(37px,8vw,82px) Orbitron;
+ margin:15px 0 10px;
 }
-.section h2{font:700 clamp(23px,4vw,35px) Orbitron}
+.hero h1 span{color:var(--cyan);text-shadow:0 0 25px #42dcff77}
+.hero p{
+ max-width:650px;margin:20px auto 27px;
+ color:var(--muted);line-height:1.9;font-size:14px;
+}
+.hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.hero-coordinate{
+ margin-top:38px;color:var(--cyan);
+ font:10px Orbitron;letter-spacing:.15em;
+}
+
+/* PROFILE */
+.profile-layout{
+ display:grid;grid-template-columns:minmax(240px,.8fr) 1.2fr;
+ gap:35px;align-items:center;
+}
+.profile-frame{
+ padding:8px;border:1px solid var(--cyan);
+ border-radius:12px;position:relative;
+ box-shadow:0 0 30px #168bff22;
+}
+.profile-frame img{
+ width:100%;display:block;aspect-ratio:4/5;
+ object-fit:cover;border-radius:7px;
+}
+.profile-text p{line-height:1.9;color:var(--muted);font-size:14px}
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:25px}
+.info{
+ padding:15px;border:1px solid var(--line);
+ background:var(--panel);border-radius:7px;
+}
+.info small{display:block;color:var(--muted);font-size:10px;margin-bottom:8px}
+.info strong{font:600 11px Orbitron;color:var(--cyan)}
+
+/* CARDS */
 .cards{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));
+ display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));
  gap:17px;
 }
 .card{
- padding:25px;
- min-height:145px;
- background:var(--panel);
- border:1px solid var(--line);
- border-radius:10px;
- transition:.25s;
+ padding:23px;background:var(--panel);
+ border:1px solid var(--line);border-radius:10px;
+ transition:.25s;backdrop-filter:blur(12px);
 }
 .card:hover{
- transform:translateY(-4px);
- border-color:var(--cyan);
- box-shadow:0 0 25px #168bff22;
+ transform:translateY(-5px);border-color:var(--cyan);
+ box-shadow:0 12px 35px #168bff22;
 }
 .card h3{font:600 13px Orbitron;color:var(--cyan)}
-.card p{font-size:14px;line-height:1.8;color:var(--muted)}
-.storyline{border-left:1px solid var(--cyan);padding:5px 0 5px 25px;margin:25px 0}
-.storyline strong{font:600 12px Orbitron;color:var(--cyan)}
+.card p{font-size:13px;color:var(--muted);line-height:1.8}
+.card-number{font:700 25px Orbitron;color:#42dcff55}
+
+/* STORY */
+.timeline{border-left:1px solid var(--cyan);padding-left:25px}
+.timeline-item{position:relative;margin:30px 0}
+.timeline-item:before{
+ content:"";position:absolute;left:-31px;top:4px;
+ width:10px;height:10px;border-radius:50%;
+ background:var(--cyan);box-shadow:0 0 15px var(--cyan);
+}
+.timeline-item strong{font:600 12px Orbitron;color:var(--cyan)}
+.timeline-item p{color:var(--muted);line-height:1.8;font-size:14px}
+
+/* GALLERY */
+.gallery{
+ display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+}
+.gallery-item{
+ position:relative;overflow:hidden;border-radius:10px;
+ border:1px solid var(--line);background:var(--panel);
+}
+.gallery-item img{
+ width:100%;height:100%;min-height:260px;
+ display:block;object-fit:cover;transition:.5s;
+}
+.gallery-item:hover img{transform:scale(1.045)}
+.gallery-caption{
+ position:absolute;bottom:0;left:0;right:0;
+ padding:30px 17px 16px;
+ background:linear-gradient(transparent,rgba(0,0,0,.85));
+ color:white;font:600 11px Orbitron;
+}
+.gallery-item:first-child{grid-row:span 2}
+.gallery-item:first-child img{min-height:540px}
+
+/* SOCIAL */
+.social-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.social-card{
+ display:flex;align-items:center;gap:17px;
+ padding:22px;border:1px solid var(--line);
+ background:var(--panel);border-radius:10px;
+ transition:.25s;
+}
+.social-card:hover{border-color:var(--cyan);box-shadow:0 0 25px #168bff33}
+.social-icon{
+ width:45px;height:45px;display:grid;place-items:center;
+ border:1px solid var(--cyan);border-radius:50%;
+ color:var(--cyan);font:700 20px Orbitron;
+}
+.social-card strong{font:600 12px Orbitron}
+.social-card small{display:block;color:var(--muted);margin-top:6px}
+
+/* JARVIS */
+.jarvis-section{text-align:center}
+.core{
+ width:155px;height:155px;margin:35px auto;
+ display:grid;place-items:center;border-radius:50%;
+ border:1px solid var(--cyan);
+ box-shadow:0 0 30px #42dcff55,inset 0 0 30px #42dcff33;
+ position:relative;
+}
+.core:before,.core:after{
+ content:"";position:absolute;inset:-12px;
+ border:1px dashed var(--cyan);border-radius:50%;
+ animation:spin 15s linear infinite;
+}
+.core:after{inset:-24px;animation-direction:reverse}
+.core span{font:700 20px Orbitron;color:var(--cyan)}
+.jarvis-message{
+ max-width:650px;margin:auto;line-height:1.9;
+ color:var(--muted);font-size:14px;
+}
+#voiceButton{margin-top:20px}
+
+/* FOOTER */
 .contact{text-align:center}
 footer{
- text-align:center;padding:30px;
+ padding:30px 15px;text-align:center;
  border-top:1px solid var(--line);
- color:var(--muted);font-size:12px;
+ color:var(--muted);font-size:11px;
 }
 
-/* JARVIS HUD */
+/* HUD */
 #hud{
- display:none;
- position:fixed;right:15px;bottom:15px;
- z-index:2000;
- flex-direction:column;align-items:flex-end;gap:8px;
+ display:none;position:fixed;right:16px;bottom:16px;
+ z-index:2000;flex-direction:column;align-items:flex-end;gap:9px;
 }
 .hudbtn{
- background:#06182b;
- border:1px solid var(--cyan);
- color:var(--cyan);
- border-radius:30px;
- padding:12px 17px;
- font:600 10px Orbitron;
+ padding:12px 17px;border:1px solid var(--cyan);
+ border-radius:30px;background:#06182beF;
+ color:var(--cyan);font:600 10px Orbitron;
 }
 #hudpanel{
- display:none;width:245px;
- padding:16px;
- background:var(--panel);
- border:1px solid var(--line);
- border-radius:10px;
- font-size:12px;line-height:1.7;
+ display:none;width:min(280px,85vw);
+ padding:16px;border:1px solid var(--line);
+ border-radius:10px;background:var(--panel);
+ backdrop-filter:blur(16px);font-size:12px;line-height:1.7;
 }
 #hudpanel.show{display:block}
-#camera{width:100%;display:none;border-radius:8px}
+#camera{width:100%;display:none;border-radius:8px;transform:scaleX(-1)}
 #gesturePointer{
- position:fixed;z-index:9999;
- width:35px;height:35px;
- border:2px solid var(--cyan);
- border-radius:50%;
- transform:translate(-50%,-50%);
- pointer-events:none;
- display:none;
- box-shadow:0 0 18px #42dcff99;
+ position:fixed;z-index:9999;width:34px;height:34px;
+ border:2px solid var(--cyan);border-radius:50%;
+ transform:translate(-50%,-50%);pointer-events:none;
+ display:none;box-shadow:0 0 20px #42dcffbb;
 }
 #gesturePointer:before,#gesturePointer:after{
- content:"";position:absolute;background:var(--cyan);
- left:50%;top:50%;transform:translate(-50%,-50%);
+ content:"";position:absolute;left:50%;top:50%;
+ transform:translate(-50%,-50%);background:var(--cyan);
 }
 #gesturePointer:before{width:48px;height:1px}
 #gesturePointer:after{height:48px;width:1px}
 #gesturePointer.active{display:block}
-#gesturePointer.clicking{transform:translate(-50%,-50%) scale(.7);background:#42dcff55}
+#gesturePointer.clicking{
+ transform:translate(-50%,-50%) scale(.7);
+ background:#42dcff55;
+}
 .gesture-hover{
  outline:2px solid var(--cyan)!important;
  outline-offset:4px!important;
  filter:drop-shadow(0 0 12px #42dcff99)!important;
 }
-@media(max-width:700px){
- header{flex-direction:column;align-items:flex-start}
+@media(max-width:760px){
+ .topbar{flex-direction:column;align-items:flex-start}
  nav{gap:12px}
- .section{padding:60px 20px}
+ .section{padding:70px 20px}
+ .profile-layout{grid-template-columns:1fr}
+ .profile-frame{max-width:420px;margin:auto}
+ .gallery{grid-template-columns:1fr}
+ .gallery-item:first-child{grid-row:auto}
+ .gallery-item:first-child img{min-height:300px}
+ .social-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
-<div class="grid"></div>
+<div class="gridbg"></div>
 <div class="scanline"></div>
+<canvas id="particles"></canvas>
 
-<!-- ACCESS QR -->
+<!-- QR ACCESS -->
 <div id="gate">
  <div class="gatebox">
   <div class="logo">F.A</div>
   <div class="eyebrow">PERSONAL ACCESS PROTOCOL</div>
   <h1 class="orbit">WELCOME BACK</h1>
   <p>F.A PERSONAL UNIVERSE<br>
-  Sistem akses menggunakan QR. Tidak ada PIN atau sandi angka.</p>
+  Secure QR access system. No PIN required.</p>
 
   <div class="gate-actions">
    <button class="btn primary" id="startQR">START QR SCANNER</button>
-   <button class="btn" id="showPhoneQR">DISPLAY ACCESS QR</button>
+   <button class="btn" id="showQR">DISPLAY ACCESS QR</button>
   </div>
 
   <div id="reader"></div>
-
   <div id="phoneQrPanel">
    <div id="phoneQrCode"></div>
-   <small>Tampilkan QR ini di HP, lalu pindai menggunakan kamera laptop.</small>
+   <small>Gunakan QR ini untuk membuka website di perangkat lain.</small>
   </div>
 
-  <p>Gunakan alamat website yang sama di HP dan laptop.</p>
+  <p class="muted">Buka website yang sama di HP dan laptop. Tampilkan QR di HP, lalu pindai dari laptop.</p>
   <div class="status" id="gateStatus">SYSTEM STANDBY</div>
  </div>
 </div>
 
 <!-- MAIN WEBSITE -->
 <div id="site">
-<header>
+<header class="topbar">
  <div class="brand">F.A // UNIVERSE</div>
  <nav>
   <a href="#home">HOME</a>
@@ -299,80 +394,187 @@ footer{
   <a href="#interests">INTERESTS</a>
   <a href="#contact">CONTACT</a>
  </nav>
- <button class="btn" id="themeToggle">◐ THEME</button>
+ <button class="btn small" id="themeToggle">◐ THEME</button>
 </header>
 
 <main>
 <section class="hero" id="home">
  <div class="hero-inner">
-  <div class="orb"><span>F.A</span></div>
+  <div class="hero-photo-wrap">
+   <img class="hero-photo" src="1000098229.jpg" alt="F.A BMX portrait">
+  </div>
   <div class="eyebrow">PERSONAL DIGITAL UNIVERSE</div>
-  <h1>I'M <em>ALFIGO</em></h1>
-  <p>Welcome to my personal universe. Sebuah ruang digital untuk menyimpan cerita, perjalanan, minat, dan hal-hal yang membentuk diriku.</p>
-  <a class="btn primary" href="#about">EXPLORE MY UNIVERSE ↓</a>
+  <h1>I'M <span>ALFIGO</span></h1>
+  <p>
+   Welcome to my personal universe. A digital space to explore my journey,
+   memories, passion, and the things that make me who I am.
+  </p>
+  <div class="hero-actions">
+   <a class="btn primary" href="#about">EXPLORE UNIVERSE ↓</a>
+   <a class="btn" href="#archive">VIEW MEMORIES</a>
+  </div>
+  <div class="hero-coordinate">SYSTEM ID: FA-2026 // STATUS: ONLINE</div>
  </div>
 </section>
 
 <section class="section" id="about">
- <div class="eyebrow">01 // IDENTITY</div>
- <h2>ABOUT ME</h2>
- <div class="cards">
-  <article class="card"><h3>WHO I AM</h3><p>A curious person who enjoys technology, creativity, digital experiences, and learning something new.</p></article>
-  <article class="card"><h3>MY PRINCIPLE</h3><p>Keep growing, stay curious, and turn every experience into a lesson for the next journey.</p></article>
-  <article class="card"><h3>MY VISION</h3><p>Build meaningful things, explore new possibilities, and create a future worth being proud of.</p></article>
+ <div class="section-head">
+  <div class="eyebrow">01 // Identity</div>
+  <h2>ABOUT ME</h2>
+  <div class="line"></div>
+ </div>
+ <div class="profile-layout">
+  <div class="profile-frame">
+   <img src="1000098229.jpg" alt="Foto profil Alfigo">
+  </div>
+  <div class="profile-text">
+   <div class="eyebrow">PROFILE DATABASE / FA-001</div>
+   <h2>THE PERSON BEHIND THE SYSTEM</h2>
+   <p>
+    I'm Alfigo. I enjoy technology, creative projects, digital experiences,
+    and exploring new things. I believe every experience has something to teach.
+   </p>
+   <p>
+    From sports and adventures to technology and creativity,
+    this is a small collection of my journey.
+   </p>
+   <div class="info-grid">
+    <div class="info"><small>IDENTITY</small><strong>F.A / ALFIGO</strong></div>
+    <div class="info"><small>INTEREST</small><strong>TECH & CREATIVE</strong></div>
+    <div class="info"><small>PASSION</small><strong>SPORTS</strong></div>
+    <div class="info"><small>STATUS</small><strong>KEEP GROWING</strong></div>
+   </div>
+  </div>
  </div>
 </section>
 
 <section class="section" id="story">
- <div class="eyebrow">02 // JOURNEY</div>
- <h2>MY STORY</h2>
- <div class="storyline"><strong>THE BEGINNING</strong><p class="muted">Every journey starts with curiosity and the courage to try.</p></div>
- <div class="storyline"><strong>THE PROCESS</strong><p class="muted">Learning, creating, making mistakes, and improving one step at a time.</p></div>
- <div class="storyline"><strong>THE NEXT CHAPTER</strong><p class="muted">The story is still being written. The best parts are yet to come.</p></div>
+ <div class="section-head">
+  <div class="eyebrow">02 // Journey</div>
+  <h2>MY STORY</h2>
+  <div class="line"></div>
+ </div>
+ <div class="timeline">
+  <div class="timeline-item">
+   <strong>THE BEGINNING</strong>
+   <p>Every journey starts with curiosity, courage, and a willingness to try.</p>
+  </div>
+  <div class="timeline-item">
+   <strong>THE RIDER</strong>
+   <p>Sports taught me about focus, discipline, persistence, and enjoying the process.</p>
+  </div>
+  <div class="timeline-item">
+   <strong>THE CREATOR</strong>
+   <p>Technology and creativity opened a new world of ideas and possibilities.</p>
+  </div>
+  <div class="timeline-item">
+   <strong>THE NEXT CHAPTER</strong>
+   <p>The story is still being written. There is always something new to explore.</p>
+  </div>
+ </div>
 </section>
 
 <section class="section" id="archive">
- <div class="eyebrow">03 // MEMORIES</div>
- <h2>MEMORY ARCHIVE</h2>
- <div class="cards">
-  <article class="card" tabindex="0"><h3>01 / MOMENTS</h3><p>Little moments that become meaningful memories.</p></article>
-  <article class="card" tabindex="0"><h3>02 / ADVENTURES</h3><p>Places explored, roads travelled, and stories collected.</p></article>
-  <article class="card" tabindex="0"><h3>03 / MILESTONES</h3><p>Small achievements that remind me to keep moving forward.</p></article>
+ <div class="section-head">
+  <div class="eyebrow">03 // Memory Database</div>
+  <h2>MEMORY ARCHIVE</h2>
+  <p class="muted">A collection of moments, rides, and experiences.</p>
+  <div class="line"></div>
+ </div>
+ <div class="gallery">
+  <div class="gallery-item">
+   <img src="1000098229.jpg" alt="BMX memory one">
+   <div class="gallery-caption">01 / THE RIDER</div>
+  </div>
+  <div class="gallery-item">
+   <img src="1000098231.jpg" alt="BMX race memory">
+   <div class="gallery-caption">02 / RACE DAY</div>
+  </div>
+  <div class="gallery-item">
+   <img src="1000098230.jpg" alt="BMX memory three">
+   <div class="gallery-caption">03 / THE MOMENT</div>
+  </div>
  </div>
 </section>
 
 <section class="section" id="interests">
- <div class="eyebrow">04 // FOCUS</div>
- <h2>MY INTERESTS</h2>
+ <div class="section-head">
+  <div class="eyebrow">04 // Focus</div>
+  <h2>MY INTERESTS</h2>
+  <div class="line"></div>
+ </div>
  <div class="cards">
-  <article class="card"><h3>TECHNOLOGY</h3><p>Digital systems, futuristic interfaces, AI, and web development.</p></article>
-  <article class="card"><h3>CREATIVITY</h3><p>Visual design, multimedia, storytelling, and interactive experiences.</p></article>
-  <article class="card"><h3>EXPLORATION</h3><p>Discovering new places, ideas, and experiences.</p></article>
+  <article class="card">
+   <div class="card-number">01</div>
+   <h3>TECHNOLOGY</h3>
+   <p>Digital systems, futuristic interfaces, artificial intelligence, and web development.</p>
+  </article>
+  <article class="card">
+   <div class="card-number">02</div>
+   <h3>SPORTS & BMX</h3>
+   <p>Movement, competition, discipline, and the experience of pushing my skills forward.</p>
+  </article>
+  <article class="card">
+   <div class="card-number">03</div>
+   <h3>CREATIVITY</h3>
+   <p>Visual design, multimedia, storytelling, and interactive digital experiences.</p>
+  </article>
+  <article class="card">
+   <div class="card-number">04</div>
+   <h3>EXPLORATION</h3>
+   <p>Discovering new places, new ideas, and new perspectives.</p>
+  </article>
  </div>
 </section>
 
-<section class="section contact" id="contact">
- <div class="eyebrow">05 // CONNECTION</div>
- <h2>END OF TRANSMISSION</h2>
- <p class="muted">Thanks for exploring my personal universe.</p>
- <button class="btn" id="backTop">BACK TO TOP ↑</button>
+<section class="section jarvis-section" id="jarvis">
+ <div class="eyebrow">05 // Artificial Intelligence Interface</div>
+ <h2>J.A.R.V.I.S SYSTEM</h2>
+ <div class="core"><span>F.A</span></div>
+ <p class="jarvis-message" id="jarvisMessage">
+  System online. Welcome to your personal universe.
+ </p>
+ <button class="btn primary" id="voiceButton">ACTIVATE VOICE</button>
+</section>
+
+<section class="section" id="contact">
+ <div class="section-head">
+  <div class="eyebrow">06 // Connection</div>
+  <h2>CONNECT WITH ME</h2>
+  <div class="line"></div>
+ </div>
+ <div class="social-grid">
+  <a class="social-card" href="https://www.instagram.com/a.figo19/" target="_blank" rel="noopener">
+   <div class="social-icon">IG</div>
+   <div><strong>INSTAGRAM</strong><small>@a.figo19</small></div>
+  </a>
+  <a class="social-card" href="https://www.tiktok.com/@fch4141" target="_blank" rel="noopener">
+   <div class="social-icon">TK</div>
+   <div><strong>TIKTOK</strong><small>@fch4141</small></div>
+  </a>
+ </div>
+ <div style="margin-top:65px">
+  <div class="eyebrow">END OF TRANSMISSION</div>
+  <h2>THANK YOU FOR VISITING</h2>
+  <button class="btn" id="backTop">BACK TO TOP ↑</button>
+ </div>
 </section>
 </main>
-<footer>F.A PERSONAL UNIVERSE · ALL SYSTEMS ONLINE</footer>
+<footer>F.A PERSONAL UNIVERSE · ALL SYSTEMS ONLINE · 2026</footer>
 </div>
 
-<!-- JARVIS CONTROL -->
+<!-- JARVIS HUD -->
 <div id="hud">
  <div id="hudpanel">
   <div class="status" id="gestureStatus">GESTURE SYSTEM READY</div>
   <p id="gestureHelp">
-   OPEN PALM: SCROLL<br>
-   INDEX FINGER: POINT<br>
-   PINCH: CLICK<br>
-   FIST: LOCK CONTROL
+   OPEN PALM = SCROLL<br>
+   INDEX FINGER = POINTER<br>
+   PINCH = CLICK<br>
+   FIST = LOCK CONTROL
   </p>
-  <button class="btn" id="startHands">ACTIVATE HAND CONTROL</button>
-  <button class="btn" id="stopHands">STOP CAMERA</button>
+  <button class="btn small" id="startHands">ACTIVATE HAND CONTROL</button>
+  <button class="btn small" id="stopHands">STOP CAMERA</button>
   <video id="camera" autoplay playsinline muted></video>
  </div>
  <button class="hudbtn" id="jarvisBtn">✦ J.A.R.V.I.S</button>
@@ -381,19 +583,25 @@ footer{
 <div id="gesturePointer"></div>
 
 <script>
+/* ===============================
+   QR ACCESS - TANPA PIN
+================================ */
 const ACCESS_KEY="FA-JARVIS-ACCESS-ALFIGO-2026";
 const $=id=>document.getElementById(id);
 
-/* QR GENERATOR */
 let qrGenerated=false;
-$("showPhoneQR").onclick=()=>{
+let qrScanner=null;
+let qrBusy=false;
+
+$("showQR").onclick=()=>{
  const panel=$("phoneQrPanel");
  panel.style.display=panel.style.display==="block"?"none":"block";
+
  if(!qrGenerated){
   new QRCode($("phoneQrCode"),{
    text:ACCESS_KEY,
-   width:220,
-   height:220,
+   width:230,
+   height:230,
    colorDark:"#061426",
    colorLight:"#ffffff",
    correctLevel:QRCode.CorrectLevel.H
@@ -403,28 +611,30 @@ $("showPhoneQR").onclick=()=>{
  $("gateStatus").textContent="ACCESS QR READY";
 };
 
-/* QR SCANNER */
-let qrScanner=null;
-let qrBusy=false;
-
 $("startQR").onclick=async()=>{
  try{
   if(!window.Html5Qrcode)throw new Error("QR library belum termuat");
+
   $("gateStatus").textContent="REQUESTING CAMERA...";
+
   if(qrScanner){
    await qrScanner.stop().catch(()=>{});
    qrScanner.clear();
   }
+
   qrScanner=new Html5Qrcode("reader");
   const cameras=await Html5Qrcode.getCameras();
+
   if(!cameras.length)throw new Error("Kamera tidak ditemukan");
-  const camera=cameras[0];
+
+  const selected=cameras.find(c=>/back|environment/i.test(c.label))||cameras[0];
 
   await qrScanner.start(
-   camera.id,
+   selected.id,
    {fps:12,qrbox:{width:240,height:240}},
    async decoded=>{
     if(qrBusy)return;
+
     if(decoded.trim()===ACCESS_KEY){
      qrBusy=true;
      $("gateStatus").textContent="ACCESS GRANTED";
@@ -434,22 +644,91 @@ $("startQR").onclick=async()=>{
      $("hud").style.display="flex";
      window.scrollTo(0,0);
     }else{
-     $("gateStatus").textContent="QR NOT RECOGNIZED";
+     $("gateStatus").textContent="INVALID ACCESS QR";
     }
    }
   );
+
   $("gateStatus").textContent="SCAN ACCESS QR NOW";
  }catch(error){
   $("gateStatus").textContent="CAMERA ERROR: "+error.message;
  }
 };
 
-/* WEBSITE CONTROLS */
-$("themeToggle").onclick=()=>document.body.classList.toggle("light");
-$("backTop").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
-$("jarvisBtn").onclick=()=>$("hudpanel").classList.toggle("show");
+/* ===============================
+   WEBSITE CONTROLS
+================================ */
+$("themeToggle").onclick=()=>{
+ document.body.classList.toggle("light");
+};
+$("backTop").onclick=()=>{
+ window.scrollTo({top:0,behavior:"smooth"});
+};
+$("jarvisBtn").onclick=()=>{
+ $("hudpanel").classList.toggle("show");
+};
 
-/* HAND TRACKING */
+/* ===============================
+   JARVIS VOICE
+================================ */
+function speak(text){
+ if(!("speechSynthesis" in window)){
+  $("jarvisMessage").textContent="Voice system is not supported by this browser.";
+  return;
+ }
+ speechSynthesis.cancel();
+ const utterance=new SpeechSynthesisUtterance(text);
+ utterance.lang="en-US";
+ utterance.rate=.92;
+ utterance.pitch=.88;
+ speechSynthesis.speak(utterance);
+ $("jarvisMessage").textContent=text;
+}
+$("voiceButton").onclick=()=>{
+ speak("Welcome back, Alfigo. All systems are online. Your personal universe is ready.");
+};
+
+/* ===============================
+   PARTICLE BACKGROUND
+================================ */
+const particleCanvas=$("particles");
+const pctx=particleCanvas.getContext("2d");
+let particles=[];
+
+function resizeParticles(){
+ particleCanvas.width=innerWidth*devicePixelRatio;
+ particleCanvas.height=innerHeight*devicePixelRatio;
+ particleCanvas.style.width=innerWidth+"px";
+ particleCanvas.style.height=innerHeight+"px";
+ pctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+ particles=Array.from({length:65},()=>({
+  x:Math.random()*innerWidth,
+  y:Math.random()*innerHeight,
+  r:Math.random()*1.8+.4,
+  speed:Math.random()*.35+.1
+ }));
+}
+function drawParticles(){
+ pctx.clearRect(0,0,innerWidth,innerHeight);
+ pctx.fillStyle="#42dcff";
+ particles.forEach(p=>{
+  p.y-=p.speed;
+  if(p.y<0){p.y=innerHeight;p.x=Math.random()*innerWidth}
+  pctx.globalAlpha=.2+Math.random()*.4;
+  pctx.beginPath();
+  pctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+  pctx.fill();
+ });
+ pctx.globalAlpha=1;
+ requestAnimationFrame(drawParticles);
+}
+addEventListener("resize",resizeParticles);
+resizeParticles();
+drawParticles();
+
+/* ===============================
+   HAND TRACKING
+================================ */
 const pointer=$("gesturePointer");
 const video=$("camera");
 
@@ -465,11 +744,11 @@ let pointerMode=false;
 let lastClick=0;
 let hovered=null;
 
-function status(message){
+function setGestureStatus(message){
  $("gestureStatus").textContent=message;
 }
 
-function dist(a,b){
+function distance(a,b){
  return Math.hypot(a.x-b.x,a.y-b.y);
 }
 
@@ -485,7 +764,7 @@ function classify(lm){
   fingerExtended(lm,20,18)
  ];
 
- if(dist(lm[4],lm[8])<.052)return "PINCH";
+ if(distance(lm[4],lm[8])<.052)return "PINCH";
 
  const count=fingers.filter(Boolean).length;
 
@@ -500,7 +779,7 @@ function classify(lm){
  return "MOVE";
 }
 
-/* SCROLL SELURUH HALAMAN */
+/* SCROLL NAIK DAN TURUN */
 function scrollByHand(y){
  if(lastY===null){
   lastY=y;
@@ -508,33 +787,35 @@ function scrollByHand(y){
   return;
  }
 
- smoothY+=(y-smoothY)*.62;
+ smoothY+=(y-smoothY)*.75;
 
  const delta=lastY-smoothY;
  lastY=smoothY;
 
- if(Math.abs(delta)>.0012){
-  window.scrollBy(0,Math.max(-58,Math.min(58,delta*1900)));
+ if(Math.abs(delta)>.001){
+  window.scrollBy({
+   top:Math.max(-100,Math.min(100,delta*2600)),
+   behavior:"instant"
+  });
  }
 }
 
-/* POINTER TELUNJUK */
 function clearHover(){
  if(hovered)hovered.classList.remove("gesture-hover");
  hovered=null;
 }
 
 function movePointer(lm){
- const x=(1-lm[8].x)*window.innerWidth;
- const y=lm[8].y*window.innerHeight;
+ const x=(1-lm[8].x)*innerWidth;
+ const y=lm[8].y*innerHeight;
 
  pointer.style.left=x+"px";
  pointer.style.top=y+"px";
  pointer.classList.add("active");
 
- const element=document.elementFromPoint(x,y);
- const target=element&&element.closest(
-  'a,button,[role="button"],.card,[tabindex="0"],input,select,textarea'
+ const el=document.elementFromPoint(x,y);
+ const target=el&&el.closest(
+  'a,button,[role="button"],.card,[tabindex="0"]'
  );
 
  if(target!==hovered){
@@ -544,7 +825,6 @@ function movePointer(lm){
  }
 }
 
-/* PINCH UNTUK KLIK */
 function gestureClick(){
  if(Date.now()-lastClick<550)return;
  lastClick=Date.now();
@@ -556,16 +836,14 @@ function gestureClick(){
  }
 }
 
-/* PROSES GESTURE */
 function processGesture(gesture,lm){
-
  if(gesture==="FIST"){
   locked=true;
   pointerMode=false;
   pointer.classList.remove("active");
   clearHover();
   lastY=null;
-  status("CONTROL LOCKED · OPEN PALM TO UNLOCK");
+  setGestureStatus("CONTROL LOCKED · OPEN PALM TO UNLOCK");
   return;
  }
 
@@ -575,7 +853,7 @@ function processGesture(gesture,lm){
   pointer.classList.remove("active");
   clearHover();
   scrollByHand(lm[9].y);
-  status("SCROLL MODE · MOVE HAND UP/DOWN");
+  setGestureStatus("SCROLL MODE · MOVE HAND UP/DOWN");
   lastGesture=gesture;
   return;
  }
@@ -585,29 +863,29 @@ function processGesture(gesture,lm){
  if(gesture==="POINT"){
   pointerMode=true;
   movePointer(lm);
-  status("POINTING MODE · PINCH TO CLICK");
+  setGestureStatus("POINTING MODE · PINCH TO CLICK");
  }
 
  else if(gesture==="PINCH"){
   if(pointerMode&&lastGesture==="POINT"){
    gestureClick();
-   status("CLICK");
+   setGestureStatus("CLICK EXECUTED");
   }else{
-   status("SCROLL PAUSED");
+   setGestureStatus("SCROLL PAUSED");
   }
  }
 
  else{
-  status("HAND DETECTED");
+  setGestureStatus("HAND DETECTED");
  }
 
  lastGesture=gesture;
 }
 
-/* AKTIFKAN KAMERA */
+/* CAMERA START */
 async function startHandControl(){
  try{
-  status("LOADING HAND TRACKING...");
+  setGestureStatus("LOADING JARVIS VISION...");
 
   const mp=await import(
    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14"
@@ -636,11 +914,12 @@ async function startHandControl(){
   await video.play();
 
   running=true;
-  status("HAND CONTROL ACTIVE");
+  lastVideoTime=-1;
+  setGestureStatus("JARVIS HAND CONTROL ONLINE");
   requestAnimationFrame(handLoop);
 
  }catch(error){
-  status("ERROR · "+error.message);
+  setGestureStatus("CAMERA ERROR · "+error.message);
  }
 }
 
@@ -655,10 +934,9 @@ function handLoop(){
   );
 
   if(result.landmarks&&result.landmarks.length){
-   const hand=result.landmarks[0];
-   processGesture(classify(hand),hand);
+   processGesture(classify(result.landmarks[0]),result.landmarks[0]);
   }else{
-   status("SHOW ONE HAND TO CAMERA");
+   setGestureStatus("SHOW ONE HAND TO CAMERA");
    lastY=null;
   }
  }
@@ -666,7 +944,6 @@ function handLoop(){
  requestAnimationFrame(handLoop);
 }
 
-/* MATIKAN KAMERA */
 function stopHandControl(){
  running=false;
 
@@ -682,13 +959,14 @@ function stopHandControl(){
 
  lastY=null;
  lastGesture="";
- status("CAMERA STOPPED");
+ pointerMode=false;
+ setGestureStatus("CAMERA STOPPED");
 }
 
 $("startHands").onclick=startHandControl;
 $("stopHands").onclick=stopHandControl;
 
-window.addEventListener("pagehide",()=>{
+addEventListener("pagehide",()=>{
  stopHandControl();
  if(qrScanner)qrScanner.stop().catch(()=>{});
 });
