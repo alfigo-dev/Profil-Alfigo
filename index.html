@@ -7,625 +7,511 @@
 <meta name="theme-color" content="#050b18">
 <title>F.A | Personal Universe</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
 :root{
- --bg:#040a17;
- --panel:rgba(8,24,46,.82);
- --cyan:#42dcff;
+ --bg:#050b18;
+ --panel:rgba(9,27,49,.84);
+ --cyan:#53e5ff;
  --blue:#168bff;
- --text:#eaf8ff;
- --muted:#9ab4c9;
- --line:rgba(66,220,255,.24);
+ --text:#eafaff;
+ --muted:#9db6cc;
+ --line:rgba(83,229,255,.25);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px}
 body{
- margin:0;
- background:radial-gradient(ellipse at 50% 0%,#12365b 0%,#07172b 42%,#040a17 100%);
- color:var(--text);
- font-family:Inter,sans-serif;
+ margin:0;color:var(--text);font-family:Inter,sans-serif;
+ background:radial-gradient(ellipse at top,#12365b,#071426 48%,#030813);
  overflow-x:hidden;
 }
 body.light{
- --bg:#eaf5fb;
- --panel:rgba(255,255,255,.86);
+ --bg:#eaf7ff;
+ --panel:rgba(255,255,255,.88);
  --text:#10243b;
- --muted:#536d83;
+ --muted:#526d83;
  --line:rgba(0,132,190,.25);
- background:radial-gradient(ellipse at top,#ccefff,#edf7fc 70%);
+ background:radial-gradient(ellipse at top,#ccefff,#edf7fc);
 }
+button,a{font:inherit}
+button{cursor:pointer}
 a{color:inherit;text-decoration:none}
-button{font:inherit;cursor:pointer}
 .orbit{font-family:Orbitron,sans-serif}
-.gridbg{
- position:fixed;inset:0;z-index:-2;pointer-events:none;
+.hidden{display:none!important}
+
+.grid{
+ position:fixed;inset:0;pointer-events:none;z-index:-1;
  background-image:
  linear-gradient(var(--line) 1px,transparent 1px),
  linear-gradient(90deg,var(--line) 1px,transparent 1px);
- background-size:48px 48px;opacity:.13;
- mask-image:linear-gradient(to bottom,black,transparent 90%);
-}
-.scanline{
- position:fixed;inset:0;z-index:1000;pointer-events:none;
- background:linear-gradient(transparent 50%,rgba(66,220,255,.025) 50%);
- background-size:100% 4px;opacity:.3;
-}
-#particles{position:fixed;inset:0;z-index:-1;pointer-events:none}
-.eyebrow{
- color:var(--cyan);font:600 10px Orbitron;
- letter-spacing:.24em;text-transform:uppercase;
-}
-.muted{color:var(--muted)}
-.btn{
- display:inline-flex;align-items:center;justify-content:center;
- gap:8px;padding:13px 19px;
- border:1px solid var(--cyan);border-radius:5px;
- background:rgba(22,139,255,.13);color:var(--text);
- font:600 10px Orbitron;letter-spacing:.1em;
- transition:.25s;
-}
-.btn:hover,.btn.primary{
- background:var(--cyan);color:#03101e;
- box-shadow:0 0 25px #42dcff66;
-}
-.btn.small{padding:9px 12px}
-.section{
- max-width:1250px;margin:auto;
- padding:100px clamp(20px,7vw,100px);
-}
-.section-head{margin-bottom:35px}
-.section h2{
- font:700 clamp(25px,4vw,39px) Orbitron;
- margin:12px 0;
-}
-.line{
- height:1px;width:100%;
- background:linear-gradient(90deg,var(--cyan),transparent);
- margin:20px 0;
+ background-size:48px 48px;opacity:.16;
 }
 
-/* ACCESS GATE */
-#gate{
- min-height:100svh;display:grid;place-items:center;padding:22px;
+/* ACCESS SCREEN */
+#accessScreen{
+ min-height:100vh;display:grid;place-items:center;padding:20px;
+ background:radial-gradient(circle at center,#12365b,#061426 60%,#020611);
 }
-.gatebox{
- width:min(600px,100%);padding:clamp(25px,5vw,48px);
- text-align:center;background:var(--panel);
- border:1px solid var(--line);border-radius:15px;
- backdrop-filter:blur(18px);
- box-shadow:0 0 70px #168bff22,inset 0 0 35px #168bff0b;
+.access-panel{
+ width:min(570px,100%);padding:35px 22px;text-align:center;
+ background:rgba(5,20,40,.92);border:1px solid var(--cyan);
+ border-radius:16px;box-shadow:0 0 55px #168bff35;
 }
-.logo{
- width:82px;height:82px;border-radius:50%;
- border:1px solid var(--cyan);display:grid;place-items:center;
- margin:0 auto 25px;color:var(--cyan);
- font:800 26px Orbitron;
- box-shadow:0 0 30px #42dcff55;
+.access-logo{
+ width:78px;height:78px;border:2px solid var(--cyan);
+ border-radius:50%;display:grid;place-items:center;
+ margin:0 auto 24px;color:var(--cyan);
+ font:800 24px Orbitron;box-shadow:0 0 25px #53e5ff70;
 }
-.gatebox h1{font:700 clamp(23px,5vw,35px) Orbitron}
-.gatebox p{font-size:13px;color:var(--muted);line-height:1.8}
-.gate-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:25px 0}
-#reader{width:min(350px,100%);margin:20px auto}
-#phoneQrPanel{
- display:none;width:max-content;max-width:100%;
- margin:20px auto;padding:16px;
- border-radius:12px;background:white;color:#07172b;
+.eyebrow{font:600 10px Orbitron;color:var(--cyan);letter-spacing:3px}
+.access-panel h1{font:700 27px Orbitron;color:var(--cyan)}
+.access-panel p{font-size:13px;line-height:1.8;color:#a9c5dc}
+.access-button{
+ margin:7px;padding:13px 16px;background:#0b3150;
+ border:1px solid var(--cyan);color:var(--cyan);
+ font:600 10px Orbitron;border-radius:5px;
 }
-#phoneQrCode{display:flex;justify-content:center}
-#phoneQrPanel small{display:block;max-width:230px;line-height:1.5;margin-top:10px}
-.status{color:var(--cyan);font:600 10px Orbitron;letter-spacing:.1em}
+.access-button:hover{background:var(--cyan);color:#061426}
+#reader{width:min(340px,100%);margin:20px auto}
+#qrPanel{
+ display:none;background:white;padding:15px;width:max-content;
+ max-width:100%;margin:20px auto;border-radius:10px;
+}
+#qrCode{display:flex;justify-content:center}
+#accessStatus{font:600 10px Orbitron;color:var(--cyan);margin-top:20px}
 
-/* NAVIGATION */
+/* MAIN NAVIGATION */
+#mainSite{display:none}
 .topbar{
  position:sticky;top:0;z-index:100;
- display:flex;align-items:center;justify-content:space-between;
- gap:18px;flex-wrap:wrap;padding:15px 5%;
- background:rgba(4,13,27,.84);
+ display:flex;justify-content:space-between;align-items:center;
+ flex-wrap:wrap;gap:15px;padding:15px 5%;
+ background:rgba(3,13,28,.9);backdrop-filter:blur(18px);
  border-bottom:1px solid var(--line);
- backdrop-filter:blur(18px);
 }
-body.light .topbar{background:rgba(239,249,255,.9)}
-.brand{font:700 15px Orbitron;color:var(--cyan)}
-nav{display:flex;gap:19px;flex-wrap:wrap}
-nav a{font:500 10px Orbitron;color:var(--muted);transition:.2s}
+.brand{font:700 14px Orbitron;color:var(--cyan)}
+nav{display:flex;gap:16px;flex-wrap:wrap}
+nav a{font:500 9px Orbitron;color:var(--muted)}
 nav a:hover{color:var(--cyan)}
+.btn{
+ display:inline-block;padding:12px 17px;
+ border:1px solid var(--cyan);border-radius:5px;
+ background:rgba(22,139,255,.14);color:var(--text);
+ font:600 10px Orbitron;transition:.2s;
+}
+.btn:hover{background:var(--cyan);color:#04101d}
 
 /* HERO */
 .hero{
- min-height:92svh;display:grid;place-items:center;
- text-align:center;padding:75px 20px;position:relative;
+ min-height:94vh;display:grid;place-items:center;
+ text-align:center;padding:70px 20px;
 }
-.hero-inner{max-width:950px;width:100%}
-.hero-photo-wrap{
- width:min(270px,65vw);aspect-ratio:1;
- margin:0 auto 36px;position:relative;
- padding:8px;border-radius:50%;
- border:1px solid var(--cyan);
- box-shadow:0 0 35px #42dcff55,0 0 90px #168bff22;
+.hero-inner{max-width:900px}
+.photo-ring{
+ width:min(270px,65vw);aspect-ratio:1;margin:0 auto 35px;
+ padding:8px;border:1px solid var(--cyan);border-radius:50%;
+ position:relative;box-shadow:0 0 40px #168bff55;
 }
-.hero-photo-wrap:before,.hero-photo-wrap:after{
- content:"";position:absolute;inset:-13px;
+.photo-ring:after{
+ content:"";position:absolute;inset:-15px;
  border:1px dashed var(--cyan);border-radius:50%;
  animation:spin 22s linear infinite;
 }
-.hero-photo-wrap:after{
- inset:-25px;border-color:#168bff88;
- animation-direction:reverse;animation-duration:30s;
-}
-.hero-photo{
+.photo-ring img{
  width:100%;height:100%;object-fit:cover;
  object-position:center 30%;border-radius:50%;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
-.hero h1{
- font:800 clamp(37px,8vw,82px) Orbitron;
- margin:15px 0 10px;
-}
-.hero h1 span{color:var(--cyan);text-shadow:0 0 25px #42dcff77}
-.hero p{
- max-width:650px;margin:20px auto 27px;
- color:var(--muted);line-height:1.9;font-size:14px;
-}
-.hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.hero-coordinate{
- margin-top:38px;color:var(--cyan);
- font:10px Orbitron;letter-spacing:.15em;
-}
+.hero h1{font:800 clamp(38px,8vw,82px) Orbitron;margin:18px 0}
+.hero h1 span{color:var(--cyan);text-shadow:0 0 25px #53e5ff70}
+.hero p{color:var(--muted);line-height:1.9;max-width:650px;margin:18px auto 28px}
+.actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-/* PROFILE */
-.profile-layout{
- display:grid;grid-template-columns:minmax(240px,.8fr) 1.2fr;
- gap:35px;align-items:center;
+/* SECTIONS */
+.section{padding:95px 7%;scroll-margin-top:80px}
+.section-head{text-align:center;margin-bottom:42px}
+.section-head h2{font:700 clamp(24px,4vw,38px) Orbitron;margin:12px 0}
+.section-head p{color:var(--muted);line-height:1.8}
+.panel{
+ background:var(--panel);border:1px solid var(--line);
+ border-radius:13px;padding:28px;
+ box-shadow:0 12px 45px #0002;backdrop-filter:blur(12px);
 }
-.profile-frame{
- padding:8px;border:1px solid var(--cyan);
- border-radius:12px;position:relative;
- box-shadow:0 0 30px #168bff22;
+.about-grid{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:22px;max-width:1050px;margin:auto;
 }
-.profile-frame img{
- width:100%;display:block;aspect-ratio:4/5;
- object-fit:cover;border-radius:7px;
-}
-.profile-text p{line-height:1.9;color:var(--muted);font-size:14px}
-.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:25px}
-.info{
- padding:15px;border:1px solid var(--line);
- background:var(--panel);border-radius:7px;
-}
-.info small{display:block;color:var(--muted);font-size:10px;margin-bottom:8px}
-.info strong{font:600 11px Orbitron;color:var(--cyan)}
+.about-grid p{color:var(--muted);line-height:1.9}
+.info-line{padding:12px 0;border-bottom:1px solid var(--line)}
+.info-line strong{color:var(--cyan);font:600 10px Orbitron}
+.story{max-width:850px;margin:auto}
+.story p{color:var(--muted);line-height:2}
 
-/* CARDS */
-.cards{
- display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));
- gap:17px;
-}
-.card{
- padding:23px;background:var(--panel);
- border:1px solid var(--line);border-radius:10px;
- transition:.25s;backdrop-filter:blur(12px);
-}
-.card:hover{
- transform:translateY(-5px);border-color:var(--cyan);
- box-shadow:0 12px 35px #168bff22;
-}
-.card h3{font:600 13px Orbitron;color:var(--cyan)}
-.card p{font-size:13px;color:var(--muted);line-height:1.8}
-.card-number{font:700 25px Orbitron;color:#42dcff55}
-
-/* STORY */
-.timeline{border-left:1px solid var(--cyan);padding-left:25px}
-.timeline-item{position:relative;margin:30px 0}
-.timeline-item:before{
- content:"";position:absolute;left:-31px;top:4px;
- width:10px;height:10px;border-radius:50%;
- background:var(--cyan);box-shadow:0 0 15px var(--cyan);
-}
-.timeline-item strong{font:600 12px Orbitron;color:var(--cyan)}
-.timeline-item p{color:var(--muted);line-height:1.8;font-size:14px}
-
-/* GALLERY */
 .gallery{
- display:grid;grid-template-columns:repeat(2,1fr);gap:16px;
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:18px;max-width:1100px;margin:auto;
 }
-.gallery-item{
- position:relative;overflow:hidden;border-radius:10px;
- border:1px solid var(--line);background:var(--panel);
+.gallery-card{
+ overflow:hidden;border:1px solid var(--line);
+ border-radius:12px;background:var(--panel);transition:.3s;
 }
-.gallery-item img{
- width:100%;height:100%;min-height:260px;
- display:block;object-fit:cover;transition:.5s;
-}
-.gallery-item:hover img{transform:scale(1.045)}
-.gallery-caption{
- position:absolute;bottom:0;left:0;right:0;
- padding:30px 17px 16px;
- background:linear-gradient(transparent,rgba(0,0,0,.85));
- color:white;font:600 11px Orbitron;
-}
-.gallery-item:first-child{grid-row:span 2}
-.gallery-item:first-child img{min-height:540px}
+.gallery-card:hover{transform:translateY(-7px);box-shadow:0 0 25px #168bff40}
+.gallery-card img{width:100%;height:290px;object-fit:cover;display:block}
+.gallery-card p{padding:0 15px 12px;color:var(--muted);font-size:12px}
 
-/* SOCIAL */
-.social-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.social-card{
- display:flex;align-items:center;gap:17px;
- padding:22px;border:1px solid var(--line);
- background:var(--panel);border-radius:10px;
- transition:.25s;
+.interest-grid{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:18px;max-width:1000px;margin:auto;
 }
-.social-card:hover{border-color:var(--cyan);box-shadow:0 0 25px #168bff33}
-.social-icon{
- width:45px;height:45px;display:grid;place-items:center;
- border:1px solid var(--cyan);border-radius:50%;
- color:var(--cyan);font:700 20px Orbitron;
-}
-.social-card strong{font:600 12px Orbitron}
-.social-card small{display:block;color:var(--muted);margin-top:6px}
+.interest{min-height:160px}
+.interest .symbol{font-size:30px;color:var(--cyan)}
+.interest h3{font:600 13px Orbitron}
+.interest p{font-size:12px;color:var(--muted);line-height:1.7}
 
-/* JARVIS */
-.jarvis-section{text-align:center}
+.jarvis{
+ max-width:850px;margin:auto;text-align:center;
+ border:1px solid var(--cyan);box-shadow:0 0 40px #168bff25;
+}
 .core{
- width:155px;height:155px;margin:35px auto;
- display:grid;place-items:center;border-radius:50%;
- border:1px solid var(--cyan);
- box-shadow:0 0 30px #42dcff55,inset 0 0 30px #42dcff33;
- position:relative;
-}
-.core:before,.core:after{
- content:"";position:absolute;inset:-12px;
- border:1px dashed var(--cyan);border-radius:50%;
- animation:spin 15s linear infinite;
-}
-.core:after{inset:-24px;animation-direction:reverse}
-.core span{font:700 20px Orbitron;color:var(--cyan)}
-.jarvis-message{
- max-width:650px;margin:auto;line-height:1.9;
- color:var(--muted);font-size:14px;
-}
-#voiceButton{margin-top:20px}
-
-/* FOOTER */
-.contact{text-align:center}
-footer{
- padding:30px 15px;text-align:center;
- border-top:1px solid var(--line);
- color:var(--muted);font-size:11px;
-}
-
-/* HUD */
-#hud{
- display:none;position:fixed;right:16px;bottom:16px;
- z-index:2000;flex-direction:column;align-items:flex-end;gap:9px;
-}
-.hudbtn{
- padding:12px 17px;border:1px solid var(--cyan);
- border-radius:30px;background:#06182beF;
- color:var(--cyan);font:600 10px Orbitron;
-}
-#hudpanel{
- display:none;width:min(280px,85vw);
- padding:16px;border:1px solid var(--line);
- border-radius:10px;background:var(--panel);
- backdrop-filter:blur(16px);font-size:12px;line-height:1.7;
-}
-#hudpanel.show{display:block}
-#camera{width:100%;display:none;border-radius:8px;transform:scaleX(-1)}
-#gesturePointer{
- position:fixed;z-index:9999;width:34px;height:34px;
+ width:120px;height:120px;margin:5px auto 25px;
  border:2px solid var(--cyan);border-radius:50%;
- transform:translate(-50%,-50%);pointer-events:none;
- display:none;box-shadow:0 0 20px #42dcffbb;
+ display:grid;place-items:center;color:var(--cyan);
+ font:700 22px Orbitron;
+ box-shadow:0 0 25px #53e5ff55,inset 0 0 25px #53e5ff30;
+ animation:pulse 2.5s infinite;
+}
+@keyframes pulse{
+ 50%{box-shadow:0 0 45px #53e5ff90,inset 0 0 35px #53e5ff50}
+}
+.jarvis p{color:var(--muted);line-height:1.8}
+.jarvis-controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.socials{display:flex;justify-content:center;gap:13px;flex-wrap:wrap}
+footer{
+ text-align:center;padding:35px 15px;border-top:1px solid var(--line);
+ color:var(--muted);font-size:11px;line-height:1.8;
+}
+
+/* CAMERA AND POINTER */
+#cameraPanel{
+ position:fixed;right:15px;bottom:15px;width:220px;
+ z-index:500;background:rgba(3,16,33,.94);
+ border:1px solid var(--cyan);border-radius:10px;padding:10px;
+ box-shadow:0 0 25px #168bff30;
+}
+#cameraVideo{
+ width:100%;height:125px;object-fit:cover;
+ transform:scaleX(-1);border-radius:6px;background:#000;
+}
+#cameraStatus{font:9px Orbitron;color:var(--cyan);margin:8px 0}
+.camera-buttons{display:flex;gap:6px;flex-wrap:wrap}
+.camera-buttons button{
+ flex:1;padding:8px 5px;border:1px solid var(--cyan);
+ background:#0b3150;color:#eafaff;border-radius:4px;
+ font:9px Orbitron;
+}
+#gesturePointer{
+ position:fixed;left:0;top:0;width:35px;height:35px;
+ z-index:9999;pointer-events:none;display:none;
+ transform:translate(-50%,-50%);
+ border:2px solid var(--cyan);border-radius:50%;
+ box-shadow:0 0 18px #53e5ff,inset 0 0 10px #53e5ff55;
 }
 #gesturePointer:before,#gesturePointer:after{
- content:"";position:absolute;left:50%;top:50%;
- transform:translate(-50%,-50%);background:var(--cyan);
+ content:"";position:absolute;background:var(--cyan);
 }
-#gesturePointer:before{width:48px;height:1px}
-#gesturePointer:after{height:48px;width:1px}
+#gesturePointer:before{width:2px;height:49px;left:14px;top:-9px;opacity:.7}
+#gesturePointer:after{height:2px;width:49px;top:14px;left:-9px;opacity:.7}
 #gesturePointer.active{display:block}
-#gesturePointer.clicking{
- transform:translate(-50%,-50%) scale(.7);
- background:#42dcff55;
-}
 .gesture-hover{
  outline:2px solid var(--cyan)!important;
  outline-offset:4px!important;
- filter:drop-shadow(0 0 12px #42dcff99)!important;
+ filter:drop-shadow(0 0 12px rgba(37,200,255,.7))!important;
 }
+#toast{
+ position:fixed;top:85px;left:50%;transform:translateX(-50%);
+ z-index:600;background:#082944;color:#53e5ff;
+ border:1px solid var(--cyan);padding:10px 15px;
+ border-radius:5px;font:10px Orbitron;
+ opacity:0;pointer-events:none;transition:.2s;
+}
+#toast.show{opacity:1}
+
 @media(max-width:760px){
- .topbar{flex-direction:column;align-items:flex-start}
- nav{gap:12px}
- .section{padding:70px 20px}
- .profile-layout{grid-template-columns:1fr}
- .profile-frame{max-width:420px;margin:auto}
- .gallery{grid-template-columns:1fr}
- .gallery-item:first-child{grid-row:auto}
- .gallery-item:first-child img{min-height:300px}
- .social-grid{grid-template-columns:1fr}
+ .topbar{justify-content:center}
+ nav{justify-content:center}
+ .about-grid,.gallery,.interest-grid{grid-template-columns:1fr}
+ .gallery-card img{height:250px}
+ .section{padding:70px 6%}
+ #cameraPanel{width:165px}
+ #cameraVideo{height:95px}
 }
 </style>
 </head>
 
 <body>
-<div class="gridbg"></div>
-<div class="scanline"></div>
-<canvas id="particles"></canvas>
+<div class="grid"></div>
+<div id="toast"></div>
+<div id="gesturePointer" aria-hidden="true"></div>
 
 <!-- QR ACCESS -->
-<div id="gate">
- <div class="gatebox">
-  <div class="logo">F.A</div>
+<section id="accessScreen">
+ <div class="access-panel">
+  <div class="access-logo">F.A</div>
   <div class="eyebrow">PERSONAL ACCESS PROTOCOL</div>
-  <h1 class="orbit">WELCOME BACK</h1>
-  <p>F.A PERSONAL UNIVERSE<br>
-  Secure QR access system. No PIN required.</p>
+  <h1>ACCESS PORTAL</h1>
+  <p>Welcome to F.A Personal Universe.<br>
+  Scan the access QR to enter the main system.</p>
 
-  <div class="gate-actions">
-   <button class="btn primary" id="startQR">START QR SCANNER</button>
-   <button class="btn" id="showQR">DISPLAY ACCESS QR</button>
-  </div>
+  <button class="access-button" id="scannerButton">START QR SCANNER</button>
+  <button class="access-button" id="qrButton">DISPLAY ACCESS QR</button>
 
   <div id="reader"></div>
-  <div id="phoneQrPanel">
-   <div id="phoneQrCode"></div>
-   <small>Gunakan QR ini untuk membuka website di perangkat lain.</small>
+  <div id="qrPanel">
+   <div id="qrCode"></div>
+   <p style="color:#152b40">Scan this QR using your laptop camera.</p>
   </div>
 
-  <p class="muted">Buka website yang sama di HP dan laptop. Tampilkan QR di HP, lalu pindai dari laptop.</p>
-  <div class="status" id="gateStatus">SYSTEM STANDBY</div>
+  <p>Gunakan alamat website HTTPS yang sama pada HP dan laptop.</p>
+  <div id="accessStatus">SYSTEM STANDBY</div>
  </div>
-</div>
+</section>
 
 <!-- MAIN WEBSITE -->
-<div id="site">
+<div id="mainSite">
 <header class="topbar">
- <div class="brand">F.A // UNIVERSE</div>
+ <div class="brand">F.A / PERSONAL UNIVERSE</div>
  <nav>
   <a href="#home">HOME</a>
   <a href="#about">ABOUT</a>
   <a href="#story">STORY</a>
-  <a href="#archive">ARCHIVE</a>
+  <a href="#gallery">GALLERY</a>
   <a href="#interests">INTERESTS</a>
+  <a href="#jarvis">JARVIS</a>
   <a href="#contact">CONTACT</a>
  </nav>
- <button class="btn small" id="themeToggle">◐ THEME</button>
+ <button class="btn" id="themeButton" type="button">LIGHT MODE</button>
 </header>
 
 <main>
 <section class="hero" id="home">
  <div class="hero-inner">
-  <div class="hero-photo-wrap">
-   <img class="hero-photo" src="1000098229.jpg" alt="F.A BMX portrait">
+  <div class="photo-ring">
+   <img src="assets/profile.jpg" alt="Foto profil Alfigo">
   </div>
-  <div class="eyebrow">PERSONAL DIGITAL UNIVERSE</div>
+  <div class="eyebrow">WELCOME TO MY DIGITAL WORLD</div>
   <h1>I'M <span>ALFIGO</span></h1>
   <p>
-   Welcome to my personal universe. A digital space to explore my journey,
-   memories, passion, and the things that make me who I am.
+   One person. Many stories. Endless possibilities.
+   This is my personal universe — a place for memories,
+   passion, creativity, and the journey ahead.
   </p>
-  <div class="hero-actions">
-   <a class="btn primary" href="#about">EXPLORE UNIVERSE ↓</a>
-   <a class="btn" href="#archive">VIEW MEMORIES</a>
+  <div class="actions">
+   <a class="btn" href="#about">EXPLORE MY WORLD</a>
+   <a class="btn" href="#gallery">VIEW MEMORIES</a>
   </div>
-  <div class="hero-coordinate">SYSTEM ID: FA-2026 // STATUS: ONLINE</div>
  </div>
 </section>
 
 <section class="section" id="about">
  <div class="section-head">
-  <div class="eyebrow">01 // Identity</div>
+  <div class="eyebrow">01 / PROFILE DATABASE</div>
   <h2>ABOUT ME</h2>
-  <div class="line"></div>
+  <p>A little introduction to the person behind this universe.</p>
  </div>
- <div class="profile-layout">
-  <div class="profile-frame">
-   <img src="1000098229.jpg" alt="Foto profil Alfigo">
-  </div>
-  <div class="profile-text">
-   <div class="eyebrow">PROFILE DATABASE / FA-001</div>
-   <h2>THE PERSON BEHIND THE SYSTEM</h2>
+ <div class="about-grid">
+  <article class="panel">
+   <h3 class="orbit">WHO AM I?</h3>
    <p>
-    I'm Alfigo. I enjoy technology, creative projects, digital experiences,
-    and exploring new things. I believe every experience has something to teach.
+    I'm Alfigo. I enjoy exploring technology, digital creativity,
+    sports, and new experiences. I believe every journey has
+    something worth learning.
    </p>
    <p>
-    From sports and adventures to technology and creativity,
-    this is a small collection of my journey.
+    This website is my own digital space — a collection of
+    things I enjoy and memories I want to keep.
    </p>
-   <div class="info-grid">
-    <div class="info"><small>IDENTITY</small><strong>F.A / ALFIGO</strong></div>
-    <div class="info"><small>INTEREST</small><strong>TECH & CREATIVE</strong></div>
-    <div class="info"><small>PASSION</small><strong>SPORTS</strong></div>
-    <div class="info"><small>STATUS</small><strong>KEEP GROWING</strong></div>
-   </div>
-  </div>
+  </article>
+  <article class="panel">
+   <h3 class="orbit">PERSONAL DATA</h3>
+   <div class="info-line"><strong>NAME</strong><br>Fachriansyah Alfigo</div>
+   <div class="info-line"><strong>INTEREST</strong><br>Technology & Creativity</div>
+   <div class="info-line"><strong>PERSONAL MOTTO</strong><br>Keep learning. Keep moving.</div>
+  </article>
  </div>
 </section>
 
 <section class="section" id="story">
  <div class="section-head">
-  <div class="eyebrow">02 // Journey</div>
+  <div class="eyebrow">02 / PERSONAL LOG</div>
   <h2>MY STORY</h2>
-  <div class="line"></div>
+  <p>Every experience becomes part of the journey.</p>
  </div>
- <div class="timeline">
-  <div class="timeline-item">
-   <strong>THE BEGINNING</strong>
-   <p>Every journey starts with curiosity, courage, and a willingness to try.</p>
-  </div>
-  <div class="timeline-item">
-   <strong>THE RIDER</strong>
-   <p>Sports taught me about focus, discipline, persistence, and enjoying the process.</p>
-  </div>
-  <div class="timeline-item">
-   <strong>THE CREATOR</strong>
-   <p>Technology and creativity opened a new world of ideas and possibilities.</p>
-  </div>
-  <div class="timeline-item">
-   <strong>THE NEXT CHAPTER</strong>
-   <p>The story is still being written. There is always something new to explore.</p>
-  </div>
- </div>
+ <article class="panel story">
+  <h3 class="orbit">THE JOURNEY CONTINUES</h3>
+  <p>
+   Life is a process of discovering new things, learning from
+   experiences, and building something meaningful.
+   I enjoy trying new ideas, exploring technology, and keeping
+   memories from the moments that matter.
+  </p>
+  <p>
+   I don't need every step to be perfect. What matters is
+   continuing to grow, staying curious, and creating my own path.
+  </p>
+  <p class="eyebrow">END OF LOG / MORE STORIES TO COME</p>
+ </article>
 </section>
 
-<section class="section" id="archive">
+<section class="section" id="gallery">
  <div class="section-head">
-  <div class="eyebrow">03 // Memory Database</div>
-  <h2>MEMORY ARCHIVE</h2>
-  <p class="muted">A collection of moments, rides, and experiences.</p>
-  <div class="line"></div>
+  <div class="eyebrow">03 / MEMORY ARCHIVE</div>
+  <h2>MY MEMORIES</h2>
+  <p>A small archive of my BMX moments.</p>
  </div>
  <div class="gallery">
-  <div class="gallery-item">
-   <img src="1000098229.jpg" alt="BMX memory one">
-   <div class="gallery-caption">01 / THE RIDER</div>
-  </div>
-  <div class="gallery-item">
-   <img src="1000098231.jpg" alt="BMX race memory">
-   <div class="gallery-caption">02 / RACE DAY</div>
-  </div>
-  <div class="gallery-item">
-   <img src="1000098230.jpg" alt="BMX memory three">
-   <div class="gallery-caption">03 / THE MOMENT</div>
-  </div>
+  <article class="gallery-card">
+   <img src="assets/profile.jpg" alt="BMX memory one" loading="lazy">
+   <p>BMX ARCHIVE / 01</p>
+  </article>
+  <article class="gallery-card">
+   <img src="assets/memory-01.jpg" alt="BMX memory two" loading="lazy">
+   <p>BMX ARCHIVE / 02</p>
+  </article>
+  <article class="gallery-card">
+   <img src="assets/memory-02.jpg" alt="BMX memory three" loading="lazy">
+   <p>BMX ARCHIVE / 03</p>
+  </article>
  </div>
 </section>
 
 <section class="section" id="interests">
  <div class="section-head">
-  <div class="eyebrow">04 // Focus</div>
+  <div class="eyebrow">04 / INTEREST DATABASE</div>
   <h2>MY INTERESTS</h2>
-  <div class="line"></div>
+  <p>Things that keep me curious and inspired.</p>
  </div>
- <div class="cards">
-  <article class="card">
-   <div class="card-number">01</div>
+ <div class="interest-grid">
+  <article class="panel interest">
+   <div class="symbol">⌘</div>
    <h3>TECHNOLOGY</h3>
-   <p>Digital systems, futuristic interfaces, artificial intelligence, and web development.</p>
+   <p>Exploring digital tools, coding, and futuristic interfaces.</p>
   </article>
-  <article class="card">
-   <div class="card-number">02</div>
-   <h3>SPORTS & BMX</h3>
-   <p>Movement, competition, discipline, and the experience of pushing my skills forward.</p>
+  <article class="panel interest">
+   <div class="symbol">✦</div>
+   <h3>BMX</h3>
+   <p>Sport, focus, practice, and unforgettable riding moments.</p>
   </article>
-  <article class="card">
-   <div class="card-number">03</div>
+  <article class="panel interest">
+   <div class="symbol">◈</div>
    <h3>CREATIVITY</h3>
-   <p>Visual design, multimedia, storytelling, and interactive digital experiences.</p>
-  </article>
-  <article class="card">
-   <div class="card-number">04</div>
-   <h3>EXPLORATION</h3>
-   <p>Discovering new places, new ideas, and new perspectives.</p>
+   <p>Building ideas and turning imagination into projects.</p>
   </article>
  </div>
 </section>
 
-<section class="section jarvis-section" id="jarvis">
- <div class="eyebrow">05 // Artificial Intelligence Interface</div>
- <h2>J.A.R.V.I.S SYSTEM</h2>
- <div class="core"><span>F.A</span></div>
- <p class="jarvis-message" id="jarvisMessage">
-  System online. Welcome to your personal universe.
- </p>
- <button class="btn primary" id="voiceButton">ACTIVATE VOICE</button>
+<section class="section" id="jarvis">
+ <div class="section-head">
+  <div class="eyebrow">05 / INTELLIGENT INTERFACE</div>
+  <h2>J.A.R.V.I.S SYSTEM</h2>
+  <p>Your personal holographic interface.</p>
+ </div>
+ <div class="panel jarvis">
+  <div class="core">F.A</div>
+  <h3 class="orbit">SYSTEM ONLINE</h3>
+  <p id="jarvisMessage">
+   Hello Alfigo. Personal interface is ready.
+  </p>
+  <div class="jarvis-controls">
+   <button class="btn" id="speakButton">ACTIVATE VOICE</button>
+   <button class="btn" id="cameraStartButton">HAND CONTROL</button>
+   <button class="btn" id="topButton">BACK TO TOP</button>
+  </div>
+ </div>
 </section>
 
 <section class="section" id="contact">
  <div class="section-head">
-  <div class="eyebrow">06 // Connection</div>
+  <div class="eyebrow">06 / CONNECTION DATABASE</div>
   <h2>CONNECT WITH ME</h2>
-  <div class="line"></div>
+  <p>Find me on social media.</p>
  </div>
- <div class="social-grid">
-  <a class="social-card" href="https://www.instagram.com/a.figo19/" target="_blank" rel="noopener">
-   <div class="social-icon">IG</div>
-   <div><strong>INSTAGRAM</strong><small>@a.figo19</small></div>
-  </a>
-  <a class="social-card" href="https://www.tiktok.com/@fch4141" target="_blank" rel="noopener">
-   <div class="social-icon">TK</div>
-   <div><strong>TIKTOK</strong><small>@fch4141</small></div>
-  </a>
- </div>
- <div style="margin-top:65px">
-  <div class="eyebrow">END OF TRANSMISSION</div>
-  <h2>THANK YOU FOR VISITING</h2>
-  <button class="btn" id="backTop">BACK TO TOP ↑</button>
+ <div class="panel" style="max-width:700px;margin:auto;text-align:center">
+  <div class="socials">
+   <a class="btn" href="https://www.instagram.com/a.figo19/" target="_blank" rel="noopener">INSTAGRAM · @a.figo19</a>
+   <a class="btn" href="https://www.tiktok.com/@fch4141" target="_blank" rel="noopener">TIKTOK · @fch4141</a>
+  </div>
  </div>
 </section>
 </main>
-<footer>F.A PERSONAL UNIVERSE · ALL SYSTEMS ONLINE · 2026</footer>
+
+<footer>
+ <div class="eyebrow">F.A PERSONAL UNIVERSE</div>
+ Designed as a personal digital space.<br>
+ © <span id="year"></span> Fachriansyah Alfigo
+</footer>
 </div>
 
-<!-- JARVIS HUD -->
-<div id="hud">
- <div id="hudpanel">
-  <div class="status" id="gestureStatus">GESTURE SYSTEM READY</div>
-  <p id="gestureHelp">
-   OPEN PALM = SCROLL<br>
-   INDEX FINGER = POINTER<br>
-   PINCH = CLICK<br>
-   FIST = LOCK CONTROL
-  </p>
-  <button class="btn small" id="startHands">ACTIVATE HAND CONTROL</button>
-  <button class="btn small" id="stopHands">STOP CAMERA</button>
-  <video id="camera" autoplay playsinline muted></video>
+<!-- CAMERA CONTROL PANEL -->
+<div id="cameraPanel" class="hidden">
+ <video id="cameraVideo" autoplay playsinline muted></video>
+ <div id="cameraStatus">HAND SYSTEM STANDBY</div>
+ <div class="camera-buttons">
+  <button id="startHand">START</button>
+  <button id="stopHand">STOP</button>
  </div>
- <button class="hudbtn" id="jarvisBtn">✦ J.A.R.V.I.S</button>
 </div>
 
-<div id="gesturePointer"></div>
+<script type="module">
+"use strict";
 
-<script>
-/* ===============================
-   QR ACCESS - TANPA PIN
-================================ */
+/* ACCESS SYSTEM */
 const ACCESS_KEY="FA-JARVIS-ACCESS-ALFIGO-2026";
 const $=id=>document.getElementById(id);
 
-let qrGenerated=false;
 let qrScanner=null;
-let qrBusy=false;
+let qrReady=false;
+let accepted=false;
 
-$("showQR").onclick=()=>{
- const panel=$("phoneQrPanel");
+function enterWebsite(){
+ accepted=true;
+ $("accessScreen").style.display="none";
+ $("mainSite").style.display="block";
+ $("cameraPanel").classList.remove("hidden");
+ $("year").textContent=new Date().getFullYear();
+ showToast("ACCESS GRANTED");
+}
+
+$("qrButton").addEventListener("click",()=>{
+ const panel=$("qrPanel");
  panel.style.display=panel.style.display==="block"?"none":"block";
 
- if(!qrGenerated){
-  new QRCode($("phoneQrCode"),{
-   text:ACCESS_KEY,
-   width:230,
-   height:230,
-   colorDark:"#061426",
-   colorLight:"#ffffff",
+ if(panel.style.display==="block"&&!qrReady){
+  if(typeof QRCode==="undefined"){
+   $("accessStatus").textContent="QR LIBRARY NOT AVAILABLE";
+   return;
+  }
+  new QRCode($("qrCode"),{
+   text:ACCESS_KEY,width:230,height:230,
+   colorDark:"#061426",colorLight:"#ffffff",
    correctLevel:QRCode.CorrectLevel.H
   });
-  qrGenerated=true;
+  qrReady=true;
+  $("accessStatus").textContent="ACCESS QR READY";
  }
- $("gateStatus").textContent="ACCESS QR READY";
-};
+});
 
-$("startQR").onclick=async()=>{
+$("scannerButton").addEventListener("click",async()=>{
  try{
-  if(!window.Html5Qrcode)throw new Error("QR library belum termuat");
+  if(typeof Html5Qrcode==="undefined")
+   throw new Error("QR library belum tersedia.");
 
-  $("gateStatus").textContent="REQUESTING CAMERA...";
-
-  if(qrScanner){
-   await qrScanner.stop().catch(()=>{});
-   qrScanner.clear();
-  }
-
+  $("accessStatus").textContent="STARTING CAMERA...";
   qrScanner=new Html5Qrcode("reader");
   const cameras=await Html5Qrcode.getCameras();
-
-  if(!cameras.length)throw new Error("Kamera tidak ditemukan");
+  if(!cameras.length)throw new Error("Kamera tidak ditemukan.");
 
   const selected=cameras.find(c=>/back|environment/i.test(c.label))||cameras[0];
 
@@ -633,153 +519,152 @@ $("startQR").onclick=async()=>{
    selected.id,
    {fps:12,qrbox:{width:240,height:240}},
    async decoded=>{
-    if(qrBusy)return;
-
-    if(decoded.trim()===ACCESS_KEY){
-     qrBusy=true;
-     $("gateStatus").textContent="ACCESS GRANTED";
-     await qrScanner.stop().catch(()=>{});
-     $("gate").style.display="none";
-     $("site").style.display="block";
-     $("hud").style.display="flex";
-     window.scrollTo(0,0);
-    }else{
-     $("gateStatus").textContent="INVALID ACCESS QR";
+    if(accepted)return;
+    if(decoded.trim()!==ACCESS_KEY){
+     $("accessStatus").textContent="INVALID QR";
+     return;
     }
+    $("accessStatus").textContent="ACCESS GRANTED";
+    try{await qrScanner.stop()}catch(e){}
+    enterWebsite();
    }
   );
-
-  $("gateStatus").textContent="SCAN ACCESS QR NOW";
+  $("accessStatus").textContent="SCAN YOUR ACCESS QR";
  }catch(error){
-  $("gateStatus").textContent="CAMERA ERROR: "+error.message;
+  $("accessStatus").textContent="ERROR: "+error.message;
  }
-};
+});
 
-/* ===============================
-   WEBSITE CONTROLS
-================================ */
-$("themeToggle").onclick=()=>{
+/* THEME */
+$("themeButton").addEventListener("click",()=>{
  document.body.classList.toggle("light");
-};
-$("backTop").onclick=()=>{
- window.scrollTo({top:0,behavior:"smooth"});
-};
-$("jarvisBtn").onclick=()=>{
- $("hudpanel").classList.toggle("show");
-};
+ const light=document.body.classList.contains("light");
+ $("themeButton").textContent=light?"DARK MODE":"LIGHT MODE";
+});
 
-/* ===============================
-   JARVIS VOICE
-================================ */
-function speak(text){
+/* JARVIS VOICE */
+function speak(message){
  if(!("speechSynthesis" in window)){
-  $("jarvisMessage").textContent="Voice system is not supported by this browser.";
+  showToast("VOICE NOT SUPPORTED");
   return;
  }
  speechSynthesis.cancel();
- const utterance=new SpeechSynthesisUtterance(text);
+ const utterance=new SpeechSynthesisUtterance(message);
  utterance.lang="en-US";
  utterance.rate=.92;
  utterance.pitch=.88;
  speechSynthesis.speak(utterance);
- $("jarvisMessage").textContent=text;
 }
-$("voiceButton").onclick=()=>{
- speak("Welcome back, Alfigo. All systems are online. Your personal universe is ready.");
-};
+$("speakButton").addEventListener("click",()=>{
+ const message="Welcome back, Alfigo. Your personal universe is online. All systems are ready.";
+ $("jarvisMessage").textContent=message;
+ speak(message);
+});
 
-/* ===============================
-   PARTICLE BACKGROUND
-================================ */
-const particleCanvas=$("particles");
-const pctx=particleCanvas.getContext("2d");
-let particles=[];
+/* PAGE NAVIGATION */
+$("topButton").addEventListener("click",()=>{
+ window.scrollTo({top:0,behavior:"smooth"});
+});
 
-function resizeParticles(){
- particleCanvas.width=innerWidth*devicePixelRatio;
- particleCanvas.height=innerHeight*devicePixelRatio;
- particleCanvas.style.width=innerWidth+"px";
- particleCanvas.style.height=innerHeight+"px";
- pctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
- particles=Array.from({length:65},()=>({
-  x:Math.random()*innerWidth,
-  y:Math.random()*innerHeight,
-  r:Math.random()*1.8+.4,
-  speed:Math.random()*.35+.1
- }));
+/* TOAST */
+let toastTimer;
+function showToast(message){
+ const toast=$("toast");
+ toast.textContent=message;
+ toast.classList.add("show");
+ clearTimeout(toastTimer);
+ toastTimer=setTimeout(()=>toast.classList.remove("show"),1600);
 }
-function drawParticles(){
- pctx.clearRect(0,0,innerWidth,innerHeight);
- pctx.fillStyle="#42dcff";
- particles.forEach(p=>{
-  p.y-=p.speed;
-  if(p.y<0){p.y=innerHeight;p.x=Math.random()*innerWidth}
-  pctx.globalAlpha=.2+Math.random()*.4;
-  pctx.beginPath();
-  pctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-  pctx.fill();
- });
- pctx.globalAlpha=1;
- requestAnimationFrame(drawParticles);
-}
-addEventListener("resize",resizeParticles);
-resizeParticles();
-drawParticles();
 
-/* ===============================
-   HAND TRACKING
-================================ */
+/* HAND TRACKING */
+const video=$("cameraVideo");
 const pointer=$("gesturePointer");
-const video=$("camera");
+const cameraStatus=$("cameraStatus");
 
-let stream=null;
-let running=false;
-let landmarker=null;
+let handStream=null;
+let handLandmarker=null;
+let handRunning=false;
 let lastVideoTime=-1;
-let lastGesture="";
+let previousGesture="NONE";
 let lastY=null;
 let smoothY=null;
-let locked=false;
-let pointerMode=false;
 let lastClick=0;
-let hovered=null;
-
-function setGestureStatus(message){
- $("gestureStatus").textContent=message;
-}
+let hoveredElement=null;
+let pointerMode=false;
 
 function distance(a,b){
  return Math.hypot(a.x-b.x,a.y-b.y);
 }
 
 function fingerExtended(lm,tip,pip){
- return lm[tip].y<lm[pip].y-.018;
+ return lm[tip].y < lm[pip].y-.015;
 }
 
-function classify(lm){
+function classifyHand(lm){
  const fingers=[
   fingerExtended(lm,8,6),
   fingerExtended(lm,12,10),
   fingerExtended(lm,16,14),
   fingerExtended(lm,20,18)
  ];
+ const pinch=distance(lm[4],lm[8])<.055;
 
- if(distance(lm[4],lm[8])<.052)return "PINCH";
-
+ if(pinch)return "PINCH";
  const count=fingers.filter(Boolean).length;
-
  if(count===4)return "OPEN";
-
- if(fingers[0]&&!fingers[1]&&!fingers[2]&&!fingers[3]){
-  return "POINT";
- }
-
+ if(fingers[0]&&!fingers[1]&&!fingers[2]&&!fingers[3])return "POINT";
  if(count===0)return "FIST";
-
  return "MOVE";
 }
 
-/* SCROLL NAIK DAN TURUN */
+function hidePointer(){
+ pointer.classList.remove("active");
+ pointerMode=false;
+ if(hoveredElement){
+  hoveredElement.classList.remove("gesture-hover");
+  hoveredElement=null;
+ }
+}
+
+function movePointer(lm){
+ const px=(1-lm[8].x)*window.innerWidth;
+ const py=lm[8].y*window.innerHeight;
+
+ pointer.style.left=px+"px";
+ pointer.style.top=py+"px";
+ pointer.classList.add("active");
+ pointerMode=true;
+
+ const found=document.elementFromPoint(px,py);
+ const target=found?.closest(
+  "a,button,[role='button'],.gallery-card"
+ );
+
+ if(target!==hoveredElement){
+  if(hoveredElement)hoveredElement.classList.remove("gesture-hover");
+  hoveredElement=target;
+  if(hoveredElement)hoveredElement.classList.add("gesture-hover");
+ }
+}
+
+function clickPointer(){
+ const now=Date.now();
+ if(now-lastClick<600)return;
+ lastClick=now;
+
+ const x=parseFloat(pointer.style.left);
+ const y=parseFloat(pointer.style.top);
+ const target=document.elementFromPoint(x,y);
+ const clickable=target?.closest(
+  "a,button,[role='button'],.gallery-card"
+ );
+
+ if(clickable){
+  clickable.click();
+  showToast("GESTURE CLICK");
+ }
+}
+
 function scrollByHand(y){
  if(lastY===null){
   lastY=y;
@@ -787,188 +672,129 @@ function scrollByHand(y){
   return;
  }
 
- smoothY+=(y-smoothY)*.75;
-
+ smoothY+=(y-smoothY)*.55;
  const delta=lastY-smoothY;
  lastY=smoothY;
 
- if(Math.abs(delta)>.001){
-  window.scrollBy({
-   top:Math.max(-100,Math.min(100,delta*2600)),
-   behavior:"instant"
-  });
+ if(Math.abs(delta)>.0015){
+  const amount=Math.max(-48,Math.min(48,delta*1700));
+  window.scrollBy({top:amount,behavior:"auto"});
  }
 }
 
-function clearHover(){
- if(hovered)hovered.classList.remove("gesture-hover");
- hovered=null;
-}
-
-function movePointer(lm){
- const x=(1-lm[8].x)*innerWidth;
- const y=lm[8].y*innerHeight;
-
- pointer.style.left=x+"px";
- pointer.style.top=y+"px";
- pointer.classList.add("active");
-
- const el=document.elementFromPoint(x,y);
- const target=el&&el.closest(
-  'a,button,[role="button"],.card,[tabindex="0"]'
- );
-
- if(target!==hovered){
-  clearHover();
-  hovered=target;
-  if(hovered)hovered.classList.add("gesture-hover");
- }
-}
-
-function gestureClick(){
- if(Date.now()-lastClick<550)return;
- lastClick=Date.now();
-
- if(hovered&&document.contains(hovered)){
-  pointer.classList.add("clicking");
-  hovered.click();
-  setTimeout(()=>pointer.classList.remove("clicking"),180);
- }
-}
-
-function processGesture(gesture,lm){
- if(gesture==="FIST"){
-  locked=true;
-  pointerMode=false;
-  pointer.classList.remove("active");
-  clearHover();
-  lastY=null;
-  setGestureStatus("CONTROL LOCKED · OPEN PALM TO UNLOCK");
-  return;
- }
+function processHand(lm){
+ const gesture=classifyHand(lm);
 
  if(gesture==="OPEN"){
-  locked=false;
-  pointerMode=false;
-  pointer.classList.remove("active");
-  clearHover();
+  hidePointer();
+  cameraStatus.textContent="OPEN PALM / SCROLL MODE";
   scrollByHand(lm[9].y);
-  setGestureStatus("SCROLL MODE · MOVE HAND UP/DOWN");
-  lastGesture=gesture;
-  return;
- }
-
- if(locked)return;
-
- if(gesture==="POINT"){
-  pointerMode=true;
+  lastY=lm[9].y;
+ }else if(gesture==="POINT"){
+  lastY=null;
   movePointer(lm);
-  setGestureStatus("POINTING MODE · PINCH TO CLICK");
- }
-
- else if(gesture==="PINCH"){
-  if(pointerMode&&lastGesture==="POINT"){
-   gestureClick();
-   setGestureStatus("CLICK EXECUTED");
-  }else{
-   setGestureStatus("SCROLL PAUSED");
+  cameraStatus.textContent="POINTING / MOVE TO SELECT";
+ }else if(gesture==="PINCH"){
+  cameraStatus.textContent="PINCH / CLICK";
+  if(previousGesture==="POINT"&&pointerMode){
+   clickPointer();
   }
+ }else if(gesture==="FIST"){
+  hidePointer();
+  lastY=null;
+  cameraStatus.textContent="FIST / CONTROL PAUSED";
+ }else{
+  lastY=null;
+  cameraStatus.textContent="HAND DETECTED / READY";
  }
 
- else{
-  setGestureStatus("HAND DETECTED");
- }
-
- lastGesture=gesture;
+ previousGesture=gesture;
 }
 
-/* CAMERA START */
 async function startHandControl(){
  try{
-  setGestureStatus("LOADING JARVIS VISION...");
+  if(handRunning)return;
 
-  const mp=await import(
+  cameraStatus.textContent="LOADING HAND TRACKING...";
+  const vision=await import(
    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14"
   );
 
-  const vision=await mp.FilesetResolver.forVisionTasks(
+  const fileset=await vision.FilesetResolver.forVisionTasks(
    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
   );
 
-  landmarker=await mp.HandLandmarker.createFromOptions(vision,{
+  handLandmarker=await vision.HandLandmarker.createFromOptions(fileset,{
    baseOptions:{
-    modelAssetPath:"https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+    modelAssetPath:
+    "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
     delegate:"GPU"
    },
    runningMode:"VIDEO",
    numHands:1
   });
 
-  stream=await navigator.mediaDevices.getUserMedia({
-   video:{facingMode:"user",width:640,height:480},
+  handStream=await navigator.mediaDevices.getUserMedia({
+   video:{facingMode:"user",width:{ideal:1280},height:{ideal:720}},
    audio:false
   });
 
-  video.srcObject=stream;
-  video.style.display="block";
+  video.srcObject=handStream;
   await video.play();
 
-  running=true;
-  lastVideoTime=-1;
-  setGestureStatus("JARVIS HAND CONTROL ONLINE");
-  requestAnimationFrame(handLoop);
-
+  handRunning=true;
+  cameraStatus.textContent="HAND CONTROL ONLINE";
+  detectHands();
  }catch(error){
-  setGestureStatus("CAMERA ERROR · "+error.message);
+  cameraStatus.textContent="CAMERA ERROR: "+error.message;
+  stopHandControl();
  }
 }
 
-function handLoop(){
- if(!running)return;
+function detectHands(){
+ if(!handRunning||!handLandmarker)return;
 
  if(video.readyState>=2&&video.currentTime!==lastVideoTime){
   lastVideoTime=video.currentTime;
-
-  const result=landmarker.detectForVideo(
-   video,performance.now()
-  );
+  const result=handLandmarker.detectForVideo(video,performance.now());
 
   if(result.landmarks&&result.landmarks.length){
-   processGesture(classify(result.landmarks[0]),result.landmarks[0]);
+   processHand(result.landmarks[0]);
   }else{
-   setGestureStatus("SHOW ONE HAND TO CAMERA");
+   cameraStatus.textContent="SHOW YOUR HAND TO CAMERA";
+   hidePointer();
    lastY=null;
+   previousGesture="NONE";
   }
  }
-
- requestAnimationFrame(handLoop);
+ requestAnimationFrame(detectHands);
 }
 
 function stopHandControl(){
- running=false;
-
- if(stream){
-  stream.getTracks().forEach(track=>track.stop());
-  stream=null;
+ handRunning=false;
+ if(handStream){
+  handStream.getTracks().forEach(track=>track.stop());
+  handStream=null;
  }
-
  video.srcObject=null;
- video.style.display="none";
- pointer.classList.remove("active");
- clearHover();
-
+ hidePointer();
  lastY=null;
- lastGesture="";
- pointerMode=false;
- setGestureStatus("CAMERA STOPPED");
+ previousGesture="NONE";
+ cameraStatus.textContent="HAND SYSTEM STOPPED";
 }
 
-$("startHands").onclick=startHandControl;
-$("stopHands").onclick=stopHandControl;
+$("startHand").addEventListener("click",startHandControl);
+$("stopHand").addEventListener("click",stopHandControl);
+$("cameraStartButton").addEventListener("click",()=>{
+ $("cameraPanel").classList.remove("hidden");
+ startHandControl();
+});
 
-addEventListener("pagehide",()=>{
+window.addEventListener("pagehide",()=>{
  stopHandControl();
- if(qrScanner)qrScanner.stop().catch(()=>{});
+ if(qrScanner){
+  try{qrScanner.stop()}catch(e){}
+ }
 });
 </script>
 </body>
