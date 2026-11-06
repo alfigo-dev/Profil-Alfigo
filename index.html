@@ -13,13 +13,13 @@
 
 <style>
 :root{
- --bg:#050b18;
- --blue:#25c8ff;
- --cyan:#8cecff;
- --white:#eafaff;
- --muted:#91adbf;
- --line:rgba(66,205,255,.25);
- --glass:rgba(9,28,51,.72)
+  --bg:#050b18;
+  --blue:#25c8ff;
+  --cyan:#8cecff;
+  --white:#eafaff;
+  --muted:#91adbf;
+  --line:rgba(66,205,255,.25);
+  --glass:rgba(9,28,51,.72)
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -30,14 +30,8 @@ body{
  overflow-x:hidden
 }
 body::before{
- content:"";
- position:fixed;
- inset:0;
- pointer-events:none;
- z-index:0;
- opacity:.12;
- background-image:
- linear-gradient(rgba(90,200,255,.13) 1px,transparent 1px),
+ content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.12;
+ background-image:linear-gradient(rgba(90,200,255,.13) 1px,transparent 1px),
  linear-gradient(90deg,rgba(90,200,255,.13) 1px,transparent 1px);
  background-size:48px 48px
 }
@@ -52,70 +46,40 @@ section{position:relative;padding:100px 0;z-index:1}
 .glow-text{color:var(--cyan);text-shadow:0 0 15px rgba(37,200,255,.65)}
 .hidden{display:none!important}
 
-/* SECRET GATE */
+/* SECRET ROOM */
 #gate{
- position:fixed;
- inset:0;
- z-index:9999;
- display:flex;
- align-items:center;
- justify-content:center;
- padding:24px;
- overflow:hidden;
- background:radial-gradient(ellipse at 50% 40%,rgba(0,145,230,.22),transparent 48%),linear-gradient(145deg,#030914,#071a30 55%,#020812);
+ position:fixed;inset:0;z-index:9999;display:flex;align-items:center;
+ justify-content:center;padding:24px;overflow:hidden;
+ background:radial-gradient(ellipse at 50% 40%,rgba(0,145,230,.22),transparent 48%),
+ linear-gradient(145deg,#030914,#071a30 55%,#020812);
  transition:opacity .8s,visibility .8s
 }
 #gate::before{
- content:"";
- position:absolute;
- inset:0;
- pointer-events:none;
- background:
- linear-gradient(rgba(68,197,255,.08) 1px,transparent 1px),
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:linear-gradient(rgba(68,197,255,.08) 1px,transparent 1px),
  linear-gradient(90deg,rgba(68,197,255,.08) 1px,transparent 1px);
- background-size:38px 38px
+ background-size:38px 38px;
+ mask-image:radial-gradient(ellipse at center,black,transparent 85%)
 }
 .gate-scan{
- position:absolute;
- left:0;
- right:0;
- height:2px;
- top:0;
+ position:absolute;left:0;right:0;height:2px;top:0;
  background:linear-gradient(90deg,transparent,#31d8ff,transparent);
- box-shadow:0 0 22px #25c8ff;
- opacity:.7;
- animation:scan 5s linear infinite
+ box-shadow:0 0 22px #25c8ff;opacity:.7;animation:scan 5s linear infinite
 }
 .gate-content{
- width:min(420px,100%);
- position:relative;
- z-index:2;
- text-align:center;
- padding:36px 25px;
+ width:min(420px,100%);position:relative;z-index:2;text-align:center;padding:36px 25px;
  border:1px solid rgba(69,207,255,.35);
  background:linear-gradient(145deg,rgba(8,35,61,.88),rgba(3,13,27,.9));
- border-radius:17px;
- box-shadow:0 0 55px rgba(0,150,255,.15),inset 0 0 35px rgba(0,150,255,.06)
+ border-radius:17px;box-shadow:0 0 55px rgba(0,150,255,.15),inset 0 0 35px rgba(0,150,255,.06)
 }
 .gate-emblem{
- width:85px;
- height:85px;
- margin:0 auto 24px;
- border:1px solid rgba(93,220,255,.7);
- border-radius:50%;
- display:grid;
- place-items:center;
- color:var(--cyan);
- font:800 27px Orbitron;
- text-shadow:0 0 18px var(--blue);
- box-shadow:0 0 30px rgba(37,200,255,.2),inset 0 0 25px rgba(37,200,255,.12);
- position:relative
+ width:85px;height:85px;margin:0 auto 24px;border:1px solid rgba(93,220,255,.7);
+ border-radius:50%;display:grid;place-items:center;color:var(--cyan);
+ font:800 27px Orbitron;text-shadow:0 0 18px var(--blue);
+ box-shadow:0 0 30px rgba(37,200,255,.2),inset 0 0 25px rgba(37,200,255,.12);position:relative
 }
 .gate-emblem::before,.gate-emblem::after{
- content:"";
- position:absolute;
- border:1px dashed rgba(88,220,255,.4);
- border-radius:50%
+ content:"";position:absolute;border:1px dashed rgba(88,220,255,.4);border-radius:50%
 }
 .gate-emblem::before{inset:-9px;animation:spin 15s linear infinite}
 .gate-emblem::after{inset:-17px;border-style:solid;opacity:.35}
@@ -129,13 +93,8 @@ section{position:relative;padding:100px 0;z-index:1}
 .pin-dot.filled{background:var(--cyan);box-shadow:0 0 14px var(--blue)}
 .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:270px;margin:auto}
 .key{
- min-height:53px;
- border:1px solid rgba(80,197,255,.25);
- background:rgba(16,66,100,.25);
- color:#e7faff;
- border-radius:8px;
- font:600 17px Orbitron;
- transition:.2s
+ min-height:53px;border:1px solid rgba(80,197,255,.25);background:rgba(16,66,100,.25);
+ color:#e7faff;border-radius:8px;font:600 17px Orbitron;transition:.2s
 }
 .key:hover{background:rgba(27,145,200,.3);border-color:var(--blue)}
 .key.utility{font-size:10px;color:var(--cyan)}
@@ -147,50 +106,26 @@ section{position:relative;padding:100px 0;z-index:1}
 #gate.verifying .gate-content{animation:verifyPulse .8s infinite alternate}
 #gate.leaving{opacity:0;visibility:hidden;pointer-events:none}
 .access-granted,.terminal-screen{
- position:absolute;
- inset:0;
- z-index:5;
- display:flex;
- align-items:center;
- justify-content:center;
- flex-direction:column;
- gap:15px;
- background:rgba(3,15,28,.97);
- opacity:0;
- visibility:hidden;
- transition:.5s
+ position:absolute;inset:0;z-index:5;display:flex;align-items:center;
+ justify-content:center;flex-direction:column;gap:15px;
+ background:rgba(3,15,28,.97);opacity:0;visibility:hidden;transition:.5s
 }
 .access-granted.show,.terminal-screen.show{opacity:1;visibility:visible}
 .access-granted .check{
- width:80px;
- height:80px;
- border:2px solid #61ffc0;
- border-radius:50%;
- display:grid;
- place-items:center;
- color:#61ffc0;
- font-size:37px
+ width:80px;height:80px;border:2px solid #61ffc0;border-radius:50%;
+ display:grid;place-items:center;color:#61ffc0;font-size:37px
 }
 .access-granted strong{font:700 20px Orbitron;color:#80ffd0}
 .access-granted small{font:10px Orbitron;color:#8cb7c9;letter-spacing:3px}
 .terminal-screen{z-index:8;padding:22px}
 .terminal-window{
- width:min(650px,100%);
- border:1px solid rgba(65,205,255,.48);
+ width:min(650px,100%);border:1px solid rgba(65,205,255,.48);
  background:linear-gradient(145deg,rgba(5,23,42,.98),rgba(1,9,20,.98));
- border-radius:12px;
- overflow:hidden;
- box-shadow:0 0 45px rgba(0,160,255,.2)
+ border-radius:12px;overflow:hidden;box-shadow:0 0 45px rgba(0,160,255,.2)
 }
 .terminal-top,.terminal-footer{
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:10px;
- padding:14px 17px;
- border-bottom:1px solid rgba(65,205,255,.25);
- font:10px Orbitron;
- letter-spacing:1.5px
+ display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 17px;
+ border-bottom:1px solid rgba(65,205,255,.25);font:10px Orbitron;letter-spacing:1.5px
 }
 .terminal-brand{font-weight:700;color:var(--cyan)}
 .terminal-lights{display:flex;gap:6px}
@@ -208,15 +143,8 @@ section{position:relative;padding:100px 0;z-index:1}
 
 /* NAV */
 nav{
- position:fixed;
- top:0;
- left:0;
- width:100%;
- z-index:100;
- padding:18px 0;
- background:rgba(4,12,25,.75);
- backdrop-filter:blur(18px);
- border-bottom:1px solid rgba(65,200,255,.13)
+ position:fixed;top:0;left:0;width:100%;z-index:100;padding:18px 0;
+ background:rgba(4,12,25,.75);backdrop-filter:blur(18px);border-bottom:1px solid rgba(65,200,255,.13)
 }
 .nav-inner{width:min(1120px,90%);margin:auto;display:flex;align-items:center;justify-content:space-between}
 .logo{font:800 19px Orbitron;letter-spacing:2px}
@@ -230,16 +158,8 @@ nav{
 .hero{min-height:100vh;display:flex;align-items:center;padding-top:120px;overflow:hidden}
 .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
 .eyebrow{
- display:inline-flex;
- align-items:center;
- gap:10px;
- border:1px solid var(--line);
- padding:9px 14px;
- border-radius:30px;
- color:var(--cyan);
- font-size:10px;
- letter-spacing:2px;
- margin-bottom:25px
+ display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);
+ padding:9px 14px;border-radius:30px;color:var(--cyan);font-size:10px;letter-spacing:2px;margin-bottom:25px
 }
 .status-dot{width:7px;height:7px;border-radius:50%;background:#35e6ff;box-shadow:0 0 12px #35e6ff;animation:pulse 1.5s infinite}
 .hero h1{font:700 clamp(35px,6vw,68px)/1.15 Orbitron;letter-spacing:-2px}
@@ -247,45 +167,25 @@ nav{
 .hero-subtitle{color:#9cb9ca;margin-top:23px;line-height:1.9;font-size:14px;max-width:510px}
 .hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:32px}
 .btn{
- display:inline-flex;
- justify-content:center;
- align-items:center;
- gap:10px;
- padding:14px 21px;
- border-radius:7px;
- font-size:10px;
- letter-spacing:1.5px;
- font-weight:700;
- transition:.25s;
- border:1px solid var(--blue)
+ display:inline-flex;justify-content:center;align-items:center;gap:10px;padding:14px 21px;
+ border-radius:7px;font-size:10px;letter-spacing:1.5px;font-weight:700;
+ transition:.25s;border:1px solid var(--blue)
 }
 .btn-primary{background:var(--blue);color:#03101d;box-shadow:0 0 25px rgba(37,200,255,.24)}
 .btn-outline{color:var(--cyan);background:transparent}
 .btn:hover{transform:translateY(-3px);box-shadow:0 0 25px rgba(37,200,255,.4)}
 .hero-visual{min-height:450px;display:flex;align-items:center;justify-content:center;position:relative;perspective:1000px}
 .holo-ring{
- position:absolute;
- width:min(390px,85vw);
- aspect-ratio:1;
- border:1px solid rgba(53,207,255,.32);
- border-radius:50%;
- box-shadow:0 0 50px rgba(0,155,255,.12);
- animation:spin 20s linear infinite
+ position:absolute;width:min(390px,85vw);aspect-ratio:1;border:1px solid rgba(53,207,255,.32);
+ border-radius:50%;box-shadow:0 0 50px rgba(0,155,255,.12);animation:spin 20s linear infinite
 }
 .holo-ring::before,.holo-ring::after{content:"";position:absolute;inset:18px;border:1px dashed rgba(73,215,255,.35);border-radius:50%}
 .holo-ring::after{inset:42px;border-style:solid}
 .profile-frame{
- width:250px;
- height:330px;
- position:relative;
- z-index:2;
- transform-style:preserve-3d;
- transition:transform .15s ease-out;
- border-radius:18px;
- border:1px solid rgba(92,220,255,.65);
+ width:250px;height:330px;position:relative;z-index:2;transform-style:preserve-3d;
+ transition:transform .15s ease-out;border-radius:18px;border:1px solid rgba(92,220,255,.65);
  background:linear-gradient(145deg,rgba(37,200,255,.15),rgba(5,15,35,.85));
- box-shadow:0 0 40px rgba(0,174,255,.22);
- overflow:hidden
+ box-shadow:0 0 40px rgba(0,174,255,.22);overflow:hidden
 }
 .profile-frame img{width:100%;height:100%;object-fit:cover;display:block}
 .visual-tag{position:absolute;z-index:3;padding:10px 13px;background:rgba(4,20,38,.9);border:1px solid var(--line);border-radius:7px;color:var(--cyan);font:9px Orbitron;letter-spacing:1px}
@@ -299,14 +199,9 @@ nav{
 /* ABOUT */
 .about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:55px;align-items:center}
 .about-visual{
- min-height:330px;
- border:1px solid var(--line);
- border-radius:15px;
+ min-height:330px;border:1px solid var(--line);border-radius:15px;
  background:radial-gradient(circle,rgba(28,160,230,.2),transparent 65%),rgba(8,24,43,.65);
- display:flex;
- align-items:center;
- justify-content:center;
- overflow:hidden
+ display:flex;align-items:center;justify-content:center;overflow:hidden
 }
 .about-orbit{width:210px;height:210px;border:1px solid rgba(70,210,255,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
 .about-orbit::before{content:"";position:absolute;width:155px;height:155px;border:1px dashed rgba(70,210,255,.4);border-radius:50%;animation:spin 12s linear infinite}
@@ -357,15 +252,12 @@ nav{
 .interest-card h3{font:12px Orbitron;margin-bottom:10px}
 .interest-card p{color:#91adbf;font-size:11px;line-height:1.8}
 
-/* JARVIS HOLOGRAM */
+/* JARVIS */
 .core-section{overflow:hidden;background:radial-gradient(ellipse at center,rgba(0,130,210,.16),transparent 65%)}
 .core-heading{text-align:center}
 .jarvis-shell{
- margin:45px auto 0;
- max-width:950px;
- padding:20px;
- border:1px solid rgba(65,205,255,.35);
- border-radius:16px;
+ margin:45px auto 0;max-width:950px;padding:20px;
+ border:1px solid rgba(65,205,255,.35);border-radius:16px;
  background:linear-gradient(145deg,rgba(7,30,52,.88),rgba(2,12,25,.94));
  box-shadow:0 0 45px rgba(0,145,255,.12),inset 0 0 35px rgba(0,140,220,.05)
 }
@@ -373,49 +265,27 @@ nav{
 .jarvis-brand{font:700 12px Orbitron;letter-spacing:2px;color:var(--cyan)}
 .jarvis-live{font:9px Orbitron;letter-spacing:1.5px;color:#72ffc1}
 .jarvis-live::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#58ffb4;margin-right:8px;box-shadow:0 0 10px #58ffb4}
-.jarvis-grid{display:grid;grid-template-columns:1fr;gap:18px;padding-top:18px}
+.jarvis-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;padding-top:18px}
 .holo-display{
- min-height:400px;
- position:relative;
- overflow:hidden;
- border:1px solid rgba(65,205,255,.25);
- border-radius:12px;
- background:radial-gradient(circle at center,rgba(0,145,220,.2),transparent 58%),rgba(1,12,26,.7);
- display:flex;
- align-items:center;
- justify-content:center;
- perspective:900px
+ min-height:370px;position:relative;overflow:hidden;border:1px solid rgba(65,205,255,.25);
+ border-radius:12px;background:radial-gradient(circle at center,rgba(0,145,220,.2),transparent 58%),rgba(1,12,26,.7);
+ display:flex;align-items:center;justify-content:center;perspective:900px
 }
 .holo-display::before{
- content:"";
- position:absolute;
- inset:0;
- pointer-events:none;
- opacity:.25;
- background:
- linear-gradient(rgba(75,205,255,.1) 1px,transparent 1px),
- linear-gradient(90deg,rgba(75,205,255,.1) 1px,transparent 1px);
+ content:"";position:absolute;inset:0;pointer-events:none;opacity:.25;
+ background:linear-gradient(rgba(75,205,255,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(75,205,255,.1) 1px,transparent 1px);
  background-size:25px 25px
 }
 .holo-display.hud-active{box-shadow:inset 0 0 35px rgba(37,200,255,.18)}
 .holo-object{
- width:170px;
- height:170px;
- position:relative;
- z-index:2;
- border-radius:50%;
+ width:170px;height:170px;position:relative;z-index:2;border-radius:50%;
  transform-style:preserve-3d;
- transition:transform .7s ease;
  background:radial-gradient(circle at 30% 25%,#eaffff 0%,#7cecff 10%,#168bc9 38%,#05264b 72%,#010918 100%);
  box-shadow:0 0 30px #25c8ff,0 0 85px rgba(0,165,255,.5),inset -20px -20px 35px #020b1a;
- animation:coreGlow 3s ease-in-out infinite alternate
+ animation:coreFloat 5s ease-in-out infinite,coreGlow 3s ease-in-out infinite alternate
 }
 .holo-object::before,.holo-object::after{
- content:"";
- position:absolute;
- inset:-17px;
- border:1px solid rgba(95,225,255,.6);
- border-radius:50%;
+ content:"";position:absolute;inset:-17px;border:1px solid rgba(95,225,255,.6);border-radius:50%;
  box-shadow:0 0 25px rgba(37,200,255,.2)
 }
 .holo-object::after{inset:-38px;border-style:dashed;opacity:.6}
@@ -431,21 +301,17 @@ nav{
 .holo-label{position:absolute;z-index:4;bottom:17px;left:0;right:0;text-align:center;font:9px Orbitron;letter-spacing:3px;color:var(--cyan)}
 .holo-coordinates{position:absolute;top:15px;left:15px;z-index:4;color:#65b9d5;font:8px/1.8 Orbitron;letter-spacing:1px}
 .holo-coordinates.right{left:auto;right:15px;text-align:right}
-.jarvis-side{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.gesture-status{padding:13px;border:1px solid var(--line);border-radius:9px;background:rgba(5,26,45,.7)}
-.gesture-status small{display:block;color:#6c9eb7;font:8px Orbitron;letter-spacing:2px;margin-bottom:7px}
-.gesture-status strong{font:11px Orbitron;color:var(--cyan)}
+.jarvis-side{display:flex;flex-direction:column;gap:12px}
+.system-card{padding:16px;border:1px solid var(--line);border-radius:10px;background:rgba(5,26,45,.7)}
+.system-card small{display:block;color:#6c9eb7;font:8px Orbitron;letter-spacing:2px;margin-bottom:8px}
+.system-card strong{font:11px Orbitron;color:var(--cyan)}
 .jarvis-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .jarvis-btn{
- padding:12px 8px;
- border:1px solid rgba(65,205,255,.4);
- border-radius:7px;
- background:rgba(13,75,110,.35);
- color:var(--cyan);
- font:9px Orbitron;
- letter-spacing:.7px
+ padding:12px 8px;border:1px solid rgba(65,205,255,.4);border-radius:7px;
+ background:rgba(13,75,110,.35);color:var(--cyan);font:9px Orbitron;letter-spacing:.7px
 }
 .jarvis-btn.primary{background:#159dcc;color:#03101d;border-color:#5ee2ff}
+.jarvis-btn:hover{box-shadow:0 0 18px rgba(37,200,255,.3);transform:translateY(-2px)}
 .log-panel{margin-top:17px;border:1px solid rgba(65,205,255,.2);border-radius:9px;background:rgba(1,10,22,.8);padding:13px}
 .log-title{font:9px Orbitron;letter-spacing:2px;color:var(--cyan);margin-bottom:9px}
 #jarvisLog{font:10px/1.8 "Courier New",monospace;color:#83cce4;max-height:105px;overflow:auto}
@@ -467,30 +333,11 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 @keyframes verifyPulse{from{box-shadow:0 0 30px rgba(37,200,255,.12)}to{box-shadow:0 0 70px rgba(37,200,255,.4)}}
 @keyframes blink{to{visibility:hidden}}
-@keyframes coreGlow{
- from{
-  box-shadow:0 0 30px #25c8ff,0 0 85px rgba(0,165,255,.5),inset -20px -20px 35px #020b1a;
- }
- to{
-  box-shadow:0 0 45px #25c8ff,0 0 110px rgba(0,165,255,.75),inset -20px -20px 35px #020b1a;
- }
-}
+@keyframes coreFloat{0%,100%{transform:translateY(0) rotateY(0deg)}50%{transform:translateY(-12px) rotateY(12deg)}}
+@keyframes coreGlow{from{filter:brightness(.9)}to{filter:brightness(1.25)}}
 
 @media(max-width:800px){
- .nav-links{
-  position:absolute;
-  top:70px;
-  left:5%;
-  width:90%;
-  display:none;
-  flex-direction:column;
-  align-items:stretch;
-  gap:0;
-  padding:12px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:rgba(4,15,30,.97)
- }
+ .nav-links{position:absolute;top:70px;left:5%;width:90%;display:none;flex-direction:column;align-items:stretch;gap:0;padding:12px;border:1px solid var(--line);border-radius:12px;background:rgba(4,15,30,.97)}
  .nav-links.open{display:flex}
  .nav-links a{padding:14px}
  .menu-btn{display:block}
@@ -505,6 +352,7 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
  .about-grid{grid-template-columns:1fr;gap:30px}
  .about-visual{min-height:280px}
  .interest-grid{grid-template-columns:1fr 1fr}
+ .jarvis-grid{grid-template-columns:1fr}
  .holo-display{min-height:340px}
 }
 @media(max-width:520px){
@@ -527,7 +375,6 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
  .holo-display{min-height:310px}
  .holo-radar{width:230px;height:230px}
  .holo-object{width:135px;height:135px}
- .jarvis-side{grid-template-columns:1fr}
  .terminal-body{min-height:250px;padding:18px 14px;font-size:10px}
  .section-title{font-size:27px}
 }
@@ -540,7 +387,6 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
 <!-- SECRET ROOM -->
 <div id="gate">
  <div class="gate-scan"></div>
-
  <div class="gate-content" id="gateContent">
   <div class="gate-emblem">F.A</div>
   <div class="gate-kicker">PRIVATE DIGITAL SPACE</div>
@@ -548,27 +394,22 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
   <div class="gate-subtitle">RESTRICTED ACCESS // F.A</div>
   <div class="gate-divider"></div>
   <div class="pin-label">ENTER YOUR PASSCODE</div>
-
   <div class="pin-display" id="pinDisplay">
    <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
    <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
   </div>
-
   <div class="keypad" id="keypad">
    <button class="key" data-num="1">1</button><button class="key" data-num="2">2</button><button class="key" data-num="3">3</button>
    <button class="key" data-num="4">4</button><button class="key" data-num="5">5</button><button class="key" data-num="6">6</button>
    <button class="key" data-num="7">7</button><button class="key" data-num="8">8</button><button class="key" data-num="9">9</button>
    <button class="key utility" data-action="clear">CLEAR</button><button class="key" data-num="0">0</button><button class="key utility" data-action="delete">⌫</button>
   </div>
-
   <div class="gate-status" id="gateStatus">AWAITING AUTHENTICATION...</div>
   <div class="gate-footer">IDENTITY VERIFICATION SYSTEM · F.A</div>
  </div>
 
  <div class="access-granted" id="accessGranted">
-  <div class="check">✓</div>
-  <strong>IDENTITY VERIFIED</strong>
-  <small>ACCESS GRANTED</small>
+  <div class="check">✓</div><strong>IDENTITY VERIFIED</strong><small>ACCESS GRANTED</small>
  </div>
 
  <div class="terminal-screen" id="terminalScreen">
@@ -577,13 +418,11 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
     <div class="terminal-brand">F.A // J.A.R.V.I.S SYSTEM</div>
     <div class="terminal-lights"><span></span><span></span><span></span></div>
    </div>
-
    <div class="terminal-body">
     <div class="terminal-heading">INITIALIZING PERSONAL UNIVERSE...</div>
     <div id="terminalLines"></div>
     <div class="terminal-line"><span class="prefix">SYSTEM &gt;</span> <span class="terminal-cursor"></span></div>
    </div>
-
    <div class="terminal-progress"><span id="terminalProgress"></span></div>
    <div class="terminal-footer"><span>JARVIS CORE ONLINE</span><span id="terminalPercent">0%</span></div>
   </div>
@@ -597,11 +436,9 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
 </div>
 
 <div id="mainWebsite" class="hidden">
-
 <nav>
  <div class="nav-inner">
   <a href="#home" class="logo">F<span>.</span>A</a>
-
   <div class="nav-links" id="navLinks">
    <a href="#home">HOME</a>
    <a href="#about">ABOUT</a>
@@ -610,38 +447,30 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
    <a href="#universe">JARVIS</a>
    <a href="#contact">CONTACT</a>
   </div>
-
   <button class="menu-btn" id="menuBtn">☰</button>
  </div>
 </nav>
 
 <main>
-
 <section class="hero" id="home">
  <div class="container hero-grid">
-
   <div class="hero-content reveal">
    <div class="eyebrow"><span class="status-dot"></span> PERSONAL UNIVERSE ONLINE</div>
    <h1>HELLO, I'M <span>FACHRIANSYAH.</span></h1>
    <p class="hero-subtitle">Welcome to my personal universe. A digital space that represents my journey, creativity, interests, and everything that makes me who I am.</p>
-
    <div class="hero-actions">
     <a href="#about" class="btn btn-primary">EXPLORE MY WORLD ↗</a>
     <a href="#story" class="btn btn-outline">MY JOURNEY</a>
    </div>
   </div>
-
   <div class="hero-visual reveal" id="heroVisual">
    <div class="holo-ring"></div>
    <div class="visual-tag tag-one">SYSTEM ACTIVE</div>
-
    <div class="profile-frame" id="profile3d">
     <img src="IMG-20261104-WA0009.jpg" alt="Foto profil Fachriansyah">
    </div>
-
    <div class="visual-tag tag-two">LEVEL: EVOLVING</div>
   </div>
-
  </div>
 </section>
 
@@ -656,19 +485,14 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
 
 <section id="about">
  <div class="container about-grid">
-
   <div class="about-visual reveal">
    <div class="about-orbit"><span>F.A</span></div>
   </div>
-
   <div class="about-content reveal">
    <div class="section-label">01 / ABOUT ME</div>
    <h2 class="section-title">MORE THAN JUST <span class="glow-text">A NAME.</span></h2>
-
    <p>I'm Fachriansyah Alfigo. Someone who believes that every experience has a story, every challenge brings a lesson, and every new day is an opportunity to become better.</p>
-
    <p>I'm interested in digital creativity, technology, multimedia, and discovering new things. This website is my own little universe — a place to express ideas and document my journey.</p>
-
    <div class="about-details">
     <div class="detail"><small>NAME</small><strong>Fachriansyah Alfigo</strong></div>
     <div class="detail"><small>FIELD</small><strong>Digital Multimedia</strong></div>
@@ -676,98 +500,52 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
     <div class="detail"><small>PHILOSOPHY</small><strong>Keep Growing</strong></div>
    </div>
   </div>
-
  </div>
 </section>
 
 <section class="story-section" id="story">
  <div class="container">
-
   <div class="story-header reveal">
    <div class="section-label">02 / MY STORY</div>
    <h2 class="section-title">THE JOURNEY <span class="glow-text">CONTINUES.</span></h2>
    <p class="section-desc">Every chapter has its own meaning. These are some of the things that shape my journey and the person I am becoming.</p>
   </div>
-
   <div class="story-timeline">
-   <div class="story-item reveal">
-    <div class="story-card">
-     <small>CHAPTER 01</small>
-     <h3>THE BEGINNING</h3>
-     <p>Every journey starts somewhere. This is where curiosity, dreams, and the desire to explore new possibilities begin.</p>
-    </div>
-   </div>
-
-   <div class="story-item reveal">
-    <div class="story-card">
-     <small>CHAPTER 02</small>
-     <h3>DISCOVERING MY PASSION</h3>
-     <p>Exploring technology, digital media, creativity, and learning how ideas can become something meaningful.</p>
-    </div>
-   </div>
-
-   <div class="story-item reveal">
-    <div class="story-card">
-     <small>CHAPTER 03</small>
-     <h3>LEARNING & GROWING</h3>
-     <p>Not everything goes perfectly. Every challenge becomes an opportunity to learn, improve, and move forward.</p>
-    </div>
-   </div>
-
-   <div class="story-item reveal">
-    <div class="story-card">
-     <small>CHAPTER 04</small>
-     <h3>THE NEXT CHAPTER</h3>
-     <p>The story is still being written. There are more things to discover, more goals to achieve, and more memories to create.</p>
-    </div>
-   </div>
+   <div class="story-item reveal"><div class="story-card"><small>CHAPTER 01</small><h3>THE BEGINNING</h3><p>Every journey starts somewhere. This is where curiosity, dreams, and the desire to explore new possibilities begin.</p></div></div>
+   <div class="story-item reveal"><div class="story-card"><small>CHAPTER 02</small><h3>DISCOVERING MY PASSION</h3><p>Exploring technology, digital media, creativity, and learning how ideas can become something meaningful.</p></div></div>
+   <div class="story-item reveal"><div class="story-card"><small>CHAPTER 03</small><h3>LEARNING & GROWING</h3><p>Not everything goes perfectly. Every challenge becomes an opportunity to learn, improve, and move forward.</p></div></div>
+   <div class="story-item reveal"><div class="story-card"><small>CHAPTER 04</small><h3>THE NEXT CHAPTER</h3><p>The story is still being written. There are more things to discover, more goals to achieve, and more memories to create.</p></div></div>
   </div>
-
  </div>
 </section>
 
 <section class="archive-section" id="memories">
  <div class="container">
-
   <div class="archive-heading reveal">
    <div class="section-label">02.5 / MEMORY ARCHIVE</div>
    <h2 class="section-title">MOMENTS <span class="glow-text">TO REMEMBER.</span></h2>
    <p class="section-desc">A small collection of memories from my personal journey.</p>
   </div>
-
   <div class="archive-grid">
-
    <div class="archive-card reveal" data-image="IMG-20261104-WA0006.jpg">
     <img src="IMG-20261104-WA0006.jpg" alt="Memory Archive 01" loading="lazy">
-    <div class="archive-caption">
-     <small>MEMORY ARCHIVE 01</small>
-     <h3>A MOMENT IN TIME</h3>
-     <p class="archive-hint">Tap to explore this memory ↗</p>
-    </div>
+    <div class="archive-caption"><small>MEMORY ARCHIVE 01</small><h3>A MOMENT IN TIME</h3><p class="archive-hint">Tap to explore this memory ↗</p></div>
    </div>
-
    <div class="archive-card reveal" data-image="IMG-20261104-WA0011.jpg">
     <img src="IMG-20261104-WA0011.jpg" alt="Memory Archive 02" loading="lazy">
-    <div class="archive-caption">
-     <small>MEMORY ARCHIVE 02</small>
-     <h3>ANOTHER CHAPTER</h3>
-     <p class="archive-hint">Tap to explore this memory ↗</p>
-    </div>
+    <div class="archive-caption"><small>MEMORY ARCHIVE 02</small><h3>ANOTHER CHAPTER</h3><p class="archive-hint">Tap to explore this memory ↗</p></div>
    </div>
-
   </div>
  </div>
 </section>
 
 <section id="interests">
  <div class="container">
-
   <div class="reveal">
    <div class="section-label">03 / MY INTERESTS</div>
    <h2 class="section-title">THINGS THAT <span class="glow-text">INSPIRE ME.</span></h2>
    <p class="section-desc">A collection of interests that keep my curiosity alive and inspire me to explore more.</p>
   </div>
-
   <div class="interest-grid">
    <div class="interest-card reveal"><span class="interest-icon">✦</span><h3>TECHNOLOGY</h3><p>Exploring digital innovation, websites, and how technology changes the world.</p></div>
    <div class="interest-card reveal"><span class="interest-icon">◈</span><h3>CREATIVITY</h3><p>Turning ideas into visual experiences through design and digital media.</p></div>
@@ -776,71 +554,65 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
    <div class="interest-card reveal"><span class="interest-icon">◎</span><h3>EXPLORATION</h3><p>Discovering new places, experiences, and perspectives along the way.</p></div>
    <div class="interest-card reveal"><span class="interest-icon">∞</span><h3>PERSONAL GROWTH</h3><p>Learning from experiences and continuing to become a better version of myself.</p></div>
   </div>
-
  </div>
 </section>
 
-<!-- JARVIS HOLOGRAM -->
+<!-- JARVIS VISUAL INTERFACE -->
 <section class="core-section" id="universe">
  <div class="container">
-
   <div class="core-heading reveal">
    <div class="section-label">04 / F.A ADVANCED SYSTEM</div>
    <h2 class="section-title">J.A.R.V.I.S. <span class="glow-text">INTERFACE.</span></h2>
-   <p class="section-desc">An advanced holographic interface featuring a digital core, interactive visual effects, and J.A.R.V.I.S voice assistance.</p>
+   <p class="section-desc">A futuristic holographic interface with an animated digital core, visual system monitor, and J.A.R.V.I.S voice assistant.</p>
   </div>
 
   <div class="jarvis-shell reveal">
-
    <div class="jarvis-topbar">
     <div class="jarvis-brand">F.A // J.A.R.V.I.S CONTROL CENTER</div>
     <div class="jarvis-live" id="systemLive">SYSTEM ONLINE</div>
    </div>
 
    <div class="jarvis-grid">
-
     <div class="holo-display" id="holoDisplay">
      <div class="holo-coordinates">HOLO CORE<br>AXIS: X / Y / Z</div>
      <div class="holo-coordinates right">CORE STATUS<br><span id="trackingText">ONLINE</span></div>
-     <div class="holo-radar">
-      <div class="holo-sweep"></div>
-     </div>
+     <div class="holo-radar"><div class="holo-sweep"></div></div>
      <div class="holo-crosshair"></div>
      <div class="holo-object" id="holoObject"></div>
      <div class="holo-label" id="holoLabel">F.A DIGITAL CORE</div>
     </div>
 
     <div class="jarvis-side">
-
-     <div class="gesture-status">
-      <small>SYSTEM STATUS</small>
-      <strong id="gestureName">HOLOGRAM ONLINE</strong>
+     <div class="system-card">
+      <small>DETECTED SYSTEM</small>
+      <strong id="gestureName">VISUAL CORE ONLINE</strong>
      </div>
-
-     <div class="gesture-status">
+     <div class="system-card">
       <small>INTERFACE RESPONSE</small>
-      <strong id="responseText">SYSTEM READY</strong>
+      <strong id="responseText">ALL SYSTEMS NORMAL</strong>
      </div>
-
+     <div class="system-card">
+      <small>HOLOGRAM MODE</small>
+      <strong id="holoMode">AUTONOMOUS ANIMATION</strong>
+     </div>
      <div class="jarvis-actions">
       <button class="jarvis-btn" id="resetHolo">RESET HOLOGRAM</button>
       <button class="jarvis-btn primary" id="voiceTest">JARVIS VOICE</button>
+      <button class="jarvis-btn" id="hudToggle">TOGGLE HUD</button>
+      <button class="jarvis-btn" id="systemInfo">SYSTEM INFO</button>
      </div>
-
     </div>
    </div>
 
    <div class="log-panel">
     <div class="log-title">◈ J.A.R.V.I.S // LOCAL SYSTEM LOG</div>
     <div id="jarvisLog">
-     <div class="log-entry"><span>[SYSTEM]</span> Interface initialized. Hologram online.</div>
+     <div class="log-entry"><span>[SYSTEM]</span> Visual interface initialized.</div>
     </div>
    </div>
-
   </div>
 
-  <div class="core-status">● J.A.R.V.I.S CORE // VISUAL HOLOGRAM ONLINE // VOICE SYSTEM READY</div>
-
+  <div class="core-status">● JARVIS CORE // VISUAL SYSTEM ONLINE // AUTONOMOUS MODE</div>
  </div>
 </section>
 
@@ -850,7 +622,6 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
    <div class="section-label">05 / CONTACT</div>
    <h2 class="section-title">LET'S CONNECT.</h2>
    <p class="section-desc">Every connection can lead to a new story. Feel free to reach out and say hello.</p>
-
    <div class="contact-links">
     <a href="#" class="btn btn-primary">INSTAGRAM ↗</a>
     <a href="mailto:hello@example.com" class="btn btn-outline">EMAIL ME ↗</a>
@@ -858,93 +629,64 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
   </div>
  </div>
 </section>
-
 </main>
 
 <footer>
  <div class="container">© <span id="year"></span> F.A PERSONAL UNIVERSE — DESIGNED TO EVOLVE.</div>
 </footer>
-
 </div>
 
 <script>
-/* =========================================
-   F.A PERSONAL UNIVERSE
-   J.A.R.V.I.S VISUAL + VOICE SYSTEM
-   CAMERA AND HAND TRACKING REMOVED
-========================================= */
+const CORRECT_PIN="414141";
+let enteredPin="";
+let audioContext=null;
+let isProcessing=false;
+let jarvisHasSpoken=false;
 
-const $ = id => document.getElementById(id);
-const CORRECT_PIN = "414141";
+const $=id=>document.getElementById(id);
 
-let enteredPin = "";
-let isProcessing = false;
-let audioContext = null;
-let jarvisHasSpoken = false;
-let voiceEnabled = true;
+const gate=$("gate");
+const gateContent=$("gateContent");
+const gateStatus=$("gateStatus");
+const pinDots=document.querySelectorAll(".pin-dot");
+const accessGranted=$("accessGranted");
+const terminalScreen=$("terminalScreen");
+const terminalLines=$("terminalLines");
+const terminalProgress=$("terminalProgress");
+const terminalPercent=$("terminalPercent");
+const mainWebsite=$("mainWebsite");
 
-const gate = $("gate");
-const gateContent = $("gateContent");
-const gateStatus = $("gateStatus");
-const pinDots = document.querySelectorAll(".pin-dot");
-const accessGranted = $("accessGranted");
-const terminalScreen = $("terminalScreen");
-const terminalLines = $("terminalLines");
-const terminalProgress = $("terminalProgress");
-const terminalPercent = $("terminalPercent");
-const mainWebsite = $("mainWebsite");
-
-/* AUDIO SYSTEM */
-
-function unlockAudio(){
- try{
-  const AudioClass = window.AudioContext || window.webkitAudioContext;
-  if(!AudioClass)return;
-
-  if(!audioContext)audioContext = new AudioClass();
-
-  if(audioContext.state==="suspended"){
-   audioContext.resume();
-  }
-
-  if("speechSynthesis" in window){
-   speechSynthesis.getVoices();
-  }
- }catch(error){
-  console.warn("Audio unavailable:",error);
- }
+function updatePinDisplay(){
+ pinDots.forEach((dot,i)=>dot.classList.toggle("filled",i<enteredPin.length));
 }
 
-function playTone(freq,duration=.15,type="sine",volume=.05,delay=0){
+function playTone(freq,duration,type="sine",volume=.08,delay=0){
  try{
-  unlockAudio();
-  if(!audioContext)return;
+  const AudioClass=window.AudioContext||window.webkitAudioContext;
+  if(!AudioClass)return;
+  if(!audioContext)audioContext=new AudioClass();
+  if(audioContext.state==="suspended")audioContext.resume();
 
-  const start = audioContext.currentTime+delay;
-  const osc = audioContext.createOscillator();
-  const gain = audioContext.createGain();
+  const start=audioContext.currentTime+delay;
+  const osc=audioContext.createOscillator();
+  const gain=audioContext.createGain();
 
-  osc.type = type;
+  osc.type=type;
   osc.frequency.setValueAtTime(freq,start);
-
   gain.gain.setValueAtTime(.001,start);
-  gain.gain.exponentialRampToValueAtTime(volume,start+.025);
+  gain.gain.exponentialRampToValueAtTime(volume,start+.04);
   gain.gain.exponentialRampToValueAtTime(.001,start+duration);
 
   osc.connect(gain);
   gain.connect(audioContext.destination);
-
   osc.start(start);
-  osc.stop(start+duration+.04);
- }catch(error){
-  console.warn(error);
- }
+  osc.stop(start+duration+.03);
+ }catch(e){console.log(e)}
 }
 
 function playSuccessSound(){
- [440,554,659,880,1108].forEach((freq,index)=>{
-  playTone(freq,.55,"sine",.055,index*.1);
- });
+ [440,554,659,880,1108].forEach((f,i)=>playTone(f,.75,"sine",.07,i*.11));
+ playTone(110,.9,"triangle",.12);
 }
 
 function playDeniedSound(){
@@ -952,155 +694,11 @@ function playDeniedSound(){
  playTone(165,.32,"sawtooth",.06,.2);
 }
 
-function speak(text,priority=false){
- if(!voiceEnabled||!("speechSynthesis" in window))return;
-
- try{
-  if(priority){
-   speechSynthesis.cancel();
-  }else if(speechSynthesis.speaking){
-   return;
-  }
-
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = "en-US";
-  utterance.rate = .9;
-  utterance.pitch = .85;
-  utterance.volume = 1;
-
-  const voices = speechSynthesis.getVoices();
-
-  const selectedVoice =
-   voices.find(v=>v.lang==="en-US") ||
-   voices.find(v=>v.lang&&v.lang.startsWith("en"));
-
-  if(selectedVoice)utterance.voice = selectedVoice;
-
-  speechSynthesis.speak(utterance);
- }catch(error){
-  console.warn("Speech unavailable:",error);
- }
-}
-
-function speakWelcome(){
- if(jarvisHasSpoken)return;
-
- jarvisHasSpoken = true;
- speak("Welcome.",true);
-}
-
-/* PIN SYSTEM */
-
-function updatePinDisplay(){
- pinDots.forEach((dot,index)=>{
-  dot.classList.toggle("filled",index<enteredPin.length);
- });
-}
-
-function pressNumber(number){
- if(isProcessing||enteredPin.length>=6)return;
-
- unlockAudio();
- playTone(650,.06,"sine",.025);
-
- enteredPin += number;
- updatePinDisplay();
-
- if(enteredPin.length===6){
-  submitPin();
- }
-}
-
-async function submitPin(){
- if(enteredPin.length!==6||isProcessing)return;
-
- isProcessing = true;
-
- if(enteredPin===CORRECT_PIN){
-  gateStatus.textContent = "VERIFYING IDENTITY...";
-  gateStatus.className = "gate-status success";
-
-  gate.classList.add("verifying");
-  playSuccessSound();
-  speakWelcome();
-
-  await wait(650);
-
-  accessGranted.classList.add("show");
-  await wait(1100);
-
-  accessGranted.classList.remove("show");
-  gateContent.style.display = "none";
-  gate.classList.remove("verifying");
-
-  await runTerminal();
-
- }else{
-  gateStatus.textContent = "ACCESS DENIED — INVALID PASSCODE";
-  gateStatus.className = "gate-status error";
-
-  gateContent.classList.remove("shake");
-  void gateContent.offsetWidth;
-  gateContent.classList.add("shake");
-
-  playDeniedSound();
-
-  await wait(1100);
-
-  enteredPin = "";
-  updatePinDisplay();
-
-  gateStatus.textContent = "AWAITING AUTHENTICATION...";
-  gateStatus.className = "gate-status";
-
-  isProcessing = false;
- }
-}
-
-$("keypad").addEventListener("click",event=>{
- const button = event.target.closest("button");
-
- if(!button||isProcessing)return;
-
- if(button.dataset.num!==undefined){
-  pressNumber(button.dataset.num);
- }else if(button.dataset.action==="clear"){
-  enteredPin = "";
-  updatePinDisplay();
-  gateStatus.textContent = "PASSCODE CLEARED";
-  playTone(350);
- }else if(button.dataset.action==="delete"){
-  enteredPin = enteredPin.slice(0,-1);
-  updatePinDisplay();
-  playTone(350);
- }
-});
-
-document.addEventListener("keydown",event=>{
- if(gate.style.display==="none"||isProcessing)return;
-
- if(/^[0-9]$/.test(event.key)){
-  pressNumber(event.key);
- }
-
- if(event.key==="Backspace"){
-  enteredPin = enteredPin.slice(0,-1);
-  updatePinDisplay();
- }
-
- if(event.key==="Escape"){
-  enteredPin = "";
-  updatePinDisplay();
- }
-});
-
-/* TERMINAL */
-
 function wait(ms){
  return new Promise(resolve=>setTimeout(resolve,ms));
 }
 
-const terminalMessages = [
+const terminalMessages=[
  ["Authentication confirmed.","ok"],
  ["Initializing J.A.R.V.I.S interface...","normal"],
  ["Loading personal universe modules...","normal"],
@@ -1113,46 +711,64 @@ const terminalMessages = [
 ];
 
 async function runTerminal(){
- terminalLines.innerHTML = "";
- terminalProgress.style.width = "0%";
- terminalPercent.textContent = "0%";
-
+ terminalLines.innerHTML="";
+ terminalProgress.style.width="0%";
+ terminalPercent.textContent="0%";
  terminalScreen.classList.add("show");
 
  for(let i=0;i<terminalMessages.length;i++){
-  const [message,type] = terminalMessages[i];
+  const [message,type]=terminalMessages[i];
+  const line=document.createElement("div");
+  line.className="terminal-line";
 
-  const line = document.createElement("div");
-  line.className = "terminal-line";
+  const prefix=document.createElement("span");
+  prefix.className="prefix";
+  prefix.textContent="[ JARVIS ] ";
 
-  const prefix = document.createElement("span");
-  prefix.className = "prefix";
-  prefix.textContent = "[ JARVIS ] ";
+  const content=document.createElement("span");
+  content.textContent=message;
 
-  const content = document.createElement("span");
-  content.textContent = message;
-
-  if(type==="ok")content.className = "ok";
-  if(type==="warn")content.className = "warn";
+  if(type==="ok")content.className="ok";
+  if(type==="warn")content.className="warn";
 
   line.append(prefix,content);
   terminalLines.appendChild(line);
 
-  const percent = Math.round((i+1)/terminalMessages.length*100);
-
-  terminalProgress.style.width = percent+"%";
-  terminalPercent.textContent = percent+"%";
+  const percent=Math.round((i+1)/terminalMessages.length*100);
+  terminalProgress.style.width=percent+"%";
+  terminalPercent.textContent=percent+"%";
 
   playTone(700,.045,"sine",.018);
   await wait(420);
  }
 
- await wait(500);
-
+ await wait(400);
+ speakWelcome();
+ await wait(1200);
  terminalScreen.classList.remove("show");
  await wait(500);
-
  openWebsite();
+}
+
+function speakWelcome(){
+ if(jarvisHasSpoken)return;
+ jarvisHasSpoken=true;
+
+ if(!("speechSynthesis" in window))return;
+
+ try{
+  speechSynthesis.cancel();
+  const utterance=new SpeechSynthesisUtterance("Welcome");
+  utterance.lang="en-US";
+  utterance.rate=.88;
+  utterance.pitch=.85;
+  utterance.volume=1;
+
+  const voice=speechSynthesis.getVoices().find(v=>v.lang?.toLowerCase().startsWith("en"));
+  if(voice)utterance.voice=voice;
+
+  speechSynthesis.speak(utterance);
+ }catch(e){console.log(e)}
 }
 
 function openWebsite(){
@@ -1160,61 +776,128 @@ function openWebsite(){
  mainWebsite.classList.remove("hidden");
 
  setTimeout(()=>{
-  gate.style.display = "none";
-
-  document.querySelectorAll(".reveal").forEach(element=>{
-   observer.observe(element);
-  });
+  gate.style.display="none";
+  document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
  },850);
 }
 
-/* NAVIGATION */
+async function submitPin(){
+ if(enteredPin.length!==6||isProcessing)return;
+ isProcessing=true;
 
+ if(enteredPin===CORRECT_PIN){
+  gateStatus.textContent="VERIFYING IDENTITY...";
+  gateStatus.className="gate-status success";
+  gate.classList.add("verifying");
+  playSuccessSound();
+
+  await wait(650);
+  accessGranted.classList.add("show");
+  await wait(1100);
+
+  accessGranted.classList.remove("show");
+  gateContent.style.display="none";
+  gate.classList.remove("verifying");
+
+  await runTerminal();
+ }else{
+  gateStatus.textContent="ACCESS DENIED — INVALID PASSCODE";
+  gateStatus.className="gate-status error";
+
+  gateContent.classList.remove("shake");
+  void gateContent.offsetWidth;
+  gateContent.classList.add("shake");
+
+  playDeniedSound();
+  await wait(1100);
+
+  enteredPin="";
+  updatePinDisplay();
+
+  gateStatus.textContent="AWAITING AUTHENTICATION...";
+  gateStatus.className="gate-status";
+  isProcessing=false;
+ }
+}
+
+function pressNumber(n){
+ if(isProcessing||enteredPin.length>=6)return;
+ enteredPin+=n;
+ updatePinDisplay();
+ if(enteredPin.length===6)setTimeout(submitPin,180);
+}
+
+$("keypad").addEventListener("click",e=>{
+ const b=e.target.closest("button");
+ if(!b||isProcessing)return;
+
+ if(b.dataset.num!==undefined){
+  pressNumber(b.dataset.num);
+ }else if(b.dataset.action==="clear"){
+  enteredPin="";
+  updatePinDisplay();
+  gateStatus.textContent="PASSCODE CLEARED";
+ }else if(b.dataset.action==="delete"){
+  enteredPin=enteredPin.slice(0,-1);
+  updatePinDisplay();
+ }
+});
+
+document.addEventListener("keydown",e=>{
+ if(gate.style.display==="none"||isProcessing)return;
+
+ if(/^[0-9]$/.test(e.key)){
+  pressNumber(e.key);
+ }else if(e.key==="Backspace"){
+  enteredPin=enteredPin.slice(0,-1);
+  updatePinDisplay();
+ }else if(e.key==="Escape"){
+  enteredPin="";
+  updatePinDisplay();
+ }
+});
+
+/* NAVIGATION */
 $("menuBtn").addEventListener("click",()=>{
  $("navLinks").classList.toggle("open");
 });
 
-document.querySelectorAll(".nav-links a").forEach(link=>{
- link.addEventListener("click",()=>{
-  $("navLinks").classList.remove("open");
- });
+document.querySelectorAll(".nav-links a").forEach(a=>{
+ a.addEventListener("click",()=>$("navLinks").classList.remove("open"));
 });
 
-/* PROFILE 3D */
-
-const profile = $("profile3d");
-const heroVisual = $("heroVisual");
+/* PROFILE TILT */
+const profile=$("profile3d");
+const heroVisual=$("heroVisual");
 
 function moveProfile(x,y){
- const rect = heroVisual.getBoundingClientRect();
+ const r=heroVisual.getBoundingClientRect();
+ const px=(x-r.left)/r.width;
+ const py=(y-r.top)/r.height;
 
- const px = (x-rect.left)/rect.width;
- const py = (y-rect.top)/rect.height;
-
- profile.style.transform =
-  `rotateX(${(.5-py)*22}deg) rotateY(${(px-.5)*22}deg) translateZ(15px)`;
+ profile.style.transform=
+ `rotateX(${(.5-py)*22}deg) rotateY(${(px-.5)*22}deg) translateZ(15px)`;
 }
 
-heroVisual.addEventListener("mousemove",event=>{
- moveProfile(event.clientX,event.clientY);
+heroVisual.addEventListener("mousemove",e=>{
+ moveProfile(e.clientX,e.clientY);
 });
 
 heroVisual.addEventListener("mouseleave",()=>{
- profile.style.transform = "rotateX(0) rotateY(0)";
+ profile.style.transform="rotateX(0) rotateY(0)";
 });
 
-heroVisual.addEventListener("touchmove",event=>{
- const touch = event.touches[0];
- moveProfile(touch.clientX,touch.clientY);
+heroVisual.addEventListener("touchmove",e=>{
+ const t=e.touches[0];
+ moveProfile(t.clientX,t.clientY);
 },{passive:true});
 
 heroVisual.addEventListener("touchend",()=>{
- profile.style.transform = "rotateX(0) rotateY(0)";
+ profile.style.transform="rotateX(0) rotateY(0)";
 });
 
 /* SCROLL REVEAL */
-
-const observer = new IntersectionObserver(entries=>{
+const observer=new IntersectionObserver(entries=>{
  entries.forEach(entry=>{
   if(entry.isIntersecting){
    entry.target.classList.add("visible");
@@ -1223,20 +906,16 @@ const observer = new IntersectionObserver(entries=>{
  });
 },{threshold:.12});
 
-document.querySelectorAll(".reveal").forEach(element=>{
- observer.observe(element);
-});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 
 /* PHOTO VIEWER */
-
-const photoViewer = $("photoViewer");
-const viewerImage = $("viewerImage");
+const photoViewer=$("photoViewer");
+const viewerImage=$("viewerImage");
 
 document.querySelectorAll(".archive-card").forEach(card=>{
  card.addEventListener("click",()=>{
-  viewerImage.src = card.dataset.image;
+  viewerImage.src=card.dataset.image;
   photoViewer.classList.add("show");
-  playTone(650);
  });
 });
 
@@ -1246,29 +925,27 @@ function closePhoto(){
 
 $("photoClose").addEventListener("click",closePhoto);
 
-photoViewer.addEventListener("click",event=>{
- if(event.target===photoViewer)closePhoto();
+photoViewer.addEventListener("click",e=>{
+ if(e.target===photoViewer)closePhoto();
 });
 
-document.addEventListener("keydown",event=>{
- if(event.key==="Escape")closePhoto();
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape")closePhoto();
 });
 
 /* PARTICLES */
+const canvas=$("particles");
+const ctx=canvas.getContext("2d");
 
-const particleCanvas = $("particles");
-const ctx = particleCanvas.getContext("2d");
-
-let particles = [];
+let particles=[];
 let width,height;
 
 function resizeCanvas(){
- width = particleCanvas.width = innerWidth;
- height = particleCanvas.height = innerHeight;
+ width=canvas.width=innerWidth;
+ height=canvas.height=innerHeight;
+ particles=[];
 
- particles = [];
-
- const count = Math.min(75,Math.floor(width/9));
+ const count=Math.min(75,Math.floor(width/9));
 
  for(let i=0;i<count;i++){
   particles.push({
@@ -1285,18 +962,18 @@ function drawParticles(){
  ctx.clearRect(0,0,width,height);
 
  particles.forEach(p=>{
-  p.y -= p.speed;
+  p.y-=p.speed;
 
   if(p.y<0){
-   p.y = height;
-   p.x = Math.random()*width;
+   p.y=height;
+   p.x=Math.random()*width;
   }
 
   ctx.beginPath();
   ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-  ctx.fillStyle = `rgba(83,210,255,${p.alpha})`;
-  ctx.shadowBlur = 10;
-  ctx.shadowColor = "#25c8ff";
+  ctx.fillStyle=`rgba(83,210,255,${p.alpha})`;
+  ctx.shadowBlur=10;
+  ctx.shadowColor="#25c8ff";
   ctx.fill();
  });
 
@@ -1307,29 +984,24 @@ addEventListener("resize",resizeCanvas);
 resizeCanvas();
 drawParticles();
 
-$("year").textContent = new Date().getFullYear();
+$("year").textContent=new Date().getFullYear();
 
 /* J.A.R.V.I.S VISUAL SYSTEM */
+const holo=$("holoObject");
+const display=$("holoDisplay");
 
-const holo = $("holoObject");
-const display = $("holoDisplay");
-
-let rotationX = 0;
-let rotationY = 0;
-let holoLocked = false;
-let hudEnabled = false;
+let holoLocked=false;
+let hudEnabled=false;
 
 function logEvent(message){
- const entry = document.createElement("div");
- entry.className = "log-entry";
+ const entry=document.createElement("div");
+ entry.className="log-entry";
 
- const stamp = new Date().toLocaleTimeString("id-ID");
- const time = document.createElement("span");
-
- time.textContent = `[${stamp}] `;
+ const stamp=new Date().toLocaleTimeString("id-ID");
+ const time=document.createElement("span");
+ time.textContent=`[${stamp}] `;
 
  entry.append(time,document.createTextNode(message));
-
  $("jarvisLog").prepend(entry);
 
  while($("jarvisLog").children.length>12){
@@ -1337,94 +1009,90 @@ function logEvent(message){
  }
 }
 
-function setStatus(name,response){
- $("gestureName").textContent = name;
- $("responseText").textContent = response;
+function setSystemStatus(name,response){
+ $("gestureName").textContent=name;
+ $("responseText").textContent=response;
 }
 
-function updateHologram(){
- holo.style.transform =
-  `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+function speak(text){
+ if(!("speechSynthesis" in window))return;
 
- holo.classList.toggle("locked",holoLocked);
+ speechSynthesis.cancel();
+
+ const utterance=new SpeechSynthesisUtterance(text);
+ utterance.lang="en-US";
+ utterance.rate=.95;
+ utterance.pitch=.85;
+
+ speechSynthesis.speak(utterance);
 }
 
-function jarvisRespond(message,response,sound=650){
- setStatus("J.A.R.V.I.S ONLINE",response);
- logEvent(message);
- playTone(sound,.15,"sine",.045);
- speak(message);
+/* HUD CONTROL */
+function toggleHUD(){
+ hudEnabled=!hudEnabled;
+
+ display.classList.toggle("hud-active",hudEnabled);
+
+ $("holoLabel").textContent=
+ hudEnabled?"HOLOGRAPHIC HUD ACTIVE":"F.A DIGITAL CORE";
+
+ setSystemStatus(
+  "VISUAL HUD",
+  hudEnabled?"HUD ACTIVATED":"HUD STANDBY"
+ );
+
+ logEvent(hudEnabled?"Visual HUD activated":"Visual HUD deactivated");
+
+ playTone(680,.12,"sine",.035);
 }
 
 /* RESET HOLOGRAM */
-
 $("resetHolo").addEventListener("click",()=>{
- rotationX = 0;
- rotationY = 0;
- holoLocked = false;
- hudEnabled = false;
+ holoLocked=false;
+ hudEnabled=false;
 
- updateHologram();
+ holo.classList.remove("locked");
  display.classList.remove("hud-active");
 
- $("holoLabel").textContent = "F.A DIGITAL CORE";
- $("trackingText").textContent = "ONLINE";
+ $("holoLabel").textContent="F.A DIGITAL CORE";
+ $("holoMode").textContent="AUTONOMOUS ANIMATION";
+ $("trackingText").textContent="ONLINE";
 
- setStatus("SYSTEM RESET","HOLOGRAM RESTORED");
+ setSystemStatus("SYSTEM RESET","HOLOGRAM RESTORED");
 
- logEvent("Hologram orientation and lock reset.");
+ logEvent("Hologram visual system reset.");
 
- playTone(700,.2);
- speak("Digital core restored.");
+ playTone(680,.15,"sine",.05);
 });
 
-/* JARVIS VOICE */
+/* HUD BUTTON */
+$("hudToggle").addEventListener("click",toggleHUD);
 
+/* VOICE ASSISTANT */
 $("voiceTest").addEventListener("click",()=>{
- unlockAudio();
+ speak("JARVIS interface online. All systems are operating normally. How can I assist you?");
 
- voiceEnabled = true;
-
- speak(
-  "JARVIS interface online. How can I assist you?",
-  true
- );
-
- logEvent("Voice assistant test requested.");
- playTone(800,.12);
+ setSystemStatus("JARVIS VOICE","VOICE ASSISTANT ACTIVATED");
+ logEvent("J.A.R.V.I.S voice assistant activated.");
 });
 
-/* AUTOMATIC HOLOGRAM MOVEMENT */
+/* SYSTEM INFORMATION */
+$("systemInfo").addEventListener("click",()=>{
+ const message="Personal universe visual interface is online. Holographic core, radar, and visual systems are operational.";
 
-let autoRotation = 0;
+ speak(message);
 
-function animateHologram(){
- if(!holoLocked){
-  autoRotation += .12;
+ setSystemStatus("SYSTEM INFORMATION","ALL MODULES ONLINE");
+ logEvent("System information requested.");
 
-  holo.style.transform =
-   `rotateX(${Math.sin(autoRotation*.5)*12+rotationX}deg) rotateY(${autoRotation+rotationY}deg)`;
- }
-
- requestAnimationFrame(animateHologram);
-}
-
-animateHologram();
+ playTone(760,.12,"sine",.04);
+});
 
 /* INITIAL SYSTEM LOG */
-
-logEvent("J.A.R.V.I.S visual interface initialized.");
-logEvent("Holographic core online.");
-logEvent("Voice assistant ready.");
-
-/* STOP SPEECH WHEN LEAVING PAGE */
-
-window.addEventListener("pagehide",()=>{
- if("speechSynthesis" in window){
-  speechSynthesis.cancel();
- }
-});
+logEvent("J.A.R.V.I.S visual core initialized.");
+logEvent("Autonomous hologram animation active.");
+logEvent("Radar and HUD modules ready.");
+logEvent("Camera and gesture modules are not installed.");
 </script>
-
 </body>
 </html>
