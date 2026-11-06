@@ -2,1485 +2,696 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#050b18">
 <title>F.A | Personal Universe</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/html5-qrcode"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
 
 <style>
-:root {
-  --bg:#050b18;
-  --panel:rgba(8,25,48,.78);
-  --panel2:rgba(10,35,60,.72);
-  --text:#eafaff;
-  --muted:#8aa8bc;
-  --cyan:#00d9ff;
-  --blue:#167dff;
-  --line:rgba(0,217,255,.32);
-  --glow:0 0 25px rgba(0,217,255,.25);
-}
-
-body.light {
-  --bg:#eaf5fb;
-  --panel:rgba(255,255,255,.82);
-  --panel2:rgba(232,247,255,.9);
-  --text:#102b40;
-  --muted:#527084;
-  --cyan:#008dbb;
-  --blue:#176cbd;
-  --line:rgba(0,141,187,.3);
-  --glow:0 0 22px rgba(0,141,187,.15);
-}
-
-* {
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-html {
-  scroll-behavior:smooth;
-  scroll-padding-top:85px;
-}
-
-body {
-  background:var(--bg);
-  color:var(--text);
-  font-family:Inter,sans-serif;
-  overflow-x:hidden;
-  transition:background .4s,color .4s;
-}
-
-button,a {
-  font:inherit;
-}
-
-button {
-  cursor:pointer;
-}
-
-a {
-  color:inherit;
-  text-decoration:none;
-}
-
-#universe {
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-3;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(0,130,255,.15),transparent 35%),
-    radial-gradient(circle at 80% 70%,rgba(0,217,255,.12),transparent 35%),
-    var(--bg);
-}
-
-.grid-bg {
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  pointer-events:none;
-  opacity:.2;
-  background-image:
-    linear-gradient(var(--line) 1px,transparent 1px),
-    linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:48px 48px;
-  mask-image:linear-gradient(to bottom,black,transparent 90%);
-}
-
-#particles {
-  position:fixed;
-  inset:0;
-  z-index:-1;
-  pointer-events:none;
-}
-
-.scanline {
-  position:fixed;
-  top:-30%;
-  left:0;
-  width:100%;
-  height:120px;
-  pointer-events:none;
-  z-index:20;
-  background:linear-gradient(transparent,rgba(0,217,255,.045),transparent);
-  animation:scan 9s linear infinite;
-}
-
-@keyframes scan {
-  to {top:130%}
-}
-
-@keyframes pulse {
-  0%,100% {opacity:.65}
-  50% {opacity:1}
-}
-
-@keyframes float {
-  0%,100% {transform:translateY(0)}
-  50% {transform:translateY(-9px)}
-}
-
-@keyframes rotate {
-  to {transform:rotate(360deg)}
-}
-
-@keyframes shimmer {
-  0% {background-position:-200% 0}
-  100% {background-position:200% 0}
-}
-
-/* ACCESS SCREEN */
-
-#accessScreen {
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:25px;
-  text-align:center;
-}
-
-.access-box {
-  width:min(440px,100%);
-  padding:35px 25px;
-  background:var(--panel);
-  border:1px solid var(--line);
-  border-radius:25px;
-  box-shadow:var(--glow),inset 0 0 30px rgba(0,217,255,.05);
-  backdrop-filter:blur(20px);
-  position:relative;
-  overflow:hidden;
-}
-
-.access-box:before {
-  content:"";
-  position:absolute;
-  top:0;
-  left:-100%;
-  width:100%;
-  height:2px;
-  background:var(--cyan);
-  box-shadow:0 0 20px var(--cyan);
-  animation:shimmer 4s infinite;
-}
-
-.access-logo {
-  font-family:Orbitron,sans-serif;
-  font-size:48px;
-  font-weight:800;
-  color:var(--cyan);
-  text-shadow:0 0 25px var(--cyan);
-  margin-bottom:10px;
-}
-
-.access-box h1 {
-  font-family:Orbitron,sans-serif;
-  font-size:18px;
-  letter-spacing:3px;
-  margin-bottom:12px;
-}
-
-.access-box p {
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.8;
-}
-
-#qrcode {
-  background:white;
-  padding:12px;
-  width:max-content;
-  margin:24px auto;
-  border-radius:12px;
-  min-height:164px;
-  min-width:164px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-#qrcode img,#qrcode canvas {
-  display:block;
-  max-width:100%;
-}
-
-.primary-btn {
-  border:1px solid var(--cyan);
-  color:var(--cyan);
-  background:rgba(0,217,255,.08);
-  border-radius:30px;
-  padding:13px 23px;
-  font-family:Orbitron,sans-serif;
-  font-size:11px;
-  letter-spacing:1.5px;
-  transition:.3s;
-}
-
-.primary-btn:hover {
-  background:var(--cyan);
-  color:#00111c;
-  box-shadow:0 0 25px var(--cyan);
-}
-
-#accessMessage {
-  margin-top:15px;
-  min-height:20px;
-  font-size:12px;
-  color:var(--muted);
-}
-
-#scanner {
-  display:none;
-  width:100%;
-  margin-top:18px;
-  border-radius:15px;
-  border:1px solid var(--line);
-}
-
-/* MAIN WEBSITE */
-
-#mainWebsite {
-  display:none;
-}
-
-header {
-  position:sticky;
-  top:0;
-  z-index:50;
-  padding:14px 5%;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  background:var(--panel);
-  border-bottom:1px solid var(--line);
-  backdrop-filter:blur(18px);
-}
-
-.brand {
-  font-family:Orbitron,sans-serif;
-  font-size:17px;
-  font-weight:800;
-  color:var(--cyan);
-  letter-spacing:2px;
-  text-shadow:0 0 12px var(--cyan);
-}
-
-.nav {
-  display:flex;
-  gap:20px;
-  align-items:center;
-}
-
-.nav a {
-  color:var(--muted);
-  font-size:11px;
-  letter-spacing:1px;
-  transition:.3s;
-}
-
-.nav a:hover {
-  color:var(--cyan);
-  text-shadow:0 0 10px var(--cyan);
-}
-
-.header-tools {
-  display:flex;
-  gap:8px;
-}
-
-.icon-btn {
-  width:37px;
-  height:37px;
-  border:1px solid var(--line);
-  border-radius:50%;
-  color:var(--cyan);
-  background:var(--panel2);
-  font-size:16px;
-}
-
-section {
-  padding:90px 7%;
-  max-width:1400px;
-  margin:auto;
-}
-
-.section-label {
-  color:var(--cyan);
-  font-family:Orbitron,sans-serif;
-  font-size:10px;
-  letter-spacing:4px;
-  margin-bottom:13px;
-}
-
-.section-title {
-  font-family:Orbitron,sans-serif;
-  font-size:clamp(25px,4vw,38px);
-  margin-bottom:18px;
-  letter-spacing:2px;
-}
-
-.section-description {
-  color:var(--muted);
-  line-height:1.8;
-  max-width:650px;
-  font-size:14px;
-}
-
-/* HERO */
-
-.hero {
-  min-height:87vh;
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  align-items:center;
-  gap:50px;
-}
-
-.hero-tag {
-  color:var(--cyan);
-  font-family:Orbitron,sans-serif;
-  font-size:11px;
-  letter-spacing:4px;
-  margin-bottom:20px;
-}
-
-.hero h1 {
-  font-family:Orbitron,sans-serif;
-  font-size:clamp(35px,6vw,72px);
-  line-height:1.15;
-  margin-bottom:20px;
-}
-
-.hero h1 span {
-  color:var(--cyan);
-  text-shadow:0 0 25px rgba(0,217,255,.6);
-}
-
-.hero p {
-  color:var(--muted);
-  line-height:1.9;
-  font-size:14px;
-  max-width:550px;
-}
-
-.hero-actions {
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:30px;
-}
-
-.hero-visual {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:400px;
-  position:relative;
-}
-
-/* HOLOGRAM PROFILE */
-
-.holo-frame {
-  width:min(340px,80vw);
-  aspect-ratio:1;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.holo-ring {
-  position:absolute;
-  inset:0;
-  border:1px solid var(--cyan);
-  border-radius:50%;
-  box-shadow:0 0 20px rgba(0,217,255,.2),inset 0 0 20px rgba(0,217,255,.12);
-  animation:rotate 22s linear infinite;
-}
-
-.holo-ring:before,.holo-ring:after {
-  content:"";
-  position:absolute;
-  inset:13px;
-  border:1px dashed var(--cyan);
-  border-radius:50%;
-  opacity:.6;
-}
-
-.holo-ring:after {
-  inset:-14px;
-  border-style:solid;
-  border-color:transparent var(--cyan) transparent var(--cyan);
-  animation:rotate 12s linear infinite reverse;
-}
-
-.profile-holo {
-  width:72%;
-  height:72%;
-  border-radius:50%;
-  overflow:hidden;
-  position:relative;
-  border:2px solid var(--cyan);
-  box-shadow:0 0 25px var(--cyan),0 0 65px rgba(0,217,255,.35);
-  animation:float 5s ease-in-out infinite;
-  background:var(--panel);
-}
-
-.profile-holo img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  filter:saturate(1.15) contrast(1.08);
-}
-
-.profile-holo:after {
-  content:"";
-  position:absolute;
-  inset:0;
-  background:repeating-linear-gradient(
-    to bottom,
-    transparent 0px,
-    rgba(0,217,255,.12) 2px,
-    transparent 4px
-  );
-  pointer-events:none;
-}
-
-.holo-corner {
-  position:absolute;
-  width:38px;
-  height:38px;
-  border-color:var(--cyan);
-  border-style:solid;
-  filter:drop-shadow(0 0 7px var(--cyan));
-}
-
-.holo-corner.one {
-  top:15px;
-  left:15px;
-  border-width:2px 0 0 2px;
-}
-
-.holo-corner.two {
-  top:15px;
-  right:15px;
-  border-width:2px 2px 0 0;
-}
-
-.holo-corner.three {
-  bottom:15px;
-  left:15px;
-  border-width:0 0 2px 2px;
-}
-
-.holo-corner.four {
-  bottom:15px;
-  right:15px;
-  border-width:0 2px 2px 0;
-}
-
-.holo-caption {
-  position:absolute;
-  bottom:-35px;
-  font-family:Orbitron,sans-serif;
-  color:var(--cyan);
-  font-size:10px;
-  letter-spacing:3px;
-  text-shadow:0 0 12px var(--cyan);
-}
-
-/* INFO PANELS */
-
-.panel-grid {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-  margin-top:35px;
-}
-
-.panel {
-  padding:25px;
-  border:1px solid var(--line);
-  border-radius:18px;
-  background:var(--panel);
-  backdrop-filter:blur(15px);
-  box-shadow:var(--glow);
-  position:relative;
-  overflow:hidden;
-  transition:.3s;
-}
-
-.panel:hover {
-  transform:translateY(-6px);
-  border-color:var(--cyan);
-  box-shadow:0 0 30px rgba(0,217,255,.25);
-}
-
-.panel:after {
-  content:"";
-  position:absolute;
-  width:100%;
-  height:1px;
-  top:0;
-  left:-100%;
-  background:var(--cyan);
-  box-shadow:0 0 12px var(--cyan);
-  transition:.6s;
-}
-
-.panel:hover:after {
-  left:100%;
-}
-
-.panel-icon {
-  font-size:27px;
-  margin-bottom:16px;
-  color:var(--cyan);
-}
-
-.panel h3 {
-  font-family:Orbitron,sans-serif;
-  font-size:13px;
-  margin-bottom:12px;
-  color:var(--cyan);
-}
-
-.panel p {
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.8;
-}
-
-/* GALLERY HOLOGRAM */
-
-.gallery {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:22px;
-  margin-top:35px;
-}
-
-.gallery-card {
-  position:relative;
-  border:1px solid var(--line);
-  border-radius:18px;
-  overflow:hidden;
-  background:var(--panel);
-  box-shadow:var(--glow);
-  transition:.35s;
-}
-
-.gallery-card:hover {
-  transform:translateY(-8px) scale(1.015);
-  border-color:var(--cyan);
-  box-shadow:0 0 30px rgba(0,217,255,.4);
-}
-
-.gallery-image {
-  height:330px;
-  position:relative;
-  overflow:hidden;
-  background:var(--panel2);
-}
-
-.gallery-image img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  transition:transform .6s,filter .5s;
-}
-
-.gallery-card:hover img {
-  transform:scale(1.07);
-  filter:contrast(1.12) saturate(1.2);
-}
-
-.gallery-image:after {
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    rgba(0,217,255,.13) 2px,
-    transparent 4px
-  );
-  opacity:.6;
-}
-
-.gallery-image:before {
-  content:"";
-  position:absolute;
-  z-index:2;
-  top:-100%;
-  left:0;
-  width:100%;
-  height:45%;
-  background:linear-gradient(transparent,rgba(0,217,255,.22),transparent);
-  transition:top .7s;
-}
-
-.gallery-card:hover .gallery-image:before {
-  top:120%;
-}
-
-.gallery-info {
-  padding:18px;
-}
-
-.gallery-info h3 {
-  font-family:Orbitron,sans-serif;
-  color:var(--cyan);
-  font-size:12px;
-  letter-spacing:1px;
-  margin-bottom:7px;
-}
-
-.gallery-info p {
-  color:var(--muted);
-  font-size:11px;
-}
-
-.photo-number {
-  position:absolute;
-  z-index:3;
-  top:13px;
-  left:13px;
-  padding:7px 10px;
-  background:rgba(0,15,30,.75);
-  color:#00d9ff;
-  border:1px solid rgba(0,217,255,.5);
-  border-radius:6px;
-  font-family:Orbitron,sans-serif;
-  font-size:9px;
-  letter-spacing:1px;
-}
-
-/* SOCIAL */
-
-.social-grid {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:18px;
-  margin-top:30px;
-}
-
-.social-link {
-  display:flex;
-  align-items:center;
-  gap:18px;
-  padding:23px;
-  border:1px solid var(--line);
-  background:var(--panel);
-  border-radius:16px;
-  transition:.3s;
-}
-
-.social-link:hover {
-  border-color:var(--cyan);
-  box-shadow:var(--glow);
-  transform:translateY(-4px);
-}
-
-.social-symbol {
-  width:48px;
-  height:48px;
-  display:grid;
-  place-items:center;
-  border:1px solid var(--cyan);
-  border-radius:13px;
-  color:var(--cyan);
-  font-size:20px;
-}
-
-.social-link h3 {
-  font-family:Orbitron,sans-serif;
-  font-size:12px;
-  margin-bottom:6px;
-}
-
-.social-link p {
-  color:var(--muted);
-  font-size:12px;
-}
-
-/* CAMERA CONTROL */
-
-.camera-panel {
-  position:fixed;
-  right:18px;
-  bottom:18px;
-  z-index:100;
-  width:245px;
-  padding:13px;
-  border:1px solid var(--line);
-  border-radius:15px;
-  background:var(--panel);
-  backdrop-filter:blur(18px);
-  box-shadow:var(--glow);
-}
-
-.camera-panel h3 {
-  font-family:Orbitron,sans-serif;
-  color:var(--cyan);
-  font-size:10px;
-  letter-spacing:1px;
-  margin-bottom:8px;
-}
-
-#cameraVideo {
-  width:100%;
-  height:125px;
-  object-fit:cover;
-  border-radius:9px;
-  transform:scaleX(-1);
-  background:#000;
-  display:none;
-}
-
-.camera-status {
-  color:var(--muted);
-  font-size:10px;
-  margin:8px 0;
-  line-height:1.6;
-}
-
-.camera-actions {
-  display:flex;
-  gap:7px;
-}
-
-.camera-actions button {
-  flex:1;
-  padding:9px 5px;
-  font-size:9px;
-  border:1px solid var(--line);
-  border-radius:8px;
-  color:var(--cyan);
-  background:transparent;
-}
-
-#handCursor {
-  width:20px;
-  height:20px;
-  position:fixed;
-  z-index:200;
-  border:2px solid var(--cyan);
-  border-radius:50%;
-  box-shadow:0 0 15px var(--cyan);
-  pointer-events:none;
-  display:none;
-  transform:translate(-50%,-50%);
-}
-
-#handCursor.pinching {
-  background:var(--cyan);
-  box-shadow:0 0 25px var(--cyan);
-}
-
-footer {
-  padding:35px 20px;
-  text-align:center;
-  border-top:1px solid var(--line);
-  color:var(--muted);
-  font-size:11px;
-  line-height:2;
-}
-
-footer span {
-  color:var(--cyan);
-  font-family:Orbitron,sans-serif;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:850px) {
-  .hero {
-    grid-template-columns:1fr;
-    text-align:center;
-    padding-top:70px;
-  }
-
-  .hero p {
-    margin:auto;
-  }
-
-  .hero-actions {
-    justify-content:center;
-  }
-
-  .hero-visual {
-    min-height:360px;
-  }
-
-  .panel-grid {
-    grid-template-columns:1fr 1fr;
-  }
-
-  .gallery {
-    grid-template-columns:1fr 1fr;
-  }
-
-  .nav {
-    display:none;
-  }
-}
-
-@media(max-width:550px) {
-  section {
-    padding:65px 6%;
-  }
-
-  .panel-grid,.gallery,.social-grid {
-    grid-template-columns:1fr;
-  }
-
-  .gallery-image {
-    height:350px;
-  }
-
-  .camera-panel {
-    width:190px;
-    right:10px;
-    bottom:10px;
-  }
-
-  #cameraVideo {
-    height:100px;
-  }
-
-  .brand {
-    font-size:13px;
-  }
-
-  .hero-visual {
-    min-height:310px;
-  }
-}
-
-@media(prefers-reduced-motion:reduce) {
-  *,*:before,*:after {
-    animation-duration:.01ms !important;
-    transition-duration:.01ms !important;
-    scroll-behavior:auto !important;
-  }
+:root{
+ --bg:#050b18;
+ --panel:rgba(8,25,48,.85);
+ --cyan:#42dcff;
+ --blue:#168bff;
+ --text:#eaf8ff;
+ --muted:#9ab4c9;
+ --line:rgba(66,220,255,.25);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+ margin:0;
+ background:radial-gradient(circle at top,#10345a,#050b18 75%);
+ color:var(--text);
+ font-family:Inter,sans-serif;
+ overflow-x:hidden;
+}
+body.light{
+ --bg:#eaf5fb;
+ --panel:rgba(255,255,255,.88);
+ --text:#10243b;
+ --muted:#536d83;
+ --line:rgba(0,132,190,.25);
+ background:radial-gradient(circle at top,#ccefff,#edf7fc 75%);
+}
+button,a{cursor:pointer}
+a{color:inherit;text-decoration:none}
+.orbit{font-family:Orbitron,sans-serif;letter-spacing:.08em}
+.grid{
+ position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.15;
+ background-image:linear-gradient(var(--line) 1px,transparent 1px),
+ linear-gradient(90deg,var(--line) 1px,transparent 1px);
+ background-size:45px 45px;
+}
+.scanline{
+ position:fixed;inset:0;pointer-events:none;z-index:1000;
+ background:linear-gradient(transparent 50%,rgba(66,220,255,.025) 50%);
+ background-size:100% 4px;
+}
+.btn{
+ border:1px solid var(--cyan);
+ background:rgba(22,139,255,.13);
+ color:var(--text);
+ padding:12px 18px;
+ border-radius:5px;
+ font:600 11px Orbitron;
+ letter-spacing:.08em;
+ transition:.2s;
+}
+.btn:hover,.btn.primary{
+ background:var(--cyan);
+ color:#03101e;
+ box-shadow:0 0 24px #42dcff55;
+}
+.muted{color:var(--muted)}
+.eyebrow{
+ color:var(--cyan);
+ font:600 11px Orbitron;
+ letter-spacing:.2em;
+}
+
+/* ACCESS GATE */
+#gate{
+ min-height:100vh;
+ display:grid;
+ place-items:center;
+ padding:20px;
+}
+.gatebox{
+ width:min(600px,100%);
+ padding:35px 25px;
+ text-align:center;
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:15px;
+ box-shadow:0 0 55px #168bff20;
+ backdrop-filter:blur(15px);
+}
+.logo{
+ width:75px;height:75px;
+ border:1px solid var(--cyan);
+ border-radius:50%;
+ display:grid;place-items:center;
+ margin:0 auto 22px;
+ color:var(--cyan);
+ font:800 25px Orbitron;
+ box-shadow:0 0 25px #42dcff44;
+}
+.gatebox h1{font:700 28px Orbitron}
+.gatebox p{color:var(--muted);font-size:13px;line-height:1.7}
+.gate-actions{
+ display:flex;gap:10px;
+ justify-content:center;flex-wrap:wrap;
+ margin:25px 0;
+}
+#reader{width:min(350px,100%);margin:auto}
+#phoneQrPanel{
+ display:none;
+ margin:20px auto;
+ padding:15px;
+ background:white;
+ color:#061426;
+ border-radius:10px;
+ width:max-content;
+ max-width:100%;
+}
+#phoneQrCode{display:flex;justify-content:center}
+#phoneQrPanel small{display:block;margin-top:10px;max-width:230px;line-height:1.5}
+.status{color:var(--cyan);font:600 10px Orbitron}
+
+/* WEBSITE */
+#site{display:none}
+header{
+ position:sticky;top:0;z-index:100;
+ display:flex;align-items:center;justify-content:space-between;
+ flex-wrap:wrap;gap:15px;
+ padding:15px 5%;
+ background:rgba(4,13,27,.85);
+ border-bottom:1px solid var(--line);
+ backdrop-filter:blur(15px);
+}
+body.light header{background:rgba(239,249,255,.9)}
+.brand{font:700 15px Orbitron;color:var(--cyan)}
+nav{display:flex;gap:17px;flex-wrap:wrap}
+nav a{font:500 10px Orbitron;color:var(--muted)}
+nav a:hover{color:var(--cyan)}
+
+.hero{
+ min-height:90vh;
+ display:grid;place-items:center;
+ text-align:center;padding:60px 20px;
+}
+.hero-inner{max-width:850px}
+.orb{
+ width:145px;height:145px;
+ margin:0 auto 35px;
+ border:1px solid var(--cyan);
+ border-radius:50%;
+ display:grid;place-items:center;
+ position:relative;
+ box-shadow:0 0 35px #42dcff44,inset 0 0 30px #42dcff22;
+}
+.orb:before,.orb:after{
+ content:"";position:absolute;
+ inset:-15px;border:1px dashed var(--cyan);
+ border-radius:50%;animation:spin 18s linear infinite;
+}
+.orb:after{inset:-28px;animation-direction:reverse}
+.orb span{font:800 32px Orbitron;color:var(--cyan)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero h1{font:800 clamp(38px,8vw,75px) Orbitron;margin:0 0 15px}
+.hero h1 em{font-style:normal;color:var(--cyan)}
+.hero p{color:var(--muted);line-height:1.8;max-width:600px;margin:0 auto 25px}
+
+.section{
+ max-width:1150px;
+ margin:auto;
+ padding:85px 7%;
+}
+.section h2{font:700 clamp(23px,4vw,35px) Orbitron}
+.cards{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));
+ gap:17px;
+}
+.card{
+ padding:25px;
+ min-height:145px;
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:10px;
+ transition:.25s;
+}
+.card:hover{
+ transform:translateY(-4px);
+ border-color:var(--cyan);
+ box-shadow:0 0 25px #168bff22;
+}
+.card h3{font:600 13px Orbitron;color:var(--cyan)}
+.card p{font-size:14px;line-height:1.8;color:var(--muted)}
+.storyline{border-left:1px solid var(--cyan);padding:5px 0 5px 25px;margin:25px 0}
+.storyline strong{font:600 12px Orbitron;color:var(--cyan)}
+.contact{text-align:center}
+footer{
+ text-align:center;padding:30px;
+ border-top:1px solid var(--line);
+ color:var(--muted);font-size:12px;
+}
+
+/* JARVIS HUD */
+#hud{
+ display:none;
+ position:fixed;right:15px;bottom:15px;
+ z-index:2000;
+ flex-direction:column;align-items:flex-end;gap:8px;
+}
+.hudbtn{
+ background:#06182b;
+ border:1px solid var(--cyan);
+ color:var(--cyan);
+ border-radius:30px;
+ padding:12px 17px;
+ font:600 10px Orbitron;
+}
+#hudpanel{
+ display:none;width:245px;
+ padding:16px;
+ background:var(--panel);
+ border:1px solid var(--line);
+ border-radius:10px;
+ font-size:12px;line-height:1.7;
+}
+#hudpanel.show{display:block}
+#camera{width:100%;display:none;border-radius:8px}
+#gesturePointer{
+ position:fixed;z-index:9999;
+ width:35px;height:35px;
+ border:2px solid var(--cyan);
+ border-radius:50%;
+ transform:translate(-50%,-50%);
+ pointer-events:none;
+ display:none;
+ box-shadow:0 0 18px #42dcff99;
+}
+#gesturePointer:before,#gesturePointer:after{
+ content:"";position:absolute;background:var(--cyan);
+ left:50%;top:50%;transform:translate(-50%,-50%);
+}
+#gesturePointer:before{width:48px;height:1px}
+#gesturePointer:after{height:48px;width:1px}
+#gesturePointer.active{display:block}
+#gesturePointer.clicking{transform:translate(-50%,-50%) scale(.7);background:#42dcff55}
+.gesture-hover{
+ outline:2px solid var(--cyan)!important;
+ outline-offset:4px!important;
+ filter:drop-shadow(0 0 12px #42dcff99)!important;
+}
+@media(max-width:700px){
+ header{flex-direction:column;align-items:flex-start}
+ nav{gap:12px}
+ .section{padding:60px 20px}
 }
 </style>
 </head>
 
 <body>
-
-<div id="universe"></div>
-<div class="grid-bg"></div>
+<div class="grid"></div>
 <div class="scanline"></div>
-<canvas id="particles"></canvas>
-<div id="handCursor"></div>
 
-<!-- ACCESS SCREEN -->
+<!-- ACCESS QR -->
+<div id="gate">
+ <div class="gatebox">
+  <div class="logo">F.A</div>
+  <div class="eyebrow">PERSONAL ACCESS PROTOCOL</div>
+  <h1 class="orbit">WELCOME BACK</h1>
+  <p>F.A PERSONAL UNIVERSE<br>
+  Sistem akses menggunakan QR. Tidak ada PIN atau sandi angka.</p>
 
-<div id="accessScreen">
-  <div class="access-box">
-    <div class="access-logo">F.A</div>
-    <h1>PERSONAL UNIVERSE</h1>
-    <p>PERSONAL INTERFACE INITIALIZATION</p>
-    <p>Scan access QR menggunakan kamera perangkat lain untuk membuka universe.</p>
-
-    <div id="qrcode"></div>
-
-    <button class="primary-btn" id="scanButton">
-      SCAN ACCESS QR
-    </button>
-
-    <video id="scanner" autoplay playsinline></video>
-
-    <div id="accessMessage">
-      SYSTEM STANDBY
-    </div>
+  <div class="gate-actions">
+   <button class="btn primary" id="startQR">START QR SCANNER</button>
+   <button class="btn" id="showPhoneQR">DISPLAY ACCESS QR</button>
   </div>
+
+  <div id="reader"></div>
+
+  <div id="phoneQrPanel">
+   <div id="phoneQrCode"></div>
+   <small>Tampilkan QR ini di HP, lalu pindai menggunakan kamera laptop.</small>
+  </div>
+
+  <p>Gunakan alamat website yang sama di HP dan laptop.</p>
+  <div class="status" id="gateStatus">SYSTEM STANDBY</div>
+ </div>
 </div>
 
 <!-- MAIN WEBSITE -->
-
-<div id="mainWebsite">
-
+<div id="site">
 <header>
-  <div class="brand">F.A / UNIVERSE</div>
-
-  <nav class="nav">
-    <a href="#home">HOME</a>
-    <a href="#profile">PROFILE</a>
-    <a href="#gallery">GALLERY</a>
-    <a href="#technology">SYSTEM</a>
-    <a href="#contact">CONTACT</a>
-  </nav>
-
-  <div class="header-tools">
-    <button class="icon-btn" id="themeButton" title="Ganti tema">☼</button>
-    <button class="icon-btn" id="voiceButton" title="Suara JARVIS">◖</button>
-  </div>
+ <div class="brand">F.A // UNIVERSE</div>
+ <nav>
+  <a href="#home">HOME</a>
+  <a href="#about">ABOUT</a>
+  <a href="#story">STORY</a>
+  <a href="#archive">ARCHIVE</a>
+  <a href="#interests">INTERESTS</a>
+  <a href="#contact">CONTACT</a>
+ </nav>
+ <button class="btn" id="themeToggle">◐ THEME</button>
 </header>
 
-<!-- HERO -->
-
+<main>
 <section class="hero" id="home">
-  <div>
-    <div class="hero-tag">WELCOME TO MY DIGITAL WORLD</div>
-
-    <h1>
-      I AM<br>
-      <span>ALFIGO.</span>
-    </h1>
-
-    <p>
-      Welcome to my personal universe. A digital space that represents
-      my identity, memories, passion, and journey.
-      System online. All interfaces are ready.
-    </p>
-
-    <div class="hero-actions">
-      <a href="#profile" class="primary-btn">EXPLORE MY WORLD</a>
-      <a href="#gallery" class="primary-btn">VIEW MEMORIES</a>
-    </div>
-  </div>
-
-  <div class="hero-visual">
-    <div class="holo-frame">
-      <div class="holo-ring"></div>
-
-      <div class="profile-holo">
-        <img
-          src="IMG-20261104-WA0006.jpg"
-          alt="Alfigo profile hologram"
-          onerror="this.alt='Foto profil belum ditemukan'">
-      </div>
-
-      <div class="holo-corner one"></div>
-      <div class="holo-corner two"></div>
-      <div class="holo-corner three"></div>
-      <div class="holo-corner four"></div>
-
-      <div class="holo-caption">IDENTITY VERIFIED</div>
-    </div>
-  </div>
+ <div class="hero-inner">
+  <div class="orb"><span>F.A</span></div>
+  <div class="eyebrow">PERSONAL DIGITAL UNIVERSE</div>
+  <h1>I'M <em>ALFIGO</em></h1>
+  <p>Welcome to my personal universe. Sebuah ruang digital untuk menyimpan cerita, perjalanan, minat, dan hal-hal yang membentuk diriku.</p>
+  <a class="btn primary" href="#about">EXPLORE MY UNIVERSE ↓</a>
+ </div>
 </section>
 
-<!-- PROFILE -->
-
-<section id="profile">
-  <div class="section-label">01 / IDENTITY DATABASE</div>
-  <h2 class="section-title">PERSONAL PROFILE</h2>
-
-  <p class="section-description">
-    A closer look at the person behind this digital universe.
-  </p>
-
-  <div class="panel-grid">
-    <div class="panel">
-      <div class="panel-icon">◈</div>
-      <h3>IDENTITY</h3>
-      <p>Fachriansyah Alfigo</p>
-    </div>
-
-    <div class="panel">
-      <div class="panel-icon">⌁</div>
-      <h3>INTEREST</h3>
-      <p>Technology, digital creativity, and BMX.</p>
-    </div>
-
-    <div class="panel">
-      <div class="panel-icon">✧</div>
-      <h3>PERSONALITY</h3>
-      <p>Always learning, exploring, and building new experiences.</p>
-    </div>
-  </div>
+<section class="section" id="about">
+ <div class="eyebrow">01 // IDENTITY</div>
+ <h2>ABOUT ME</h2>
+ <div class="cards">
+  <article class="card"><h3>WHO I AM</h3><p>A curious person who enjoys technology, creativity, digital experiences, and learning something new.</p></article>
+  <article class="card"><h3>MY PRINCIPLE</h3><p>Keep growing, stay curious, and turn every experience into a lesson for the next journey.</p></article>
+  <article class="card"><h3>MY VISION</h3><p>Build meaningful things, explore new possibilities, and create a future worth being proud of.</p></article>
+ </div>
 </section>
 
-<!-- TECHNOLOGY -->
-
-<section id="technology">
-  <div class="section-label">02 / SYSTEM DATABASE</div>
-  <h2 class="section-title">MY UNIVERSE</h2>
-
-  <p class="section-description">
-    Different interests. One identity. One universe.
-  </p>
-
-  <div class="panel-grid">
-    <div class="panel">
-      <div class="panel-icon">⌘</div>
-      <h3>DIGITAL WORLD</h3>
-      <p>Exploring technology, multimedia, and digital experiences.</p>
-    </div>
-
-    <div class="panel">
-      <div class="panel-icon">◉</div>
-      <h3>BMX JOURNEY</h3>
-      <p>A collection of moments, passion, and riding memories.</p>
-    </div>
-
-    <div class="panel">
-      <div class="panel-icon">⟡</div>
-      <h3>FUTURE PROJECTS</h3>
-      <p>Creating new ideas and turning imagination into reality.</p>
-    </div>
-  </div>
+<section class="section" id="story">
+ <div class="eyebrow">02 // JOURNEY</div>
+ <h2>MY STORY</h2>
+ <div class="storyline"><strong>THE BEGINNING</strong><p class="muted">Every journey starts with curiosity and the courage to try.</p></div>
+ <div class="storyline"><strong>THE PROCESS</strong><p class="muted">Learning, creating, making mistakes, and improving one step at a time.</p></div>
+ <div class="storyline"><strong>THE NEXT CHAPTER</strong><p class="muted">The story is still being written. The best parts are yet to come.</p></div>
 </section>
 
-<!-- GALLERY -->
-
-<section id="gallery">
-  <div class="section-label">03 / MEMORY ARCHIVE</div>
-  <h2 class="section-title">MY BMX MEMORIES</h2>
-
-  <p class="section-description">
-    Every photo tells a story. Every moment becomes a memory.
-  </p>
-
-  <div class="gallery">
-
-    <div class="gallery-card">
-      <div class="gallery-image">
-        <span class="photo-number">ARCHIVE 001</span>
-        <img src="IMG-20261104-WA0006.jpg"
-             alt="BMX memory one"
-             loading="lazy">
-      </div>
-      <div class="gallery-info">
-        <h3>BMX ARCHIVE 01</h3>
-        <p>Personal memory collection.</p>
-      </div>
-    </div>
-
-    <div class="gallery-card">
-      <div class="gallery-image">
-        <span class="photo-number">ARCHIVE 002</span>
-        <img src="IMG-20261104-WA0009.jpg"
-             alt="BMX memory two"
-             loading="lazy">
-      </div>
-      <div class="gallery-info">
-        <h3>BMX ARCHIVE 02</h3>
-        <p>Moments from the journey.</p>
-      </div>
-    </div>
-
-    <div class="gallery-card">
-      <div class="gallery-image">
-        <span class="photo-number">ARCHIVE 003</span>
-        <img src="IMG-20261104-WA0011.jpg"
-             alt="BMX memory three"
-             loading="lazy">
-      </div>
-      <div class="gallery-info">
-        <h3>BMX ARCHIVE 03</h3>
-        <p>Another chapter of memories.</p>
-      </div>
-    </div>
-
-  </div>
+<section class="section" id="archive">
+ <div class="eyebrow">03 // MEMORIES</div>
+ <h2>MEMORY ARCHIVE</h2>
+ <div class="cards">
+  <article class="card" tabindex="0"><h3>01 / MOMENTS</h3><p>Little moments that become meaningful memories.</p></article>
+  <article class="card" tabindex="0"><h3>02 / ADVENTURES</h3><p>Places explored, roads travelled, and stories collected.</p></article>
+  <article class="card" tabindex="0"><h3>03 / MILESTONES</h3><p>Small achievements that remind me to keep moving forward.</p></article>
+ </div>
 </section>
 
-<!-- SOCIAL -->
-
-<section id="contact">
-  <div class="section-label">04 / CONNECTION INTERFACE</div>
-  <h2 class="section-title">CONNECT WITH ME</h2>
-
-  <p class="section-description">
-    Find me on social media.
-  </p>
-
-  <div class="social-grid">
-
-    <a class="social-link"
-       href="https://www.instagram.com/a.figo19/"
-       target="_blank"
-       rel="noopener">
-      <div class="social-symbol">◎</div>
-      <div>
-        <h3>INSTAGRAM</h3>
-        <p>@a.figo19</p>
-      </div>
-    </a>
-
-    <a class="social-link"
-       href="https://www.tiktok.com/@fch4141"
-       target="_blank"
-       rel="noopener">
-      <div class="social-symbol">♪</div>
-      <div>
-        <h3>TIKTOK</h3>
-        <p>@fch4141</p>
-      </div>
-    </a>
-
-  </div>
+<section class="section" id="interests">
+ <div class="eyebrow">04 // FOCUS</div>
+ <h2>MY INTERESTS</h2>
+ <div class="cards">
+  <article class="card"><h3>TECHNOLOGY</h3><p>Digital systems, futuristic interfaces, AI, and web development.</p></article>
+  <article class="card"><h3>CREATIVITY</h3><p>Visual design, multimedia, storytelling, and interactive experiences.</p></article>
+  <article class="card"><h3>EXPLORATION</h3><p>Discovering new places, ideas, and experiences.</p></article>
+ </div>
 </section>
 
-<footer>
-  <span>F.A | PERSONAL UNIVERSE</span>
-  <br>
-  DESIGNED FOR A DIGITAL JOURNEY
-  <br>
-  SYSTEM STATUS: ONLINE
-</footer>
-
+<section class="section contact" id="contact">
+ <div class="eyebrow">05 // CONNECTION</div>
+ <h2>END OF TRANSMISSION</h2>
+ <p class="muted">Thanks for exploring my personal universe.</p>
+ <button class="btn" id="backTop">BACK TO TOP ↑</button>
+</section>
+</main>
+<footer>F.A PERSONAL UNIVERSE · ALL SYSTEMS ONLINE</footer>
 </div>
 
-<!-- HAND CAMERA PANEL -->
-
-<div class="camera-panel" id="cameraPanel" style="display:none">
-  <h3>◉ HOLOGRAM CONTROL</h3>
-  <video id="cameraVideo" autoplay playsinline></video>
-  <div class="camera-status" id="cameraStatus">
-    Camera system standby.
-  </div>
-
-  <div class="camera-actions">
-    <button id="startCamera">START</button>
-    <button id="stopCamera">STOP</button>
-  </div>
+<!-- JARVIS CONTROL -->
+<div id="hud">
+ <div id="hudpanel">
+  <div class="status" id="gestureStatus">GESTURE SYSTEM READY</div>
+  <p id="gestureHelp">
+   OPEN PALM: SCROLL<br>
+   INDEX FINGER: POINT<br>
+   PINCH: CLICK<br>
+   FIST: LOCK CONTROL
+  </p>
+  <button class="btn" id="startHands">ACTIVATE HAND CONTROL</button>
+  <button class="btn" id="stopHands">STOP CAMERA</button>
+  <video id="camera" autoplay playsinline muted></video>
+ </div>
+ <button class="hudbtn" id="jarvisBtn">✦ J.A.R.V.I.S</button>
 </div>
+
+<div id="gesturePointer"></div>
 
 <script>
-/* ---------------------------------
-   ACCESS QR SYSTEM
---------------------------------- */
+const ACCESS_KEY="FA-JARVIS-ACCESS-ALFIGO-2026";
+const $=id=>document.getElementById(id);
 
-const ACCESS_TOKEN = "FA-JARVIS-ACCESS-ALFIGO-2026";
-
-const accessScreen = document.getElementById("accessScreen");
-const mainWebsite = document.getElementById("mainWebsite");
-const accessMessage = document.getElementById("accessMessage");
-const qrContainer = document.getElementById("qrcode");
-
-if (window.QRCode) {
-  new QRCode(qrContainer, {
-    text: ACCESS_TOKEN,
-    width: 140,
-    height: 140,
-    colorDark: "#00111c",
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.H
+/* QR GENERATOR */
+let qrGenerated=false;
+$("showPhoneQR").onclick=()=>{
+ const panel=$("phoneQrPanel");
+ panel.style.display=panel.style.display==="block"?"none":"block";
+ if(!qrGenerated){
+  new QRCode($("phoneQrCode"),{
+   text:ACCESS_KEY,
+   width:220,
+   height:220,
+   colorDark:"#061426",
+   colorLight:"#ffffff",
+   correctLevel:QRCode.CorrectLevel.H
   });
-} else {
-  accessMessage.textContent = "QR LIBRARY NOT AVAILABLE";
-}
+  qrGenerated=true;
+ }
+ $("gateStatus").textContent="ACCESS QR READY";
+};
 
-function enterUniverse() {
-  accessScreen.style.display = "none";
-  mainWebsite.style.display = "block";
-  document.getElementById("cameraPanel").style.display = "block";
+/* QR SCANNER */
+let qrScanner=null;
+let qrBusy=false;
 
-  speak("Welcome back, Alfigo. Your personal universe is now online.");
-
-  window.scrollTo(0,0);
-}
-
-document.getElementById("scanButton").addEventListener("click", async () => {
-  const video = document.getElementById("scanner");
-
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video:{facingMode:"environment"}
-    });
-
-    video.srcObject = stream;
-    video.style.display = "block";
-    accessMessage.textContent = "SCANNING ACCESS QR...";
-
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-
-    function scanFrame() {
-      if (video.style.display === "none") return;
-      if (video.readyState >= 2) {
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        ctx.drawImage(video,0,0,canvas.width,canvas.height);
-
-        if (window.jsQR) {
-          const result = jsQR(
-            ctx.getImageData(0,0,canvas.width,canvas.height).data,
-            canvas.width,
-            canvas.height
-          );
-
-          if (result && result.data === ACCESS_TOKEN) {
-            stream.getTracks().forEach(track => track.stop());
-            video.style.display = "none";
-            enterUniverse();
-            return;
-          }
-        }
-      }
-      requestAnimationFrame(scanFrame);
-    }
-
-    if (!window.jsQR) {
-      accessMessage.textContent =
-        "QR SCANNER LIBRARY NOT AVAILABLE";
-      stream.getTracks().forEach(track => track.stop());
-      return;
-    }
-
-    scanFrame();
-
-  } catch(error) {
-    accessMessage.textContent =
-      "KAMERA TIDAK BISA DIAKSES. PERIKSA IZIN KAMERA.";
+$("startQR").onclick=async()=>{
+ try{
+  if(!window.Html5Qrcode)throw new Error("QR library belum termuat");
+  $("gateStatus").textContent="REQUESTING CAMERA...";
+  if(qrScanner){
+   await qrScanner.stop().catch(()=>{});
+   qrScanner.clear();
   }
-});
+  qrScanner=new Html5Qrcode("reader");
+  const cameras=await Html5Qrcode.getCameras();
+  if(!cameras.length)throw new Error("Kamera tidak ditemukan");
+  const camera=cameras[0];
 
-/* ---------------------------------
-   VOICE SYSTEM
---------------------------------- */
-
-function speak(message) {
-  if (!("speechSynthesis" in window)) return;
-
-  speechSynthesis.cancel();
-
-  const speech = new SpeechSynthesisUtterance(message);
-  speech.lang = "en-US";
-  speech.rate = 0.92;
-  speech.pitch = 0.85;
-  speech.volume = 1;
-
-  speechSynthesis.speak(speech);
-}
-
-document.getElementById("voiceButton").addEventListener("click", () => {
-  speak("Hello Alfigo. All systems are functioning normally.");
-});
-
-/* ---------------------------------
-   LIGHT AND DARK MODE
---------------------------------- */
-
-document.getElementById("themeButton").addEventListener("click", () => {
-  document.body.classList.toggle("light");
-
-  const light = document.body.classList.contains("light");
-  document.getElementById("themeButton").textContent =
-    light ? "☾" : "☼";
-});
-
-/* ---------------------------------
-   PARTICLE BACKGROUND
---------------------------------- */
-
-const particleCanvas = document.getElementById("particles");
-const pctx = particleCanvas.getContext("2d");
-
-let particles = [];
-
-function resizeParticles() {
-  particleCanvas.width = window.innerWidth;
-  particleCanvas.height = window.innerHeight;
-
-  particles = Array.from({length:65},() => ({
-    x:Math.random()*particleCanvas.width,
-    y:Math.random()*particleCanvas.height,
-    size:Math.random()*2+0.5,
-    speed:Math.random()*0.45+0.1
-  }));
-}
-
-function animateParticles() {
-  pctx.clearRect(0,0,particleCanvas.width,particleCanvas.height);
-
-  particles.forEach(p => {
-    p.y -= p.speed;
-
-    if (p.y < 0) {
-      p.y = particleCanvas.height;
-      p.x = Math.random()*particleCanvas.width;
+  await qrScanner.start(
+   camera.id,
+   {fps:12,qrbox:{width:240,height:240}},
+   async decoded=>{
+    if(qrBusy)return;
+    if(decoded.trim()===ACCESS_KEY){
+     qrBusy=true;
+     $("gateStatus").textContent="ACCESS GRANTED";
+     await qrScanner.stop().catch(()=>{});
+     $("gate").style.display="none";
+     $("site").style.display="block";
+     $("hud").style.display="flex";
+     window.scrollTo(0,0);
+    }else{
+     $("gateStatus").textContent="QR NOT RECOGNIZED";
     }
+   }
+  );
+  $("gateStatus").textContent="SCAN ACCESS QR NOW";
+ }catch(error){
+  $("gateStatus").textContent="CAMERA ERROR: "+error.message;
+ }
+};
 
-    pctx.beginPath();
-    pctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-    pctx.fillStyle = "rgba(0,217,255,.65)";
-    pctx.fill();
+/* WEBSITE CONTROLS */
+$("themeToggle").onclick=()=>document.body.classList.toggle("light");
+$("backTop").onclick=()=>window.scrollTo({top:0,behavior:"smooth"});
+$("jarvisBtn").onclick=()=>$("hudpanel").classList.toggle("show");
+
+/* HAND TRACKING */
+const pointer=$("gesturePointer");
+const video=$("camera");
+
+let stream=null;
+let running=false;
+let landmarker=null;
+let lastVideoTime=-1;
+let lastGesture="";
+let lastY=null;
+let smoothY=null;
+let locked=false;
+let pointerMode=false;
+let lastClick=0;
+let hovered=null;
+
+function status(message){
+ $("gestureStatus").textContent=message;
+}
+
+function dist(a,b){
+ return Math.hypot(a.x-b.x,a.y-b.y);
+}
+
+function fingerExtended(lm,tip,pip){
+ return lm[tip].y<lm[pip].y-.018;
+}
+
+function classify(lm){
+ const fingers=[
+  fingerExtended(lm,8,6),
+  fingerExtended(lm,12,10),
+  fingerExtended(lm,16,14),
+  fingerExtended(lm,20,18)
+ ];
+
+ if(dist(lm[4],lm[8])<.052)return "PINCH";
+
+ const count=fingers.filter(Boolean).length;
+
+ if(count===4)return "OPEN";
+
+ if(fingers[0]&&!fingers[1]&&!fingers[2]&&!fingers[3]){
+  return "POINT";
+ }
+
+ if(count===0)return "FIST";
+
+ return "MOVE";
+}
+
+/* SCROLL SELURUH HALAMAN */
+function scrollByHand(y){
+ if(lastY===null){
+  lastY=y;
+  smoothY=y;
+  return;
+ }
+
+ smoothY+=(y-smoothY)*.62;
+
+ const delta=lastY-smoothY;
+ lastY=smoothY;
+
+ if(Math.abs(delta)>.0012){
+  window.scrollBy(0,Math.max(-58,Math.min(58,delta*1900)));
+ }
+}
+
+/* POINTER TELUNJUK */
+function clearHover(){
+ if(hovered)hovered.classList.remove("gesture-hover");
+ hovered=null;
+}
+
+function movePointer(lm){
+ const x=(1-lm[8].x)*window.innerWidth;
+ const y=lm[8].y*window.innerHeight;
+
+ pointer.style.left=x+"px";
+ pointer.style.top=y+"px";
+ pointer.classList.add("active");
+
+ const element=document.elementFromPoint(x,y);
+ const target=element&&element.closest(
+  'a,button,[role="button"],.card,[tabindex="0"],input,select,textarea'
+ );
+
+ if(target!==hovered){
+  clearHover();
+  hovered=target;
+  if(hovered)hovered.classList.add("gesture-hover");
+ }
+}
+
+/* PINCH UNTUK KLIK */
+function gestureClick(){
+ if(Date.now()-lastClick<550)return;
+ lastClick=Date.now();
+
+ if(hovered&&document.contains(hovered)){
+  pointer.classList.add("clicking");
+  hovered.click();
+  setTimeout(()=>pointer.classList.remove("clicking"),180);
+ }
+}
+
+/* PROSES GESTURE */
+function processGesture(gesture,lm){
+
+ if(gesture==="FIST"){
+  locked=true;
+  pointerMode=false;
+  pointer.classList.remove("active");
+  clearHover();
+  lastY=null;
+  status("CONTROL LOCKED · OPEN PALM TO UNLOCK");
+  return;
+ }
+
+ if(gesture==="OPEN"){
+  locked=false;
+  pointerMode=false;
+  pointer.classList.remove("active");
+  clearHover();
+  scrollByHand(lm[9].y);
+  status("SCROLL MODE · MOVE HAND UP/DOWN");
+  lastGesture=gesture;
+  return;
+ }
+
+ if(locked)return;
+
+ if(gesture==="POINT"){
+  pointerMode=true;
+  movePointer(lm);
+  status("POINTING MODE · PINCH TO CLICK");
+ }
+
+ else if(gesture==="PINCH"){
+  if(pointerMode&&lastGesture==="POINT"){
+   gestureClick();
+   status("CLICK");
+  }else{
+   status("SCROLL PAUSED");
+  }
+ }
+
+ else{
+  status("HAND DETECTED");
+ }
+
+ lastGesture=gesture;
+}
+
+/* AKTIFKAN KAMERA */
+async function startHandControl(){
+ try{
+  status("LOADING HAND TRACKING...");
+
+  const mp=await import(
+   "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14"
+  );
+
+  const vision=await mp.FilesetResolver.forVisionTasks(
+   "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm"
+  );
+
+  landmarker=await mp.HandLandmarker.createFromOptions(vision,{
+   baseOptions:{
+    modelAssetPath:"https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+    delegate:"GPU"
+   },
+   runningMode:"VIDEO",
+   numHands:1
   });
 
-  requestAnimationFrame(animateParticles);
+  stream=await navigator.mediaDevices.getUserMedia({
+   video:{facingMode:"user",width:640,height:480},
+   audio:false
+  });
+
+  video.srcObject=stream;
+  video.style.display="block";
+  await video.play();
+
+  running=true;
+  status("HAND CONTROL ACTIVE");
+  requestAnimationFrame(handLoop);
+
+ }catch(error){
+  status("ERROR · "+error.message);
+ }
 }
 
-window.addEventListener("resize",resizeParticles);
-resizeParticles();
-animateParticles();
+function handLoop(){
+ if(!running)return;
 
-/* ---------------------------------
-   HAND TRACKING SYSTEM
-   Index finger = pointer
-   Pinch = click
-   Open palm = scroll
---------------------------------- */
+ if(video.readyState>=2&&video.currentTime!==lastVideoTime){
+  lastVideoTime=video.currentTime;
 
-const videoElement = document.getElementById("cameraVideo");
-const cameraStatus = document.getElementById("cameraStatus");
-const handCursor = document.getElementById("handCursor");
+  const result=landmarker.detectForVideo(
+   video,performance.now()
+  );
 
-let handCamera = null;
-let previousPalmY = null;
-let previousPinch = false;
-let lastClickTime = 0;
+  if(result.landmarks&&result.landmarks.length){
+   const hand=result.landmarks[0];
+   processGesture(classify(hand),hand);
+  }else{
+   status("SHOW ONE HAND TO CAMERA");
+   lastY=null;
+  }
+ }
 
-function distance(a,b) {
-  return Math.hypot(a.x-b.x,a.y-b.y);
+ requestAnimationFrame(handLoop);
 }
 
-function fingerUp(tip,pip) {
-  return tip.y < pip.y;
+/* MATIKAN KAMERA */
+function stopHandControl(){
+ running=false;
+
+ if(stream){
+  stream.getTracks().forEach(track=>track.stop());
+  stream=null;
+ }
+
+ video.srcObject=null;
+ video.style.display="none";
+ pointer.classList.remove("active");
+ clearHover();
+
+ lastY=null;
+ lastGesture="";
+ status("CAMERA STOPPED");
 }
 
-function handResults(results) {
-  if (!results.multiHandLandmarks ||
-      results.multiHandLandmarks.length === 0) {
-    handCursor.style.display = "none";
-    previousPalmY = null;
-    cameraStatus.textContent = "Tangan belum terdeteksi.";
-    return;
-  }
+$("startHands").onclick=startHandControl;
+$("stopHands").onclick=stopHandControl;
 
-  const lm = results.multiHandLandmarks[0];
-
-  const indexUp = fingerUp(lm[8],lm[6]);
-  const middleUp = fingerUp(lm[12],lm[10]);
-  const ringUp = fingerUp(lm[16],lm[14]);
-  const pinkyUp = fingerUp(lm[20],lm[18]);
-
-  const pointerX = (1-lm[8].x)*window.innerWidth;
-  const pointerY = lm[8].y*window.innerHeight;
-
-  handCursor.style.display = "block";
-  handCursor.style.left = pointerX+"px";
-  handCursor.style.top = pointerY+"px";
-
-  const pinch = distance(lm[4],lm[8]) < 0.055;
-
-  if (indexUp && !middleUp) {
-    cameraStatus.textContent = "POINTER MODE: INDEX FINGER";
-
-    if (pinch) {
-      handCursor.classList.add("pinching");
-
-      const now = Date.now();
-
-      if (!previousPinch && now-lastClickTime > 800) {
-        const target = document.elementFromPoint(pointerX,pointerY);
-
-        if (target) {
-          const clickable = target.closest("a,button");
-          if (clickable) clickable.click();
-        }
-
-        lastClickTime = now;
-      }
-    } else {
-      handCursor.classList.remove("pinching");
-    }
-  } else if (indexUp && middleUp && ringUp && pinkyUp) {
-    cameraStatus.textContent = "SCROLL MODE: OPEN PALM";
-
-    const currentY = lm[9].y;
-
-    if (previousPalmY !== null) {
-      const delta = currentY-previousPalmY;
-
-      if (Math.abs(delta) > 0.003) {
-        window.scrollBy({
-          top:delta*window.innerHeight*2.2,
-          behavior:"auto"
-        });
-      }
-    }
-
-    previousPalmY = currentY;
-  } else {
-    cameraStatus.textContent = "HAND TRACKING ACTIVE";
-    previousPalmY = null;
-    handCursor.classList.remove("pinching");
-  }
-
-  previousPinch = pinch;
-}
-
-async function startHandCamera() {
-  if (!window.Hands || !window.Camera) {
-    cameraStatus.textContent = "HAND TRACKING LIBRARY NOT AVAILABLE.";
-    return;
-  }
-
-  try {
-    const hands = new Hands({
-      locateFile: file =>
-        `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`
-    });
-
-    hands.setOptions({
-      maxNumHands:1,
-      modelComplexity:1,
-      minDetectionConfidence:0.7,
-      minTrackingConfidence:0.65
-    });
-
-    hands.onResults(handResults);
-
-    handCamera = new Camera(videoElement,{
-      onFrame:async () => {
-        await hands.send({image:videoElement});
-      },
-      width:640,
-      height:480
-    });
-
-    await handCamera.start();
-
-    videoElement.style.display = "block";
-    cameraStatus.textContent = "HAND TRACKING ONLINE.";
-
-  } catch(error) {
-    cameraStatus.textContent =
-      "KAMERA GAGAL DIBUKA. PERIKSA IZIN DAN HTTPS.";
-  }
-}
-
-function stopHandCamera() {
-  if (handCamera) {
-    handCamera.stop();
-    handCamera = null;
-  }
-
-  const stream = videoElement.srcObject;
-
-  if (stream) {
-    stream.getTracks().forEach(track => track.stop());
-    videoElement.srcObject = null;
-  }
-
-  videoElement.style.display = "none";
-  handCursor.style.display = "none";
-  cameraStatus.textContent = "CAMERA SYSTEM OFFLINE.";
-}
-
-document.getElementById("startCamera")
-  .addEventListener("click",startHandCamera);
-
-document.getElementById("stopCamera")
-  .addEventListener("click",stopHandCamera);
-
+window.addEventListener("pagehide",()=>{
+ stopHandControl();
+ if(qrScanner)qrScanner.stop().catch(()=>{});
+});
 </script>
-
 </body>
- </html>
+  </html>
