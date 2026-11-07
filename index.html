@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -1083,7 +1084,6 @@ function updatePinDisplay(){
  });
 }
 
-/* PIN langsung diproses setelah angka keenam ditekan */
 function pressNumber(n){
  if(isProcessing||enteredPin.length>=6)return;
  enteredPin+=n;
@@ -1146,7 +1146,7 @@ function getEnglishVoice(){
  )||englishVoices[0];
 }
 
-/* Dipanggil langsung ketika PIN benar agar browser mengenali interaksi pengguna */
+/* WELCOME DIUCAPKAN SETELAH WEBSITE UTAMA TERBUKA */
 function speakWelcome(){
  if(jarvisHasSpoken)return;
 
@@ -1158,28 +1158,22 @@ function speakWelcome(){
  try{
   speechSynthesis.cancel();
 
-  const message=
-   "Welcome back. Identity verification completed. " +
-   "Personal universe is now online. " +
-   "All systems are operational. " +
-   "It's good to have you back, Fachriansyah.";
-
-  const utterance=new SpeechSynthesisUtterance(message);
+  const utterance=new SpeechSynthesisUtterance("Welcome, Alfigo.");
   const voice=getEnglishVoice();
 
   utterance.lang="en-US";
-  utterance.rate=.88;
-  utterance.pitch=.85;
+  utterance.rate=.82;
+  utterance.pitch=1;
   utterance.volume=1;
 
   if(voice)utterance.voice=voice;
 
-  speechSynthesis.speak(utterance);
-  jarvisHasSpoken=true;
-
   utterance.onerror=()=>{
    console.log("Welcome voice playback error.");
   };
+
+  speechSynthesis.speak(utterance);
+  jarvisHasSpoken=true;
  }catch(e){
   jarvisHasSpoken=false;
   console.log("Welcome voice error:",e);
@@ -1195,8 +1189,7 @@ const terminalMessages=[
  ["Memory archive synchronized.","ok"],
  ["Visual interface calibrated.","ok"],
  ["Security protocols verified.","ok"],
- ["All systems operational.","ok"],
- ["Welcome back, Fachriansyah.","warn"]
+ ["All systems operational.","ok"]
 ];
 
 async function runTerminal(){
@@ -1232,7 +1225,7 @@ async function runTerminal(){
   await wait(420);
  }
 
- await wait(1800);
+ await wait(1000);
  terminalScreen.classList.remove("show");
  await wait(500);
  openWebsite();
@@ -1246,8 +1239,7 @@ async function submitPin(){
 
  if(enteredPin===CORRECT_PIN){
 
-  /* WELCOME VOICE DIPANGGIL SEGERA SETELAH PIN BENAR */
-  speakWelcome();
+  /* SUARA WELCOME TIDAK DIPANGGIL DI SINI */
 
   gateStatus.textContent="VERIFYING IDENTITY...";
   gateStatus.className="gate-status success";
@@ -1375,6 +1367,12 @@ function openWebsite(){
  setTimeout(()=>{
   gate.style.display="none";
   refreshRevealElements();
+
+  /* UCAPKAN WELCOME SETELAH WEBSITE BENAR-BENAR TERBUKA */
+  setTimeout(()=>{
+   speakWelcome();
+  },350);
+
  },850);
 }
 
