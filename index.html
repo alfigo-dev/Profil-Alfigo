@@ -3,923 +3,711 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#050b18">
-<title>F.A | Personal Universe</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>PROJECT Ω | Artificial Universe</title>
 
 <style>
-:root{
- --bg:#050b18;--blue:#25c8ff;--cyan:#8cecff;--white:#eafaff;
- --muted:#91adbf;--line:rgba(66,205,255,.25);--glass:rgba(9,28,51,.72)
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #050b18;
+  --panel: rgba(9, 22, 42, .88);
+  --cyan: #25c8ff;
+  --light: #8cecff;
+  --text: #eaf8ff;
+  --muted: #7794ac;
+  --border: rgba(37, 200, 255, .2);
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:radial-gradient(ellipse at 50% 0%,#102b50 0%,transparent 48%),#050b18;color:var(--white);font-family:Inter,sans-serif;overflow-x:hidden}
-body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.12;background-image:linear-gradient(rgba(90,200,255,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(90,200,255,.13) 1px,transparent 1px);background-size:48px 48px}
-a{color:inherit;text-decoration:none}
-button{font:inherit;cursor:pointer}
-#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
-.container{width:min(1120px,90%);margin:auto;position:relative;z-index:1}
-section{position:relative;padding:100px 0;z-index:1}
-.section-label{font:10px Orbitron;color:var(--blue);letter-spacing:4px;margin-bottom:14px}
-.section-title{font:clamp(25px,5vw,43px)/1.25 Orbitron;margin-bottom:18px}
-.section-desc{color:var(--muted);line-height:1.8;max-width:650px;font-size:14px}
-.glow-text{color:var(--cyan);text-shadow:0 0 15px rgba(37,200,255,.65)}
-.hidden,.screen-hidden{display:none!important}
-.btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;padding:14px 21px;border-radius:7px;font-size:10px;letter-spacing:1.5px;font-weight:700;transition:.25s;border:1px solid var(--blue)}
-.btn-primary{background:var(--blue);color:#03101d;box-shadow:0 0 25px rgba(37,200,255,.24)}
-.btn-outline{color:var(--cyan);background:transparent}
-.btn:hover,.interactive:hover{transform:translateY(-4px);box-shadow:0 0 25px rgba(37,200,255,.3)}
-.interactive{cursor:pointer;transition:.3s}
-.screen-transition{animation:screenEnter .65s ease both}
-@keyframes screenEnter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes scan{0%{top:0}100%{top:100%}}
-@keyframes blink{to{visibility:hidden}}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-@keyframes cubeRotate{0%{transform:rotateX(-18deg) rotateY(0)}100%{transform:rotateX(342deg) rotateY(360deg)}}
-@keyframes portalPulse{0%,100%{transform:scale(.94);filter:brightness(.8)}50%{transform:scale(1.06);filter:brightness(1.4)}}
-@keyframes portalSpin{to{transform:rotate(360deg)}}
-@keyframes idScan{0%{top:0}100%{top:100%}}
-@keyframes idShine{0%,25%{left:-60%}70%,100%{left:130%}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-@keyframes revealGlow{0%,100%{box-shadow:0 0 12px rgba(37,200,255,.08)}50%{box-shadow:0 0 35px rgba(37,200,255,.25)}}
 
-/* GATE */
-#gate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;overflow:hidden;background:radial-gradient(ellipse at 50% 40%,rgba(0,145,230,.22),transparent 48%),linear-gradient(145deg,#030914,#071a30 55%,#020812);transition:opacity .8s,visibility .8s}
-#gate::before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(68,197,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(68,197,255,.08) 1px,transparent 1px);background-size:38px 38px;mask-image:radial-gradient(ellipse at center,black,transparent 85%)}
-.gate-scan{position:absolute;left:0;right:0;height:2px;top:0;background:linear-gradient(90deg,transparent,#31d8ff,transparent);box-shadow:0 0 22px #25c8ff;opacity:.7;animation:scan 5s linear infinite}
-.gate-content{width:min(420px,100%);position:relative;z-index:2;text-align:center;padding:36px 25px;border:1px solid rgba(69,207,255,.35);background:linear-gradient(145deg,rgba(8,35,61,.88),rgba(3,13,27,.9));border-radius:17px;box-shadow:0 0 55px rgba(0,150,255,.15),inset 0 0 35px rgba(0,150,255,.06)}
-.gate-emblem{width:85px;height:85px;margin:0 auto 24px;border:1px solid rgba(93,220,255,.7);border-radius:50%;display:grid;place-items:center;color:var(--cyan);font:800 27px Orbitron;text-shadow:0 0 18px var(--blue);box-shadow:0 0 30px rgba(37,200,255,.2),inset 0 0 25px rgba(37,200,255,.12);position:relative}
-.gate-emblem:before{content:"";position:absolute;inset:-9px;border:1px dashed rgba(88,220,255,.4);border-radius:50%;animation:spin 15s linear infinite}
-.gate-kicker,.gate-subtitle,.pin-label{font:10px Orbitron;letter-spacing:3px;color:var(--blue)}
-.gate-title{font:700 clamp(22px,6vw,30px)/1.45 Orbitron;letter-spacing:1px;margin-top:12px}
-.gate-subtitle{margin-top:12px;color:#7daec8}
-.gate-divider{height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);margin:25px 0}
-.pin-label{color:#a5d7ed;margin-bottom:17px}
-.pin-display{display:flex;justify-content:center;gap:12px;margin:0 auto 22px}
-.pin-dot{width:12px;height:12px;border:1px solid #55d9ff;border-radius:50%}
-.pin-dot.filled{background:var(--cyan);box-shadow:0 0 14px var(--blue)}
-.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:270px;margin:auto}
-.key{min-height:53px;border:1px solid rgba(80,197,255,.25);background:rgba(16,66,100,.25);color:#e7faff;border-radius:8px;font:600 17px Orbitron;transition:.2s}
-.key:hover{background:rgba(27,145,200,.3);border-color:var(--blue)}
-.key.utility{font-size:10px;color:var(--cyan)}
-.gate-status{min-height:20px;margin-top:19px;color:#79cde9;font:10px Orbitron;letter-spacing:2px}
-.gate-status.error{color:#ff737d}
-.gate-status.success{color:#73ffbd}
-.gate-footer{margin-top:24px;color:#547e99;font-size:9px;letter-spacing:2px}
-#gate.leaving{opacity:0;visibility:hidden;pointer-events:none}
-.access-granted,.terminal-screen{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:15px;background:rgba(3,15,28,.97);opacity:0;visibility:hidden;transition:.5s}
-.access-granted.show,.terminal-screen.show{opacity:1;visibility:visible}
-.access-granted .check{width:80px;height:80px;border:2px solid #61ffc0;border-radius:50%;display:grid;place-items:center;color:#61ffc0;font-size:37px}
-.access-granted strong{font:700 20px Orbitron;color:#80ffd0}
-.access-granted small{font:10px Orbitron;color:#8cb7c9;letter-spacing:3px}
-.terminal-screen{z-index:8;padding:22px}
-.terminal-window{width:min(650px,100%);border:1px solid rgba(65,205,255,.48);background:linear-gradient(145deg,rgba(5,23,42,.98),rgba(1,9,20,.98));border-radius:12px;overflow:hidden;box-shadow:0 0 45px rgba(0,160,255,.2)}
-.terminal-top,.terminal-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 17px;border-bottom:1px solid rgba(65,205,255,.25);font:10px Orbitron;letter-spacing:1.5px}
-.terminal-brand{font-weight:700;color:var(--cyan)}
-.terminal-lights{display:flex;gap:6px}
-.terminal-lights span{width:7px;height:7px;border-radius:50%;background:#25c8ff}
-.terminal-body{min-height:260px;padding:23px 20px;font:11px/2 "Courier New",monospace;color:#8cecff}
-.terminal-heading{color:#e8fbff;font:700 12px Orbitron;margin-bottom:16px}
-.terminal-line{min-height:22px;overflow-wrap:anywhere}
-.terminal-line .prefix{color:#3e9cbd}
-.terminal-line .ok{color:#70ffc0}
-.terminal-cursor{display:inline-block;width:7px;height:13px;background:#66e5ff;animation:blink .8s steps(2,start) infinite}
-.terminal-progress{height:3px;background:rgba(65,205,255,.12);margin:0 20px 20px}
-.terminal-progress span{display:block;height:100%;width:0;background:#39d9ff;transition:width .3s}
-.terminal-footer{border-top:1px solid rgba(65,205,255,.18);border-bottom:0;color:#5c9db7}
+* { box-sizing: border-box; }
 
-/* NAV */
-nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:18px 0;background:rgba(4,12,25,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(65,200,255,.13)}
-.nav-inner{width:min(1120px,90%);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}
-.logo{font:800 19px Orbitron;letter-spacing:2px;flex-shrink:0}
-.logo span{color:var(--blue)}
-.nav-links{display:flex;gap:13px;align-items:center}
-.nav-links a{color:#a9c6d8;font-size:8px;letter-spacing:.7px}
-.nav-links a:hover{color:var(--blue)}
-.menu-btn{display:none;background:none;color:white;border:1px solid var(--line);padding:8px 12px;border-radius:8px}
-.screen-switch{display:flex;align-items:center;gap:8px;padding:10px 13px;border:1px solid rgba(65,205,255,.4);border-radius:8px;color:var(--cyan);background:rgba(8,35,61,.75);font:9px Orbitron;white-space:nowrap}
-.switch-indicator{width:7px;height:7px;border-radius:50%;background:#55e8ff;box-shadow:0 0 10px #25c8ff}
-
-/* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;padding-top:120px;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
-.eyebrow{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line);padding:9px 14px;border-radius:30px;color:var(--cyan);font-size:10px;letter-spacing:2px;margin-bottom:25px}
-.status-dot{width:7px;height:7px;border-radius:50%;background:#35e6ff;box-shadow:0 0 12px #35e6ff;animation:pulse 1.5s infinite}
-.hero h1{font:700 clamp(35px,6vw,68px)/1.15 Orbitron;letter-spacing:-2px}
-.hero h1 span{display:block;color:var(--blue);text-shadow:0 0 30px rgba(37,200,255,.4)}
-.hero-subtitle{color:#9cb9ca;margin-top:23px;line-height:1.9;font-size:14px;max-width:510px}
-.hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:32px}
-.hero-visual{min-height:450px;display:flex;align-items:center;justify-content:center;position:relative;perspective:1000px}
-.holo-ring{position:absolute;width:min(390px,85vw);aspect-ratio:1;border:1px solid rgba(53,207,255,.32);border-radius:50%;box-shadow:0 0 50px rgba(0,155,255,.12);animation:spin 20s linear infinite}
-.holo-ring:before,.holo-ring:after{content:"";position:absolute;inset:18px;border:1px dashed rgba(73,215,255,.35);border-radius:50%}
-.holo-ring:after{inset:42px;border-style:solid}
-.profile-frame{width:250px;height:330px;position:relative;z-index:2;transform-style:preserve-3d;transition:transform .15s;border-radius:18px;border:1px solid rgba(92,220,255,.65);background:linear-gradient(145deg,rgba(37,200,255,.15),rgba(5,15,35,.85));box-shadow:0 0 40px rgba(0,174,255,.22);overflow:hidden}
-.profile-frame img{width:100%;height:100%;object-fit:cover}
-.visual-tag{position:absolute;z-index:3;padding:10px 13px;background:rgba(4,20,38,.9);border:1px solid var(--line);border-radius:7px;color:var(--cyan);font:9px Orbitron}
-.tag-one{top:65px;left:0}
-.tag-two{bottom:70px;right:0}
-.info-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(8,30,52,.55);padding:23px 0}
-.strip-inner{display:flex;justify-content:space-around;gap:20px;flex-wrap:wrap}
-.strip-item{text-align:center;color:#9db9c9;font-size:10px;letter-spacing:2px}
-.strip-item strong{display:block;font:16px Orbitron;color:var(--cyan);margin-bottom:6px}
-
-/* ABOUT / STORY */
-.about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:55px;align-items:center}
-.about-visual{min-height:330px;border:1px solid var(--line);border-radius:15px;background:radial-gradient(circle,rgba(28,160,230,.2),transparent 65%),rgba(8,24,43,.65);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.about-orbit{width:210px;height:210px;border:1px solid rgba(70,210,255,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative}
-.about-orbit:before{content:"";position:absolute;width:155px;height:155px;border:1px dashed rgba(70,210,255,.4);border-radius:50%;animation:spin 12s linear infinite}
-.about-orbit span{font:42px Orbitron;color:var(--cyan);text-shadow:0 0 25px var(--blue)}
-.about-content p{color:#a3bdcc;font-size:13px;line-height:2;margin-bottom:16px}
-.about-details{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
-.detail{border-left:2px solid var(--blue);padding:10px 13px;background:rgba(30,140,190,.07)}
-.detail small{display:block;color:#6f9caf;font-size:9px;letter-spacing:1.5px;margin-bottom:6px}
-.detail strong{font-size:12px;color:#d8f7ff}
-.story-section,.cube-section,.blueprint-section{background:linear-gradient(180deg,transparent,rgba(9,36,62,.4),transparent)}
-.story-header,.archive-heading{text-align:center;margin-bottom:55px}
-.story-header .section-desc,.archive-heading .section-desc{margin:auto}
-.story-timeline{max-width:800px;margin:auto;position:relative}
-.story-timeline:before{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:linear-gradient(transparent,var(--blue),transparent)}
-.story-item{width:50%;padding:0 35px 40px 0;position:relative}
-.story-item:nth-child(even){margin-left:50%;padding:0 0 40px 35px}
-.story-item:after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:var(--blue);box-shadow:0 0 15px var(--blue);right:-5px;top:10px}
-.story-item:nth-child(even):after{left:-5px}
-.story-card{padding:22px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(145deg,rgba(13,43,69,.8),rgba(5,16,31,.8));transition:.3s}
-.story-card:hover{transform:translateY(-5px);border-color:var(--blue)}
-.story-card small{color:var(--blue);font:9px Orbitron;letter-spacing:2px}
-.story-card h3{font:15px Orbitron;margin:12px 0}
-.story-card p{color:#9cb7c8;line-height:1.8;font-size:12px}
-
-/* ARCHIVE */
-.archive-section{padding-top:45px}
-.archive-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px;perspective:1200px}
-.archive-card{position:relative;height:330px;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:rgba(8,24,43,.8);cursor:pointer;transition:transform .2s,box-shadow .3s}
-.archive-card:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(125deg,rgba(105,230,255,.2),transparent 35%,transparent 65%,rgba(37,200,255,.12))}
-.archive-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s,filter .6s}
-.archive-card:hover img{transform:scale(1.08);filter:brightness(.72)}
-.archive-caption{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:45px 20px 20px;background:linear-gradient(transparent,rgba(1,9,20,.95))}
-.archive-caption small{font:9px Orbitron;color:var(--cyan);letter-spacing:2px}
-.archive-caption h3{font:15px Orbitron;margin-top:8px}
-.archive-hint{color:#9ab8ca;font-size:11px;margin-top:7px}
-.photo-viewer{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;background:rgba(0,5,14,.94);opacity:0;visibility:hidden;transition:.3s}
-.photo-viewer.show{opacity:1;visibility:visible}
-.photo-viewer img{max-width:min(900px,95vw);max-height:85vh;object-fit:contain;border:1px solid var(--line);border-radius:10px}
-.photo-close{position:absolute;top:20px;right:22px;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#05192d;color:var(--cyan);font-size:23px}
-
-/* INTERESTS */
-.interest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:38px}
-.interest-card{padding:27px 22px;border:1px solid var(--line);background:var(--glass);border-radius:12px;transition:.3s;min-height:180px}
-.interest-card:hover{transform:translateY(-7px);border-color:var(--blue)}
-.interest-icon{font-size:28px;margin-bottom:20px;display:block}
-.interest-card h3{font:12px Orbitron;margin-bottom:10px}
-.interest-card p{color:#91adbf;font-size:11px;line-height:1.8}
-
-/* DATA CUBE */
-.cube-layout{display:grid;grid-template-columns:1fr 1fr;gap:45px;align-items:center;margin-top:45px}
-.cube-stage{min-height:390px;display:grid;place-items:center;position:relative;perspective:1000px;border:1px solid var(--line);border-radius:16px;background:radial-gradient(circle,rgba(37,200,255,.13),transparent 65%),rgba(5,20,38,.55);overflow:hidden}
-.cube-stage:before,.cube-stage:after{content:"";position:absolute;width:270px;height:270px;border:1px solid rgba(37,200,255,.2);border-radius:50%}
-.cube-stage:after{width:320px;height:320px;border-style:dashed;animation:spin 25s linear infinite}
-.cube-platform{position:absolute;bottom:55px;width:230px;height:40px;border:1px solid rgba(37,200,255,.55);border-radius:50%;box-shadow:0 0 30px rgba(37,200,255,.3);transform:rotateX(70deg)}
-.cube-scene{width:150px;height:150px;position:relative;z-index:2;perspective:800px}
-.holo-cube{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:cubeRotate 18s linear infinite}
-.cube-face{position:absolute;inset:0;display:grid;place-items:center;text-align:center;border:1px solid rgba(100,225,255,.8);background:linear-gradient(145deg,rgba(37,200,255,.16),rgba(3,25,48,.42));box-shadow:inset 0 0 25px rgba(37,200,255,.12),0 0 18px rgba(37,200,255,.13);color:#b9f4ff;font:12px Orbitron;letter-spacing:2px}
-.cube-face span{font-size:28px;text-shadow:0 0 20px var(--blue)}
-.cube-front{transform:translateZ(75px)}
-.cube-back{transform:rotateY(180deg) translateZ(75px)}
-.cube-right{transform:rotateY(90deg) translateZ(75px)}
-.cube-left{transform:rotateY(-90deg) translateZ(75px)}
-.cube-top{transform:rotateX(90deg) translateZ(75px)}
-.cube-bottom{transform:rotateX(-90deg) translateZ(75px)}
-.cube-info{padding:28px;border:1px solid var(--line);border-radius:14px;background:var(--glass)}
-.cube-info h3{font:17px Orbitron;color:var(--cyan);margin-bottom:13px}
-.cube-info p{font-size:12px;line-height:1.9;color:#9bb9ca;min-height:70px}
-.cube-controls{display:flex;gap:9px;flex-wrap:wrap;margin-top:22px}
-.cube-select,.id-action,.universe-tab,.portal-button{padding:10px 13px;border:1px solid var(--line);border-radius:7px;color:#a9dcec;background:#071a2e;font:9px Orbitron;transition:.25s}
-.cube-select.active,.cube-select:hover,.id-action:hover,.universe-tab.active,.universe-tab:hover,.portal-button:hover{background:rgba(37,200,255,.2);border-color:var(--blue);color:var(--cyan);box-shadow:0 0 15px rgba(37,200,255,.13)}
-.cube-readout{display:flex;justify-content:space-between;gap:10px;margin-top:23px;padding-top:16px;border-top:1px solid var(--line);font:9px Orbitron;color:#6c9eb6}
-.cube-readout strong{color:#8cecff}
-
-/* ID CARD */
-.identity-wrap{max-width:750px;margin:45px auto 0;perspective:1200px}
-.identity-card{position:relative;min-height:340px;padding:30px;border:1px solid rgba(110,225,255,.55);border-radius:18px;overflow:hidden;background:linear-gradient(125deg,rgba(11,49,78,.96),rgba(4,16,34,.98) 65%,rgba(8,53,76,.9));box-shadow:0 20px 65px rgba(0,0,0,.35),0 0 35px rgba(37,200,255,.13);transform-style:preserve-3d;transition:transform .2s}
-.identity-card:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 4px,rgba(112,222,255,.035) 5px)}
-.identity-card:after{content:"";position:absolute;top:-100%;left:-50%;width:45%;height:300%;background:linear-gradient(90deg,transparent,rgba(145,235,255,.15),transparent);transform:rotate(25deg);animation:idShine 6s ease-in-out infinite}
-.id-top,.id-content,.id-bottom{position:relative;z-index:2}
-.id-top{display:flex;justify-content:space-between;align-items:center;gap:15px;padding-bottom:18px;border-bottom:1px solid rgba(100,220,255,.3)}
-.id-brand{font:700 12px Orbitron;letter-spacing:2px;color:var(--cyan)}
-.id-status{font:9px Orbitron;color:#70ffc0}
-.id-content{display:grid;grid-template-columns:125px 1fr;gap:25px;align-items:center;padding:28px 0}
-.id-avatar{width:125px;height:150px;border:1px solid rgba(100,220,255,.65);border-radius:9px;overflow:hidden}
-.id-avatar img{width:100%;height:100%;object-fit:cover}
-.id-name{font:700 clamp(17px,4vw,24px) Orbitron;color:#e9fbff;line-height:1.5}
-.id-role{font:9px Orbitron;letter-spacing:2px;color:var(--cyan);margin:8px 0 18px}
-.id-fields{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.id-field small{display:block;font:8px Orbitron;color:#659ab5;letter-spacing:1.5px;margin-bottom:5px}
-.id-field strong{font-size:11px;color:#d5f4ff}
-.id-bottom{display:flex;justify-content:space-between;align-items:center;gap:15px;border-top:1px solid rgba(100,220,255,.3);padding-top:17px}
-.id-code{font:9px Orbitron;letter-spacing:2px;color:#7eb4ce}
-.id-chip{width:45px;height:32px;border:1px solid rgba(100,220,255,.5);border-radius:6px}
-.id-scan{position:absolute;z-index:4;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,transparent,#8cecff,white,#25c8ff,transparent);box-shadow:0 0 20px #25c8ff;opacity:0}
-.identity-card.scanning .id-scan{opacity:1;animation:idScan 2.4s ease-in-out}
-.id-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px}
-.id-note{text-align:center;font-size:10px;color:#789bb0;margin-top:16px}
-
-/* BLUEPRINT */
-.blueprint-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:38px}
-.blueprint-card{position:relative;min-height:260px;padding:25px 22px;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:linear-gradient(145deg,rgba(12,43,69,.85),rgba(4,16,31,.9));transition:.35s}
-.blueprint-card:hover{transform:translateY(-7px);border-color:var(--blue);box-shadow:0 15px 35px rgba(0,130,220,.13)}
-.blueprint-number{font:10px Orbitron;letter-spacing:2px;color:#5a9db9}
-.blueprint-icon{font-size:28px;margin:25px 0 17px;color:var(--cyan)}
-.blueprint-card h3{font:14px Orbitron;color:#dff9ff;margin-bottom:12px}
-.blueprint-card p{font-size:11px;line-height:1.85;color:#91adbf}
-.blueprint-tag{display:inline-block;margin-top:18px;padding:7px 9px;border:1px solid rgba(37,200,255,.25);border-radius:4px;color:#83dff6;font:8px Orbitron}
-.blueprint-footer{margin-top:25px;padding:17px;border-left:2px solid var(--blue);background:rgba(37,200,255,.055);font-size:11px;line-height:1.8;color:#92b5c7}
-
-/* NEW DIGITAL TWIN */
-.twin-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:35px;align-items:center;margin-top:40px}
-.twin-stage{min-height:420px;position:relative;display:grid;place-items:center;border:1px solid var(--line);border-radius:16px;background:radial-gradient(circle,rgba(37,200,255,.2),transparent 65%),rgba(5,20,38,.6);overflow:hidden}
-.twin-orbit{position:absolute;width:300px;height:300px;border:1px dashed rgba(37,200,255,.5);border-radius:50%;animation:spin 18s linear infinite}
-.twin-orbit:before{content:"";position:absolute;inset:25px;border:1px solid rgba(37,200,255,.3);border-radius:50%}
-.twin-core{width:190px;height:260px;position:relative;z-index:2;border:1px solid var(--cyan);border-radius:12px;overflow:hidden;box-shadow:0 0 35px rgba(37,200,255,.25);animation:float 4s ease-in-out infinite}
-.twin-core img{width:100%;height:100%;object-fit:cover;filter:saturate(.8) contrast(1.08)}
-.twin-core:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 65%,rgba(0,30,55,.7)),repeating-linear-gradient(0deg,transparent 0 5px,rgba(100,220,255,.1) 6px)}
-.twin-label{position:absolute;z-index:3;padding:8px 10px;background:#061a2c;border:1px solid var(--line);font:8px Orbitron;color:var(--cyan)}
-.twin-label.one{top:35px;left:15px}.twin-label.two{bottom:35px;right:15px}
-.twin-info{padding:25px;border:1px solid var(--line);border-radius:14px;background:var(--glass)}
-.twin-info h3{font:18px Orbitron;color:var(--cyan);margin-bottom:12px}
-.twin-info p{font-size:12px;line-height:1.9;color:#9bb9ca}
-.twin-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
-.twin-stat{padding:14px;border:1px solid rgba(37,200,255,.2);background:rgba(37,200,255,.05)}
-.twin-stat small{display:block;font:8px Orbitron;color:#75a8c1;margin-bottom:8px}
-.twin-stat strong{font:12px Orbitron;color:var(--cyan)}
-
-/* SPATIAL COMPUTING */
-.spatial-board{margin-top:40px;min-height:430px;border:1px solid var(--line);border-radius:16px;position:relative;overflow:hidden;background:radial-gradient(circle at center,rgba(37,200,255,.12),transparent 55%),rgba(4,17,34,.75);touch-action:pan-y}
-.spatial-board:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(90,200,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(90,200,255,.09) 1px,transparent 1px);background-size:30px 30px;pointer-events:none}
-.spatial-hint{position:absolute;top:15px;left:18px;font:9px Orbitron;color:#73a9c2;letter-spacing:1px;z-index:2}
-.spatial-panel{position:absolute;width:220px;min-height:130px;padding:17px;border:1px solid rgba(95,220,255,.55);border-radius:10px;background:rgba(5,27,48,.92);box-shadow:0 0 25px rgba(37,200,255,.12);cursor:grab;user-select:none;touch-action:none;transition:box-shadow .2s}
-.spatial-panel:active{cursor:grabbing;box-shadow:0 0 35px rgba(37,200,255,.3)}
-.spatial-panel h3{font:11px Orbitron;color:var(--cyan);margin-bottom:12px}
-.spatial-panel p{font-size:10px;line-height:1.7;color:#a3c2d2}
-.spatial-panel small{display:block;margin-top:12px;font:8px Orbitron;color:#5da4c2}
-#panelA{top:75px;left:8%}#panelB{top:175px;right:8%}#panelC{bottom:22px;left:32%}
-.spatial-controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-
-/* PARALLEL UNIVERSE */
-.universe-box{margin-top:40px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:rgba(5,20,38,.7)}
-.universe-top{padding:22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap;align-items:center}
-.universe-top h3{font:13px Orbitron;color:var(--cyan)}
-.universe-tabs{display:flex;gap:8px;flex-wrap:wrap}
-.universe-content{padding:35px;min-height:240px;display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:center}
-.universe-visual{min-height:170px;border:1px solid rgba(37,200,255,.3);border-radius:12px;display:grid;place-items:center;background:radial-gradient(circle,rgba(37,200,255,.2),transparent 65%)}
-.universe-symbol{font:65px Orbitron;color:var(--cyan);text-shadow:0 0 30px var(--blue);animation:float 3s ease-in-out infinite}
-.universe-text h3{font:18px Orbitron;color:var(--cyan);margin-bottom:13px}
-.universe-text p{font-size:12px;line-height:1.9;color:#9bb9ca}
-.universe-index{font:9px Orbitron;color:#629ab5;margin-top:15px}
-
-/* PORTAL */
-.portal-section{text-align:center}
-.portal-stage{height:350px;display:grid;place-items:center;position:relative;margin:35px auto;max-width:700px;overflow:hidden}
-.portal-ring{position:absolute;width:230px;height:230px;border:3px solid var(--cyan);border-radius:50%;box-shadow:0 0 20px var(--blue),inset 0 0 30px rgba(37,200,255,.3);animation:portalPulse 3s ease-in-out infinite}
-.portal-ring:before,.portal-ring:after{content:"";position:absolute;inset:-18px;border:1px dashed rgba(80,220,255,.7);border-radius:50%;animation:portalSpin 12s linear infinite}
-.portal-ring:after{inset:15px;border-style:solid;animation-direction:reverse;animation-duration:8s}
-.portal-core{position:relative;z-index:2;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,#b8f6ff 0%,#25c8ff 12%,#07518a 40%,#041326 75%);box-shadow:0 0 65px rgba(37,200,255,.6);display:grid;place-items:center;font:12px Orbitron;color:white}
-.portal-button{position:relative;z-index:3;padding:15px 25px;font-size:10px}
-.portal-note{font-size:11px;color:#82a9bd;line-height:1.8}
-
-/* CONTACT / REVEAL */
-.contact-box{text-align:center;padding:55px 25px;border:1px solid var(--line);border-radius:16px;background:radial-gradient(ellipse at top,rgba(0,140,220,.17),transparent 70%),rgba(8,25,44,.75)}
-.contact-box .section-desc{margin:0 auto 28px}
-.contact-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#65879c;font-size:10px;letter-spacing:1px;position:relative;z-index:1}
-.reveal{opacity:0;transform:translateY(25px);transition:opacity .7s,transform .7s}
-.reveal.visible{opacity:1;transform:translateY(0)}
-.toast{position:fixed;z-index:12000;bottom:25px;left:50%;transform:translate(-50%,20px);padding:12px 18px;border:1px solid var(--blue);background:rgba(3,20,38,.95);border-radius:8px;color:var(--cyan);font:9px Orbitron;letter-spacing:1px;opacity:0;pointer-events:none;transition:.3s;text-align:center;max-width:90%}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-
-@media(max-width:1050px){.nav-links{gap:8px}.nav-links a{font-size:7px}.nav-inner{gap:8px}}
-@media(max-width:900px){.cube-layout{gap:25px}.blueprint-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:800px){
- .nav-inner{justify-content:space-between}
- .nav-links{position:absolute;top:70px;left:5%;width:90%;display:none;flex-direction:column;align-items:stretch;gap:0;padding:12px;border:1px solid var(--line);border-radius:12px;background:rgba(4,15,30,.97);max-height:75vh;overflow:auto}
- .nav-links.open{display:flex}.nav-links a{padding:14px;font-size:10px}
- .menu-btn{display:block}
- .hero{min-height:auto;padding:145px 0 80px}
- .hero-grid{grid-template-columns:1fr;gap:25px}
- .hero-content{text-align:center}.hero-subtitle{margin-left:auto;margin-right:auto}
- .hero-actions{justify-content:center}.hero-visual{min-height:400px}
- .profile-frame{width:220px;height:290px}
- section{padding:75px 0}
- .about-grid,.twin-layout{grid-template-columns:1fr;gap:30px}
- .about-visual{min-height:280px}
- .interest-grid{grid-template-columns:1fr 1fr}
- .cube-layout{grid-template-columns:1fr}.cube-stage{min-height:350px}
- .identity-card{min-height:320px}
- .universe-content{grid-template-columns:1fr}
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 50% 35%, #102849 0%, transparent 48%),
+    var(--bg);
+  font-family: Inter, sans-serif;
 }
-@media(max-width:520px){
- .container{width:88%}.nav-inner{width:92%;gap:7px}
- .logo{font-size:16px}.screen-switch{padding:9px 8px;font-size:7px;gap:5px}
- .menu-btn{padding:8px 10px;font-size:13px}
- .hero h1{font-size:37px}.hero-visual{min-height:365px}
- .holo-ring{width:300px}.profile-frame{width:190px;height:255px}
- .tag-one{left:-3px;top:48px}.tag-two{right:-3px;bottom:45px}
- .strip-inner{display:grid;grid-template-columns:1fr 1fr;row-gap:22px}
- .about-details{grid-template-columns:1fr 1fr}
- .story-timeline:before{left:8px}
- .story-item,.story-item:nth-child(even){width:100%;margin-left:0;padding:0 0 25px 32px}
- .story-item:after,.story-item:nth-child(even):after{left:3px;right:auto}
- .interest-grid,.archive-grid{grid-template-columns:1fr}
- .interest-card{min-height:auto}.archive-card{height:290px}
- .terminal-body{min-height:250px;padding:18px 14px;font-size:10px}
- .section-title{font-size:27px}.cube-stage{min-height:315px}
- .cube-scene{width:125px;height:125px}.cube-face{font-size:10px}
- .cube-face span{font-size:23px}
- .cube-front{transform:translateZ(62.5px)}.cube-back{transform:rotateY(180deg) translateZ(62.5px)}
- .cube-right{transform:rotateY(90deg) translateZ(62.5px)}.cube-left{transform:rotateY(-90deg) translateZ(62.5px)}
- .cube-top{transform:rotateX(90deg) translateZ(62.5px)}.cube-bottom{transform:rotateX(-90deg) translateZ(62.5px)}
- .cube-controls{gap:7px}.cube-select{font-size:8px;padding:9px}
- .identity-card{padding:20px;min-height:300px}
- .id-content{grid-template-columns:90px 1fr;gap:15px;padding:23px 0}
- .id-avatar{width:90px;height:120px}.id-fields{gap:10px}
- .id-field strong{font-size:9px}.id-field small{font-size:7px}
- .id-name{font-size:16px}.id-role{font-size:8px}
- .id-brand{font-size:9px}.id-status{font-size:7px}
- .blueprint-grid{grid-template-columns:1fr}.blueprint-card{min-height:220px}
- .spatial-board{min-height:500px}
- .spatial-panel{width:190px}
- #panelA{left:5%;top:65px}#panelB{right:5%;top:220px}#panelC{left:15%;bottom:20px}
- .twin-stage{min-height:370px}
- .twin-orbit{width:260px;height:260px}
- .universe-content{padding:20px}
+
+header {
+  padding: 22px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  gap: 15px;
 }
-@media(prefers-reduced-motion:reduce){
- *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+
+.logo {
+  font: 700 17px Orbitron, sans-serif;
+  letter-spacing: 2px;
+  color: var(--light);
+}
+
+.status {
+  color: #69e9bc;
+  font: 11px Orbitron, sans-serif;
+  letter-spacing: 1px;
+}
+
+main {
+  width: min(1450px, 94%);
+  margin: 35px auto;
+}
+
+.heading { margin-bottom: 25px; }
+
+.eyebrow {
+  font: 11px Orbitron, sans-serif;
+  color: var(--cyan);
+  letter-spacing: 3px;
+}
+
+h1 {
+  font: 700 clamp(25px, 5vw, 44px) Orbitron, sans-serif;
+  margin: 12px 0;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 18px;
+}
+
+.universe-panel,
+.control-panel,
+.stat-card,
+.info-panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  box-shadow: 0 0 35px rgba(0, 130, 255, .05);
+}
+
+.universe-panel {
+  overflow: hidden;
+  position: relative;
+  min-width: 0;
+}
+
+.canvas-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--border);
+  font: 10px Orbitron, sans-serif;
+  letter-spacing: 1px;
+  color: var(--light);
+}
+
+#universe {
+  width: 100%;
+  height: 490px;
+  display: block;
+  cursor: crosshair;
+  touch-action: manipulation;
+}
+
+.canvas-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 13px 18px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 10px;
+  gap: 10px;
+}
+
+.control-panel { padding: 20px; }
+
+.panel-title {
+  font: 600 12px Orbitron, sans-serif;
+  color: var(--light);
+  letter-spacing: 1.5px;
+  margin-bottom: 22px;
+}
+
+.control { margin-bottom: 23px; }
+
+.control-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 11px;
+}
+
+.control-head output {
+  color: var(--cyan);
+  font: 12px Orbitron, sans-serif;
+}
+
+input[type=range] {
+  width: 100%;
+  accent-color: var(--cyan);
+  cursor: pointer;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin-top: 28px;
+}
+
+button {
+  padding: 13px 9px;
+  border: 1px solid var(--border);
+  background: #0d2440;
+  color: var(--light);
+  border-radius: 8px;
+  font: 600 10px Orbitron, sans-serif;
+  cursor: pointer;
+  transition: .2s;
+}
+
+button:hover {
+  background: #12385b;
+  border-color: var(--cyan);
+  box-shadow: 0 0 16px rgba(37,200,255,.2);
+}
+
+button.primary {
+  background: #087eae;
+  color: white;
+  border-color: #25c8ff;
+}
+
+button.wide { grid-column: span 2; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.stat-card { padding: 17px; }
+
+.stat-label {
+  color: var(--muted);
+  font: 10px Orbitron, sans-serif;
+  letter-spacing: 1px;
+}
+
+.stat-value {
+  color: var(--light);
+  font: 700 21px Orbitron, sans-serif;
+  margin-top: 12px;
+}
+
+.info-panel {
+  padding: 20px;
+  margin-top: 18px;
+}
+
+.info-panel h3 {
+  color: var(--light);
+  font: 12px Orbitron, sans-serif;
+  letter-spacing: 1px;
+}
+
+.info-panel p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px;
+  color: #526b84;
+  font: 10px Orbitron, sans-serif;
+  letter-spacing: 1px;
+}
+
+@media(max-width: 850px) {
+  .workspace { grid-template-columns: 1fr; }
+  #universe { height: 380px; }
+  .stats { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media(max-width: 480px) {
+  main { margin-top: 25px; }
+  header { padding: 18px 4%; }
+  .logo { font-size: 13px; }
+  .status { font-size: 9px; }
+  #universe { height: 320px; }
+  .stat-card { padding: 12px; }
+  .stat-value { font-size: 16px; }
+  .stat-label { font-size: 8px; }
 }
 </style>
 </head>
 
 <body>
-<canvas id="particles"></canvas>
 
-<div id="gate">
- <div class="gate-scan"></div>
- <div class="gate-content" id="gateContent">
-  <div class="gate-emblem">F.A</div>
-  <div class="gate-kicker">PRIVATE DIGITAL SPACE</div>
-  <h1 class="gate-title">WELCOME TO<br><span class="glow-text">THE SECRET ROOM</span></h1>
-  <div class="gate-subtitle">RESTRICTED ACCESS // F.A</div>
-  <div class="gate-divider"></div>
-  <div class="pin-label">ENTER YOUR PASSCODE</div>
-  <div class="pin-display" id="pinDisplay">
-   <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
-   <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
-  </div>
-  <div class="keypad" id="keypad">
-   <button class="key" data-num="1">1</button><button class="key" data-num="2">2</button><button class="key" data-num="3">3</button>
-   <button class="key" data-num="4">4</button><button class="key" data-num="5">5</button><button class="key" data-num="6">6</button>
-   <button class="key" data-num="7">7</button><button class="key" data-num="8">8</button><button class="key" data-num="9">9</button>
-   <button class="key utility" data-action="clear">CLEAR</button><button class="key" data-num="0">0</button><button class="key utility" data-action="delete">⌫</button>
-  </div>
-  <div class="gate-status" id="gateStatus">AWAITING AUTHENTICATION...</div>
-  <div class="gate-footer">IDENTITY VERIFICATION SYSTEM · F.A</div>
- </div>
- <div class="access-granted" id="accessGranted">
-  <div class="check">✓</div><strong>IDENTITY VERIFIED</strong><small>ACCESS GRANTED</small>
- </div>
- <div class="terminal-screen" id="terminalScreen">
-  <div class="terminal-window">
-   <div class="terminal-top"><div class="terminal-brand">F.A // J.A.R.V.I.S SYSTEM</div><div class="terminal-lights"><span></span><span></span><span></span></div></div>
-   <div class="terminal-body">
-    <div class="terminal-heading">INITIALIZING PERSONAL UNIVERSE...</div>
-    <div id="terminalLines"></div>
-    <div class="terminal-line"><span class="prefix">SYSTEM &gt;</span> <span class="terminal-cursor"></span></div>
-   </div>
-   <div class="terminal-progress"><span id="terminalProgress"></span></div>
-   <div class="terminal-footer"><span>JARVIS CORE ONLINE</span><span id="terminalPercent">0%</span></div>
-  </div>
- </div>
-</div>
-
-<div class="photo-viewer" id="photoViewer">
- <button class="photo-close" id="photoClose">×</button>
- <img id="viewerImage" src="" alt="Foto kenangan">
-</div>
-<div class="toast" id="toast"></div>
-
-<div id="mainWebsite" class="hidden">
-<nav>
- <div class="nav-inner">
-  <a href="#home" class="logo">F<span>.</span>A</a>
-  <button class="screen-switch" id="screenSwitch"><span class="switch-indicator"></span><span id="screenSwitchText">SCREEN 1 / 2</span></button>
-  <div class="nav-links" id="navLinks">
-   <a href="#home">HOME</a><a href="#about">ABOUT</a><a href="#story">MY STORY</a>
-   <a href="#memories">MEMORIES</a><a href="#dataCube">DATA CUBE</a><a href="#identity">IDENTITY</a>
-   <a href="#blueprint">BLUEPRINT</a><a href="#digitalTwin">DIGITAL TWIN</a><a href="#spatial">SPATIAL</a>
-   <a href="#parallel">MULTIVERSE</a><a href="#portal">PORTAL</a><a href="#interests">INTERESTS</a><a href="#contact">CONTACT</a>
-  </div>
-  <button class="menu-btn" id="menuBtn">☰</button>
- </div>
-</nav>
+<header>
+  <div class="logo">Ω / OMEGA</div>
+  <div class="status">● SYSTEM ONLINE</div>
+</header>
 
 <main>
-<div data-screen="1" id="screenOne">
- <section class="hero" id="home">
-  <div class="container hero-grid">
-   <div class="hero-content reveal">
-    <div class="eyebrow"><span class="status-dot"></span> PERSONAL UNIVERSE ONLINE</div>
-    <h1>HELLO, I'M <span>FACHRIANSYAH.</span></h1>
-    <p class="hero-subtitle">Welcome to my personal universe. A digital space that represents my journey, creativity, interests, and everything that makes me who I am.</p>
-    <div class="hero-actions">
-     <a href="#about" class="btn btn-primary">EXPLORE MY WORLD ↗</a>
-     <a href="#story" class="btn btn-outline">MY JOURNEY</a>
+
+  <section class="heading">
+    <div class="eyebrow">EXPERIMENT Ω-001</div>
+    <h1>ARTIFICIAL UNIVERSE</h1>
+    <div class="subtitle">
+      Experimental particle universe simulator.<br>
+      Explore the behavior of a simplified expanding universe model.
     </div>
-   </div>
-   <div class="hero-visual reveal" id="heroVisual">
-    <div class="holo-ring"></div><div class="visual-tag tag-one">SYSTEM ACTIVE</div>
-    <div class="profile-frame" id="profile3d"><img src="IMG-20261104-WA0009.jpg" alt="Foto profil Fachriansyah"></div>
-    <div class="visual-tag tag-two">LEVEL: EVOLVING</div>
-   </div>
-  </div>
- </section>
+  </section>
 
- <div class="info-strip"><div class="container strip-inner">
-  <div class="strip-item"><strong>01</strong>MY JOURNEY</div><div class="strip-item"><strong>02</strong>MY PASSION</div>
-  <div class="strip-item"><strong>03</strong>MY UNIVERSE</div><div class="strip-item"><strong>∞</strong>KEEP EVOLVING</div>
- </div></div>
+  <section class="workspace">
 
- <section id="about">
-  <div class="container about-grid">
-   <div class="about-visual reveal"><div class="about-orbit"><span>F.A</span></div></div>
-   <div class="about-content reveal">
-    <div class="section-label">01 / ABOUT ME</div>
-    <h2 class="section-title">MORE THAN JUST <span class="glow-text">A NAME.</span></h2>
-    <p>I'm Fachriansyah Alfigo. Someone who believes that every experience has a story, every challenge brings a lesson, and every new day is an opportunity to become better.</p>
-    <p>I'm interested in technology, multimedia, creative experiences, and discovering new things. This website is my own little universe — a place to express ideas and document my journey.</p>
-    <div class="about-details">
-     <div class="detail"><small>NAME</small><strong>Fachriansyah Alfigo</strong></div>
-     <div class="detail"><small>FIELD</small><strong>Manajemen Multimedia dan Digital</strong></div>
-     <div class="detail"><small>PERSONALITY</small><strong>Curious & Creative</strong></div>
-     <div class="detail"><small>PHILOSOPHY</small><strong>Keep Growing</strong></div>
-    </div>
-   </div>
-  </div>
- </section>
+    <div>
+      <div class="universe-panel">
+        <div class="canvas-top">
+          <span>UNIVERSE SIMULATION</span>
+          <span id="runStatus">PAUSED</span>
+        </div>
 
- <section class="story-section" id="story">
-  <div class="container">
-   <div class="story-header reveal">
-    <div class="section-label">02 / MY STORY</div>
-    <h2 class="section-title">THE JOURNEY <span class="glow-text">CONTINUES.</span></h2>
-    <p class="section-desc">Every chapter has its own meaning. These are some of the things that shape my journey and the person I am becoming.</p>
-   </div>
-   <div class="story-timeline">
-    <div class="story-item reveal"><div class="story-card interactive"><small>CHAPTER 01</small><h3>THE BEGINNING</h3><p>Every journey starts somewhere. This is where curiosity, dreams, and the desire to explore new possibilities begin.</p></div></div>
-    <div class="story-item reveal"><div class="story-card interactive"><small>CHAPTER 02</small><h3>THE BMX JOURNEY</h3><p>BMX became an important part of my story. It introduced me to competition, discipline, determination, and the experience of growing through sport.</p></div></div>
-    <div class="story-item reveal"><div class="story-card interactive"><small>CHAPTER 03</small><h3>LEARNING & GROWING</h3><p>Exploring multimedia, technology, and creative ideas while learning from every experience and challenge along the way.</p></div></div>
-    <div class="story-item reveal"><div class="story-card interactive"><small>CHAPTER 04</small><h3>THE NEXT CHAPTER</h3><p>The story is still being written. There are more things to discover, more goals to achieve, and more memories to create.</p></div></div>
-   </div>
-  </div>
- </section>
-</div>
+        <canvas id="universe"></canvas>
 
-<div data-screen="2" id="screenTwo" class="screen-hidden">
- <section class="archive-section" id="memories">
-  <div class="container">
-   <div class="archive-heading reveal"><div class="section-label">02.5 / MEMORY ARCHIVE</div><h2 class="section-title">MOMENTS <span class="glow-text">TO REMEMBER.</span></h2><p class="section-desc">A small collection of memories from my personal journey.</p></div>
-   <div class="archive-grid">
-    <div class="archive-card reveal" data-image="IMG-20261104-WA0006.jpg"><img src="IMG-20261104-WA0006.jpg" alt="Memory Archive 01" loading="lazy"><div class="archive-caption"><small>MEMORY ARCHIVE 01</small><h3>A MOMENT IN TIME</h3><p class="archive-hint">Tap to explore this memory ↗</p></div></div>
-    <div class="archive-card reveal" data-image="IMG-20261104-WA0011.jpg"><img src="IMG-20261104-WA0011.jpg" alt="Memory Archive 02" loading="lazy"><div class="archive-caption"><small>MEMORY ARCHIVE 02</small><h3>ANOTHER CHAPTER</h3><p class="archive-hint">Tap to explore this memory ↗</p></div></div>
-   </div>
-  </div>
- </section>
-
- <section class="cube-section" id="dataCube">
-  <div class="container">
-   <div class="reveal"><div class="section-label">05 / HOLOGRAPHIC DATA SYSTEM</div><h2 class="section-title">HOLOGRAPHIC <span class="glow-text">DATA CUBE.</span></h2><p class="section-desc">A 3D holographic interface containing selected information about my identity, education, and personal journey.</p></div>
-   <div class="cube-layout">
-    <div class="cube-stage reveal"><div class="cube-scene"><div class="holo-cube" id="holoCube">
-     <div class="cube-face cube-front"><div><span>F.A</span><br>IDENTITY</div></div><div class="cube-face cube-back"><div><span>✦</span><br>JOURNEY</div></div>
-     <div class="cube-face cube-right"><div><span>⌘</span><br>STUDY</div></div><div class="cube-face cube-left"><div><span>◎</span><br>BMX</div></div>
-     <div class="cube-face cube-top"><div><span>∞</span><br>GROWTH</div></div><div class="cube-face cube-bottom"><div><span>◈</span><br>IDEAS</div></div>
-    </div></div><div class="cube-platform"></div></div>
-    <div class="cube-info reveal"><div class="section-label">DATA INTERFACE // 01</div><h3 id="cubeTitle">PERSONAL IDENTITY</h3><p id="cubeDescription">Fachriansyah Alfigo. A curious individual who enjoys exploring new experiences, learning new things, and expressing ideas.</p>
-     <div class="cube-controls"><button class="cube-select active" data-cube="identity">IDENTITY</button><button class="cube-select" data-cube="education">EDUCATION</button><button class="cube-select" data-cube="bmx">BMX JOURNEY</button><button class="cube-select" data-cube="vision">PERSONAL VISION</button></div>
-     <div class="cube-readout"><span>DATA STATUS: <strong>CONNECTED</strong></span><span id="cubeIndex">01 / 04</span></div>
-    </div>
-   </div>
-  </div>
- </section>
-
- <section id="identity">
-  <div class="container">
-   <div class="reveal" style="text-align:center"><div class="section-label">06 / DIGITAL IDENTIFICATION</div><h2 class="section-title">DIGITAL <span class="glow-text">IDENTITY CARD.</span></h2><p class="section-desc" style="margin:auto">A personal holographic identity interface representing the person behind this universe.</p></div>
-   <div class="identity-wrap reveal">
-    <div class="identity-card" id="identityCard"><div class="id-scan"></div>
-     <div class="id-top"><div class="id-brand">F.A // DIGITAL IDENTITY</div><div class="id-status">IDENTITY ACTIVE</div></div>
-     <div class="id-content"><div class="id-avatar"><img src="IMG-20261104-WA0009.jpg" alt="Fachriansyah Alfigo"></div>
-      <div><div class="id-name">FACHRIANSYAH<br>ALFIGO</div><div class="id-role">PERSONAL UNIVERSE MEMBER</div>
-       <div class="id-fields">
-        <div class="id-field"><small>EDUCATION</small><strong>HSPG Yogyakarta</strong></div><div class="id-field"><small>FIELD</small><strong>Multimedia & Digital</strong></div>
-        <div class="id-field"><small>BACKGROUND</small><strong>BMX Journey</strong></div><div class="id-field"><small>IDENTITY</small><strong>Curious Explorer</strong></div>
-       </div>
+        <div class="canvas-bottom">
+          <span>MODEL: 2D PARTICLE SYSTEM</span>
+          <span>CLICK TO CREATE A MASS CENTER</span>
+        </div>
       </div>
-     </div>
-     <div class="id-bottom"><div class="id-code">FA-UNIVERSE // 001</div><div class="id-chip"></div><div class="id-code">VERIFIED PROFILE</div></div>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-label">PARTICLES</div>
+          <div class="stat-value" id="particleStat">900</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">TIME</div>
+          <div class="stat-value" id="timeStat">0.0</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-label">CENTERS</div>
+          <div class="stat-value" id="centerStat">3</div>
+        </div>
+      </div>
+
+      <div class="info-panel">
+        <h3>SCIENTIFIC OBSERVATION</h3>
+        <p id="observation">
+          Simulation is ready. Start the experiment to observe particle
+          movement and the effect of the selected parameters.
+        </p>
+      </div>
     </div>
-    <div class="id-actions"><button class="id-action" id="scanIdentity">RUN IDENTITY SCAN</button><button class="id-action" id="rotateIdentity">RESET CARD VIEW</button></div>
-    <p class="id-note">PERSONAL DIGITAL PROFILE · F.A PERSONAL UNIVERSE</p>
-   </div>
-  </div>
- </section>
 
- <section class="blueprint-section" id="blueprint">
-  <div class="container">
-   <div class="reveal"><div class="section-label">07 / PROJECT ARCHITECTURE</div><h2 class="section-title">PROJECT <span class="glow-text">BLUEPRINT.</span></h2><p class="section-desc">A visual overview of selected projects, personal experiences, and creative explorations that are part of my universe.</p></div>
-   <div class="blueprint-grid">
-    <article class="blueprint-card reveal interactive"><div class="blueprint-number">BLUEPRINT // 001</div><div class="blueprint-icon">◈</div><h3>F.A PERSONAL UNIVERSE</h3><p>A personal digital space built to represent my identity, journey, interests, and ideas through an interactive futuristic interface.</p><span class="blueprint-tag">PERSONAL PLATFORM</span></article>
-    <article class="blueprint-card reveal interactive"><div class="blueprint-number">BLUEPRINT // 002</div><div class="blueprint-icon">◎</div><h3>BMX JOURNEY</h3><p>A personal chapter shaped by BMX experiences, competition, discipline, and the lessons gained through the journey.</p><span class="blueprint-tag">PERSONAL JOURNEY</span></article>
-    <article class="blueprint-card reveal interactive"><div class="blueprint-number">BLUEPRINT // 003</div><div class="blueprint-icon">✦</div><h3>CREATIVE EXPERIMENTS</h3><p>A space for exploring ideas, visual concepts, multimedia experiences, and new ways to bring imagination into reality.</p><span class="blueprint-tag">CREATIVE EXPLORATION</span></article>
-   </div>
-   <div class="blueprint-footer reveal"><strong class="glow-text">SYSTEM NOTE //</strong> These blueprints represent different parts of my journey. Each one can continue to evolve as I learn, explore, and create new things.</div>
-  </div>
- </section>
+    <aside class="control-panel">
+      <div class="panel-title">EXPERIMENT CONTROLS</div>
 
- <!-- DIGITAL TWIN -->
- <section id="digitalTwin">
-  <div class="container">
-   <div class="reveal"><div class="section-label">08 / DIGITAL PERSONA SYSTEM</div><h2 class="section-title">DIGITAL TWIN <span class="glow-text">ALFIGO.</span></h2><p class="section-desc">A visual digital representation of my profile, interests, and personal journey.</p></div>
-   <div class="twin-layout">
-    <div class="twin-stage reveal"><div class="twin-orbit"></div><div class="twin-label one">TWIN CORE // ONLINE</div><div class="twin-core"><img src="IMG-20261104-WA0009.jpg" alt="Digital Twin Alfigo"></div><div class="twin-label two">PROFILE SYNCED</div></div>
-    <div class="twin-info reveal"><div class="section-label">DIGITAL PERSONA // 001</div><h3>FACHRIANSYAH ALFIGO</h3><p>This digital twin is a visual profile interface representing my identity. It brings together my learning journey, BMX background, curiosity, and creative interests in one place.</p>
-     <div class="twin-stats"><div class="twin-stat"><small>CORE IDENTITY</small><strong>F.A</strong></div><div class="twin-stat"><small>BACKGROUND</small><strong>BMX</strong></div><div class="twin-stat"><small>FIELD</small><strong>MULTIMEDIA</strong></div><div class="twin-stat"><small>STATUS</small><strong>EVOLVING</strong></div></div>
-    </div>
-   </div>
-  </div>
- </section>
+      <div class="control">
+        <div class="control-head">
+          <label for="expansion">Expansion</label>
+          <output id="expansionValue">1.0</output>
+        </div>
+        <input id="expansion" type="range"
+          min="0" max="3" step=".1" value="1">
+      </div>
 
- <!-- SPATIAL COMPUTING -->
- <section id="spatial">
-  <div class="container">
-   <div class="reveal"><div class="section-label">09 / SPATIAL INTERFACE</div><h2 class="section-title">SPATIAL <span class="glow-text">COMPUTING.</span></h2><p class="section-desc">A floating workspace. Drag each holographic panel to arrange your own digital control room.</p></div>
-   <div class="spatial-board reveal" id="spatialBoard">
-    <div class="spatial-hint">DRAG PANELS TO REPOSITION // TOUCH ENABLED</div>
-    <div class="spatial-panel" id="panelA"><h3>IDENTITY MODULE</h3><p>Fachriansyah Alfigo<br>Personal Universe Member</p><small>MODULE 01 // ACTIVE</small></div>
-    <div class="spatial-panel" id="panelB"><h3>JOURNEY MODULE</h3><p>BMX experiences, learning, and personal growth.</p><small>MODULE 02 // CONNECTED</small></div>
-    <div class="spatial-panel" id="panelC"><h3>CREATIVE MODULE</h3><p>Ideas, multimedia, technology, and exploration.</p><small>MODULE 03 // ONLINE</small></div>
-   </div>
-   <div class="spatial-controls"><button class="id-action" id="resetPanels">RESET PANEL POSITIONS</button><button class="id-action" id="scatterPanels">REARRANGE PANELS</button></div>
-  </div>
- </section>
+      <div class="control">
+        <div class="control-head">
+          <label for="matter">Matter density</label>
+          <output id="matterValue">900</output>
+        </div>
+        <input id="matter" type="range"
+          min="200" max="2200" step="100" value="900">
+      </div>
 
- <!-- PARALLEL UNIVERSE -->
- <section id="parallel">
-  <div class="container">
-   <div class="reveal"><div class="section-label">10 / MULTIVERSE SIMULATION</div><h2 class="section-title">PARALLEL <span class="glow-text">UNIVERSES.</span></h2><p class="section-desc">Explore alternate visual concepts of the Personal Universe. These are creative simulations, not predictions of real alternate timelines.</p></div>
-   <div class="universe-box reveal">
-    <div class="universe-top"><h3>UNIVERSE SELECTOR // MULTIVERSE CORE</h3><div class="universe-tabs">
-     <button class="universe-tab active" data-universe="prime">PRIME</button><button class="universe-tab" data-universe="cyber">CYBER</button><button class="universe-tab" data-universe="cosmic">COSMIC</button><button class="universe-tab" data-universe="future">FUTURE</button>
-    </div></div>
-    <div class="universe-content">
-     <div class="universe-visual" id="universeVisual"><div class="universe-symbol" id="universeSymbol">◈</div></div>
-     <div class="universe-text"><h3 id="universeTitle">PRIME UNIVERSE</h3><p id="universeDescription">The original Personal Universe. A place where identity, memories, learning, and experiences come together.</p><div class="universe-index" id="universeIndex">REALITY INDEX // 01</div></div>
-    </div>
-   </div>
-  </div>
- </section>
+      <div class="control">
+        <div class="control-head">
+          <label for="gravity">Gravity approximation</label>
+          <output id="gravityValue">0.5</output>
+        </div>
+        <input id="gravity" type="range"
+          min="0" max="2" step=".1" value=".5">
+      </div>
 
- <!-- UNIVERSE PORTAL -->
- <section class="portal-section" id="portal">
-  <div class="container">
-   <div class="reveal"><div class="section-label">11 / DIMENSIONAL TRANSIT SYSTEM</div><h2 class="section-title">UNIVERSE <span class="glow-text">PORTAL.</span></h2><p class="section-desc" style="margin:auto">A cinematic portal interface for jumping between the two main screens of this Personal Universe.</p></div>
-   <div class="portal-stage reveal"><div class="portal-ring"></div><div class="portal-core">F.A<br>PORTAL</div></div>
-   <button class="portal-button" id="portalTravel">ACTIVATE PORTAL ↗</button>
-   <p class="portal-note" style="margin-top:18px">DESTINATION: <span class="glow-text" id="portalDestination">SCREEN 1 / 2</span><br>Tap to travel between screens.</p>
-  </div>
- </section>
+      <div class="control">
+        <div class="control-head">
+          <label for="speed">Simulation speed</label>
+          <output id="speedValue">1.0x</output>
+        </div>
+        <input id="speed" type="range"
+          min=".1" max="3" step=".1" value="1">
+      </div>
 
- <section id="interests">
-  <div class="container">
-   <div class="reveal"><div class="section-label">12 / MY INTERESTS</div><h2 class="section-title">THINGS THAT <span class="glow-text">INSPIRE ME.</span></h2><p class="section-desc">A collection of interests that keep my curiosity alive and inspire me to explore more.</p></div>
-   <div class="interest-grid">
-    <div class="interest-card reveal interactive"><span class="interest-icon">✦</span><h3>TECHNOLOGY</h3><p>Exploring digital innovation, websites, and how technology changes the world.</p></div>
-    <div class="interest-card reveal interactive"><span class="interest-icon">◈</span><h3>CREATIVITY</h3><p>Turning ideas into visual experiences through design and digital media.</p></div>
-    <div class="interest-card reveal interactive"><span class="interest-icon">⌘</span><h3>MULTIMEDIA</h3><p>Discovering the combination of visuals, stories, and interactive experiences.</p></div>
-    <div class="interest-card reveal interactive"><span class="interest-icon">◎</span><h3>BMX</h3><p>A meaningful part of my journey, bringing experiences in sport, competition, and personal growth.</p></div>
-    <div class="interest-card reveal interactive"><span class="interest-icon">◎</span><h3>EXPLORATION</h3><p>Discovering new places, experiences, and perspectives along the way.</p></div>
-    <div class="interest-card reveal interactive"><span class="interest-icon">∞</span><h3>PERSONAL GROWTH</h3><p>Learning from experiences and continuing to become a better version of myself.</p></div>
-   </div>
-  </div>
- </section>
+      <div class="buttons">
+        <button class="primary" id="startButton">▶ START</button>
+        <button id="pauseButton">Ⅱ PAUSE</button>
+        <button class="wide" id="resetButton">↻ RESET EXPERIMENT</button>
+      </div>
 
- <section id="contact">
-  <div class="container"><div class="contact-box reveal">
-   <div class="section-label">13 / CONTACT</div><h2 class="section-title">LET'S CONNECT.</h2>
-   <p class="section-desc">Every connection can lead to a new story. Feel free to reach out and say hello.</p>
-   <div class="contact-links"><a href="#" class="btn btn-primary" id="instagramLink">INSTAGRAM ↗</a><a href="mailto:hello@example.com" class="btn btn-outline">EMAIL ME ↗</a></div>
-  </div></div>
- </section>
- <footer><div class="container">© <span id="year"></span> F.A PERSONAL UNIVERSE — DESIGNED TO EVOLVE.</div></footer>
-</div>
+      <div class="info-panel">
+        <h3>MODEL PARAMETERS</h3>
+        <p>
+          Expansion controls outward particle movement.
+          Matter density controls particle count.
+          Gravity approximation controls attraction toward
+          selected mass centers.
+        </p>
+      </div>
+    </aside>
+
+  </section>
+
 </main>
-</div>
+
+<footer>
+  F.A RESEARCH DIVISION · PROJECT OMEGA · Ω-001
+</footer>
 
 <script>
-/* CONFIG */
-const CORRECT_PIN="414141";
-let enteredPin="",audioContext=null,isProcessing=false,jarvisHasSpoken=false;
-const $=id=>document.getElementById(id);
-const gate=$("gate"),gateContent=$("gateContent"),gateStatus=$("gateStatus");
-const pinDots=document.querySelectorAll(".pin-dot");
-const accessGranted=$("accessGranted"),terminalScreen=$("terminalScreen");
-const terminalLines=$("terminalLines"),terminalProgress=$("terminalProgress");
-const terminalPercent=$("terminalPercent"),mainWebsite=$("mainWebsite");
+const canvas = document.getElementById("universe");
+const ctx = canvas.getContext("2d");
 
-/* SOUND */
-function playTone(freq,duration,type="sine",volume=.08,delay=0){
- try{
-  const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
-  if(!audioContext)audioContext=new AC();
-  if(audioContext.state==="suspended")audioContext.resume();
-  const start=audioContext.currentTime+delay,osc=audioContext.createOscillator(),gain=audioContext.createGain();
-  osc.type=type;osc.frequency.setValueAtTime(freq,start);
-  gain.gain.setValueAtTime(.001,start);gain.gain.exponentialRampToValueAtTime(volume,start+.04);
-  gain.gain.exponentialRampToValueAtTime(.001,start+duration);
-  osc.connect(gain);gain.connect(audioContext.destination);osc.start(start);osc.stop(start+duration+.03);
- }catch(e){}
-}
-function playSuccessSound(){[440,554,659,880,1108].forEach((f,i)=>playTone(f,.75,"sine",.07,i*.11));playTone(110,.9,"triangle",.12)}
-function playDeniedSound(){playTone(220,.22,"sawtooth",.07);playTone(165,.32,"sawtooth",.06,.2)}
-function wait(ms){return new Promise(r=>setTimeout(r,ms))}
-function toast(message){
- const t=$("toast");t.textContent=message;t.classList.add("show");
- clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove("show"),2200);
-}
+const $ = id => document.getElementById(id);
 
-/* PIN */
-function updatePinDisplay(){pinDots.forEach((d,i)=>d.classList.toggle("filled",i<enteredPin.length))}
-function pressNumber(n){if(isProcessing||enteredPin.length>=6)return;enteredPin+=n;updatePinDisplay();if(enteredPin.length===6)submitPin()}
-$("keypad").addEventListener("click",e=>{
- const b=e.target.closest("button");if(!b||isProcessing)return;
- if(b.dataset.num!==undefined)pressNumber(b.dataset.num);
- else if(b.dataset.action==="clear"){enteredPin="";updatePinDisplay();gateStatus.textContent="PASSCODE CLEARED"}
- else if(b.dataset.action==="delete"){enteredPin=enteredPin.slice(0,-1);updatePinDisplay()}
-});
-document.addEventListener("keydown",e=>{
- if(gate.style.display==="none"||isProcessing)return;
- if(/^[0-9]$/.test(e.key))pressNumber(e.key);
- else if(e.key==="Backspace"){enteredPin=enteredPin.slice(0,-1);updatePinDisplay()}
- else if(e.key==="Escape"){enteredPin="";updatePinDisplay()}
-});
+const controls = {
+  expansion: $("expansion"),
+  matter: $("matter"),
+  gravity: $("gravity"),
+  speed: $("speed")
+};
 
-/* JARVIS VOICE */
-function getEnglishVoice(){
- if(!("speechSynthesis"in window))return null;
- const voices=speechSynthesis.getVoices();
- const list=voices.filter(v=>v.lang&&v.lang.toLowerCase().startsWith("en"));
- return list.find(v=>/google us english|microsoft.*english|english.*united states/i.test(v.name))||list.find(v=>v.lang.toLowerCase()==="en-us")||list[0]||null;
-}
-function speakWelcome(){
- if(jarvisHasSpoken||!("speechSynthesis"in window))return;
- try{
-  speechSynthesis.cancel();
-  const u=new SpeechSynthesisUtterance("Welcome, Alfigo.");
-  u.lang="en-US";u.rate=.92;u.pitch=.85;u.volume=1;
-  const voice=getEnglishVoice();if(voice)u.voice=voice;
-  u.onstart=()=>{jarvisHasSpoken=true};
-  u.onerror=()=>{jarvisHasSpoken=false};
-  speechSynthesis.speak(u);
- }catch(e){console.log(e)}
-}
+let width = 0;
+let height = 0;
+let particles = [];
+let stars = [];
+let centers = [];
+let running = false;
+let elapsed = 0;
+let lastTime = 0;
+let frameId = null;
 
-/* TERMINAL */
-const terminalMessages=[
- "Authentication confirmed.","Initializing J.A.R.V.I.S interface...",
- "Loading personal universe modules...","Profile database connected.",
- "Memory archive synchronized.","Visual interface calibrated.",
- "Security protocols verified.","All systems operational."
+const centerPositions = [
+  {x: .35, y: .42},
+  {x: .69, y: .57},
+  {x: .53, y: .25}
 ];
-async function runTerminal(){
- terminalLines.innerHTML="";terminalProgress.style.width="0%";terminalPercent.textContent="0%";
- terminalScreen.classList.add("show");
- for(let i=0;i<terminalMessages.length;i++){
-  const line=document.createElement("div");line.className="terminal-line";
-  const prefix=document.createElement("span");prefix.className="prefix";prefix.textContent="[ JARVIS ] ";
-  const content=document.createElement("span");content.textContent=terminalMessages[i];
-  if([0,3,4,6,7].includes(i))content.className="ok";
-  line.append(prefix,content);terminalLines.appendChild(line);
-  const pct=Math.round((i+1)/terminalMessages.length*100);
-  terminalProgress.style.width=pct+"%";terminalPercent.textContent=pct+"%";
-  playTone(700,.045,"sine",.018);await wait(420);
- }
- await wait(800);terminalScreen.classList.remove("show");await wait(450);openWebsite();
-}
-async function submitPin(){
- if(enteredPin.length!==6||isProcessing)return;isProcessing=true;
- if(enteredPin===CORRECT_PIN){
-  gateStatus.textContent="VERIFYING IDENTITY...";gateStatus.className="gate-status success";
-  playSuccessSound();await wait(650);accessGranted.classList.add("show");await wait(1100);
-  accessGranted.classList.remove("show");gateContent.style.display="none";await runTerminal();
- }else{
-  gateStatus.textContent="ACCESS DENIED — INVALID PASSCODE";gateStatus.className="gate-status error";
-  gateContent.classList.remove("shake");void gateContent.offsetWidth;gateContent.classList.add("shake");
-  playDeniedSound();await wait(1100);enteredPin="";updatePinDisplay();
-  gateStatus.textContent="AWAITING AUTHENTICATION...";gateStatus.className="gate-status";isProcessing=false;
- }
+
+function resize() {
+  const rect = canvas.getBoundingClientRect();
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  width = rect.width;
+  height = rect.height;
+
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
+
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  createStars();
+
+  if (!particles.length) {
+    createUniverse();
+  }
+
+  draw();
 }
 
-/* REVEAL */
-const observer=new IntersectionObserver(entries=>{
- entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}});
-},{threshold:.1});
-document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+function createStars() {
+  stars = [];
 
-/* SCREEN NAVIGATION */
-let activeScreen=1;
-const screenOne=$("screenOne"),screenTwo=$("screenTwo");
-const screenSwitch=$("screenSwitch"),screenSwitchText=$("screenSwitchText");
-function refreshRevealElements(){
- const area=activeScreen===1?screenOne:screenTwo;
- area.querySelectorAll(".reveal:not(.visible)").forEach(el=>observer.observe(el));
-}
-function setActiveScreen(screen,animate=true){
- activeScreen=screen===2?2:1;const first=activeScreen===1;
- screenOne.classList.toggle("screen-hidden",!first);screenTwo.classList.toggle("screen-hidden",first);
- if(animate){
-  const area=first?screenOne:screenTwo;area.classList.remove("screen-transition");void area.offsetWidth;area.classList.add("screen-transition");
- }
- screenSwitchText.textContent=first?"SCREEN 1 / 2":"SCREEN 2 / 2";
- screenSwitch.setAttribute("aria-label",first?"Switch to screen 2":"Switch to screen 1");
- $("portalDestination").textContent=first?"SCREEN 1 / 2":"SCREEN 2 / 2";
- window.scrollTo({top:0,behavior:animate?"smooth":"auto"});refreshRevealElements();
- playTone(620,.12,"sine",.035);
-}
-screenSwitch.addEventListener("click",()=>setActiveScreen(activeScreen===1?2:1));
-$("portalTravel").addEventListener("click",()=>{
- const btn=$("portalTravel");btn.textContent="PORTAL ACTIVATING...";
- playTone(300,.4,"sine",.07);playTone(700,.5,"sine",.06,.2);
- setTimeout(()=>{setActiveScreen(activeScreen===1?2:1);btn.textContent="ACTIVATE PORTAL ↗";toast("PORTAL TRANSIT COMPLETE")},650);
-});
-$("menuBtn").addEventListener("click",()=>$("navLinks").classList.toggle("open"));
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
- a.addEventListener("click",e=>{
-  const id=a.getAttribute("href").slice(1),target=document.getElementById(id);if(!target)return;
-  e.preventDefault();const parent=target.closest("[data-screen]");
-  if(parent){const n=Number(parent.dataset.screen);if(n!==activeScreen)setActiveScreen(n)}
-  $("navLinks").classList.remove("open");
-  setTimeout(()=>{target.scrollIntoView({behavior:"smooth",block:"start"});history.replaceState(null,"","#"+id)},120);
- });
-});
-function openWebsite(){
- setActiveScreen(1,false);mainWebsite.classList.remove("hidden");gate.classList.add("leaving");
- setTimeout(()=>{gate.style.display="none";refreshRevealElements();setTimeout(speakWelcome,450)},850);
+  const count = Math.floor(width * height / 1800);
+
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 1.3,
+      alpha: .2 + Math.random() * .6
+    });
+  }
 }
 
-/* PROFILE TILT */
-const profile=$("profile3d"),heroVisual=$("heroVisual");
-function moveProfile(x,y){
- const r=heroVisual.getBoundingClientRect(),px=(x-r.left)/r.width,py=(y-r.top)/r.height;
- profile.style.transform=`rotateX(${(.5-py)*22}deg) rotateY(${(px-.5)*22}deg) translateZ(15px)`;
+function createCenters() {
+  centers = centerPositions.map((p, index) => ({
+    x: width * p.x,
+    y: height * p.y,
+    strength: index === 0 ? 1 : .7
+  }));
 }
-heroVisual.addEventListener("mousemove",e=>moveProfile(e.clientX,e.clientY));
-heroVisual.addEventListener("mouseleave",()=>profile.style.transform="rotateX(0) rotateY(0)");
-heroVisual.addEventListener("touchmove",e=>{const t=e.touches[0];moveProfile(t.clientX,t.clientY)},{passive:true});
-heroVisual.addEventListener("touchend",()=>profile.style.transform="rotateX(0) rotateY(0)");
 
-/* ARCHIVE */
-const photoViewer=$("photoViewer"),viewerImage=$("viewerImage");
-document.querySelectorAll(".archive-card").forEach(card=>{
- card.addEventListener("mousemove",e=>{
-  const r=card.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
-  card.style.transform=`perspective(1000px) rotateX(${((r.height/2-y)/(r.height/2))*8}deg) rotateY(${((x-r.width/2)/(r.width/2))*8}deg) scale(1.02)`;
- });
- card.addEventListener("mouseleave",()=>card.style.transform="");
- card.addEventListener("click",()=>{viewerImage.src=card.dataset.image;photoViewer.classList.add("show");playTone(650,.1)});
-});
-function closePhoto(){photoViewer.classList.remove("show")}
-$("photoClose").addEventListener("click",closePhoto);
-photoViewer.addEventListener("click",e=>{if(e.target===photoViewer)closePhoto()});
-document.addEventListener("keydown",e=>{if(e.key==="Escape")closePhoto()});
+function createUniverse() {
+  createCenters();
 
-/* DATA CUBE */
-const cubeData={
- identity:{title:"PERSONAL IDENTITY",description:"Fachriansyah Alfigo. A curious individual who enjoys exploring new experiences, learning new things, and expressing ideas."},
- education:{title:"EDUCATION DATABASE",description:"A student in Manajemen Multimedia dan Digital, with an educational background at HSPG Yogyakarta. Always open to learning and discovering new perspectives."},
- bmx:{title:"BMX JOURNEY",description:"BMX is an important chapter of my life. Experiences in regional, national, and international competition helped shape my discipline, determination, and perspective."},
- vision:{title:"PERSONAL VISION",description:"Keep exploring, stay curious, create meaningful things, and continue growing through every new experience."}
-};
-document.querySelectorAll(".cube-select").forEach((b,i)=>b.addEventListener("click",()=>{
- const d=cubeData[b.dataset.cube];if(!d)return;
- document.querySelectorAll(".cube-select").forEach(x=>x.classList.remove("active"));b.classList.add("active");
- $("cubeTitle").textContent=d.title;$("cubeDescription").textContent=d.description;
- $("cubeIndex").textContent=`${String(i+1).padStart(2,"0")} / 04`;playTone(760,.1,"sine",.035);
-}));
-/* Tap cube to pause / resume */
-$("holoCube").addEventListener("click",e=>{
- e.currentTarget.style.animationPlayState=e.currentTarget.style.animationPlayState==="paused"?"running":"paused";
- toast(e.currentTarget.style.animationPlayState==="paused"?"DATA CUBE PAUSED":"DATA CUBE RESUMED");
-});
+  const count = Number(controls.matter.value);
+  particles = [];
 
-/* ID CARD */
-const identityCard=$("identityCard");
-$("scanIdentity").addEventListener("click",()=>{
- identityCard.classList.remove("scanning");void identityCard.offsetWidth;identityCard.classList.add("scanning");
- playTone(650,.12);playTone(900,.16,"sine",.035,.2);
- setTimeout(()=>identityCard.classList.remove("scanning"),2500);toast("IDENTITY SCAN COMPLETE");
-});
-$("rotateIdentity").addEventListener("click",()=>{identityCard.style.transform="rotateY(0) rotateX(0)";toast("CARD VIEW RESET");playTone(520,.1)});
-identityCard.addEventListener("mousemove",e=>{
- const r=identityCard.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
- identityCard.style.transform=`rotateY(${(x-.5)*8}deg) rotateX(${(.5-y)*6}deg)`;
-});
-identityCard.addEventListener("mouseleave",()=>identityCard.style.transform="rotateY(0) rotateX(0)");
+  const cx = width / 2;
+  const cy = height / 2;
 
-/* SPATIAL PANELS: DRAG WITH POINTER / TOUCH */
-const board=$("spatialBoard");
-let dragPanel=null,dragOffsetX=0,dragOffsetY=0;
-document.querySelectorAll(".spatial-panel").forEach(panel=>{
- panel.addEventListener("pointerdown",e=>{
-  dragPanel=panel;const r=panel.getBoundingClientRect(),b=board.getBoundingClientRect();
-  dragOffsetX=e.clientX-r.left;dragOffsetY=e.clientY-r.top;
-  panel.setPointerCapture(e.pointerId);panel.style.zIndex=10;
-  panel.dataset.x=r.left-b.left;panel.dataset.y=r.top-b.top;
- });
- panel.addEventListener("pointermove",e=>{
-  if(dragPanel!==panel)return;
-  const b=board.getBoundingClientRect();
-  let x=e.clientX-b.left-dragOffsetX,y=e.clientY-b.top-dragOffsetY;
-  x=Math.max(0,Math.min(b.width-panel.offsetWidth,x));
-  y=Math.max(35,Math.min(b.height-panel.offsetHeight,y));
-  panel.style.left=x+"px";panel.style.top=y+"px";panel.style.right="auto";panel.style.bottom="auto";
- });
- const end=()=>{if(dragPanel===panel){dragPanel=null;panel.style.zIndex=2;playTone(520,.06)}};
- panel.addEventListener("pointerup",end);panel.addEventListener("pointercancel",end);
-});
-$("resetPanels").addEventListener("click",()=>{
- const positions=[["8%","75px"],["auto","175px"],["32%","auto"]];
- ["panelA","panelB","panelC"].forEach((id,i)=>{
-  const p=$(id);p.style.left=positions[i][0];p.style.top=positions[i][1];p.style.right=i===1?"8%":"auto";p.style.bottom=i===2?"22px":"auto";
- });
- toast("SPATIAL LAYOUT RESET");playTone(600,.1);
-});
-$("scatterPanels").addEventListener("click",()=>{
- const b=board.getBoundingClientRect();
- [["panelA",.05,.2],["panelB",.55,.35],["panelC",.25,.68]].forEach(([id,x,y])=>{
-  const p=$(id);p.style.left=(x*b.width)+"px";p.style.top=(y*b.height)+"px";p.style.right="auto";p.style.bottom="auto";
- });
- toast("PANELS REARRANGED");playTone(720,.1);
-});
+  for (let i = 0; i < count; i++) {
+    const angle = Math.random() * Math.PI * 2;
+    const radius = Math.random() * Math.min(width, height) * .48;
 
-/* PARALLEL UNIVERSE SIMULATOR */
-const universeData={
- prime:{title:"PRIME UNIVERSE",symbol:"◈",description:"The original Personal Universe. A place where identity, memories, learning, and experiences come together.",index:"REALITY INDEX // 01"},
- cyber:{title:"CYBER UNIVERSE",symbol:"⌘",description:"A futuristic digital world inspired by technology, interactive interfaces, neon systems, and connected ideas.",index:"REALITY INDEX // 02"},
- cosmic:{title:"COSMIC UNIVERSE",symbol:"✦",description:"A creative interpretation of an expansive universe: curiosity, exploration, discovery, and endless possibilities.",index:"REALITY INDEX // 03"},
- future:{title:"FUTURE UNIVERSE",symbol:"∞",description:"A concept of a future version of this personal space, continuously evolving through new experiences and creative experiments.",index:"REALITY INDEX // 04"}
-};
-document.querySelectorAll(".universe-tab").forEach(btn=>btn.addEventListener("click",()=>{
- const d=universeData[btn.dataset.universe];if(!d)return;
- document.querySelectorAll(".universe-tab").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
- $("universeTitle").textContent=d.title;$("universeDescription").textContent=d.description;
- $("universeSymbol").textContent=d.symbol;$("universeIndex").textContent=d.index;
- $("universeVisual").animate([{opacity:.2,transform:"scale(.96)"},{opacity:1,transform:"scale(1)"}],{duration:450});
- playTone(580,.12);toast(d.title+" LOADED");
-}));
+    particles.push({
+      x: cx + Math.cos(angle) * radius,
+      y: cy + Math.sin(angle) * radius,
+      vx: Math.cos(angle) * (.1 + Math.random() * .3),
+      vy: Math.sin(angle) * (.1 + Math.random() * .3),
+      seed: Math.random(),
+      size: .5 + Math.random() * 1.5
+    });
+  }
 
-/* INTERACTIVE CARDS */
-document.querySelectorAll(".interest-card,.blueprint-card,.story-card").forEach(card=>{
- card.addEventListener("click",()=>{card.classList.toggle("selected");playTone(540,.07)});
-});
-
-/* PARTICLES */
-const canvas=$("particles"),ctx=canvas.getContext("2d");
-let particles=[],width,height;
-function resizeCanvas(){
- width=canvas.width=innerWidth;height=canvas.height=innerHeight;particles=[];
- const count=Math.min(75,Math.floor(width/9));
- for(let i=0;i<count;i++)particles.push({x:Math.random()*width,y:Math.random()*height,size:Math.random()*1.7+.3,speed:Math.random()*.35+.08,alpha:Math.random()*.55+.15});
+  elapsed = 0;
+  updateStats();
 }
-function drawParticles(){
- ctx.clearRect(0,0,width,height);
- particles.forEach(p=>{
-  p.y-=p.speed;if(p.y<0){p.y=height;p.x=Math.random()*width}
-  ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-  ctx.fillStyle=`rgba(83,210,255,${p.alpha})`;ctx.shadowBlur=10;ctx.shadowColor="#25c8ff";ctx.fill();
- });
- requestAnimationFrame(drawParticles);
-}
-addEventListener("resize",resizeCanvas);resizeCanvas();drawParticles();
 
-/* CONTACT PLACEHOLDER */
-$("instagramLink").addEventListener("click",e=>{
- e.preventDefault();toast("Tambahkan link Instagram milikmu di bagian HTML ini.");
+function updateStats() {
+  $("particleStat").textContent = particles.length.toLocaleString();
+  $("timeStat").textContent = elapsed.toFixed(1);
+  $("centerStat").textContent = centers.length;
+}
+
+function updateParticles(dt) {
+  const expansion = Number(controls.expansion.value);
+  const gravity = Number(controls.gravity.value);
+  const speed = Number(controls.speed.value);
+
+  const cx = width / 2;
+  const cy = height / 2;
+
+  const step = Math.min(dt, .04) * speed;
+
+  for (const p of particles) {
+    const dx = p.x - cx;
+    const dy = p.y - cy;
+
+    // Simplified expansion model:
+    // outward velocity proportional to distance from origin.
+    p.vx += dx * expansion * .00012 * step;
+    p.vy += dy * expansion * .00012 * step;
+
+    // Simplified attraction toward selected mass centers.
+    for (const c of centers) {
+      const gx = c.x - p.x;
+      const gy = c.y - p.y;
+      const distanceSq = gx * gx + gy * gy + 1800;
+
+      const force = gravity * c.strength * 9 / distanceSq;
+
+      p.vx += gx * force * step;
+      p.vy += gy * force * step;
+    }
+
+    // Gentle damping for numerical stability.
+    p.vx *= .9995;
+    p.vy *= .9995;
+
+    p.x += p.vx * step;
+    p.y += p.vy * step;
+
+    // Wrap particles around the simulation boundary.
+    const margin = 30;
+
+    if (p.x < -margin) p.x = width + margin;
+    if (p.x > width + margin) p.x = -margin;
+    if (p.y < -margin) p.y = height + margin;
+    if (p.y > height + margin) p.y = -margin;
+  }
+
+  elapsed += step;
+  updateStats();
+}
+
+function draw() {
+  ctx.clearRect(0, 0, width, height);
+
+  // Background.
+  ctx.fillStyle = "#050b18";
+  ctx.fillRect(0, 0, width, height);
+
+  // Background stars.
+  for (const s of stars) {
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(140,220,255,${s.alpha})`;
+    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Center reference.
+  const cx = width / 2;
+  const cy = height / 2;
+
+  const gradient = ctx.createRadialGradient(
+    cx, cy, 0, cx, cy, Math.min(width, height) * .55
+  );
+
+  gradient.addColorStop(0, "rgba(10,80,140,.12)");
+  gradient.addColorStop(1, "rgba(5,11,24,0)");
+
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, width, height);
+
+  // Simulation particles.
+  for (const p of particles) {
+    const alpha = .4 + p.seed * .6;
+
+    ctx.beginPath();
+    ctx.fillStyle = `rgba(90,210,255,${alpha})`;
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Mass centers.
+  for (const c of centers) {
+    const glow = ctx.createRadialGradient(
+      c.x, c.y, 0, c.x, c.y, 35
+    );
+
+    glow.addColorStop(0, "rgba(100,230,255,.65)");
+    glow.addColorStop(1, "rgba(37,200,255,0)");
+
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(c.x, c.y, 35, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.strokeStyle = "rgba(100,230,255,.45)";
+    ctx.arc(c.x, c.y, 9, 0, Math.PI * 2);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.fillStyle = "#c6f7ff";
+    ctx.arc(c.x, c.y, 2.5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function loop(timestamp) {
+  if (!running) return;
+
+  const dt = lastTime ? (timestamp - lastTime) / 1000 : 0;
+  lastTime = timestamp;
+
+  updateParticles(dt);
+  draw();
+
+  frameId = requestAnimationFrame(loop);
+}
+
+function start() {
+  if (running) return;
+
+  running = true;
+  lastTime = 0;
+
+  $("runStatus").textContent = "RUNNING";
+  $("runStatus").style.color = "#69e9bc";
+
+  $("observation").textContent =
+    "Experiment running. Observe how expansion and attraction " +
+    "change particle distribution over simulation time.";
+
+  frameId = requestAnimationFrame(loop);
+}
+
+function pause() {
+  running = false;
+
+  if (frameId) cancelAnimationFrame(frameId);
+
+  $("runStatus").textContent = "PAUSED";
+  $("runStatus").style.color = "#8cecff";
+
+  draw();
+}
+
+function reset() {
+  pause();
+  createUniverse();
+
+  $("observation").textContent =
+    "Experiment reset. Initial conditions have been regenerated.";
+
+  draw();
+}
+
+// Controls.
+controls.expansion.addEventListener("input", () => {
+  $("expansionValue").textContent =
+    Number(controls.expansion.value).toFixed(1);
 });
-$("year").textContent=new Date().getFullYear();
+
+controls.matter.addEventListener("input", () => {
+  $("matterValue").textContent = controls.matter.value;
+});
+
+controls.gravity.addEventListener("input", () => {
+  $("gravityValue").textContent =
+    Number(controls.gravity.value).toFixed(1);
+});
+
+controls.speed.addEventListener("input", () => {
+  $("speedValue").textContent =
+    Number(controls.speed.value).toFixed(1) + "x";
+});
+
+$("startButton").addEventListener("click", start);
+$("pauseButton").addEventListener("click", pause);
+$("resetButton").addEventListener("click", reset);
+
+// Tap or click the universe to add a mass center.
+canvas.addEventListener("pointerdown", event => {
+  const rect = canvas.getBoundingClientRect();
+
+  centers.push({
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top,
+    strength: 1
+  });
+
+  $("observation").textContent =
+    "A new mass center has been added. Its attraction affects " +
+    "particle movement in this simplified model.";
+
+  updateStats();
+  draw();
+});
+
+window.addEventListener("resize", resize);
+
+// Initialize.
+resize();
+
+$("matterValue").textContent = controls.matter.value;
+$("expansionValue").textContent =
+  Number(controls.expansion.value).toFixed(1);
+$("gravityValue").textContent =
+  Number(controls.gravity.value).toFixed(1);
+$("speedValue").textContent =
+  Number(controls.speed.value).toFixed(1) + "x";
+
+draw();
 </script>
+
 </body>
 </html>
