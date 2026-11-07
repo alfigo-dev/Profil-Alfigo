@@ -1,713 +1,1013 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#050b18">
-<title>PROJECT Ω | Artificial Universe</title>
+<title>F.A | Personal Universe — PROJECT OMEGA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800&display=swap');
-
-:root {
-  --bg: #050b18;
-  --panel: rgba(9, 22, 42, .88);
-  --cyan: #25c8ff;
-  --light: #8cecff;
-  --text: #eaf8ff;
-  --muted: #7794ac;
-  --border: rgba(37, 200, 255, .2);
+:root{
+--bg:#050b18;--blue:#25c8ff;--cyan:#8cecff;--white:#eafaff;
+--muted:#91adbf;--line:rgba(66,205,255,.25);
+--glass:rgba(9,28,51,.78);--green:#70ffc0
 }
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:radial-gradient(ellipse at 50% 0%,#102b50 0%,transparent 48%),var(--bg);color:var(--white);font-family:Inter,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.12;background-image:linear-gradient(rgba(90,200,255,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(90,200,255,.13) 1px,transparent 1px);background-size:48px 48px}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+.container{width:min(1120px,90%);margin:auto;position:relative;z-index:1}
+section{position:relative;padding:90px 0;z-index:1;scroll-margin-top:80px}
+.section-label{font:10px Orbitron;color:var(--blue);letter-spacing:4px;margin-bottom:14px}
+.section-title{font:700 clamp(25px,5vw,43px)/1.25 Orbitron;margin-bottom:18px}
+.section-desc{color:var(--muted);line-height:1.8;max-width:650px;font-size:14px}
+.glow-text{color:var(--cyan);text-shadow:0 0 15px rgba(37,200,255,.65)}
+.hidden,.screen-hidden{display:none!important}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:10px;padding:13px 19px;border-radius:7px;font-size:10px;letter-spacing:1.5px;font-weight:700;transition:.25s;border:1px solid var(--blue)}
+.btn-primary{background:var(--blue);color:#03101d;box-shadow:0 0 25px #25c8ff35}
+.btn-outline{color:var(--cyan);background:transparent}
+.btn:hover,.interactive:hover{transform:translateY(-4px);box-shadow:0 0 25px #25c8ff50}
+.interactive{cursor:pointer;transition:.3s}
+.reveal{opacity:0;transform:translateY(22px);transition:.7s}
+.reveal.visible{opacity:1;transform:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{50%{opacity:1;transform:scale(1.1)}}
+@keyframes float{50%{transform:translateY(-12px)}}
+@keyframes scan{to{top:100%}}
+@keyframes enter{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes portal{50%{transform:scale(1.07);filter:brightness(1.5)}}
+@keyframes blink{to{opacity:0}}
+@keyframes shine{0%,20%{left:-70%}75%,100%{left:140%}}
+@keyframes cubeRotate{to{transform:rotateX(342deg) rotateY(360deg)}}
 
-* { box-sizing: border-box; }
+/* ACCESS GATE */
+#gate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center,#0c3153,#030914 70%);transition:.8s}
+#gate:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#42c5ff12 1px,transparent 1px),linear-gradient(90deg,#42c5ff12 1px,transparent 1px);background-size:38px 38px}
+.gate-scan{position:absolute;top:0;left:0;right:0;height:2px;background:var(--cyan);box-shadow:0 0 20px var(--blue);animation:scan 5s linear infinite}
+.gate-content{position:relative;width:min(420px,100%);padding:32px 24px;text-align:center;border:1px solid #45cfff55;border-radius:17px;background:#06192beF;box-shadow:0 0 55px #0096ff25}
+.gate-emblem{width:80px;height:80px;border:1px solid var(--cyan);border-radius:50%;display:grid;place-items:center;margin:0 auto 22px;font:800 26px Orbitron;color:var(--cyan);box-shadow:0 0 30px #25c8ff40;position:relative}
+.gate-emblem:after{content:"";position:absolute;inset:-9px;border:1px dashed #5bdcff80;border-radius:50%;animation:spin 15s linear infinite}
+.gate-kicker,.gate-subtitle,.pin-label{font:10px Orbitron;letter-spacing:3px;color:var(--blue)}
+.gate-title{font:700 26px/1.5 Orbitron;margin:12px 0}
+.gate-divider{height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);margin:22px 0}
+.pin-label{margin-bottom:16px;color:#a5d7ed}
+.pin-display{display:flex;justify-content:center;gap:12px;margin-bottom:20px}
+.pin-dot{width:12px;height:12px;border:1px solid var(--cyan);border-radius:50%}
+.pin-dot.filled{background:var(--cyan);box-shadow:0 0 12px var(--blue)}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;max-width:270px;margin:auto}
+.key{min-height:50px;border:1px solid #50c5ff40;background:#10426440;color:white;border-radius:8px;font:600 17px Orbitron}
+.key.utility{font-size:10px;color:var(--cyan)}
+.gate-status{min-height:20px;margin-top:18px;color:#79cde9;font:10px Orbitron;letter-spacing:2px}
+.gate-status.error{color:#ff737d}.gate-status.success{color:var(--green)}
+.gate-footer{margin-top:22px;color:#547e99;font-size:9px;letter-spacing:2px}
+#gate.leaving{opacity:0;visibility:hidden}
+.access-granted,.terminal-screen{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:15px;background:#030f1cf7;opacity:0;visibility:hidden;transition:.5s}
+.access-granted.show,.terminal-screen.show{opacity:1;visibility:visible}
+.access-granted .check{width:80px;height:80px;border:2px solid var(--green);border-radius:50%;display:grid;place-items:center;color:var(--green);font-size:37px}
+.access-granted strong{font:20px Orbitron;color:var(--green)}
+.access-granted small{font:10px Orbitron;color:#8cb7c9;letter-spacing:3px}
+.terminal-window{width:min(650px,92%);border:1px solid #41cdff70;background:#041326;border-radius:12px;overflow:hidden}
+.terminal-top,.terminal-footer{display:flex;justify-content:space-between;padding:14px 17px;border-bottom:1px solid var(--line);font:10px Orbitron}
+.terminal-brand{color:var(--cyan)}
+.terminal-body{min-height:230px;padding:22px;font:11px/2 "Courier New";color:var(--cyan)}
+.terminal-line{min-height:22px}.terminal-line .prefix{color:#3e9cbd}.terminal-line .ok{color:var(--green)}
+.terminal-progress{height:3px;background:#25c8ff20;margin:0 20px 20px}
+.terminal-progress span{display:block;height:100%;width:0;background:var(--blue);transition:.3s}
+.terminal-footer{border-top:1px solid var(--line);border-bottom:0;color:#6ca8bf}
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  color: var(--text);
-  background:
-    radial-gradient(ellipse at 50% 35%, #102849 0%, transparent 48%),
-    var(--bg);
-  font-family: Inter, sans-serif;
+/* NAVIGATION */
+nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:16px 0;background:#040c19c9;backdrop-filter:blur(18px);border-bottom:1px solid #41c8ff22}
+.nav-inner{width:min(1120px,90%);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font:800 19px Orbitron;letter-spacing:2px}.logo span{color:var(--blue)}
+.nav-links{display:flex;gap:12px;align-items:center}
+.nav-links a{color:#a9c6d8;font-size:8px}
+.nav-links a:hover{color:var(--blue)}
+.menu-btn{display:none;background:none;color:white;border:1px solid var(--line);padding:8px 12px;border-radius:8px}
+.screen-switch{display:flex;align-items:center;gap:8px;padding:10px;border:1px solid #41cdff66;border-radius:8px;color:var(--cyan);background:#08233d;font:9px Orbitron}
+.switch-indicator{width:7px;height:7px;border-radius:50%;background:#55e8ff;box-shadow:0 0 10px var(--blue)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding-top:120px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:45px;align-items:center}
+.eyebrow{display:inline-flex;gap:10px;border:1px solid var(--line);padding:9px 14px;border-radius:30px;color:var(--cyan);font-size:10px;letter-spacing:2px;margin-bottom:25px}
+.status-dot{width:7px;height:7px;border-radius:50%;background:#35e6ff;box-shadow:0 0 12px #35e6ff;animation:pulse 1.5s infinite}
+.hero h1{font:700 clamp(35px,6vw,68px)/1.15 Orbitron;letter-spacing:-2px}
+.hero h1 span{display:block;color:var(--blue);text-shadow:0 0 30px #25c8ff66}
+.hero-subtitle{color:#9cb9ca;margin-top:23px;line-height:1.9;font-size:14px;max-width:510px}
+.hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:30px}
+.hero-visual{min-height:420px;display:flex;align-items:center;justify-content:center;position:relative;perspective:1000px}
+.holo-ring{position:absolute;width:min(370px,85vw);aspect-ratio:1;border:1px solid #35cfff55;border-radius:50%;animation:spin 20s linear infinite}
+.holo-ring:before,.holo-ring:after{content:"";position:absolute;inset:18px;border:1px dashed #49d7ff55;border-radius:50%}
+.holo-ring:after{inset:42px;border-style:solid}
+.profile-frame{width:245px;height:320px;position:relative;z-index:2;border-radius:18px;border:1px solid #5cdcff;background:#06192b;box-shadow:0 0 40px #00aeff38;overflow:hidden;transition:.2s}
+.profile-frame img{width:100%;height:100%;object-fit:cover}
+.visual-tag{position:absolute;z-index:3;padding:10px;background:#041426;border:1px solid var(--line);border-radius:7px;color:var(--cyan);font:9px Orbitron}
+.tag-one{top:60px;left:0}.tag-two{bottom:60px;right:0}
+.info-strip{border-block:1px solid var(--line);background:#081e3880;padding:22px 0}
+.strip-inner{display:flex;justify-content:space-around;gap:20px;flex-wrap:wrap}
+.strip-item{text-align:center;color:#9db9c9;font-size:10px;letter-spacing:2px}
+.strip-item strong{display:block;font:16px Orbitron;color:var(--cyan);margin-bottom:6px}
+
+/* GENERAL CARDS */
+.about-grid,.twin-layout,.cube-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.about-visual,.cube-stage,.twin-stage{min-height:330px;border:1px solid var(--line);border-radius:15px;background:radial-gradient(circle,#1ca0e633,transparent 65%),#08182b;display:grid;place-items:center;position:relative;overflow:hidden}
+.about-orbit{width:210px;height:210px;border:1px solid #46d2ff77;border-radius:50%;display:grid;place-items:center;position:relative}
+.about-orbit:before{content:"";position:absolute;inset:25px;border:1px dashed #46d2ff77;border-radius:50%;animation:spin 12s linear infinite}
+.about-orbit span{font:42px Orbitron;color:var(--cyan)}
+.about-content p,.twin-info p{color:#a3bdcc;font-size:13px;line-height:2;margin-bottom:15px}
+.about-details,.twin-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.detail,.twin-stat{border-left:2px solid var(--blue);padding:12px;background:#1e8cbe12}
+.detail small,.twin-stat small{display:block;color:#6f9caf;font-size:9px;letter-spacing:1px;margin-bottom:6px}
+.detail strong,.twin-stat strong{font-size:11px;color:#d8f7ff}
+.story-section,.cube-section,.blueprint-section{background:linear-gradient(180deg,transparent,#09243e66,transparent)}
+.center{text-align:center;margin-bottom:45px}
+.story-timeline{max-width:800px;margin:auto;position:relative}
+.story-timeline:before{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:linear-gradient(transparent,var(--blue),transparent)}
+.story-item{width:50%;padding:0 35px 35px 0;position:relative}
+.story-item:nth-child(even){margin-left:50%;padding:0 0 35px 35px}
+.story-item:after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:var(--blue);box-shadow:0 0 15px var(--blue);right:-5px;top:10px}
+.story-item:nth-child(even):after{left:-5px}
+.story-card,.cube-info,.twin-info,.contact-box{padding:24px;border:1px solid var(--line);border-radius:13px;background:var(--glass)}
+.story-card small{color:var(--blue);font:9px Orbitron;letter-spacing:2px}
+.story-card h3{font:14px Orbitron;margin:12px 0}
+.story-card p{color:#9cb7c8;line-height:1.8;font-size:12px}
+
+/* ARCHIVE */
+.archive-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.archive-card{height:320px;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:14px;cursor:pointer}
+.archive-card img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.archive-card:hover img{transform:scale(1.08);filter:brightness(.7)}
+.archive-caption{position:absolute;bottom:0;left:0;right:0;padding:40px 20px 20px;background:linear-gradient(transparent,#010914)}
+.archive-caption small{font:9px Orbitron;color:var(--cyan)}
+.archive-caption h3{font:14px Orbitron;margin-top:8px}
+.photo-viewer{position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;background:#000e;opacity:0;visibility:hidden;transition:.3s}
+.photo-viewer.show{opacity:1;visibility:visible}
+.photo-viewer img{max-width:95vw;max-height:85vh;object-fit:contain;border:1px solid var(--line)}
+.photo-close{position:absolute;top:20px;right:22px;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:#05192d;color:var(--cyan);font-size:23px}
+
+/* INTERESTS AND BLUEPRINT */
+.interest-grid,.blueprint-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:35px}
+.interest-card,.blueprint-card{padding:24px 20px;border:1px solid var(--line);background:var(--glass);border-radius:12px;transition:.3s}
+.interest-card:hover,.blueprint-card:hover{transform:translateY(-7px);border-color:var(--blue)}
+.interest-icon,.blueprint-icon{font-size:27px;margin-bottom:18px;display:block;color:var(--cyan)}
+.interest-card h3,.blueprint-card h3{font:12px Orbitron;margin-bottom:10px}
+.interest-card p,.blueprint-card p{color:#91adbf;font-size:11px;line-height:1.8}
+.blueprint-card{min-height:230px}
+.blueprint-number,.blueprint-tag{font:9px Orbitron;color:#5a9db9;letter-spacing:2px}
+.blueprint-tag{display:inline-block;margin-top:16px;padding:7px;border:1px solid var(--line);border-radius:4px}
+
+/* HOLOGRAPHIC CUBE */
+.cube-stage{min-height:370px;perspective:1000px}
+.cube-scene{width:140px;height:140px;position:relative;z-index:2;perspective:800px}
+.holo-cube{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:cubeRotate 18s linear infinite}
+.cube-face{position:absolute;inset:0;display:grid;place-items:center;text-align:center;border:1px solid #64e1ffcc;background:#25c8ff20;box-shadow:inset 0 0 25px #25c8ff20;color:#b9f4ff;font:11px Orbitron}
+.cube-face span{font-size:27px}
+.cube-front{transform:translateZ(70px)}.cube-back{transform:rotateY(180deg) translateZ(70px)}
+.cube-right{transform:rotateY(90deg) translateZ(70px)}.cube-left{transform:rotateY(-90deg) translateZ(70px)}
+.cube-top{transform:rotateX(90deg) translateZ(70px)}.cube-bottom{transform:rotateX(-90deg) translateZ(70px)}
+.cube-info h3,.twin-info h3{font:17px Orbitron;color:var(--cyan);margin-bottom:13px}
+.cube-info p{font-size:12px;line-height:1.9;color:#9bb9ca;min-height:70px}
+.cube-controls,.id-actions,.universe-tabs,.spatial-controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.cube-select,.id-action,.universe-tab,.portal-button{padding:10px 12px;border:1px solid var(--line);border-radius:7px;color:#a9dcec;background:#071a2e;font:9px Orbitron}
+.cube-select.active,.cube-select:hover,.id-action:hover,.universe-tab.active,.universe-tab:hover,.portal-button:hover{background:#25c8ff30;border-color:var(--blue);color:var(--cyan)}
+.cube-readout{display:flex;justify-content:space-between;margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font:9px Orbitron;color:#6c9eb6}
+
+/* DIGITAL ID */
+.identity-wrap{max-width:750px;margin:40px auto 0;perspective:1200px}
+.identity-card{position:relative;padding:27px;border:1px solid #6ee1ff88;border-radius:17px;overflow:hidden;background:linear-gradient(125deg,#0b314ef5,#041022,#08354c);box-shadow:0 20px 65px #0006;transition:.2s}
+.identity-card:after{content:"";position:absolute;top:-100%;left:-50%;width:45%;height:300%;background:linear-gradient(90deg,transparent,#91ebff26,transparent);transform:rotate(25deg);animation:shine 6s infinite}
+.id-top,.id-content,.id-bottom{position:relative;z-index:2}
+.id-top,.id-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-bottom:15px;border-bottom:1px solid #64dcff55}
+.id-brand{font:11px Orbitron;color:var(--cyan)}.id-status{font:9px Orbitron;color:var(--green)}
+.id-content{display:grid;grid-template-columns:120px 1fr;gap:22px;align-items:center;padding:25px 0}
+.id-avatar{width:120px;height:145px;border:1px solid var(--cyan);border-radius:8px;overflow:hidden}
+.id-avatar img{width:100%;height:100%;object-fit:cover}
+.id-name{font:700 22px/1.4 Orbitron}
+.id-role{font:9px Orbitron;color:var(--cyan);margin:8px 0 16px}
+.id-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.id-field small{display:block;font:8px Orbitron;color:#659ab5;margin-bottom:5px}
+.id-field strong{font-size:10px}
+.id-bottom{border-top:1px solid #64dcff55;border-bottom:0;padding-top:15px;font:9px Orbitron;color:#7eb4ce}
+.id-scan{position:absolute;z-index:4;left:0;right:0;top:0;height:3px;background:var(--cyan);box-shadow:0 0 20px var(--blue);opacity:0}
+.identity-card.scanning .id-scan{opacity:1;animation:scan 2.4s ease-in-out}
+
+/* DIGITAL TWIN */
+.twin-stage{min-height:390px}
+.twin-orbit{position:absolute;width:280px;height:280px;border:1px dashed #25c8ff80;border-radius:50%;animation:spin 18s linear infinite}
+.twin-core{width:180px;height:245px;position:relative;z-index:2;border:1px solid var(--cyan);border-radius:12px;overflow:hidden;box-shadow:0 0 35px #25c8ff40;animation:float 4s infinite}
+.twin-core img{width:100%;height:100%;object-fit:cover}
+.twin-label{position:absolute;z-index:3;padding:8px;background:#061a2c;border:1px solid var(--line);font:8px Orbitron;color:var(--cyan)}
+.twin-label.one{top:30px;left:15px}.twin-label.two{bottom:30px;right:15px}
+.twin-stat{border:1px solid #25c8ff30;border-left:2px solid var(--blue)}
+
+/* SPATIAL */
+.spatial-board{margin-top:35px;min-height:420px;border:1px solid var(--line);border-radius:16px;position:relative;overflow:hidden;background:#041122;touch-action:pan-y}
+.spatial-board:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#5ac8ff17 1px,transparent 1px),linear-gradient(90deg,#5ac8ff17 1px,transparent 1px);background-size:30px 30px}
+.spatial-hint{position:absolute;top:15px;left:18px;font:9px Orbitron;color:#73a9c2;z-index:2}
+.spatial-panel{position:absolute;width:210px;min-height:120px;padding:16px;border:1px solid #5fdcff88;border-radius:10px;background:#051b30f2;box-shadow:0 0 25px #25c8ff20;cursor:grab;user-select:none;touch-action:none}
+.spatial-panel h3{font:11px Orbitron;color:var(--cyan);margin-bottom:10px}
+.spatial-panel p{font-size:10px;line-height:1.7;color:#a3c2d2}
+.spatial-panel small{display:block;margin-top:10px;font:8px Orbitron;color:#5da4c2}
+#panelA{top:70px;left:8%}#panelB{top:170px;right:8%}#panelC{bottom:20px;left:32%}
+
+/* MULTIVERSE AND PORTAL */
+.universe-box{margin-top:35px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#051426}
+.universe-top{padding:20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.universe-top h3{font:12px Orbitron;color:var(--cyan)}
+.universe-content{padding:30px;min-height:230px;display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:center}
+.universe-visual{min-height:170px;border:1px solid #25c8ff50;border-radius:12px;display:grid;place-items:center;background:radial-gradient(circle,#25c8ff33,transparent 65%)}
+.universe-symbol{font:65px Orbitron;color:var(--cyan);animation:float 3s infinite}
+.universe-text h3{font:18px Orbitron;color:var(--cyan);margin-bottom:13px}
+.universe-text p{font-size:12px;line-height:1.9;color:#9bb9ca}
+.universe-index{font:9px Orbitron;color:#629ab5;margin-top:15px}
+.portal-section{text-align:center}
+.portal-stage{height:300px;display:grid;place-items:center;position:relative;margin:30px auto;max-width:700px}
+.portal-ring{position:absolute;width:220px;height:220px;border:3px solid var(--cyan);border-radius:50%;box-shadow:0 0 25px var(--blue),inset 0 0 30px #25c8ff50;animation:portal 3s infinite}
+.portal-ring:before,.portal-ring:after{content:"";position:absolute;inset:-18px;border:1px dashed #50dcffb3;border-radius:50%;animation:spin 12s linear infinite}
+.portal-core{position:relative;z-index:2;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,#b8f6ff,#25c8ff 20%,#07518a 50%,#041326);box-shadow:0 0 65px #25c8ff99;display:grid;place-items:center;font:12px Orbitron}
+.portal-note{font-size:11px;color:#82a9bd;line-height:1.8;margin-top:15px}
+
+/* PROJECT OMEGA */
+.omega-section{background:radial-gradient(ellipse at center,#0b3154aa,transparent 70%)}
+.omega-heading{text-align:center;margin-bottom:38px}
+.omega-core-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:25px;align-items:stretch}
+.omega-reactor{border:1px solid #38d7ff80;border-radius:16px;min-height:360px;display:grid;place-items:center;position:relative;overflow:hidden;background:radial-gradient(circle,#25c8ff30,transparent 55%),#041426}
+.reactor-rings{position:absolute;width:250px;height:250px;border:1px solid #40d9ff70;border-radius:50%;animation:spin 18s linear infinite}
+.reactor-rings:before,.reactor-rings:after{content:"";position:absolute;inset:18px;border:1px dashed #40d9ff80;border-radius:50%}
+.reactor-rings:after{inset:42px;border-style:solid;animation:spin 10s linear infinite reverse}
+.reactor-center{width:115px;height:115px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--cyan);background:radial-gradient(circle,#b7f7ff,#25c8ff 25%,#06406b 70%);box-shadow:0 0 55px #25c8ff99;z-index:2;color:#03101d;font:800 22px Orbitron;animation:pulse 3s infinite}
+.reactor-readout{position:absolute;bottom:22px;left:0;right:0;text-align:center;font:9px Orbitron;color:var(--cyan);letter-spacing:2px}
+.omega-console{border:1px solid var(--line);border-radius:16px;background:#06182bdc;overflow:hidden;display:flex;flex-direction:column;min-height:360px}
+.omega-top{padding:17px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.omega-top strong{font:12px Orbitron;color:var(--cyan)}
+.omega-online{font:8px Orbitron;color:var(--green)}
+.omega-chat{padding:18px;flex:1;min-height:220px;max-height:300px;overflow:auto;display:flex;flex-direction:column;gap:12px}
+.omega-message{max-width:90%;padding:12px 14px;border:1px solid #25c8ff38;border-radius:10px;background:#0a2943;font-size:11px;line-height:1.7;color:#c9eaf6;overflow-wrap:anywhere}
+.omega-message.user{align-self:flex-end;background:#0b3854;border-color:#25c8ff80}
+.omega-message.system{align-self:flex-start}
+.omega-message small{display:block;color:#58b4d2;font:8px Orbitron;margin-bottom:6px}
+.omega-input-row{padding:13px;border-top:1px solid var(--line);display:flex;gap:8px}
+.omega-input{flex:1;min-width:0;padding:13px;border:1px solid #25c8ff55;border-radius:8px;background:#020d1c;color:white;outline:none;font:11px Inter}
+.omega-input:focus{border-color:var(--cyan);box-shadow:0 0 15px #25c8ff25}
+.omega-send{padding:0 17px;border:1px solid var(--blue);border-radius:8px;background:var(--blue);color:#03101d;font:10px Orbitron}
+.omega-modules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.omega-module{padding:17px;border:1px solid var(--line);border-radius:10px;background:#071b30;cursor:pointer;transition:.25s}
+.omega-module:hover{border-color:var(--blue);transform:translateY(-4px)}
+.omega-module strong{display:block;font:10px Orbitron;color:var(--cyan);margin-bottom:8px}
+.omega-module span{font-size:10px;color:#89aabd;line-height:1.6}
+.omega-command-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+.omega-command{padding:8px 10px;border:1px solid #25c8ff40;background:#071a2e;border-radius:6px;color:#8cecff;font:8px Orbitron}
+.omega-memory{margin-top:20px;padding:17px;border:1px solid var(--line);border-radius:10px;background:#06182b}
+.omega-memory h3{font:10px Orbitron;color:var(--cyan);margin-bottom:10px}
+.omega-memory p{font-size:10px;line-height:1.7;color:#91adbf}
+.omega-memory button{margin-top:12px}
+
+/* CONTACT / FOOTER */
+.contact-box{text-align:center;padding:50px 25px}
+.contact-box .section-desc{margin:0 auto 25px}
+.contact-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#65879c;font-size:10px;letter-spacing:1px;position:relative;z-index:1}
+.toast{position:fixed;z-index:12000;bottom:25px;left:50%;transform:translate(-50%,20px);padding:12px 18px;border:1px solid var(--blue);background:#031426f5;border-radius:8px;color:var(--cyan);font:9px Orbitron;opacity:0;pointer-events:none;transition:.3s;text-align:center;max-width:90%}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.screen-transition{animation:enter .65s ease both}
+
+@media(max-width:1000px){.nav-links{gap:7px}.nav-links a{font-size:7px}}
+@media(max-width:800px){
+.nav-links{position:absolute;top:65px;left:5%;width:90%;display:none;flex-direction:column;align-items:stretch;padding:12px;border:1px solid var(--line);border-radius:12px;background:#040f1ef7;max-height:75vh;overflow:auto}
+.nav-links.open{display:flex}.nav-links a{padding:13px;font-size:10px}
+.menu-btn{display:block}
+.hero{min-height:auto;padding:140px 0 75px}.hero-grid,.about-grid,.cube-layout,.twin-layout,.omega-core-wrap{grid-template-columns:1fr;gap:25px}
+.hero-content{text-align:center}.hero-subtitle{margin-inline:auto}.hero-actions{justify-content:center}
+.hero-visual{min-height:370px}.profile-frame{width:210px;height:280px}
+.interest-grid,.blueprint-grid{grid-template-columns:1fr 1fr}
+.universe-content{grid-template-columns:1fr}
 }
-
-header {
-  padding: 22px 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-  gap: 15px;
+@media(max-width:520px){
+.container{width:88%}.nav-inner{width:92%}.logo{font-size:16px}
+.screen-switch{padding:8px;font-size:7px}.menu-btn{padding:8px}
+.hero h1{font-size:36px}.hero-visual{min-height:340px}
+.holo-ring{width:290px}.profile-frame{width:185px;height:250px}
+.strip-inner{display:grid;grid-template-columns:1fr 1fr;row-gap:20px}
+.story-timeline:before{left:8px}
+.story-item,.story-item:nth-child(even){width:100%;margin-left:0;padding:0 0 25px 32px}
+.story-item:after,.story-item:nth-child(even):after{left:3px;right:auto}
+.archive-grid,.interest-grid,.blueprint-grid{grid-template-columns:1fr}
+.archive-card{height:280px}
+.id-content{grid-template-columns:85px 1fr;gap:13px}
+.id-avatar{width:85px;height:115px}.id-name{font-size:15px}.id-fields{gap:8px}
+.id-field strong{font-size:9px}
+.spatial-board{min-height:500px}.spatial-panel{width:185px}
+#panelA{left:4%;top:65px}#panelB{right:4%;top:220px}#panelC{left:15%;bottom:20px}
+.omega-modules{grid-template-columns:1fr 1fr}
+.omega-reactor{min-height:300px}
+.omega-input{font-size:10px}.omega-send{padding:0 12px}
 }
-
-.logo {
-  font: 700 17px Orbitron, sans-serif;
-  letter-spacing: 2px;
-  color: var(--light);
-}
-
-.status {
-  color: #69e9bc;
-  font: 11px Orbitron, sans-serif;
-  letter-spacing: 1px;
-}
-
-main {
-  width: min(1450px, 94%);
-  margin: 35px auto;
-}
-
-.heading { margin-bottom: 25px; }
-
-.eyebrow {
-  font: 11px Orbitron, sans-serif;
-  color: var(--cyan);
-  letter-spacing: 3px;
-}
-
-h1 {
-  font: 700 clamp(25px, 5vw, 44px) Orbitron, sans-serif;
-  margin: 12px 0;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-.workspace {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 310px;
-  gap: 18px;
-}
-
-.universe-panel,
-.control-panel,
-.stat-card,
-.info-panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 15px;
-  box-shadow: 0 0 35px rgba(0, 130, 255, .05);
-}
-
-.universe-panel {
-  overflow: hidden;
-  position: relative;
-  min-width: 0;
-}
-
-.canvas-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 18px;
-  border-bottom: 1px solid var(--border);
-  font: 10px Orbitron, sans-serif;
-  letter-spacing: 1px;
-  color: var(--light);
-}
-
-#universe {
-  width: 100%;
-  height: 490px;
-  display: block;
-  cursor: crosshair;
-  touch-action: manipulation;
-}
-
-.canvas-bottom {
-  display: flex;
-  justify-content: space-between;
-  padding: 13px 18px;
-  border-top: 1px solid var(--border);
-  color: var(--muted);
-  font-size: 10px;
-  gap: 10px;
-}
-
-.control-panel { padding: 20px; }
-
-.panel-title {
-  font: 600 12px Orbitron, sans-serif;
-  color: var(--light);
-  letter-spacing: 1.5px;
-  margin-bottom: 22px;
-}
-
-.control { margin-bottom: 23px; }
-
-.control-head {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  margin-bottom: 11px;
-}
-
-.control-head output {
-  color: var(--cyan);
-  font: 12px Orbitron, sans-serif;
-}
-
-input[type=range] {
-  width: 100%;
-  accent-color: var(--cyan);
-  cursor: pointer;
-}
-
-.buttons {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 9px;
-  margin-top: 28px;
-}
-
-button {
-  padding: 13px 9px;
-  border: 1px solid var(--border);
-  background: #0d2440;
-  color: var(--light);
-  border-radius: 8px;
-  font: 600 10px Orbitron, sans-serif;
-  cursor: pointer;
-  transition: .2s;
-}
-
-button:hover {
-  background: #12385b;
-  border-color: var(--cyan);
-  box-shadow: 0 0 16px rgba(37,200,255,.2);
-}
-
-button.primary {
-  background: #087eae;
-  color: white;
-  border-color: #25c8ff;
-}
-
-button.wide { grid-column: span 2; }
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-top: 18px;
-}
-
-.stat-card { padding: 17px; }
-
-.stat-label {
-  color: var(--muted);
-  font: 10px Orbitron, sans-serif;
-  letter-spacing: 1px;
-}
-
-.stat-value {
-  color: var(--light);
-  font: 700 21px Orbitron, sans-serif;
-  margin-top: 12px;
-}
-
-.info-panel {
-  padding: 20px;
-  margin-top: 18px;
-}
-
-.info-panel h3 {
-  color: var(--light);
-  font: 12px Orbitron, sans-serif;
-  letter-spacing: 1px;
-}
-
-.info-panel p {
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.8;
-}
-
-footer {
-  text-align: center;
-  padding: 30px 15px;
-  color: #526b84;
-  font: 10px Orbitron, sans-serif;
-  letter-spacing: 1px;
-}
-
-@media(max-width: 850px) {
-  .workspace { grid-template-columns: 1fr; }
-  #universe { height: 380px; }
-  .stats { grid-template-columns: repeat(3, 1fr); }
-}
-
-@media(max-width: 480px) {
-  main { margin-top: 25px; }
-  header { padding: 18px 4%; }
-  .logo { font-size: 13px; }
-  .status { font-size: 9px; }
-  #universe { height: 320px; }
-  .stat-card { padding: 12px; }
-  .stat-value { font-size: 16px; }
-  .stat-label { font-size: 8px; }
-}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 </style>
 </head>
 
 <body>
+<canvas id="particles"></canvas>
 
-<header>
-  <div class="logo">Ω / OMEGA</div>
-  <div class="status">● SYSTEM ONLINE</div>
-</header>
+<!-- ACCESS GATE -->
+<div id="gate">
+<div class="gate-scan"></div>
+<div class="gate-content" id="gateContent">
+<div class="gate-emblem">F.A</div>
+<div class="gate-kicker">PRIVATE DIGITAL SPACE</div>
+<h1 class="gate-title">WELCOME TO<br><span class="glow-text">THE SECRET ROOM</span></h1>
+<div class="gate-subtitle">RESTRICTED ACCESS // F.A</div>
+<div class="gate-divider"></div>
+<div class="pin-label">ENTER YOUR PASSCODE</div>
+<div class="pin-display" id="pinDisplay">
+<span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
+<span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
+</div>
+<div class="keypad" id="keypad">
+<button class="key" data-num="1">1</button><button class="key" data-num="2">2</button><button class="key" data-num="3">3</button>
+<button class="key" data-num="4">4</button><button class="key" data-num="5">5</button><button class="key" data-num="6">6</button>
+<button class="key" data-num="7">7</button><button class="key" data-num="8">8</button><button class="key" data-num="9">9</button>
+<button class="key utility" data-action="clear">CLEAR</button><button class="key" data-num="0">0</button><button class="key utility" data-action="delete">⌫</button>
+</div>
+<div class="gate-status" id="gateStatus">AWAITING AUTHENTICATION...</div>
+<div class="gate-footer">IDENTITY VERIFICATION SYSTEM · F.A</div>
+</div>
+<div class="access-granted" id="accessGranted"><div class="check">✓</div><strong>IDENTITY VERIFIED</strong><small>ACCESS GRANTED</small></div>
+<div class="terminal-screen" id="terminalScreen">
+<div class="terminal-window">
+<div class="terminal-top"><span class="terminal-brand">F.A // J.A.R.V.I.S + OMEGA</span><span>● ● ●</span></div>
+<div class="terminal-body"><div id="terminalLines"></div></div>
+<div class="terminal-progress"><span id="terminalProgress"></span></div>
+<div class="terminal-footer"><span>OMEGA CORE INITIALIZATION</span><span id="terminalPercent">0%</span></div>
+</div>
+</div>
+</div>
+
+<div class="photo-viewer" id="photoViewer"><button class="photo-close" id="photoClose">×</button><img id="viewerImage" src="" alt="Foto kenangan"></div>
+<div class="toast" id="toast"></div>
+
+<div id="mainWebsite" class="hidden">
+<nav>
+<div class="nav-inner">
+<a href="#home" class="logo">F<span>.</span>A</a>
+<button class="screen-switch" id="screenSwitch"><span class="switch-indicator"></span><span id="screenSwitchText">SCREEN 1 / 2</span></button>
+<div class="nav-links" id="navLinks">
+<a href="#home">HOME</a><a href="#about">ABOUT</a><a href="#story">MY STORY</a>
+<a href="#memories">MEMORIES</a><a href="#dataCube">DATA CUBE</a><a href="#identity">IDENTITY</a>
+<a href="#blueprint">BLUEPRINT</a><a href="#digitalTwin">DIGITAL TWIN</a><a href="#spatial">SPATIAL</a>
+<a href="#parallel">MULTIVERSE</a><a href="#portal">PORTAL</a><a href="#omega">OMEGA CORE</a>
+<a href="#interests">INTERESTS</a><a href="#contact">CONTACT</a>
+</div>
+<button class="menu-btn" id="menuBtn">☰</button>
+</div>
+</nav>
 
 <main>
+<!-- SCREEN ONE -->
+<div data-screen="1" id="screenOne">
+<section class="hero" id="home">
+<div class="container hero-grid">
+<div class="hero-content reveal">
+<div class="eyebrow"><span class="status-dot"></span> PERSONAL UNIVERSE ONLINE</div>
+<h1>HELLO, I'M <span>FACHRIANSYAH.</span></h1>
+<p class="hero-subtitle">Welcome to my personal universe. A digital space that represents my journey, creativity, interests, and everything that makes me who I am.</p>
+<div class="hero-actions"><a href="#about" class="btn btn-primary">EXPLORE MY WORLD ↗</a><a href="#story" class="btn btn-outline">MY JOURNEY</a></div>
+</div>
+<div class="hero-visual reveal" id="heroVisual">
+<div class="holo-ring"></div><div class="visual-tag tag-one">SYSTEM ACTIVE</div>
+<div class="profile-frame" id="profile3d"><img src="IMG-20261104-WA0009.jpg" alt="Foto profil Fachriansyah"></div>
+<div class="visual-tag tag-two">LEVEL: EVOLVING</div>
+</div>
+</div>
+</section>
 
-  <section class="heading">
-    <div class="eyebrow">EXPERIMENT Ω-001</div>
-    <h1>ARTIFICIAL UNIVERSE</h1>
-    <div class="subtitle">
-      Experimental particle universe simulator.<br>
-      Explore the behavior of a simplified expanding universe model.
-    </div>
-  </section>
+<div class="info-strip"><div class="container strip-inner">
+<div class="strip-item"><strong>01</strong>MY JOURNEY</div><div class="strip-item"><strong>02</strong>MY PASSION</div>
+<div class="strip-item"><strong>03</strong>MY UNIVERSE</div><div class="strip-item"><strong>∞</strong>KEEP EVOLVING</div>
+</div></div>
 
-  <section class="workspace">
+<section id="about">
+<div class="container about-grid">
+<div class="about-visual reveal"><div class="about-orbit"><span>F.A</span></div></div>
+<div class="about-content reveal">
+<div class="section-label">01 / ABOUT ME</div><h2 class="section-title">MORE THAN JUST <span class="glow-text">A NAME.</span></h2>
+<p>I'm Fachriansyah Alfigo. Someone who believes that every experience has a story, every challenge brings a lesson, and every new day is an opportunity to become better.</p>
+<p>I'm interested in technology, multimedia, creative experiences, and discovering new things. This website is my own little universe — a place to express ideas and document my journey.</p>
+<div class="about-details">
+<div class="detail"><small>NAME</small><strong>Fachriansyah Alfigo</strong></div>
+<div class="detail"><small>FIELD</small><strong>Manajemen Multimedia dan Digital</strong></div>
+<div class="detail"><small>PERSONALITY</small><strong>Curious & Creative</strong></div>
+<div class="detail"><small>PHILOSOPHY</small><strong>Keep Growing</strong></div>
+</div>
+</div>
+</div>
+</section>
 
-    <div>
-      <div class="universe-panel">
-        <div class="canvas-top">
-          <span>UNIVERSE SIMULATION</span>
-          <span id="runStatus">PAUSED</span>
-        </div>
+<section class="story-section" id="story">
+<div class="container">
+<div class="center reveal"><div class="section-label">02 / MY STORY</div><h2 class="section-title">THE JOURNEY <span class="glow-text">CONTINUES.</span></h2><p class="section-desc" style="margin:auto">Every chapter has its own meaning. These are some of the things that shape my journey.</p></div>
+<div class="story-timeline">
+<div class="story-item reveal"><div class="story-card interactive"><small>CHAPTER 01</small><h3>THE BEGINNING</h3><p>Every journey starts somewhere. This is where curiosity, dreams, and the desire to explore new possibilities begin.</p></div></div>
+<div class="story-item reveal"><div class="story-card interactive"><small>CHAPTER 02</small><h3>THE BMX JOURNEY</h3><p>BMX became an important part of my story. It introduced me to competition, discipline, determination, and the experience of growing through sport.</p></div></div>
+<div class="story-item reveal"><div class="story-card interactive"><small>CHAPTER 03</small><h3>LEARNING & GROWING</h3><p>Exploring multimedia, technology, and creative ideas while learning from every experience and challenge.</p></div></div>
+<div class="story-item reveal"><div class="story-card interactive"><small>CHAPTER 04</small><h3>THE NEXT CHAPTER</h3><p>The story is still being written. There are more things to discover, more goals to achieve, and more memories to create.</p></div></div>
+</div>
+</div>
+</section>
+</div>
 
-        <canvas id="universe"></canvas>
+<!-- SCREEN TWO -->
+<div data-screen="2" id="screenTwo" class="screen-hidden">
+<section id="memories">
+<div class="container">
+<div class="center reveal"><div class="section-label">02.5 / MEMORY ARCHIVE</div><h2 class="section-title">MOMENTS <span class="glow-text">TO REMEMBER.</span></h2><p class="section-desc" style="margin:auto">A small collection of memories from my personal journey.</p></div>
+<div class="archive-grid">
+<div class="archive-card reveal" data-image="IMG-20261104-WA0006.jpg"><img src="IMG-20261104-WA0006.jpg" alt="Memory 01" loading="lazy"><div class="archive-caption"><small>MEMORY ARCHIVE 01</small><h3>A MOMENT IN TIME</h3></div></div>
+<div class="archive-card reveal" data-image="IMG-20261104-WA0011.jpg"><img src="IMG-20261104-WA0011.jpg" alt="Memory 02" loading="lazy"><div class="archive-caption"><small>MEMORY ARCHIVE 02</small><h3>ANOTHER CHAPTER</h3></div></div>
+</div>
+</div>
+</section>
 
-        <div class="canvas-bottom">
-          <span>MODEL: 2D PARTICLE SYSTEM</span>
-          <span>CLICK TO CREATE A MASS CENTER</span>
-        </div>
-      </div>
+<section class="cube-section" id="dataCube">
+<div class="container">
+<div class="reveal"><div class="section-label">05 / HOLOGRAPHIC DATA SYSTEM</div><h2 class="section-title">HOLOGRAPHIC <span class="glow-text">DATA CUBE.</span></h2><p class="section-desc">A 3D holographic interface containing selected information about my identity, education, and personal journey.</p></div>
+<div class="cube-layout">
+<div class="cube-stage reveal"><div class="cube-scene"><div class="holo-cube" id="holoCube">
+<div class="cube-face cube-front"><div><span>F.A</span><br>IDENTITY</div></div><div class="cube-face cube-back"><div><span>✦</span><br>JOURNEY</div></div>
+<div class="cube-face cube-right"><div><span>⌘</span><br>STUDY</div></div><div class="cube-face cube-left"><div><span>◎</span><br>BMX</div></div>
+<div class="cube-face cube-top"><div><span>∞</span><br>GROWTH</div></div><div class="cube-face cube-bottom"><div><span>◈</span><br>IDEAS</div></div>
+</div></div></div>
+<div class="cube-info reveal"><div class="section-label">DATA INTERFACE // 01</div><h3 id="cubeTitle">PERSONAL IDENTITY</h3><p id="cubeDescription">Fachriansyah Alfigo. A curious individual who enjoys exploring new experiences, learning new things, and expressing ideas.</p>
+<div class="cube-controls">
+<button class="cube-select active" data-cube="identity">IDENTITY</button><button class="cube-select" data-cube="education">EDUCATION</button><button class="cube-select" data-cube="bmx">BMX JOURNEY</button><button class="cube-select" data-cube="vision">PERSONAL VISION</button>
+</div><div class="cube-readout"><span>DATA STATUS: <strong>CONNECTED</strong></span><span id="cubeIndex">01 / 04</span></div>
+</div>
+</div>
+</div>
+</section>
 
-      <div class="stats">
-        <div class="stat-card">
-          <div class="stat-label">PARTICLES</div>
-          <div class="stat-value" id="particleStat">900</div>
-        </div>
+<section id="identity">
+<div class="container">
+<div class="center reveal"><div class="section-label">06 / DIGITAL IDENTIFICATION</div><h2 class="section-title">DIGITAL <span class="glow-text">IDENTITY CARD.</span></h2><p class="section-desc" style="margin:auto">A personal holographic identity interface representing the person behind this universe.</p></div>
+<div class="identity-wrap reveal">
+<div class="identity-card" id="identityCard"><div class="id-scan"></div>
+<div class="id-top"><div class="id-brand">F.A // DIGITAL IDENTITY</div><div class="id-status">IDENTITY ACTIVE</div></div>
+<div class="id-content"><div class="id-avatar"><img src="IMG-20261104-WA0009.jpg" alt="Fachriansyah Alfigo"></div>
+<div><div class="id-name">FACHRIANSYAH<br>ALFIGO</div><div class="id-role">PERSONAL UNIVERSE MEMBER</div>
+<div class="id-fields">
+<div class="id-field"><small>EDUCATION</small><strong>HSPG Yogyakarta</strong></div><div class="id-field"><small>FIELD</small><strong>Multimedia & Digital</strong></div>
+<div class="id-field"><small>BACKGROUND</small><strong>BMX Journey</strong></div><div class="id-field"><small>IDENTITY</small><strong>Curious Explorer</strong></div>
+</div></div></div>
+<div class="id-bottom"><span>FA-UNIVERSE // 001</span><span>VERIFIED PROFILE</span></div>
+</div>
+<div class="id-actions"><button class="id-action" id="scanIdentity">RUN IDENTITY SCAN</button><button class="id-action" id="rotateIdentity">RESET CARD VIEW</button></div>
+</div>
+</div>
+</section>
 
-        <div class="stat-card">
-          <div class="stat-label">TIME</div>
-          <div class="stat-value" id="timeStat">0.0</div>
-        </div>
+<section class="blueprint-section" id="blueprint">
+<div class="container">
+<div class="reveal"><div class="section-label">07 / PROJECT ARCHITECTURE</div><h2 class="section-title">PROJECT <span class="glow-text">BLUEPRINT.</span></h2><p class="section-desc">A visual overview of selected projects, personal experiences, and creative explorations.</p></div>
+<div class="blueprint-grid">
+<article class="blueprint-card reveal interactive"><div class="blueprint-number">BLUEPRINT // 001</div><div class="blueprint-icon">◈</div><h3>F.A PERSONAL UNIVERSE</h3><p>A personal digital space built to represent my identity, journey, interests, and ideas through an interactive futuristic interface.</p><span class="blueprint-tag">PERSONAL PLATFORM</span></article>
+<article class="blueprint-card reveal interactive"><div class="blueprint-number">BLUEPRINT // 002</div><div class="blueprint-icon">◎</div><h3>BMX JOURNEY</h3><p>A personal chapter shaped by BMX experiences, competition, discipline, and the lessons gained through the journey.</p><span class="blueprint-tag">PERSONAL JOURNEY</span></article>
+<article class="blueprint-card reveal interactive"><div class="blueprint-number">BLUEPRINT // 003</div><div class="blueprint-icon">✦</div><h3>CREATIVE EXPERIMENTS</h3><p>A space for exploring ideas, visual concepts, multimedia experiences, and new ways to bring imagination into reality.</p><span class="blueprint-tag">CREATIVE EXPLORATION</span></article>
+</div>
+</div>
+</section>
 
-        <div class="stat-card">
-          <div class="stat-label">CENTERS</div>
-          <div class="stat-value" id="centerStat">3</div>
-        </div>
-      </div>
+<section id="digitalTwin">
+<div class="container">
+<div class="reveal"><div class="section-label">08 / DIGITAL PERSONA SYSTEM</div><h2 class="section-title">DIGITAL TWIN <span class="glow-text">ALFIGO.</span></h2><p class="section-desc">A visual digital representation of my profile, interests, and personal journey.</p></div>
+<div class="twin-layout">
+<div class="twin-stage reveal"><div class="twin-orbit"></div><div class="twin-label one">TWIN CORE // ONLINE</div><div class="twin-core"><img src="IMG-20261104-WA0009.jpg" alt="Digital Twin Alfigo"></div><div class="twin-label two">PROFILE SYNCED</div></div>
+<div class="twin-info reveal"><div class="section-label">DIGITAL PERSONA // 001</div><h3>FACHRIANSYAH ALFIGO</h3><p>This digital twin is a visual profile interface representing my identity. It brings together my learning journey, BMX background, curiosity, and creative interests.</p>
+<div class="twin-stats"><div class="twin-stat"><small>CORE IDENTITY</small><strong>F.A</strong></div><div class="twin-stat"><small>BACKGROUND</small><strong>BMX</strong></div><div class="twin-stat"><small>FIELD</small><strong>MULTIMEDIA</strong></div><div class="twin-stat"><small>STATUS</small><strong>EVOLVING</strong></div></div>
+</div>
+</div>
+</div>
+</section>
 
-      <div class="info-panel">
-        <h3>SCIENTIFIC OBSERVATION</h3>
-        <p id="observation">
-          Simulation is ready. Start the experiment to observe particle
-          movement and the effect of the selected parameters.
-        </p>
-      </div>
-    </div>
+<section id="spatial">
+<div class="container">
+<div class="reveal"><div class="section-label">09 / SPATIAL INTERFACE</div><h2 class="section-title">SPATIAL <span class="glow-text">COMPUTING.</span></h2><p class="section-desc">A floating workspace. Drag each holographic panel to arrange your own digital control room.</p></div>
+<div class="spatial-board reveal" id="spatialBoard">
+<div class="spatial-hint">DRAG PANELS TO REPOSITION // TOUCH ENABLED</div>
+<div class="spatial-panel" id="panelA"><h3>IDENTITY MODULE</h3><p>Fachriansyah Alfigo<br>Personal Universe Member</p><small>MODULE 01 // ACTIVE</small></div>
+<div class="spatial-panel" id="panelB"><h3>JOURNEY MODULE</h3><p>BMX experiences, learning, and personal growth.</p><small>MODULE 02 // CONNECTED</small></div>
+<div class="spatial-panel" id="panelC"><h3>CREATIVE MODULE</h3><p>Ideas, multimedia, technology, and exploration.</p><small>MODULE 03 // ONLINE</small></div>
+</div>
+<div class="spatial-controls"><button class="id-action" id="resetPanels">RESET PANEL POSITIONS</button><button class="id-action" id="scatterPanels">REARRANGE PANELS</button></div>
+</div>
+</section>
 
-    <aside class="control-panel">
-      <div class="panel-title">EXPERIMENT CONTROLS</div>
+<section id="parallel">
+<div class="container">
+<div class="reveal"><div class="section-label">10 / MULTIVERSE SIMULATION</div><h2 class="section-title">PARALLEL <span class="glow-text">UNIVERSES.</span></h2><p class="section-desc">Explore alternate visual concepts of the Personal Universe. These are creative simulations, not predictions of real alternate timelines.</p></div>
+<div class="universe-box reveal">
+<div class="universe-top"><h3>UNIVERSE SELECTOR // MULTIVERSE CORE</h3><div class="universe-tabs">
+<button class="universe-tab active" data-universe="prime">PRIME</button><button class="universe-tab" data-universe="cyber">CYBER</button><button class="universe-tab" data-universe="cosmic">COSMIC</button><button class="universe-tab" data-universe="future">FUTURE</button>
+</div></div>
+<div class="universe-content"><div class="universe-visual" id="universeVisual"><div class="universe-symbol" id="universeSymbol">◈</div></div>
+<div class="universe-text"><h3 id="universeTitle">PRIME UNIVERSE</h3><p id="universeDescription">The original Personal Universe. A place where identity, memories, learning, and experiences come together.</p><div class="universe-index" id="universeIndex">REALITY INDEX // 01</div></div>
+</div>
+</div>
+</div>
+</section>
 
-      <div class="control">
-        <div class="control-head">
-          <label for="expansion">Expansion</label>
-          <output id="expansionValue">1.0</output>
-        </div>
-        <input id="expansion" type="range"
-          min="0" max="3" step=".1" value="1">
-      </div>
+<section class="portal-section" id="portal">
+<div class="container">
+<div class="reveal"><div class="section-label">11 / DIMENSIONAL TRANSIT SYSTEM</div><h2 class="section-title">UNIVERSE <span class="glow-text">PORTAL.</span></h2><p class="section-desc" style="margin:auto">A cinematic portal interface for jumping between the two main screens of this Personal Universe.</p></div>
+<div class="portal-stage reveal"><div class="portal-ring"></div><div class="portal-core">F.A<br>PORTAL</div></div>
+<button class="portal-button" id="portalTravel">ACTIVATE PORTAL ↗</button>
+<p class="portal-note">DESTINATION: <span class="glow-text" id="portalDestination">SCREEN 1 / 2</span><br>Tap to travel between screens.</p>
+</div>
+</section>
 
-      <div class="control">
-        <div class="control-head">
-          <label for="matter">Matter density</label>
-          <output id="matterValue">900</output>
-        </div>
-        <input id="matter" type="range"
-          min="200" max="2200" step="100" value="900">
-      </div>
+<!-- PROJECT OMEGA -->
+<section class="omega-section" id="omega">
+<div class="container">
+<div class="omega-heading reveal">
+<div class="section-label">12 / NEXT-GENERATION INTELLIGENCE</div>
+<h2 class="section-title">PROJECT <span class="glow-text">OMEGA.</span></h2>
+<p class="section-desc" style="margin:auto">A hybrid intelligence interface designed to connect information, memory, analysis, and authorized website controls.</p>
+</div>
 
-      <div class="control">
-        <div class="control-head">
-          <label for="gravity">Gravity approximation</label>
-          <output id="gravityValue">0.5</output>
-        </div>
-        <input id="gravity" type="range"
-          min="0" max="2" step=".1" value=".5">
-      </div>
+<div class="omega-core-wrap">
+<div class="omega-reactor reveal">
+<div class="reactor-rings"></div><div class="reactor-center">Ω</div>
+<div class="reactor-readout">OMEGA CORE // HYBRID MODE</div>
+</div>
 
-      <div class="control">
-        <div class="control-head">
-          <label for="speed">Simulation speed</label>
-          <output id="speedValue">1.0x</output>
-        </div>
-        <input id="speed" type="range"
-          min=".1" max="3" step=".1" value="1">
-      </div>
+<div class="omega-console reveal">
+<div class="omega-top"><strong>OMEGA INTELLIGENCE CONSOLE</strong><span class="omega-online">● SYSTEM ONLINE</span></div>
+<div class="omega-chat" id="omegaChat" aria-live="polite">
+<div class="omega-message system"><small>OMEGA CORE</small>Greetings, Alfigo. I am OMEGA, the hybrid intelligence interface of your Personal Universe. You can ask about this website, request an analysis, or use an available command.</div>
+</div>
+<div class="omega-input-row">
+<input class="omega-input" id="omegaInput" type="text" placeholder="Enter command or ask OMEGA..." autocomplete="off">
+<button class="omega-send" id="omegaSend">SEND ↗</button>
+</div>
+</div>
+</div>
 
-      <div class="buttons">
-        <button class="primary" id="startButton">▶ START</button>
-        <button id="pauseButton">Ⅱ PAUSE</button>
-        <button class="wide" id="resetButton">↻ RESET EXPERIMENT</button>
-      </div>
+<div class="omega-modules reveal">
+<div class="omega-module" data-omega="status"><strong>01 // OMEGA CORE</strong><span>System status and module diagnostics.</span></div>
+<div class="omega-module" data-omega="memory"><strong>02 // OMEGA MEMORY</strong><span>Save and recall notes in this browser.</span></div>
+<div class="omega-module" data-omega="analysis"><strong>03 // OMEGA ANALYSIS</strong><span>Analyze profile and website information.</span></div>
+<div class="omega-module" data-omega="command"><strong>04 // OMEGA COMMAND</strong><span>Control supported website interfaces.</span></div>
+<div class="omega-module" data-omega="interface"><strong>05 // OMEGA INTERFACE</strong><span>Futuristic conversational interface.</span></div>
+<div class="omega-module" data-omega="autonomy"><strong>06 // LIMITED AUTONOMY</strong><span>Perform local actions when requested.</span></div>
+</div>
 
-      <div class="info-panel">
-        <h3>MODEL PARAMETERS</h3>
-        <p>
-          Expansion controls outward particle movement.
-          Matter density controls particle count.
-          Gravity approximation controls attraction toward
-          selected mass centers.
-        </p>
-      </div>
-    </aside>
+<div class="omega-command-list reveal">
+<button class="omega-command" data-command="status">SYSTEM STATUS</button>
+<button class="omega-command" data-command="open memories">OPEN MEMORY ARCHIVE</button>
+<button class="omega-command" data-command="open identity">OPEN IDENTITY CARD</button>
+<button class="omega-command" data-command="open blueprint">OPEN BLUEPRINT</button>
+<button class="omega-command" data-command="open portal">OPEN PORTAL</button>
+<button class="omega-command" data-command="open home">RETURN HOME</button>
+</div>
 
-  </section>
+<div class="omega-memory reveal">
+<h3>OMEGA MEMORY STORAGE // LOCAL BROWSER</h3>
+<p id="omegaMemoryStatus">No saved notes yet. Ask OMEGA to remember something using: "remember: your note".</p>
+<button class="id-action" id="clearOmegaMemory">CLEAR LOCAL MEMORY</button>
+</div>
+</div>
+</section>
 
+<section id="interests">
+<div class="container">
+<div class="reveal"><div class="section-label">13 / MY INTERESTS</div><h2 class="section-title">THINGS THAT <span class="glow-text">INSPIRE ME.</span></h2><p class="section-desc">A collection of interests that keep my curiosity alive and inspire me to explore more.</p></div>
+<div class="interest-grid">
+<div class="interest-card reveal interactive"><span class="interest-icon">✦</span><h3>TECHNOLOGY</h3><p>Exploring digital innovation, websites, and how technology changes the world.</p></div>
+<div class="interest-card reveal interactive"><span class="interest-icon">◈</span><h3>CREATIVITY</h3><p>Turning ideas into visual experiences through design and digital media.</p></div>
+<div class="interest-card reveal interactive"><span class="interest-icon">⌘</span><h3>MULTIMEDIA</h3><p>Discovering the combination of visuals, stories, and interactive experiences.</p></div>
+<div class="interest-card reveal interactive"><span class="interest-icon">◎</span><h3>BMX</h3><p>A meaningful part of my journey, bringing experiences in sport, competition, and personal growth.</p></div>
+<div class="interest-card reveal interactive"><span class="interest-icon">◎</span><h3>EXPLORATION</h3><p>Discovering new places, experiences, and perspectives along the way.</p></div>
+<div class="interest-card reveal interactive"><span class="interest-icon">∞</span><h3>PERSONAL GROWTH</h3><p>Learning from experiences and continuing to become a better version of myself.</p></div>
+</div>
+</div>
+</section>
+
+<section id="contact">
+<div class="container"><div class="contact-box reveal">
+<div class="section-label">14 / CONTACT</div><h2 class="section-title">LET'S CONNECT.</h2>
+<p class="section-desc">Every connection can lead to a new story. Feel free to reach out and say hello.</p>
+<div class="contact-links"><a href="#" class="btn btn-primary" id="instagramLink">INSTAGRAM ↗</a><a href="mailto:hello@example.com" class="btn btn-outline">EMAIL ME ↗</a></div>
+</div></div>
+</section>
+<footer><div class="container">© <span id="year"></span> F.A PERSONAL UNIVERSE — PROJECT OMEGA.</div></footer>
+</div>
 </main>
-
-<footer>
-  F.A RESEARCH DIVISION · PROJECT OMEGA · Ω-001
-</footer>
+</div>
 
 <script>
-const canvas = document.getElementById("universe");
-const ctx = canvas.getContext("2d");
+/* =========================================
+   F.A PERSONAL UNIVERSE // PROJECT OMEGA
+========================================= */
+const $=id=>document.getElementById(id);
+const CORRECT_PIN="414141";
+let enteredPin="",isProcessing=false,jarvisHasSpoken=false,audioContext=null;
+let activeScreen=1;
+const gate=$("gate"),gateContent=$("gateContent"),gateStatus=$("gateStatus");
+const pinDots=document.querySelectorAll(".pin-dot");
+const accessGranted=$("accessGranted"),terminalScreen=$("terminalScreen");
+const terminalLines=$("terminalLines"),terminalProgress=$("terminalProgress");
+const terminalPercent=$("terminalPercent"),mainWebsite=$("mainWebsite");
 
-const $ = id => document.getElementById(id);
+function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+function toast(message){
+ const t=$("toast");t.textContent=message;t.classList.add("show");
+ clearTimeout(toast.timer);toast.timer=setTimeout(()=>t.classList.remove("show"),2300);
+}
+function playTone(freq,duration,type="sine",volume=.06,delay=0){
+ try{
+ const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+ if(!audioContext)audioContext=new AC();
+ if(audioContext.state==="suspended")audioContext.resume();
+ const start=audioContext.currentTime+delay,osc=audioContext.createOscillator(),gain=audioContext.createGain();
+ osc.type=type;osc.frequency.setValueAtTime(freq,start);
+ gain.gain.setValueAtTime(.001,start);gain.gain.exponentialRampToValueAtTime(volume,start+.04);
+ gain.gain.exponentialRampToValueAtTime(.001,start+duration);
+ osc.connect(gain);gain.connect(audioContext.destination);osc.start(start);osc.stop(start+duration+.03);
+ }catch(e){}
+}
+function playSuccessSound(){[440,554,659,880,1108].forEach((f,i)=>playTone(f,.7,"sine",.06,i*.1))}
+function playDeniedSound(){playTone(220,.22,"sawtooth",.07);playTone(165,.32,"sawtooth",.06,.2)}
 
-const controls = {
-  expansion: $("expansion"),
-  matter: $("matter"),
-  gravity: $("gravity"),
-  speed: $("speed")
-};
+/* PIN GATE */
+function updatePinDisplay(){pinDots.forEach((d,i)=>d.classList.toggle("filled",i<enteredPin.length))}
+function pressNumber(n){
+ if(isProcessing||enteredPin.length>=6)return;
+ enteredPin+=n;updatePinDisplay();
+ if(enteredPin.length===6)submitPin();
+}
+$("keypad").addEventListener("click",e=>{
+ const b=e.target.closest("button");if(!b||isProcessing)return;
+ if(b.dataset.num!==undefined)pressNumber(b.dataset.num);
+ else if(b.dataset.action==="clear"){enteredPin="";updatePinDisplay();gateStatus.textContent="PASSCODE CLEARED"}
+ else if(b.dataset.action==="delete"){enteredPin=enteredPin.slice(0,-1);updatePinDisplay()}
+});
+document.addEventListener("keydown",e=>{
+ if(gate.style.display==="none"||isProcessing)return;
+ if(/^[0-9]$/.test(e.key))pressNumber(e.key);
+ else if(e.key==="Backspace"){enteredPin=enteredPin.slice(0,-1);updatePinDisplay()}
+ else if(e.key==="Escape"){enteredPin="";updatePinDisplay()}
+});
 
-let width = 0;
-let height = 0;
-let particles = [];
-let stars = [];
-let centers = [];
-let running = false;
-let elapsed = 0;
-let lastTime = 0;
-let frameId = null;
+/* JARVIS WELCOME VOICE */
+function getEnglishVoice(){
+ if(!("speechSynthesis"in window))return null;
+ const voices=speechSynthesis.getVoices();
+ return voices.find(v=>/google us english|microsoft.*english|english.*united states/i.test(v.name))
+ ||voices.find(v=>v.lang&&v.lang.toLowerCase()==="en-us")
+ ||voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en"))||null;
+}
+function speakWelcome(){
+ if(jarvisHasSpoken||!("speechSynthesis"in window))return;
+ try{
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance("Welcome, Alfigo.");
+ u.lang="en-US";u.rate=.92;u.pitch=.85;u.volume=1;
+ const voice=getEnglishVoice();if(voice)u.voice=voice;
+ u.onstart=()=>jarvisHasSpoken=true;
+ speechSynthesis.speak(u);
+ }catch(e){}
+}
 
-const centerPositions = [
-  {x: .35, y: .42},
-  {x: .69, y: .57},
-  {x: .53, y: .25}
+/* BOOT SEQUENCE */
+const terminalMessages=[
+"Authentication confirmed.",
+"Initializing J.A.R.V.I.S interface...",
+"Loading personal universe modules...",
+"Connecting OMEGA CORE...",
+"Profile database connected.",
+"Memory archive synchronized.",
+"Visual interface calibrated.",
+"Security protocols verified.",
+"OMEGA HYBRID SYSTEM READY."
 ];
-
-function resize() {
-  const rect = canvas.getBoundingClientRect();
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-  width = rect.width;
-  height = rect.height;
-
-  canvas.width = width * dpr;
-  canvas.height = height * dpr;
-
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-  createStars();
-
-  if (!particles.length) {
-    createUniverse();
-  }
-
-  draw();
+async function runTerminal(){
+ terminalLines.innerHTML="";terminalProgress.style.width="0%";terminalPercent.textContent="0%";
+ terminalScreen.classList.add("show");
+ for(let i=0;i<terminalMessages.length;i++){
+ const line=document.createElement("div");line.className="terminal-line";
+ const prefix=document.createElement("span");prefix.className="prefix";prefix.textContent="[ OMEGA ] ";
+ const content=document.createElement("span");content.textContent=terminalMessages[i];
+ if([0,4,5,7,8].includes(i))content.className="ok";
+ line.append(prefix,content);terminalLines.appendChild(line);
+ const pct=Math.round((i+1)/terminalMessages.length*100);
+ terminalProgress.style.width=pct+"%";terminalPercent.textContent=pct+"%";
+ playTone(700,.045,"sine",.018);await wait(370);
+ }
+ await wait(650);terminalScreen.classList.remove("show");await wait(350);openWebsite();
+}
+async function submitPin(){
+ if(enteredPin.length!==6||isProcessing)return;isProcessing=true;
+ if(enteredPin===CORRECT_PIN){
+ gateStatus.textContent="VERIFYING IDENTITY...";gateStatus.className="gate-status success";
+ playSuccessSound();await wait(600);accessGranted.classList.add("show");await wait(1000);
+ accessGranted.classList.remove("show");gateContent.style.display="none";await runTerminal();
+ }else{
+ gateStatus.textContent="ACCESS DENIED — INVALID PASSCODE";gateStatus.className="gate-status error";
+ gateContent.animate([{transform:"translateX(0)"},{transform:"translateX(-8px)"},{transform:"translateX(8px)"},{transform:"translateX(0)"}],{duration:300});
+ playDeniedSound();await wait(1000);enteredPin="";updatePinDisplay();
+ gateStatus.textContent="AWAITING AUTHENTICATION...";gateStatus.className="gate-status";isProcessing=false;
+ }
 }
 
-function createStars() {
-  stars = [];
+/* REVEAL */
+const observer=new IntersectionObserver(entries=>{
+ entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}});
+},{threshold:.1});
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
 
-  const count = Math.floor(width * height / 1800);
-
-  for (let i = 0; i < count; i++) {
-    stars.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      size: Math.random() * 1.3,
-      alpha: .2 + Math.random() * .6
-    });
-  }
+/* SCREEN SYSTEM */
+const screenOne=$("screenOne"),screenTwo=$("screenTwo");
+const screenSwitch=$("screenSwitch"),screenSwitchText=$("screenSwitchText");
+function refreshRevealElements(){
+ const area=activeScreen===1?screenOne:screenTwo;
+ area.querySelectorAll(".reveal:not(.visible)").forEach(el=>observer.observe(el));
+}
+function setActiveScreen(screen,animate=true){
+ activeScreen=screen===2?2:1;const first=activeScreen===1;
+ screenOne.classList.toggle("screen-hidden",!first);
+ screenTwo.classList.toggle("screen-hidden",first);
+ if(animate){
+ const area=first?screenOne:screenTwo;area.classList.remove("screen-transition");
+ void area.offsetWidth;area.classList.add("screen-transition");
+ }
+ screenSwitchText.textContent=first?"SCREEN 1 / 2":"SCREEN 2 / 2";
+ $("portalDestination").textContent=first?"SCREEN 1 / 2":"SCREEN 2 / 2";
+ window.scrollTo({top:0,behavior:animate?"smooth":"auto"});
+ refreshRevealElements();playTone(620,.12,"sine",.035);
+}
+screenSwitch.addEventListener("click",()=>setActiveScreen(activeScreen===1?2:1));
+$("portalTravel").addEventListener("click",()=>{
+ const btn=$("portalTravel");btn.textContent="PORTAL ACTIVATING...";
+ playTone(300,.4);playTone(700,.5,"sine",.06,.2);
+ setTimeout(()=>{setActiveScreen(activeScreen===1?2:1);btn.textContent="ACTIVATE PORTAL ↗";toast("PORTAL TRANSIT COMPLETE")},650);
+});
+$("menuBtn").addEventListener("click",()=>$("navLinks").classList.toggle("open"));
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+ a.addEventListener("click",e=>{
+ const id=a.getAttribute("href").slice(1),target=$(id);if(!target)return;
+ e.preventDefault();
+ const parent=target.closest("[data-screen]");
+ if(parent){const n=Number(parent.dataset.screen);if(n!==activeScreen)setActiveScreen(n)}
+ $("navLinks").classList.remove("open");
+ setTimeout(()=>{target.scrollIntoView({behavior:"smooth",block:"start"});history.replaceState(null,"","#"+id)},120);
+ });
+});
+function openWebsite(){
+ setActiveScreen(1,false);mainWebsite.classList.remove("hidden");gate.classList.add("leaving");
+ setTimeout(()=>{gate.style.display="none";refreshRevealElements();setTimeout(speakWelcome,450)},850);
 }
 
-function createCenters() {
-  centers = centerPositions.map((p, index) => ({
-    x: width * p.x,
-    y: height * p.y,
-    strength: index === 0 ? 1 : .7
-  }));
+/* PROFILE TILT */
+const profile=$("profile3d"),heroVisual=$("heroVisual");
+function moveProfile(x,y){
+ const r=heroVisual.getBoundingClientRect(),px=(x-r.left)/r.width,py=(y-r.top)/r.height;
+ profile.style.transform=`rotateX(${(.5-py)*22}deg) rotateY(${(px-.5)*22}deg) translateZ(15px)`;
 }
+heroVisual.addEventListener("mousemove",e=>moveProfile(e.clientX,e.clientY));
+heroVisual.addEventListener("mouseleave",()=>profile.style.transform="rotateX(0) rotateY(0)");
+heroVisual.addEventListener("touchmove",e=>{const t=e.touches[0];moveProfile(t.clientX,t.clientY)},{passive:true});
+heroVisual.addEventListener("touchend",()=>profile.style.transform="rotateX(0) rotateY(0)");
 
-function createUniverse() {
-  createCenters();
+/* PHOTO ARCHIVE */
+const photoViewer=$("photoViewer"),viewerImage=$("viewerImage");
+document.querySelectorAll(".archive-card").forEach(card=>{
+ card.addEventListener("mousemove",e=>{
+ const r=card.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+ card.style.transform=`perspective(1000px) rotateX(${((r.height/2-y)/(r.height/2))*7}deg) rotateY(${((x-r.width/2)/(r.width/2))*7}deg)`;
+ });
+ card.addEventListener("mouseleave",()=>card.style.transform="");
+ card.addEventListener("click",()=>{viewerImage.src=card.dataset.image;photoViewer.classList.add("show");playTone(650,.1)});
+});
+function closePhoto(){photoViewer.classList.remove("show")}
+$("photoClose").addEventListener("click",closePhoto);
+photoViewer.addEventListener("click",e=>{if(e.target===photoViewer)closePhoto()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closePhoto()});
 
-  const count = Number(controls.matter.value);
-  particles = [];
-
-  const cx = width / 2;
-  const cy = height / 2;
-
-  for (let i = 0; i < count; i++) {
-    const angle = Math.random() * Math.PI * 2;
-    const radius = Math.random() * Math.min(width, height) * .48;
-
-    particles.push({
-      x: cx + Math.cos(angle) * radius,
-      y: cy + Math.sin(angle) * radius,
-      vx: Math.cos(angle) * (.1 + Math.random() * .3),
-      vy: Math.sin(angle) * (.1 + Math.random() * .3),
-      seed: Math.random(),
-      size: .5 + Math.random() * 1.5
-    });
-  }
-
-  elapsed = 0;
-  updateStats();
-}
-
-function updateStats() {
-  $("particleStat").textContent = particles.length.toLocaleString();
-  $("timeStat").textContent = elapsed.toFixed(1);
-  $("centerStat").textContent = centers.length;
-}
-
-function updateParticles(dt) {
-  const expansion = Number(controls.expansion.value);
-  const gravity = Number(controls.gravity.value);
-  const speed = Number(controls.speed.value);
-
-  const cx = width / 2;
-  const cy = height / 2;
-
-  const step = Math.min(dt, .04) * speed;
-
-  for (const p of particles) {
-    const dx = p.x - cx;
-    const dy = p.y - cy;
-
-    // Simplified expansion model:
-    // outward velocity proportional to distance from origin.
-    p.vx += dx * expansion * .00012 * step;
-    p.vy += dy * expansion * .00012 * step;
-
-    // Simplified attraction toward selected mass centers.
-    for (const c of centers) {
-      const gx = c.x - p.x;
-      const gy = c.y - p.y;
-      const distanceSq = gx * gx + gy * gy + 1800;
-
-      const force = gravity * c.strength * 9 / distanceSq;
-
-      p.vx += gx * force * step;
-      p.vy += gy * force * step;
-    }
-
-    // Gentle damping for numerical stability.
-    p.vx *= .9995;
-    p.vy *= .9995;
-
-    p.x += p.vx * step;
-    p.y += p.vy * step;
-
-    // Wrap particles around the simulation boundary.
-    const margin = 30;
-
-    if (p.x < -margin) p.x = width + margin;
-    if (p.x > width + margin) p.x = -margin;
-    if (p.y < -margin) p.y = height + margin;
-    if (p.y > height + margin) p.y = -margin;
-  }
-
-  elapsed += step;
-  updateStats();
-}
-
-function draw() {
-  ctx.clearRect(0, 0, width, height);
-
-  // Background.
-  ctx.fillStyle = "#050b18";
-  ctx.fillRect(0, 0, width, height);
-
-  // Background stars.
-  for (const s of stars) {
-    ctx.beginPath();
-    ctx.fillStyle = `rgba(140,220,255,${s.alpha})`;
-    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  // Center reference.
-  const cx = width / 2;
-  const cy = height / 2;
-
-  const gradient = ctx.createRadialGradient(
-    cx, cy, 0, cx, cy, Math.min(width, height) * .55
-  );
-
-  gradient.addColorStop(0, "rgba(10,80,140,.12)");
-  gradient.addColorStop(1, "rgba(5,11,24,0)");
-
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, width, height);
-
-  // Simulation particles.
-  for (const p of particles) {
-    const alpha = .4 + p.seed * .6;
-
-    ctx.beginPath();
-    ctx.fillStyle = `rgba(90,210,255,${alpha})`;
-    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  // Mass centers.
-  for (const c of centers) {
-    const glow = ctx.createRadialGradient(
-      c.x, c.y, 0, c.x, c.y, 35
-    );
-
-    glow.addColorStop(0, "rgba(100,230,255,.65)");
-    glow.addColorStop(1, "rgba(37,200,255,0)");
-
-    ctx.fillStyle = glow;
-    ctx.beginPath();
-    ctx.arc(c.x, c.y, 35, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.strokeStyle = "rgba(100,230,255,.45)";
-    ctx.arc(c.x, c.y, 9, 0, Math.PI * 2);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.fillStyle = "#c6f7ff";
-    ctx.arc(c.x, c.y, 2.5, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-function loop(timestamp) {
-  if (!running) return;
-
-  const dt = lastTime ? (timestamp - lastTime) / 1000 : 0;
-  lastTime = timestamp;
-
-  updateParticles(dt);
-  draw();
-
-  frameId = requestAnimationFrame(loop);
-}
-
-function start() {
-  if (running) return;
-
-  running = true;
-  lastTime = 0;
-
-  $("runStatus").textContent = "RUNNING";
-  $("runStatus").style.color = "#69e9bc";
-
-  $("observation").textContent =
-    "Experiment running. Observe how expansion and attraction " +
-    "change particle distribution over simulation time.";
-
-  frameId = requestAnimationFrame(loop);
-}
-
-function pause() {
-  running = false;
-
-  if (frameId) cancelAnimationFrame(frameId);
-
-  $("runStatus").textContent = "PAUSED";
-  $("runStatus").style.color = "#8cecff";
-
-  draw();
-}
-
-function reset() {
-  pause();
-  createUniverse();
-
-  $("observation").textContent =
-    "Experiment reset. Initial conditions have been regenerated.";
-
-  draw();
-}
-
-// Controls.
-controls.expansion.addEventListener("input", () => {
-  $("expansionValue").textContent =
-    Number(controls.expansion.value).toFixed(1);
+/* DATA CUBE */
+const cubeData={
+identity:{title:"PERSONAL IDENTITY",description:"Fachriansyah Alfigo. A curious individual who enjoys exploring new experiences, learning new things, and expressing ideas."},
+education:{title:"EDUCATION DATABASE",description:"A student in Manajemen Multimedia dan Digital, with an educational background at HSPG Yogyakarta. Always open to learning and discovering new perspectives."},
+bmx:{title:"BMX JOURNEY",description:"BMX is an important chapter of my life. Experiences in regional, national, and international competition helped shape my discipline, determination, and perspective."},
+vision:{title:"PERSONAL VISION",description:"Keep exploring, stay curious, create meaningful things, and continue growing through every new experience."}
+};
+document.querySelectorAll(".cube-select").forEach((b,i)=>b.addEventListener("click",()=>{
+ const d=cubeData[b.dataset.cube];if(!d)return;
+ document.querySelectorAll(".cube-select").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+ $("cubeTitle").textContent=d.title;$("cubeDescription").textContent=d.description;
+ $("cubeIndex").textContent=`${String(i+1).padStart(2,"0")} / 04`;playTone(760,.1);
+}));
+$("holoCube").addEventListener("click",e=>{
+ e.currentTarget.style.animationPlayState=e.currentTarget.style.animationPlayState==="paused"?"running":"paused";
+ toast(e.currentTarget.style.animationPlayState==="paused"?"DATA CUBE PAUSED":"DATA CUBE RESUMED");
 });
 
-controls.matter.addEventListener("input", () => {
-  $("matterValue").textContent = controls.matter.value;
+/* DIGITAL ID CARD */
+const identityCard=$("identityCard");
+$("scanIdentity").addEventListener("click",()=>{
+ identityCard.classList.remove("scanning");void identityCard.offsetWidth;identityCard.classList.add("scanning");
+ playTone(650,.12);playTone(900,.16,"sine",.035,.2);
+ setTimeout(()=>identityCard.classList.remove("scanning"),2500);toast("IDENTITY SCAN COMPLETE");
+});
+$("rotateIdentity").addEventListener("click",()=>{identityCard.style.transform="rotateY(0) rotateX(0)";toast("CARD VIEW RESET")});
+identityCard.addEventListener("mousemove",e=>{
+ const r=identityCard.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+ identityCard.style.transform=`rotateY(${(x-.5)*8}deg) rotateX(${(.5-y)*6}deg)`;
+});
+identityCard.addEventListener("mouseleave",()=>identityCard.style.transform="rotateY(0) rotateX(0)");
+
+/* SPATIAL PANELS */
+const board=$("spatialBoard");let dragPanel=null,dragOffsetX=0,dragOffsetY=0;
+document.querySelectorAll(".spatial-panel").forEach(panel=>{
+ panel.addEventListener("pointerdown",e=>{
+ dragPanel=panel;const r=panel.getBoundingClientRect(),b=board.getBoundingClientRect();
+ dragOffsetX=e.clientX-r.left;dragOffsetY=e.clientY-r.top;
+ panel.setPointerCapture(e.pointerId);panel.style.zIndex=10;
+ });
+ panel.addEventListener("pointermove",e=>{
+ if(dragPanel!==panel)return;
+ const b=board.getBoundingClientRect();
+ let x=e.clientX-b.left-dragOffsetX,y=e.clientY-b.top-dragOffsetY;
+ x=Math.max(0,Math.min(b.width-panel.offsetWidth,x));
+ y=Math.max(35,Math.min(b.height-panel.offsetHeight,y));
+ panel.style.left=x+"px";panel.style.top=y+"px";panel.style.right="auto";panel.style.bottom="auto";
+ });
+ const end=()=>{if(dragPanel===panel){dragPanel=null;panel.style.zIndex=2;playTone(520,.06)}};
+ panel.addEventListener("pointerup",end);panel.addEventListener("pointercancel",end);
+});
+$("resetPanels").addEventListener("click",()=>{
+ const positions=[["8%","70px","auto","auto"],["auto","170px","8%","auto"],["32%","auto","auto","20px"]];
+ ["panelA","panelB","panelC"].forEach((id,i)=>{
+ const p=$(id),v=positions[i];p.style.left=v[0];p.style.top=v[1];p.style.right=v[2];p.style.bottom=v[3];
+ });
+ toast("SPATIAL LAYOUT RESET");
+});
+$("scatterPanels").addEventListener("click",()=>{
+ [["panelA",.04,.2],["panelB",.53,.36],["panelC",.25,.68]].forEach(([id,x,y])=>{
+ const p=$(id);p.style.left=(x*board.clientWidth)+"px";p.style.top=(y*board.clientHeight)+"px";p.style.right="auto";p.style.bottom="auto";
+ });
+ toast("PANELS REARRANGED");
 });
 
-controls.gravity.addEventListener("input", () => {
-  $("gravityValue").textContent =
-    Number(controls.gravity.value).toFixed(1);
+/* MULTIVERSE */
+const universeData={
+prime:{title:"PRIME UNIVERSE",symbol:"◈",description:"The original Personal Universe. A place where identity, memories, learning, and experiences come together.",index:"REALITY INDEX // 01"},
+cyber:{title:"CYBER UNIVERSE",symbol:"⌘",description:"A futuristic digital world inspired by technology, interactive interfaces, neon systems, and connected ideas.",index:"REALITY INDEX // 02"},
+cosmic:{title:"COSMIC UNIVERSE",symbol:"✦",description:"A creative interpretation of an expansive universe: curiosity, exploration, discovery, and endless possibilities.",index:"REALITY INDEX // 03"},
+future:{title:"FUTURE UNIVERSE",symbol:"∞",description:"A concept of a future version of this personal space, continuously evolving through new experiences and creative experiments.",index:"REALITY INDEX // 04"}
+};
+document.querySelectorAll(".universe-tab").forEach(btn=>btn.addEventListener("click",()=>{
+ const d=universeData[btn.dataset.universe];if(!d)return;
+ document.querySelectorAll(".universe-tab").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
+ $("universeTitle").textContent=d.title;$("universeDescription").textContent=d.description;
+ $("universeSymbol").textContent=d.symbol;$("universeIndex").textContent=d.index;
+ $("universeVisual").animate([{opacity:.2,transform:"scale(.96)"},{opacity:1,transform:"scale(1)"}],{duration:450});
+ playTone(580,.12);toast(d.title+" LOADED");
+}));
+
+/* INTERACTIVE CARDS */
+document.querySelectorAll(".interest-card,.blueprint-card,.story-card").forEach(card=>{
+ card.addEventListener("click",()=>{card.classList.toggle("selected");playTone(540,.07)});
 });
 
-controls.speed.addEventListener("input", () => {
-  $("speedValue").textContent =
-    Number(controls.speed.value).toFixed(1) + "x";
+/* OMEGA MEMORY ENGINE */
+const OMEGA_MEMORY_KEY="fa_omega_memory_v1";
+function readOmegaMemory(){
+ try{return JSON.parse(localStorage.getItem(OMEGA_MEMORY_KEY)||"[]")}catch(e){return []}
+}
+function saveOmegaMemory(items){
+ try{localStorage.setItem(OMEGA_MEMORY_KEY,JSON.stringify(items));updateOmegaMemoryStatus();return true}catch(e){return false}
+}
+function updateOmegaMemoryStatus(){
+ const items=readOmegaMemory();
+ $("omegaMemoryStatus").textContent=items.length
+ ?items.map((x,i)=>`${i+1}. ${x}`).join(" | ")
+ :"No saved notes yet. Ask OMEGA to remember something using: remember: your note";
+}
+function addOmegaMessage(message,type="system"){
+ const el=document.createElement("div");el.className="omega-message "+type;
+ const label=document.createElement("small");label.textContent=type==="user"?"YOU":"OMEGA CORE";
+ const body=document.createElement("div");body.textContent=message;
+ el.append(label,body);$("omegaChat").appendChild(el);
+ $("omegaChat").scrollTop=$("omegaChat").scrollHeight;
+}
+function omegaReply(input){
+ const q=input.trim(),low=q.toLowerCase();
+ if(!q)return "Please enter a message or command.";
+
+ if(low.startsWith("remember:")||low.startsWith("ingat:")){
+ const note=q.substring(q.indexOf(":")+1).trim();
+ if(!note)return "Memory request is empty. Add a note after the colon.";
+ const items=readOmegaMemory();items.push(note);
+ if(saveOmegaMemory(items))return "Memory stored in this browser. I can recall this note while this browser keeps its local storage.";
+ return "I couldn't save that note. Browser storage may be unavailable.";
+ }
+ if(low.includes("what do you remember")||low.includes("show memory")||low.includes("lihat memori")){
+ const items=readOmegaMemory();
+ return items.length?"Here is the local memory archive:\n"+items.map((x,i)=>`${i+1}. ${x}`).join("\n"):"The local memory archive is currently empty.";
+ }
+ if(low.includes("status")||low.includes("diagnostic")||low.includes("sistem")){
+ return "OMEGA CORE: ONLINE\nJARVIS INTERFACE: READY\nLOCAL MEMORY: "+readOmegaMemory().length+" NOTE(S)\nCOMMAND ENGINE: ACTIVE\nWEBSITE CONTROL: AUTHORIZED LOCAL ACTIONS ONLY\nAI CLOUD CONNECTION: NOT CONFIGURED.";
+ }
+ if(low.includes("analyze")||low.includes("analysis")||low.includes("analisis")||low.includes("analisis")){
+ return "PROFILE ANALYSIS:\nIdentity: Fachriansyah Alfigo.\nEducation: Manajemen Multimedia dan Digital; HSPG Yogyakarta.\nPersonal background: BMX journey.\nCore traits: curious, creative, open to learning.\nCurrent platform: F.A Personal Universe.\nDevelopment direction: hybrid intelligence, futuristic interface, and limited autonomy.\nThis analysis uses the profile information already written into this website.";
+ }
+ if(low.includes("help")||low.includes("bantuan")||low.includes("command")){
+ return "AVAILABLE COMMANDS:\n• status — system diagnostics\n• open home — return to screen one\n• open memories — open Memory Archive\n• open identity — open Digital Identity Card\n• open blueprint — open Project Blueprint\n• open portal — open Universe Portal\n• remember: [note] — save a local note\n• show memory — recall saved notes\n• analyze profile — analyze the profile data.";
+ }
+ if(low.includes("hello")||low.includes("halo")||low.includes("hai")||low.includes("hi ")){
+ return "Hello, Alfigo. OMEGA CORE is online. What would you like to explore?";
+ }
+ if(low.includes("who are you")||low.includes("siapa kamu")){
+ return "I am OMEGA, the hybrid intelligence interface inside F.A Personal Universe. I can respond to built-in commands, recall browser-stored notes, and control supported parts of this website.";
+ }
+ if(low.includes("project omega")||low.includes("omega")){
+ return "PROJECT OMEGA is the intelligence layer of this website. Its current prototype combines a local command engine, browser memory, profile analysis, and authorized interface controls. A connected AI backend would be needed for open-ended AI conversations.";
+ }
+ if(low.startsWith("open ")||low.startsWith("buka ")){
+ const target=low.replace(/^open |^buka /,"").trim();
+ const map={home:"home",beranda:"home",memories:"memories",memory:"memories",archive:"memories",identity:"identity",identitas:"identity",blueprint:"blueprint",portal:"portal",omega:"omega",interests:"interests"};
+ const id=map[target];
+ if(id){navigateTo(id);return "Navigation command accepted. Opening "+target.toUpperCase()+".";}
+ return "I don't recognize that destination. Try: open home, open memories, open identity, open blueprint, or open portal.";
+ }
+ if(low.includes("bmx"))return "BMX is a key chapter of your personal story. It represents competition, discipline, determination, and experiences at regional, national, and international levels.";
+ if(low.includes("education")||low.includes("kuliah")||low.includes("pendidikan"))return "Your profile records HSPG Yogyakarta as your educational background and Manajemen Multimedia dan Digital as your field of study.";
+ return "I received your message. My local intelligence engine currently supports website commands, profile information, memory storage, and basic analysis. For unrestricted AI answers, OMEGA needs an AI service connected through a secure backend.";
+}
+function sendOmegaMessage(){
+ const input=$("omegaInput"),message=input.value.trim();if(!message)return;
+ addOmegaMessage(message,"user");input.value="";
+ const reply=omegaReply(message);
+ setTimeout(()=>addOmegaMessage(reply,"system"),180);
+}
+$("omegaSend").addEventListener("click",sendOmegaMessage);
+$("omegaInput").addEventListener("keydown",e=>{if(e.key==="Enter")sendOmegaMessage()});
+document.querySelectorAll("[data-omega]").forEach(el=>el.addEventListener("click",()=>{
+ const key=el.dataset.omega;
+ const commands={
+ status:"status",
+ memory:"show memory",
+ analysis:"analyze profile",
+ command:"help",
+ interface:"hello",
+ autonomy:"status"
+ };
+ $("omegaInput").value=commands[key]||"help";sendOmegaMessage();
+}));
+document.querySelectorAll("[data-command]").forEach(el=>el.addEventListener("click",()=>{
+ $("omegaInput").value=el.dataset.command;sendOmegaMessage();
+}));
+$("clearOmegaMemory").addEventListener("click",()=>{
+ if(confirm("Clear all OMEGA notes saved in this browser?")){
+ localStorage.removeItem(OMEGA_MEMORY_KEY);updateOmegaMemoryStatus();toast("LOCAL MEMORY CLEARED");
+ }
+});
+updateOmegaMemoryStatus();
+
+/* OMEGA NAVIGATION COMMANDS */
+function navigateTo(id){
+ const target=$(id);if(!target)return;
+ const parent=target.closest("[data-screen]");
+ if(parent){const n=Number(parent.dataset.screen);if(n!==activeScreen)setActiveScreen(n)}
+ $("navLinks").classList.remove("open");
+ setTimeout(()=>target.scrollIntoView({behavior:"smooth",block:"start"}),120);
+}
+$("instagramLink").addEventListener("click",e=>{
+ e.preventDefault();toast("Tambahkan link Instagram milikmu di bagian HTML ini.");
 });
 
-$("startButton").addEventListener("click", start);
-$("pauseButton").addEventListener("click", pause);
-$("resetButton").addEventListener("click", reset);
-
-// Tap or click the universe to add a mass center.
-canvas.addEventListener("pointerdown", event => {
-  const rect = canvas.getBoundingClientRect();
-
-  centers.push({
-    x: event.clientX - rect.left,
-    y: event.clientY - rect.top,
-    strength: 1
-  });
-
-  $("observation").textContent =
-    "A new mass center has been added. Its attraction affects " +
-    "particle movement in this simplified model.";
-
-  updateStats();
-  draw();
-});
-
-window.addEventListener("resize", resize);
-
-// Initialize.
-resize();
-
-$("matterValue").textContent = controls.matter.value;
-$("expansionValue").textContent =
-  Number(controls.expansion.value).toFixed(1);
-$("gravityValue").textContent =
-  Number(controls.gravity.value).toFixed(1);
-$("speedValue").textContent =
-  Number(controls.speed.value).toFixed(1) + "x";
-
-draw();
+/* PARTICLE SYSTEM */
+const canvas=$("particles"),ctx=canvas.getContext("2d");
+let particles=[],width,height;
+function resizeCanvas(){
+ width=canvas.width=innerWidth;height=canvas.height=innerHeight;particles=[];
+ const count=Math.min(75,Math.floor(width/9));
+ for(let i=0;i<count;i++)particles.push({x:Math.random()*width,y:Math.random()*height,size:Math.random()*1.7+.3,speed:Math.random()*.35+.08,alpha:Math.random()*.55+.15});
+}
+function drawParticles(){
+ ctx.clearRect(0,0,width,height);
+ particles.forEach(p=>{
+ p.y-=p.speed;if(p.y<0){p.y=height;p.x=Math.random()*width}
+ ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+ ctx.fillStyle=`rgba(83,210,255,${p.alpha})`;ctx.shadowBlur=10;ctx.shadowColor="#25c8ff";ctx.fill();
+ });
+ requestAnimationFrame(drawParticles);
+}
+addEventListener("resize",resizeCanvas);resizeCanvas();drawParticles();
+$("year").textContent=new Date().getFullYear();
 </script>
-
 </body>
 </html>
