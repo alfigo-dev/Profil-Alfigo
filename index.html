@@ -12,26 +12,22 @@
 
 <style>
 :root{
-  --bg:#050b18;
-  --blue:#25c8ff;
-  --cyan:#8cecff;
-  --white:#eafaff;
-  --muted:#91adbf;
-  --line:rgba(66,205,255,.25);
-  --glass:rgba(9,28,51,.72)
+ --bg:#050b18;
+ --blue:#25c8ff;
+ --cyan:#8cecff;
+ --white:#eafaff;
+ --muted:#91adbf;
+ --line:rgba(66,205,255,.25);
+ --glass:rgba(9,28,51,.72)
 }
-
 *{box-sizing:border-box;margin:0;padding:0}
-
 html{scroll-behavior:smooth}
-
 body{
  background:radial-gradient(ellipse at 50% 0%,#102b50 0%,transparent 48%),#050b18;
  color:var(--white);
  font-family:Inter,sans-serif;
  overflow-x:hidden
 }
-
 body::before{
  content:"";
  position:fixed;
@@ -40,62 +36,52 @@ body::before{
  z-index:0;
  opacity:.12;
  background-image:
-  linear-gradient(rgba(90,200,255,.13) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(90,200,255,.13) 1px,transparent 1px);
+ linear-gradient(rgba(90,200,255,.13) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(90,200,255,.13) 1px,transparent 1px);
  background-size:48px 48px
 }
-
 a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer}
-
 #particles{
  position:fixed;
  inset:0;
  z-index:0;
  pointer-events:none
 }
-
 .container{
  width:min(1120px,90%);
  margin:auto;
  position:relative;
  z-index:1
 }
-
 section{
  position:relative;
  padding:100px 0;
  z-index:1
 }
-
 .section-label{
  font:10px Orbitron;
  color:var(--blue);
  letter-spacing:4px;
  margin-bottom:14px
 }
-
 .section-title{
  font:clamp(25px,5vw,43px)/1.25 Orbitron;
  margin-bottom:18px
 }
-
 .section-desc{
  color:var(--muted);
  line-height:1.8;
  max-width:650px;
  font-size:14px
 }
-
 .glow-text{
  color:var(--cyan);
  text-shadow:0 0 15px rgba(37,200,255,.65)
 }
-
 .hidden{display:none!important}
 
 /* SCREEN SWITCH */
-
 .screen-switch{
  display:flex;
  align-items:center;
@@ -110,1335 +96,517 @@ section{
  white-space:nowrap;
  transition:.25s
 }
-
 .screen-switch:hover{
  background:rgba(37,200,255,.18);
  box-shadow:0 0 18px rgba(37,200,255,.25);
  transform:translateY(-2px)
 }
-
 .screen-switch .switch-indicator{
- width:7px;
- height:7px;
- border-radius:50%;
- background:#55e8ff;
- box-shadow:0 0 10px #25c8ff
+ width:7px;height:7px;border-radius:50%;
+ background:#55e8ff;box-shadow:0 0 10px #25c8ff
 }
-
 .screen-hidden{display:none!important}
-
-.screen-transition{
- animation:screenEnter .65s ease both
-}
-
+.screen-transition{animation:screenEnter .65s ease both}
 @keyframes screenEnter{
  from{opacity:0;transform:translateY(18px)}
  to{opacity:1;transform:translateY(0)}
 }
 
 /* SECRET ROOM */
-
 #gate{
- position:fixed;
- inset:0;
- z-index:9999;
- display:flex;
- align-items:center;
- justify-content:center;
- padding:24px;
- overflow:hidden;
+ position:fixed;inset:0;z-index:9999;
+ display:flex;align-items:center;justify-content:center;
+ padding:24px;overflow:hidden;
  background:
-  radial-gradient(ellipse at 50% 40%,rgba(0,145,230,.22),transparent 48%),
-  linear-gradient(145deg,#030914,#071a30 55%,#020812);
+ radial-gradient(ellipse at 50% 40%,rgba(0,145,230,.22),transparent 48%),
+ linear-gradient(145deg,#030914,#071a30 55%,#020812);
  transition:opacity .8s,visibility .8s
 }
-
 #gate::before{
- content:"";
- position:absolute;
- inset:0;
- pointer-events:none;
+ content:"";position:absolute;inset:0;pointer-events:none;
  background:
-  linear-gradient(rgba(68,197,255,.08) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(68,197,255,.08) 1px,transparent 1px);
+ linear-gradient(rgba(68,197,255,.08) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(68,197,255,.08) 1px,transparent 1px);
  background-size:38px 38px;
  mask-image:radial-gradient(ellipse at center,black,transparent 85%)
 }
-
 .gate-scan{
- position:absolute;
- left:0;
- right:0;
- height:2px;
- top:0;
+ position:absolute;left:0;right:0;height:2px;top:0;
  background:linear-gradient(90deg,transparent,#31d8ff,transparent);
- box-shadow:0 0 22px #25c8ff;
- opacity:.7;
+ box-shadow:0 0 22px #25c8ff;opacity:.7;
  animation:scan 5s linear infinite
 }
-
 .gate-content{
- width:min(420px,100%);
- position:relative;
- z-index:2;
- text-align:center;
- padding:36px 25px;
+ width:min(420px,100%);position:relative;z-index:2;
+ text-align:center;padding:36px 25px;
  border:1px solid rgba(69,207,255,.35);
  background:linear-gradient(145deg,rgba(8,35,61,.88),rgba(3,13,27,.9));
  border-radius:17px;
  box-shadow:0 0 55px rgba(0,150,255,.15),inset 0 0 35px rgba(0,150,255,.06)
 }
-
 .gate-emblem{
- width:85px;
- height:85px;
- margin:0 auto 24px;
- border:1px solid rgba(93,220,255,.7);
- border-radius:50%;
- display:grid;
- place-items:center;
- color:var(--cyan);
- font:800 27px Orbitron;
- text-shadow:0 0 18px var(--blue);
+ width:85px;height:85px;margin:0 auto 24px;
+ border:1px solid rgba(93,220,255,.7);border-radius:50%;
+ display:grid;place-items:center;color:var(--cyan);
+ font:800 27px Orbitron;text-shadow:0 0 18px var(--blue);
  box-shadow:0 0 30px rgba(37,200,255,.2),inset 0 0 25px rgba(37,200,255,.12);
  position:relative
 }
-
 .gate-emblem::before,.gate-emblem::after{
- content:"";
- position:absolute;
- border:1px dashed rgba(88,220,255,.4);
- border-radius:50%
+ content:"";position:absolute;border:1px dashed rgba(88,220,255,.4);border-radius:50%
 }
-
-.gate-emblem::before{
- inset:-9px;
- animation:spin 15s linear infinite
-}
-
-.gate-emblem::after{
- inset:-17px;
- border-style:solid;
- opacity:.35
-}
-
+.gate-emblem::before{inset:-9px;animation:spin 15s linear infinite}
+.gate-emblem::after{inset:-17px;border-style:solid;opacity:.35}
 .gate-kicker{
- font:10px Orbitron;
- letter-spacing:4px;
- color:var(--blue);
- margin-bottom:13px
+ font:10px Orbitron;letter-spacing:4px;color:var(--blue);margin-bottom:13px
 }
-
 .gate-title{
- font:700 clamp(22px,6vw,30px)/1.45 Orbitron;
- letter-spacing:1px
+ font:700 clamp(22px,6vw,30px)/1.45 Orbitron;letter-spacing:1px
 }
-
 .gate-subtitle{
- font:10px Orbitron;
- letter-spacing:3px;
- color:#7daec8;
- margin-top:12px
+ font:10px Orbitron;letter-spacing:3px;color:#7daec8;margin-top:12px
 }
-
 .gate-divider{
- height:1px;
- background:linear-gradient(90deg,transparent,var(--blue),transparent);
+ height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent);
  margin:25px 0
 }
-
 .pin-label{
- font:10px Orbitron;
- letter-spacing:3px;
- color:#a5d7ed;
- margin-bottom:17px
+ font:10px Orbitron;letter-spacing:3px;color:#a5d7ed;margin-bottom:17px
 }
-
 .pin-display{
- display:flex;
- justify-content:center;
- gap:12px;
- margin:0 auto 22px
+ display:flex;justify-content:center;gap:12px;margin:0 auto 22px
 }
-
 .pin-dot{
- width:12px;
- height:12px;
- border:1px solid #55d9ff;
- border-radius:50%;
- transition:.2s
+ width:12px;height:12px;border:1px solid #55d9ff;border-radius:50%;transition:.2s
 }
-
-.pin-dot.filled{
- background:var(--cyan);
- box-shadow:0 0 14px var(--blue)
-}
-
+.pin-dot.filled{background:var(--cyan);box-shadow:0 0 14px var(--blue)}
 .keypad{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:10px;
- max-width:270px;
- margin:auto
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:10px;max-width:270px;margin:auto
 }
-
 .key{
- min-height:53px;
- border:1px solid rgba(80,197,255,.25);
- background:rgba(16,66,100,.25);
- color:#e7faff;
- border-radius:8px;
- font:600 17px Orbitron;
- transition:.2s
+ min-height:53px;border:1px solid rgba(80,197,255,.25);
+ background:rgba(16,66,100,.25);color:#e7faff;
+ border-radius:8px;font:600 17px Orbitron;transition:.2s
 }
-
-.key:hover{
- background:rgba(27,145,200,.3);
- border-color:var(--blue)
-}
-
-.key.utility{
- font-size:10px;
- color:var(--cyan)
-}
-
+.key:hover{background:rgba(27,145,200,.3);border-color:var(--blue)}
+.key.utility{font-size:10px;color:var(--cyan)}
 .gate-status{
- min-height:20px;
- margin-top:19px;
- color:#79cde9;
- font:10px Orbitron;
- letter-spacing:2px
+ min-height:20px;margin-top:19px;color:#79cde9;
+ font:10px Orbitron;letter-spacing:2px
 }
-
 .gate-status.error{color:#ff737d}
 .gate-status.success{color:#73ffbd}
-
 .gate-footer{
- margin-top:24px;
- color:#547e99;
- font-size:9px;
- letter-spacing:2px
+ margin-top:24px;color:#547e99;font-size:9px;letter-spacing:2px
 }
-
 .gate-content.shake{animation:shake .35s}
-
-#gate.verifying .gate-content{
- animation:verifyPulse .8s infinite alternate
-}
-
-#gate.leaving{
- opacity:0;
- visibility:hidden;
- pointer-events:none
-}
-
+#gate.verifying .gate-content{animation:verifyPulse .8s infinite alternate}
+#gate.leaving{opacity:0;visibility:hidden;pointer-events:none}
 .access-granted,.terminal-screen{
- position:absolute;
- inset:0;
- z-index:5;
- display:flex;
- align-items:center;
- justify-content:center;
- flex-direction:column;
- gap:15px;
- background:rgba(3,15,28,.97);
- opacity:0;
- visibility:hidden;
- transition:.5s
+ position:absolute;inset:0;z-index:5;
+ display:flex;align-items:center;justify-content:center;
+ flex-direction:column;gap:15px;
+ background:rgba(3,15,28,.97);opacity:0;visibility:hidden;transition:.5s
 }
-
-.access-granted.show,.terminal-screen.show{
- opacity:1;
- visibility:visible
-}
-
+.access-granted.show,.terminal-screen.show{opacity:1;visibility:visible}
 .access-granted .check{
- width:80px;
- height:80px;
- border:2px solid #61ffc0;
- border-radius:50%;
- display:grid;
- place-items:center;
- color:#61ffc0;
- font-size:37px
+ width:80px;height:80px;border:2px solid #61ffc0;
+ border-radius:50%;display:grid;place-items:center;color:#61ffc0;font-size:37px
 }
-
-.access-granted strong{
- font:700 20px Orbitron;
- color:#80ffd0
-}
-
-.access-granted small{
- font:10px Orbitron;
- color:#8cb7c9;
- letter-spacing:3px
-}
-
-.terminal-screen{
- z-index:8;
- padding:22px
-}
-
+.access-granted strong{font:700 20px Orbitron;color:#80ffd0}
+.access-granted small{font:10px Orbitron;color:#8cb7c9;letter-spacing:3px}
+.terminal-screen{z-index:8;padding:22px}
 .terminal-window{
- width:min(650px,100%);
- border:1px solid rgba(65,205,255,.48);
+ width:min(650px,100%);border:1px solid rgba(65,205,255,.48);
  background:linear-gradient(145deg,rgba(5,23,42,.98),rgba(1,9,20,.98));
- border-radius:12px;
- overflow:hidden;
- box-shadow:0 0 45px rgba(0,160,255,.2)
+ border-radius:12px;overflow:hidden;box-shadow:0 0 45px rgba(0,160,255,.2)
 }
-
 .terminal-top,.terminal-footer{
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:10px;
- padding:14px 17px;
- border-bottom:1px solid rgba(65,205,255,.25);
- font:10px Orbitron;
- letter-spacing:1.5px
+ display:flex;align-items:center;justify-content:space-between;gap:10px;
+ padding:14px 17px;border-bottom:1px solid rgba(65,205,255,.25);
+ font:10px Orbitron;letter-spacing:1.5px
 }
-
-.terminal-brand{
- font-weight:700;
- color:var(--cyan)
-}
-
-.terminal-lights{
- display:flex;
- gap:6px
-}
-
+.terminal-brand{font-weight:700;color:var(--cyan)}
+.terminal-lights{display:flex;gap:6px}
 .terminal-lights span{
- width:7px;
- height:7px;
- border-radius:50%;
- background:#25c8ff
+ width:7px;height:7px;border-radius:50%;background:#25c8ff
 }
-
 .terminal-body{
- min-height:260px;
- padding:23px 20px;
- font:11px/2 "Courier New",monospace;
- color:#8cecff
+ min-height:260px;padding:23px 20px;
+ font:11px/2 "Courier New",monospace;color:#8cecff
 }
-
-.terminal-heading{
- color:#e8fbff;
- font:700 12px Orbitron;
- margin-bottom:16px
-}
-
-.terminal-line{
- min-height:22px;
- overflow-wrap:anywhere
-}
-
+.terminal-heading{color:#e8fbff;font:700 12px Orbitron;margin-bottom:16px}
+.terminal-line{min-height:22px;overflow-wrap:anywhere}
 .terminal-line .prefix{color:#3e9cbd}
 .terminal-line .ok{color:#70ffc0}
 .terminal-line .warn{color:#ffd36a}
-
 .terminal-cursor{
- display:inline-block;
- width:7px;
- height:13px;
- background:#66e5ff;
+ display:inline-block;width:7px;height:13px;background:#66e5ff;
  animation:blink .8s steps(2,start) infinite
 }
-
-.terminal-progress{
- height:3px;
- background:rgba(65,205,255,.12);
- margin:0 20px 20px
-}
-
+.terminal-progress{height:3px;background:rgba(65,205,255,.12);margin:0 20px 20px}
 .terminal-progress span{
- display:block;
- height:100%;
- width:0;
- background:#39d9ff;
- transition:width .3s
+ display:block;height:100%;width:0;background:#39d9ff;transition:width .3s
 }
-
 .terminal-footer{
- border-top:1px solid rgba(65,205,255,.18);
- border-bottom:0;
- color:#5c9db7
+ border-top:1px solid rgba(65,205,255,.18);border-bottom:0;color:#5c9db7
 }
 
 /* NAV */
-
 nav{
- position:fixed;
- top:0;
- left:0;
- width:100%;
- z-index:100;
- padding:18px 0;
- background:rgba(4,12,25,.75);
- backdrop-filter:blur(18px);
+ position:fixed;top:0;left:0;width:100%;z-index:100;padding:18px 0;
+ background:rgba(4,12,25,.75);backdrop-filter:blur(18px);
  border-bottom:1px solid rgba(65,200,255,.13)
 }
-
 .nav-inner{
- width:min(1120px,90%);
- margin:auto;
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:15px
+ width:min(1120px,90%);margin:auto;display:flex;
+ align-items:center;justify-content:space-between;gap:15px
 }
-
-.logo{
- font:800 19px Orbitron;
- letter-spacing:2px;
- flex-shrink:0
-}
-
+.logo{font:800 19px Orbitron;letter-spacing:2px;flex-shrink:0}
 .logo span{color:var(--blue)}
-
-.nav-links{
- display:flex;
- gap:25px;
- align-items:center
-}
-
-.nav-links a{
- color:#a9c6d8;
- font-size:10px;
- letter-spacing:1px
-}
-
+.nav-links{display:flex;gap:25px;align-items:center}
+.nav-links a{color:#a9c6d8;font-size:10px;letter-spacing:1px}
 .nav-links a:hover{color:var(--blue)}
-
 .menu-btn{
- display:none;
- background:none;
- color:white;
- border:1px solid var(--line);
- padding:8px 12px;
- border-radius:8px
+ display:none;background:none;color:white;border:1px solid var(--line);
+ padding:8px 12px;border-radius:8px
 }
 
 /* HERO */
-
 .hero{
- min-height:100vh;
- display:flex;
- align-items:center;
- padding-top:120px;
- overflow:hidden
+ min-height:100vh;display:flex;align-items:center;padding-top:120px;overflow:hidden
 }
-
 .hero-grid{
- display:grid;
- grid-template-columns:1.1fr .9fr;
- gap:50px;
- align-items:center
+ display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center
 }
-
 .eyebrow{
- display:inline-flex;
- align-items:center;
- gap:10px;
- border:1px solid var(--line);
- padding:9px 14px;
- border-radius:30px;
- color:var(--cyan);
- font-size:10px;
- letter-spacing:2px;
- margin-bottom:25px
+ display:inline-flex;align-items:center;gap:10px;
+ border:1px solid var(--line);padding:9px 14px;border-radius:30px;
+ color:var(--cyan);font-size:10px;letter-spacing:2px;margin-bottom:25px
 }
-
 .status-dot{
- width:7px;
- height:7px;
- border-radius:50%;
- background:#35e6ff;
- box-shadow:0 0 12px #35e6ff;
- animation:pulse 1.5s infinite
+ width:7px;height:7px;border-radius:50%;background:#35e6ff;
+ box-shadow:0 0 12px #35e6ff;animation:pulse 1.5s infinite
 }
-
-.hero h1{
- font:700 clamp(35px,6vw,68px)/1.15 Orbitron;
- letter-spacing:-2px
-}
-
+.hero h1{font:700 clamp(35px,6vw,68px)/1.15 Orbitron;letter-spacing:-2px}
 .hero h1 span{
- display:block;
- color:var(--blue);
- text-shadow:0 0 30px rgba(37,200,255,.4)
+ display:block;color:var(--blue);text-shadow:0 0 30px rgba(37,200,255,.4)
 }
-
 .hero-subtitle{
- color:#9cb9ca;
- margin-top:23px;
- line-height:1.9;
- font-size:14px;
- max-width:510px
+ color:#9cb9ca;margin-top:23px;line-height:1.9;font-size:14px;max-width:510px
 }
-
-.hero-actions{
- display:flex;
- gap:13px;
- flex-wrap:wrap;
- margin-top:32px
-}
-
+.hero-actions{display:flex;gap:13px;flex-wrap:wrap;margin-top:32px}
 .btn{
- display:inline-flex;
- justify-content:center;
- align-items:center;
- gap:10px;
- padding:14px 21px;
- border-radius:7px;
- font-size:10px;
- letter-spacing:1.5px;
- font-weight:700;
- transition:.25s;
- border:1px solid var(--blue)
+ display:inline-flex;justify-content:center;align-items:center;gap:10px;
+ padding:14px 21px;border-radius:7px;font-size:10px;letter-spacing:1.5px;
+ font-weight:700;transition:.25s;border:1px solid var(--blue)
 }
-
 .btn-primary{
- background:var(--blue);
- color:#03101d;
- box-shadow:0 0 25px rgba(37,200,255,.24)
+ background:var(--blue);color:#03101d;box-shadow:0 0 25px rgba(37,200,255,.24)
 }
-
-.btn-outline{
- color:var(--cyan);
- background:transparent
-}
-
-.btn:hover{
- transform:translateY(-3px);
- box-shadow:0 0 25px rgba(37,200,255,.4)
-}
-
+.btn-outline{color:var(--cyan);background:transparent}
+.btn:hover{transform:translateY(-3px);box-shadow:0 0 25px rgba(37,200,255,.4)}
 .hero-visual{
- min-height:450px;
- display:flex;
- align-items:center;
- justify-content:center;
- position:relative;
- perspective:1000px
+ min-height:450px;display:flex;align-items:center;justify-content:center;
+ position:relative;perspective:1000px
 }
-
 .holo-ring{
- position:absolute;
- width:min(390px,85vw);
- aspect-ratio:1;
- border:1px solid rgba(53,207,255,.32);
- border-radius:50%;
- box-shadow:0 0 50px rgba(0,155,255,.12);
- animation:spin 20s linear infinite
+ position:absolute;width:min(390px,85vw);aspect-ratio:1;
+ border:1px solid rgba(53,207,255,.32);border-radius:50%;
+ box-shadow:0 0 50px rgba(0,155,255,.12);animation:spin 20s linear infinite
 }
-
 .holo-ring::before,.holo-ring::after{
- content:"";
- position:absolute;
- inset:18px;
- border:1px dashed rgba(73,215,255,.35);
- border-radius:50%
+ content:"";position:absolute;inset:18px;
+ border:1px dashed rgba(73,215,255,.35);border-radius:50%
 }
-
-.holo-ring::after{
- inset:42px;
- border-style:solid
-}
-
+.holo-ring::after{inset:42px;border-style:solid}
 .profile-frame{
- width:250px;
- height:330px;
- position:relative;
- z-index:2;
- transform-style:preserve-3d;
- transition:transform .15s ease-out;
- border-radius:18px;
- border:1px solid rgba(92,220,255,.65);
+ width:250px;height:330px;position:relative;z-index:2;
+ transform-style:preserve-3d;transition:transform .15s ease-out;
+ border-radius:18px;border:1px solid rgba(92,220,255,.65);
  background:linear-gradient(145deg,rgba(37,200,255,.15),rgba(5,15,35,.85));
- box-shadow:0 0 40px rgba(0,174,255,.22);
- overflow:hidden
+ box-shadow:0 0 40px rgba(0,174,255,.22);overflow:hidden
 }
-
-.profile-frame img{
- width:100%;
- height:100%;
- object-fit:cover;
- display:block
-}
-
+.profile-frame img{width:100%;height:100%;object-fit:cover;display:block}
 .visual-tag{
- position:absolute;
- z-index:3;
- padding:10px 13px;
- background:rgba(4,20,38,.9);
- border:1px solid var(--line);
- border-radius:7px;
- color:var(--cyan);
- font:9px Orbitron;
- letter-spacing:1px
+ position:absolute;z-index:3;padding:10px 13px;
+ background:rgba(4,20,38,.9);border:1px solid var(--line);
+ border-radius:7px;color:var(--cyan);font:9px Orbitron;letter-spacing:1px
 }
-
 .tag-one{top:65px;left:0}
 .tag-two{bottom:70px;right:0}
-
 .info-strip{
- border-top:1px solid var(--line);
- border-bottom:1px solid var(--line);
- background:rgba(8,30,52,.55);
- padding:23px 0
+ border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+ background:rgba(8,30,52,.55);padding:23px 0
 }
-
-.strip-inner{
- display:flex;
- justify-content:space-around;
- gap:20px;
- flex-wrap:wrap
-}
-
-.strip-item{
- text-align:center;
- color:#9db9c9;
- font-size:10px;
- letter-spacing:2px
-}
-
+.strip-inner{display:flex;justify-content:space-around;gap:20px;flex-wrap:wrap}
+.strip-item{text-align:center;color:#9db9c9;font-size:10px;letter-spacing:2px}
 .strip-item strong{
- display:block;
- font:16px Orbitron;
- color:var(--cyan);
- margin-bottom:6px
+ display:block;font:16px Orbitron;color:var(--cyan);margin-bottom:6px
 }
 
 /* ABOUT */
-
 .about-grid{
- display:grid;
- grid-template-columns:.8fr 1.2fr;
- gap:55px;
- align-items:center
+ display:grid;grid-template-columns:.8fr 1.2fr;gap:55px;align-items:center
 }
-
 .about-visual{
- min-height:330px;
- border:1px solid var(--line);
- border-radius:15px;
+ min-height:330px;border:1px solid var(--line);border-radius:15px;
  background:radial-gradient(circle,rgba(28,160,230,.2),transparent 65%),rgba(8,24,43,.65);
- display:flex;
- align-items:center;
- justify-content:center;
- overflow:hidden
+ display:flex;align-items:center;justify-content:center;overflow:hidden
 }
-
 .about-orbit{
- width:210px;
- height:210px;
- border:1px solid rgba(70,210,255,.4);
- border-radius:50%;
- display:flex;
- align-items:center;
- justify-content:center;
- position:relative
+ width:210px;height:210px;border:1px solid rgba(70,210,255,.4);
+ border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative
 }
-
 .about-orbit::before{
- content:"";
- position:absolute;
- width:155px;
- height:155px;
- border:1px dashed rgba(70,210,255,.4);
- border-radius:50%;
+ content:"";position:absolute;width:155px;height:155px;
+ border:1px dashed rgba(70,210,255,.4);border-radius:50%;
  animation:spin 12s linear infinite
 }
-
-.about-orbit span{
- font:42px Orbitron;
- color:var(--cyan);
- text-shadow:0 0 25px var(--blue)
-}
-
+.about-orbit span{font:42px Orbitron;color:var(--cyan);text-shadow:0 0 25px var(--blue)}
 .about-content p{
- color:#a3bdcc;
- font-size:13px;
- line-height:2;
- margin-bottom:16px
+ color:#a3bdcc;font-size:13px;line-height:2;margin-bottom:16px
 }
-
-.about-details{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
- margin-top:24px
-}
-
-.detail{
- border-left:2px solid var(--blue);
- padding:10px 13px;
- background:rgba(30,140,190,.07)
-}
-
+.about-details{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.detail{border-left:2px solid var(--blue);padding:10px 13px;background:rgba(30,140,190,.07)}
 .detail small{
- display:block;
- color:#6f9caf;
- font-size:9px;
- letter-spacing:1.5px;
- margin-bottom:6px
+ display:block;color:#6f9caf;font-size:9px;letter-spacing:1.5px;margin-bottom:6px
 }
-
-.detail strong{
- font-size:12px;
- color:#d8f7ff
-}
+.detail strong{font-size:12px;color:#d8f7ff}
 
 /* STORY */
-
-.story-section{
- background:linear-gradient(180deg,transparent,rgba(9,36,62,.45),transparent)
-}
-
-.story-header{
- text-align:center;
- margin-bottom:55px
-}
-
-.story-header .section-desc,
-.archive-heading .section-desc,
-.core-heading .section-desc{
- margin:auto
-}
-
-.story-timeline{
- max-width:800px;
- margin:auto;
- position:relative
-}
-
+.story-section{background:linear-gradient(180deg,transparent,rgba(9,36,62,.45),transparent)}
+.story-header{text-align:center;margin-bottom:55px}
+.story-header .section-desc,.archive-heading .section-desc,.core-heading .section-desc{margin:auto}
+.story-timeline{max-width:800px;margin:auto;position:relative}
 .story-timeline::before{
- content:"";
- position:absolute;
- top:0;
- bottom:0;
- left:50%;
- width:1px;
+ content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;
  background:linear-gradient(transparent,var(--blue),transparent)
 }
-
-.story-item{
- width:50%;
- padding:0 35px 40px 0;
- position:relative
-}
-
-.story-item:nth-child(even){
- margin-left:50%;
- padding:0 0 40px 35px
-}
-
+.story-item{width:50%;padding:0 35px 40px 0;position:relative}
+.story-item:nth-child(even){margin-left:50%;padding:0 0 40px 35px}
 .story-item::after{
- content:"";
- position:absolute;
- width:10px;
- height:10px;
- border-radius:50%;
- background:var(--blue);
- box-shadow:0 0 15px var(--blue);
- right:-5px;
- top:10px
+ content:"";position:absolute;width:10px;height:10px;border-radius:50%;
+ background:var(--blue);box-shadow:0 0 15px var(--blue);right:-5px;top:10px
 }
-
-.story-item:nth-child(even)::after{
- left:-5px
-}
-
+.story-item:nth-child(even)::after{left:-5px}
 .story-card{
- padding:22px;
- border:1px solid var(--line);
- border-radius:12px;
- background:linear-gradient(145deg,rgba(13,43,69,.8),rgba(5,16,31,.8));
- transition:.3s
+ padding:22px;border:1px solid var(--line);border-radius:12px;
+ background:linear-gradient(145deg,rgba(13,43,69,.8),rgba(5,16,31,.8));transition:.3s
 }
+.story-card:hover{transform:translateY(-5px);border-color:var(--blue)}
+.story-card small{color:var(--blue);font:9px Orbitron;letter-spacing:2px}
+.story-card h3{font:15px Orbitron;margin:12px 0}
+.story-card p{color:#9cb7c8;line-height:1.8;font-size:12px}
 
-.story-card:hover{
- transform:translateY(-5px);
- border-color:var(--blue)
-}
-
-.story-card small{
- color:var(--blue);
- font:9px Orbitron;
- letter-spacing:2px
-}
-
-.story-card h3{
- font:15px Orbitron;
- margin:12px 0
-}
-
-.story-card p{
- color:#9cb7c8;
- line-height:1.8;
- font-size:12px
-}
-
-/* ARCHIVE + 3D GALLERY */
-
+/* ARCHIVE */
 .archive-section{padding-top:45px}
-
-.archive-heading{
- text-align:center;
- margin-bottom:35px
-}
-
-.archive-grid{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:25px;
- perspective:1200px
-}
-
+.archive-heading{text-align:center;margin-bottom:35px}
+.archive-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px;perspective:1200px}
 .archive-card{
- position:relative;
- height:330px;
- overflow:hidden;
- border:1px solid var(--line);
- border-radius:14px;
- background:rgba(8,24,43,.8);
- cursor:pointer;
+ position:relative;height:330px;overflow:hidden;border:1px solid var(--line);
+ border-radius:14px;background:rgba(8,24,43,.8);cursor:pointer;
  transform-style:preserve-3d;
  transition:transform .2s ease,box-shadow .3s,border-color .3s;
- will-change:transform;
- box-shadow:0 12px 35px rgba(0,0,0,.25)
+ will-change:transform;box-shadow:0 12px 35px rgba(0,0,0,.25)
 }
-
 .archive-card::before{
- content:"";
- position:absolute;
- inset:0;
- z-index:2;
- pointer-events:none;
+ content:"";position:absolute;inset:0;z-index:2;pointer-events:none;
  background:linear-gradient(125deg,rgba(105,230,255,.2),transparent 35%,transparent 65%,rgba(37,200,255,.12));
- opacity:.55;
- transition:opacity .3s
+ opacity:.55;transition:opacity .3s
 }
-
 .archive-card::after{
- content:"";
- position:absolute;
- inset:10px;
- z-index:2;
- border:1px solid rgba(100,220,255,.0);
- border-radius:9px;
- pointer-events:none;
- transition:border-color .3s
+ content:"";position:absolute;inset:10px;z-index:2;
+ border:1px solid rgba(100,220,255,.0);border-radius:9px;
+ pointer-events:none;transition:border-color .3s
 }
-
 .archive-card:hover{
  border-color:rgba(92,220,255,.8);
  box-shadow:0 20px 45px rgba(0,130,220,.2),0 0 25px rgba(37,200,255,.15)
 }
-
 .archive-card:hover::before{opacity:1}
 .archive-card:hover::after{border-color:rgba(100,220,255,.35)}
-
 .archive-card img{
- width:100%;
- height:100%;
- object-fit:cover;
- display:block;
- transition:transform .6s,filter .6s;
- transform:translateZ(15px) scale(1.02)
+ width:100%;height:100%;object-fit:cover;display:block;
+ transition:transform .6s,filter .6s;transform:translateZ(15px) scale(1.02)
 }
-
-.archive-card:hover img{
- transform:translateZ(25px) scale(1.08);
- filter:brightness(.72)
-}
-
+.archive-card:hover img{transform:translateZ(25px) scale(1.08);filter:brightness(.72)}
 .archive-caption{
- position:absolute;
- left:0;
- right:0;
- bottom:0;
- z-index:3;
- padding:45px 20px 20px;
- background:linear-gradient(transparent,rgba(1,9,20,.95));
+ position:absolute;left:0;right:0;bottom:0;z-index:3;
+ padding:45px 20px 20px;background:linear-gradient(transparent,rgba(1,9,20,.95));
  transform:translateZ(35px)
 }
-
-.archive-caption small{
- font:9px Orbitron;
- color:var(--cyan);
- letter-spacing:2px
-}
-
-.archive-caption h3{
- font:15px Orbitron;
- margin-top:8px
-}
-
-.archive-hint{
- color:#9ab8ca;
- font-size:11px;
- margin-top:7px
-}
-
+.archive-caption small{font:9px Orbitron;color:var(--cyan);letter-spacing:2px}
+.archive-caption h3{font:15px Orbitron;margin-top:8px}
+.archive-hint{color:#9ab8ca;font-size:11px;margin-top:7px}
 .photo-viewer{
- position:fixed;
- inset:0;
- z-index:10000;
- display:flex;
- align-items:center;
- justify-content:center;
- padding:20px;
- background:rgba(0,5,14,.94);
- opacity:0;
- visibility:hidden;
- transition:.3s
+ position:fixed;inset:0;z-index:10000;display:flex;align-items:center;
+ justify-content:center;padding:20px;background:rgba(0,5,14,.94);
+ opacity:0;visibility:hidden;transition:.3s
 }
-
-.photo-viewer.show{
- opacity:1;
- visibility:visible
-}
-
+.photo-viewer.show{opacity:1;visibility:visible}
 .photo-viewer img{
- max-width:min(900px,95vw);
- max-height:85vh;
- object-fit:contain;
- border:1px solid var(--line);
- border-radius:10px;
+ max-width:min(900px,95vw);max-height:85vh;object-fit:contain;
+ border:1px solid var(--line);border-radius:10px;
  box-shadow:0 0 35px rgba(37,200,255,.18)
 }
-
 .photo-close{
- position:absolute;
- top:20px;
- right:22px;
- width:42px;
- height:42px;
- border:1px solid var(--line);
- border-radius:50%;
- background:#05192d;
- color:var(--cyan);
- font-size:23px
+ position:absolute;top:20px;right:22px;width:42px;height:42px;
+ border:1px solid var(--line);border-radius:50%;background:#05192d;
+ color:var(--cyan);font-size:23px
 }
 
 /* INTERESTS */
-
-.interest-grid{
- display:grid;
- grid-template-columns:repeat(3,1fr);
- gap:17px;
- margin-top:38px
-}
-
+.interest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:38px}
 .interest-card{
- padding:27px 22px;
- border:1px solid var(--line);
- background:var(--glass);
- border-radius:12px;
- transition:.3s;
- min-height:180px
+ padding:27px 22px;border:1px solid var(--line);
+ background:var(--glass);border-radius:12px;transition:.3s;min-height:180px
 }
-
-.interest-card:hover{
- transform:translateY(-7px);
- border-color:var(--blue)
-}
-
-.interest-icon{
- font-size:28px;
- margin-bottom:20px;
- display:block
-}
-
-.interest-card h3{
- font:12px Orbitron;
- margin-bottom:10px
-}
-
-.interest-card p{
- color:#91adbf;
- font-size:11px;
- line-height:1.8
-}
+.interest-card:hover{transform:translateY(-7px);border-color:var(--blue)}
+.interest-icon{font-size:28px;margin-bottom:20px;display:block}
+.interest-card h3{font:12px Orbitron;margin-bottom:10px}
+.interest-card p{color:#91adbf;font-size:11px;line-height:1.8}
 
 /* JARVIS */
-
 .core-section{
  overflow:hidden;
  background:radial-gradient(ellipse at center,rgba(0,130,210,.16),transparent 65%)
 }
-
 .core-heading{text-align:center}
-
 .jarvis-shell{
- margin:45px auto 0;
- max-width:950px;
- padding:20px;
- border:1px solid rgba(65,205,255,.35);
- border-radius:16px;
+ margin:45px auto 0;max-width:950px;padding:20px;
+ border:1px solid rgba(65,205,255,.35);border-radius:16px;
  background:linear-gradient(145deg,rgba(7,30,52,.88),rgba(2,12,25,.94));
  box-shadow:0 0 45px rgba(0,145,255,.12),inset 0 0 35px rgba(0,140,220,.05)
 }
-
 .jarvis-topbar{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:12px;
- flex-wrap:wrap;
- padding-bottom:15px;
- border-bottom:1px solid var(--line)
+ display:flex;justify-content:space-between;align-items:center;gap:12px;
+ flex-wrap:wrap;padding-bottom:15px;border-bottom:1px solid var(--line)
 }
-
-.jarvis-brand{
- font:700 12px Orbitron;
- letter-spacing:2px;
- color:var(--cyan)
-}
-
-.jarvis-live{
- font:9px Orbitron;
- letter-spacing:1.5px;
- color:#72ffc1
-}
-
+.jarvis-brand{font:700 12px Orbitron;letter-spacing:2px;color:var(--cyan)}
+.jarvis-live{font:9px Orbitron;letter-spacing:1.5px;color:#72ffc1}
 .jarvis-live::before{
- content:"";
- display:inline-block;
- width:7px;
- height:7px;
- border-radius:50%;
- background:#58ffb4;
- margin-right:8px;
- box-shadow:0 0 10px #58ffb4
+ content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
+ background:#58ffb4;margin-right:8px;box-shadow:0 0 10px #58ffb4
 }
-
-.jarvis-grid{
- display:grid;
- grid-template-columns:1.2fr .8fr;
- gap:18px;
- padding-top:18px
-}
-
+.jarvis-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;padding-top:18px}
 .holo-display{
- min-height:370px;
- position:relative;
- overflow:hidden;
- border:1px solid rgba(65,205,255,.25);
- border-radius:12px;
+ min-height:370px;position:relative;overflow:hidden;
+ border:1px solid rgba(65,205,255,.25);border-radius:12px;
  background:radial-gradient(circle at center,rgba(0,145,220,.2),transparent 58%),rgba(1,12,26,.7);
- display:flex;
- align-items:center;
- justify-content:center;
- perspective:900px
+ display:flex;align-items:center;justify-content:center;perspective:900px
 }
-
 .holo-display::before{
- content:"";
- position:absolute;
- inset:0;
- pointer-events:none;
- opacity:.25;
+ content:"";position:absolute;inset:0;pointer-events:none;opacity:.25;
  background:
-  linear-gradient(rgba(75,205,255,.1) 1px,transparent 1px),
-  linear-gradient(90deg,rgba(75,205,255,.1) 1px,transparent 1px);
+ linear-gradient(rgba(75,205,255,.1) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(75,205,255,.1) 1px,transparent 1px);
  background-size:25px 25px
 }
-
-.holo-display.hud-active{
- box-shadow:inset 0 0 35px rgba(37,200,255,.18)
-}
-
+.holo-display.hud-active{box-shadow:inset 0 0 35px rgba(37,200,255,.18)}
 .holo-object{
- width:170px;
- height:170px;
- position:relative;
- z-index:2;
- border-radius:50%;
+ width:170px;height:170px;position:relative;z-index:2;border-radius:50%;
  transform-style:preserve-3d;
  background:radial-gradient(circle at 30% 25%,#eaffff 0%,#7cecff 10%,#168bc9 38%,#05264b 72%,#010918 100%);
  box-shadow:0 0 30px #25c8ff,0 0 85px rgba(0,165,255,.5),inset -20px -20px 35px #020b1a;
  animation:coreFloat 5s ease-in-out infinite,coreGlow 3s ease-in-out infinite alternate
 }
-
 .holo-object::before,.holo-object::after{
- content:"";
- position:absolute;
- inset:-17px;
- border:1px solid rgba(95,225,255,.6);
- border-radius:50%;
- box-shadow:0 0 25px rgba(37,200,255,.2)
+ content:"";position:absolute;inset:-17px;border:1px solid rgba(95,225,255,.6);
+ border-radius:50%;box-shadow:0 0 25px rgba(37,200,255,.2)
 }
-
-.holo-object::after{
- inset:-38px;
- border-style:dashed;
- opacity:.6
-}
-
+.holo-object::after{inset:-38px;border-style:dashed;opacity:.6}
 .holo-object.locked{filter:drop-shadow(0 0 18px #79ffc7)}
-
 .holo-radar{
- position:absolute;
- width:270px;
- height:270px;
- border:1px solid rgba(75,210,255,.35);
- border-radius:50%;
- animation:spin 18s linear infinite
+ position:absolute;width:270px;height:270px;border:1px solid rgba(75,210,255,.35);
+ border-radius:50%;animation:spin 18s linear infinite
 }
-
 .holo-radar::before{
- content:"";
- position:absolute;
- inset:22px;
- border:1px dashed rgba(75,210,255,.4);
- border-radius:50%
+ content:"";position:absolute;inset:22px;border:1px dashed rgba(75,210,255,.4);border-radius:50%
 }
-
 .holo-radar::after{
- content:"";
- position:absolute;
- inset:55px;
- border:1px solid rgba(75,210,255,.2);
- border-radius:50%
+ content:"";position:absolute;inset:55px;border:1px solid rgba(75,210,255,.2);border-radius:50%
 }
-
 .holo-sweep{
- position:absolute;
- width:50%;
- height:50%;
- left:50%;
- top:0;
- transform-origin:bottom left;
+ position:absolute;width:50%;height:50%;left:50%;top:0;transform-origin:bottom left;
  background:linear-gradient(45deg,rgba(37,200,255,.22),transparent 70%);
- border-right:1px solid rgba(75,220,255,.5);
- animation:spin 4s linear infinite
+ border-right:1px solid rgba(75,220,255,.5);animation:spin 4s linear infinite
 }
-
-.holo-crosshair{
- position:absolute;
- inset:15px;
- z-index:3;
- pointer-events:none
-}
-
+.holo-crosshair{position:absolute;inset:15px;z-index:3;pointer-events:none}
 .holo-crosshair::before,.holo-crosshair::after{
- content:"";
- position:absolute;
- background:rgba(90,220,255,.3)
+ content:"";position:absolute;background:rgba(90,220,255,.3)
 }
-
-.holo-crosshair::before{
- width:1px;
- height:100%;
- left:50%
-}
-
-.holo-crosshair::after{
- height:1px;
- width:100%;
- top:50%
-}
-
+.holo-crosshair::before{width:1px;height:100%;left:50%}
+.holo-crosshair::after{height:1px;width:100%;top:50%}
 .holo-label{
- position:absolute;
- z-index:4;
- bottom:17px;
- left:0;
- right:0;
- text-align:center;
- font:9px Orbitron;
- letter-spacing:3px;
- color:var(--cyan)
+ position:absolute;z-index:4;bottom:17px;left:0;right:0;text-align:center;
+ font:9px Orbitron;letter-spacing:3px;color:var(--cyan)
 }
-
 .holo-coordinates{
- position:absolute;
- top:15px;
- left:15px;
- z-index:4;
- color:#65b9d5;
- font:8px/1.8 Orbitron;
- letter-spacing:1px
+ position:absolute;top:15px;left:15px;z-index:4;
+ color:#65b9d5;font:8px/1.8 Orbitron;letter-spacing:1px
 }
-
-.holo-coordinates.right{
- left:auto;
- right:15px;
- text-align:right
-}
-
-.jarvis-side{
- display:flex;
- flex-direction:column;
- gap:12px
-}
-
+.holo-coordinates.right{left:auto;right:15px;text-align:right}
+.jarvis-side{display:flex;flex-direction:column;gap:12px}
 .system-card{
- padding:16px;
- border:1px solid var(--line);
- border-radius:10px;
- background:rgba(5,26,45,.7)
+ padding:16px;border:1px solid var(--line);border-radius:10px;background:rgba(5,26,45,.7)
 }
-
 .system-card small{
- display:block;
- color:#6c9eb7;
- font:8px Orbitron;
- letter-spacing:2px;
- margin-bottom:8px
+ display:block;color:#6c9eb7;font:8px Orbitron;letter-spacing:2px;margin-bottom:8px
 }
-
-.system-card strong{
- font:11px Orbitron;
- color:var(--cyan)
-}
-
-.jarvis-actions{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:9px
-}
-
+.system-card strong{font:11px Orbitron;color:var(--cyan)}
+.jarvis-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .jarvis-btn{
- padding:12px 8px;
- border:1px solid rgba(65,205,255,.4);
- border-radius:7px;
- background:rgba(13,75,110,.35);
- color:var(--cyan);
- font:9px Orbitron;
- letter-spacing:.7px
+ padding:12px 8px;border:1px solid rgba(65,205,255,.4);border-radius:7px;
+ background:rgba(13,75,110,.35);color:var(--cyan);font:9px Orbitron;letter-spacing:.7px
 }
-
-.jarvis-btn.primary{
- background:#159dcc;
- color:#03101d;
- border-color:#5ee2ff
-}
-
-.jarvis-btn:hover{
- box-shadow:0 0 18px rgba(37,200,255,.3);
- transform:translateY(-2px)
-}
-
+.jarvis-btn.primary{background:#159dcc;color:#03101d;border-color:#5ee2ff}
+.jarvis-btn:hover{box-shadow:0 0 18px rgba(37,200,255,.3);transform:translateY(-2px)}
 .log-panel{
- margin-top:17px;
- border:1px solid rgba(65,205,255,.2);
- border-radius:9px;
- background:rgba(1,10,22,.8);
- padding:13px
+ margin-top:17px;border:1px solid rgba(65,205,255,.2);border-radius:9px;
+ background:rgba(1,10,22,.8);padding:13px
 }
-
-.log-title{
- font:9px Orbitron;
- letter-spacing:2px;
- color:var(--cyan);
- margin-bottom:9px
-}
-
+.log-title{font:9px Orbitron;letter-spacing:2px;color:var(--cyan);margin-bottom:9px}
 #jarvisLog{
- font:10px/1.8 "Courier New",monospace;
- color:#83cce4;
- max-height:105px;
- overflow:auto
+ font:10px/1.8 "Courier New",monospace;color:#83cce4;max-height:105px;overflow:auto
 }
-
-.log-entry{
- border-bottom:1px solid rgba(65,205,255,.08);
- padding:2px 0
-}
-
+.log-entry{border-bottom:1px solid rgba(65,205,255,.08);padding:2px 0}
 .log-entry span{color:#5a9bb8}
-
-.core-status{
- text-align:center;
- color:#82bad1;
- font:9px Orbitron;
- letter-spacing:2px;
- margin-top:20px
-}
+.core-status{text-align:center;color:#82bad1;font:9px Orbitron;letter-spacing:2px;margin-top:20px}
 
 /* CONTACT */
-
 .contact-box{
- text-align:center;
- padding:55px 25px;
- border:1px solid var(--line);
+ text-align:center;padding:55px 25px;border:1px solid var(--line);
  border-radius:16px;
  background:radial-gradient(ellipse at top,rgba(0,140,220,.17),transparent 70%),rgba(8,25,44,.75)
 }
-
-.contact-box .section-desc{
- margin:0 auto 28px
-}
-
-.contact-links{
- display:flex;
- justify-content:center;
- gap:12px;
- flex-wrap:wrap
-}
-
+.contact-box .section-desc{margin:0 auto 28px}
+.contact-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
 footer{
- border-top:1px solid var(--line);
- padding:25px 0;
- text-align:center;
- color:#65879c;
- font-size:10px;
- letter-spacing:1px;
- position:relative;
- z-index:1
+ border-top:1px solid var(--line);padding:25px 0;text-align:center;
+ color:#65879c;font-size:10px;letter-spacing:1px;position:relative;z-index:1
 }
-
-.reveal{
- opacity:0;
- transform:translateY(25px);
- transition:opacity .7s,transform .7s
-}
-
-.reveal.visible{
- opacity:1;
- transform:translateY(0)
-}
+.reveal{opacity:0;transform:translateY(25px);transition:opacity .7s,transform .7s}
+.reveal.visible{opacity:1;transform:translateY(0)}
 
 /* ANIMATIONS */
-
-@keyframes pulse{
- 0%,100%{opacity:.6;transform:scale(1)}
- 50%{opacity:1;transform:scale(1.08)}
-}
-
+@keyframes pulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes scan{0%{top:0}100%{top:100%}}
-
-@keyframes shake{
- 0%,100%{transform:translateX(0)}
- 25%{transform:translateX(-8px)}
- 75%{transform:translateX(8px)}
-}
-
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
 @keyframes verifyPulse{
  from{box-shadow:0 0 30px rgba(37,200,255,.12)}
  to{box-shadow:0 0 70px rgba(37,200,255,.4)}
 }
-
 @keyframes blink{to{visibility:hidden}}
-
 @keyframes coreFloat{
  0%,100%{transform:translateY(0) rotateY(0deg)}
  50%{transform:translateY(-12px) rotateY(12deg)}
 }
-
-@keyframes coreGlow{
- from{filter:brightness(.9)}
- to{filter:brightness(1.25)}
-}
+@keyframes coreGlow{from{filter:brightness(.9)}to{filter:brightness(1.25)}}
 
 /* TABLET */
-
 @media(max-width:900px){
  .nav-links{gap:13px}
  .nav-links a{font-size:9px}
@@ -1447,143 +615,57 @@ footer{
 }
 
 /* MOBILE */
-
 @media(max-width:800px){
  .nav-inner{justify-content:space-between}
-
  .nav-links{
-  position:absolute;
-  top:70px;
-  left:5%;
-  width:90%;
-  display:none;
-  flex-direction:column;
-  align-items:stretch;
-  gap:0;
-  padding:12px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:rgba(4,15,30,.97)
+  position:absolute;top:70px;left:5%;width:90%;display:none;
+  flex-direction:column;align-items:stretch;gap:0;padding:12px;
+  border:1px solid var(--line);border-radius:12px;background:rgba(4,15,30,.97)
  }
-
  .nav-links.open{display:flex}
  .nav-links a{padding:14px}
  .menu-btn{display:block}
-
- .hero{
-  min-height:auto;
-  padding:145px 0 80px
- }
-
- .hero-grid{
-  grid-template-columns:1fr;
-  gap:25px
- }
-
+ .hero{min-height:auto;padding:145px 0 80px}
+ .hero-grid{grid-template-columns:1fr;gap:25px}
  .hero-content{text-align:center}
-
- .hero-subtitle{
-  margin-left:auto;
-  margin-right:auto
- }
-
+ .hero-subtitle{margin-left:auto;margin-right:auto}
  .hero-actions{justify-content:center}
-
  .hero-visual{min-height:400px}
-
- .profile-frame{
-  width:220px;
-  height:290px
- }
-
+ .profile-frame{width:220px;height:290px}
  section{padding:75px 0}
-
- .about-grid{
-  grid-template-columns:1fr;
-  gap:30px
- }
-
+ .about-grid{grid-template-columns:1fr;gap:30px}
  .about-visual{min-height:280px}
-
  .interest-grid{grid-template-columns:1fr 1fr}
-
  .jarvis-grid{grid-template-columns:1fr}
-
  .holo-display{min-height:340px}
 }
-
 @media(max-width:520px){
  .container{width:88%}
-
  .nav-inner{width:92%;gap:7px}
  .logo{font-size:16px}
-
- .screen-switch{
-  padding:9px 8px;
-  font-size:7px;
-  letter-spacing:.5px;
-  gap:5px
- }
-
- .menu-btn{
-  padding:8px 10px;
-  font-size:13px
- }
-
+ .screen-switch{padding:9px 8px;font-size:7px;letter-spacing:.5px;gap:5px}
+ .menu-btn{padding:8px 10px;font-size:13px}
  .hero h1{font-size:37px}
-
  .hero-visual{min-height:365px}
-
  .holo-ring{width:300px}
-
- .profile-frame{
-  width:190px;
-  height:255px
- }
-
+ .profile-frame{width:190px;height:255px}
  .tag-one{left:-3px;top:48px}
  .tag-two{right:-3px;bottom:45px}
-
- .strip-inner{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  row-gap:22px
- }
-
+ .strip-inner{display:grid;grid-template-columns:1fr 1fr;row-gap:22px}
  .about-details{grid-template-columns:1fr 1fr}
-
  .story-timeline::before{left:8px}
-
- .story-item,.story-item:nth-child(even){
-  width:100%;
-  margin-left:0;
-  padding:0 0 25px 32px
- }
-
- .story-item::after,.story-item:nth-child(even)::after{
-  left:3px;
-  right:auto
- }
-
+ .story-item,.story-item:nth-child(even){width:100%;margin-left:0;padding:0 0 25px 32px}
+ .story-item::after,.story-item:nth-child(even)::after{left:3px;right:auto}
  .interest-grid,.archive-grid{grid-template-columns:1fr}
-
  .interest-card{min-height:auto}
  .archive-card{height:290px}
-
  .jarvis-shell{padding:12px}
  .holo-display{min-height:310px}
  .holo-radar{width:230px;height:230px}
  .holo-object{width:135px;height:135px}
-
- .terminal-body{
-  min-height:250px;
-  padding:18px 14px;
-  font-size:10px
- }
-
+ .terminal-body{min-height:250px;padding:18px 14px;font-size:10px}
  .section-title{font-size:27px}
 }
-
 @media(prefers-reduced-motion:reduce){
  *,*::before,*::after{
   animation-duration:.01ms!important;
@@ -1600,22 +682,18 @@ footer{
 <canvas id="particles"></canvas>
 
 <!-- SECRET ROOM -->
-
 <div id="gate">
  <div class="gate-scan"></div>
 
  <div class="gate-content" id="gateContent">
   <div class="gate-emblem">F.A</div>
   <div class="gate-kicker">PRIVATE DIGITAL SPACE</div>
-
   <h1 class="gate-title">
    WELCOME TO<br>
    <span class="glow-text">THE SECRET ROOM</span>
   </h1>
-
   <div class="gate-subtitle">RESTRICTED ACCESS // F.A</div>
   <div class="gate-divider"></div>
-
   <div class="pin-label">ENTER YOUR PASSCODE</div>
 
   <div class="pin-display" id="pinDisplay">
@@ -1631,27 +709,19 @@ footer{
    <button class="key" data-num="1">1</button>
    <button class="key" data-num="2">2</button>
    <button class="key" data-num="3">3</button>
-
    <button class="key" data-num="4">4</button>
    <button class="key" data-num="5">5</button>
    <button class="key" data-num="6">6</button>
-
    <button class="key" data-num="7">7</button>
    <button class="key" data-num="8">8</button>
    <button class="key" data-num="9">9</button>
-
    <button class="key utility" data-action="clear">CLEAR</button>
    <button class="key" data-num="0">0</button>
    <button class="key utility" data-action="delete">⌫</button>
   </div>
 
-  <div class="gate-status" id="gateStatus">
-   AWAITING AUTHENTICATION...
-  </div>
-
-  <div class="gate-footer">
-   IDENTITY VERIFICATION SYSTEM · F.A
-  </div>
+  <div class="gate-status" id="gateStatus">AWAITING AUTHENTICATION...</div>
+  <div class="gate-footer">IDENTITY VERIFICATION SYSTEM · F.A</div>
  </div>
 
  <div class="access-granted" id="accessGranted">
@@ -1662,57 +732,39 @@ footer{
 
  <div class="terminal-screen" id="terminalScreen">
   <div class="terminal-window">
-
    <div class="terminal-top">
     <div class="terminal-brand">F.A // J.A.R.V.I.S SYSTEM</div>
-    <div class="terminal-lights">
-     <span></span><span></span><span></span>
-    </div>
+    <div class="terminal-lights"><span></span><span></span><span></span></div>
    </div>
-
    <div class="terminal-body">
-    <div class="terminal-heading">
-     INITIALIZING PERSONAL UNIVERSE...
-    </div>
-
+    <div class="terminal-heading">INITIALIZING PERSONAL UNIVERSE...</div>
     <div id="terminalLines"></div>
-
     <div class="terminal-line">
      <span class="prefix">SYSTEM &gt;</span>
      <span class="terminal-cursor"></span>
     </div>
    </div>
-
-   <div class="terminal-progress">
-    <span id="terminalProgress"></span>
-   </div>
-
+   <div class="terminal-progress"><span id="terminalProgress"></span></div>
    <div class="terminal-footer">
     <span>JARVIS CORE ONLINE</span>
     <span id="terminalPercent">0%</span>
    </div>
-
   </div>
  </div>
 </div>
 
 <!-- PHOTO VIEWER -->
-
 <div class="photo-viewer" id="photoViewer">
  <button class="photo-close" id="photoClose">×</button>
  <img id="viewerImage" src="" alt="Foto kenangan">
 </div>
 
 <!-- MAIN WEBSITE -->
-
 <div id="mainWebsite" class="hidden">
-
 <nav>
  <div class="nav-inner">
-
   <a href="#home" class="logo">F<span>.</span>A</a>
 
-  <!-- SCREEN SWITCH -->
   <button class="screen-switch" id="screenSwitch" type="button">
    <span class="switch-indicator"></span>
    <span id="screenSwitchText">SCREEN 1 / 2</span>
@@ -1727,378 +779,197 @@ footer{
    <a href="#universe">JARVIS</a>
    <a href="#contact">CONTACT</a>
   </div>
-
   <button class="menu-btn" id="menuBtn">☰</button>
-
  </div>
 </nav>
 
 <main>
-
 <!-- SCREEN 1 -->
-
 <div data-screen="1" id="screenOne">
-
  <section class="hero" id="home">
   <div class="container hero-grid">
-
    <div class="hero-content reveal">
     <div class="eyebrow">
      <span class="status-dot"></span>
      PERSONAL UNIVERSE ONLINE
     </div>
-
-    <h1>
-     HELLO, I'M
-     <span>FACHRIANSYAH.</span>
-    </h1>
-
+    <h1>HELLO, I'M <span>FACHRIANSYAH.</span></h1>
     <p class="hero-subtitle">
      Welcome to my personal universe. A digital space that represents my journey, creativity, interests, and everything that makes me who I am.
     </p>
-
     <div class="hero-actions">
-     <a href="#about" class="btn btn-primary">
-      EXPLORE MY WORLD ↗
-     </a>
-
-     <a href="#story" class="btn btn-outline">
-      MY JOURNEY
-     </a>
+     <a href="#about" class="btn btn-primary">EXPLORE MY WORLD ↗</a>
+     <a href="#story" class="btn btn-outline">MY JOURNEY</a>
     </div>
    </div>
 
    <div class="hero-visual reveal" id="heroVisual">
     <div class="holo-ring"></div>
-
     <div class="visual-tag tag-one">SYSTEM ACTIVE</div>
-
     <div class="profile-frame" id="profile3d">
      <img src="IMG-20261104-WA0009.jpg" alt="Foto profil Fachriansyah">
     </div>
-
     <div class="visual-tag tag-two">LEVEL: EVOLVING</div>
    </div>
-
   </div>
  </section>
 
  <div class="info-strip">
   <div class="container strip-inner">
-
-   <div class="strip-item">
-    <strong>01</strong>
-    MY JOURNEY
-   </div>
-
-   <div class="strip-item">
-    <strong>02</strong>
-    MY PASSION
-   </div>
-
-   <div class="strip-item">
-    <strong>03</strong>
-    MY UNIVERSE
-   </div>
-
-   <div class="strip-item">
-    <strong>∞</strong>
-    KEEP EVOLVING
-   </div>
-
+   <div class="strip-item"><strong>01</strong>MY JOURNEY</div>
+   <div class="strip-item"><strong>02</strong>MY PASSION</div>
+   <div class="strip-item"><strong>03</strong>MY UNIVERSE</div>
+   <div class="strip-item"><strong>∞</strong>KEEP EVOLVING</div>
   </div>
  </div>
 
  <section id="about">
   <div class="container about-grid">
-
    <div class="about-visual reveal">
-    <div class="about-orbit">
-     <span>F.A</span>
-    </div>
+    <div class="about-orbit"><span>F.A</span></div>
    </div>
-
    <div class="about-content reveal">
     <div class="section-label">01 / ABOUT ME</div>
-
-    <h2 class="section-title">
-     MORE THAN JUST
-     <span class="glow-text">A NAME.</span>
-    </h2>
-
+    <h2 class="section-title">MORE THAN JUST <span class="glow-text">A NAME.</span></h2>
     <p>
      I'm Fachriansyah Alfigo. Someone who believes that every experience has a story, every challenge brings a lesson, and every new day is an opportunity to become better.
     </p>
-
     <p>
      I'm interested in digital creativity, technology, multimedia, and discovering new things. This website is my own little universe — a place to express ideas and document my journey.
     </p>
-
     <div class="about-details">
-
-     <div class="detail">
-      <small>NAME</small>
-      <strong>Fachriansyah Alfigo</strong>
-     </div>
-
-     <div class="detail">
-      <small>FIELD</small>
-      <strong>Digital Multimedia</strong>
-     </div>
-
-     <div class="detail">
-      <small>PERSONALITY</small>
-      <strong>Creative Explorer</strong>
-     </div>
-
-     <div class="detail">
-      <small>PHILOSOPHY</small>
-      <strong>Keep Growing</strong>
-     </div>
-
+     <div class="detail"><small>NAME</small><strong>Fachriansyah Alfigo</strong></div>
+     <div class="detail"><small>FIELD</small><strong>Digital Multimedia</strong></div>
+     <div class="detail"><small>PERSONALITY</small><strong>Creative Explorer</strong></div>
+     <div class="detail"><small>PHILOSOPHY</small><strong>Keep Growing</strong></div>
     </div>
    </div>
-
   </div>
  </section>
 
  <section class="story-section" id="story">
   <div class="container">
-
    <div class="story-header reveal">
     <div class="section-label">02 / MY STORY</div>
-
-    <h2 class="section-title">
-     THE JOURNEY
-     <span class="glow-text">CONTINUES.</span>
-    </h2>
-
+    <h2 class="section-title">THE JOURNEY <span class="glow-text">CONTINUES.</span></h2>
     <p class="section-desc">
      Every chapter has its own meaning. These are some of the things that shape my journey and the person I am becoming.
     </p>
    </div>
 
    <div class="story-timeline">
-
     <div class="story-item reveal">
      <div class="story-card">
-      <small>CHAPTER 01</small>
-      <h3>THE BEGINNING</h3>
-      <p>
-       Every journey starts somewhere. This is where curiosity, dreams, and the desire to explore new possibilities begin.
-      </p>
+      <small>CHAPTER 01</small><h3>THE BEGINNING</h3>
+      <p>Every journey starts somewhere. This is where curiosity, dreams, and the desire to explore new possibilities begin.</p>
      </div>
     </div>
-
     <div class="story-item reveal">
      <div class="story-card">
-      <small>CHAPTER 02</small>
-      <h3>DISCOVERING MY PASSION</h3>
-      <p>
-       Exploring technology, digital media, creativity, and learning how ideas can become something meaningful.
-      </p>
+      <small>CHAPTER 02</small><h3>DISCOVERING MY PASSION</h3>
+      <p>Exploring technology, digital media, creativity, and learning how ideas can become something meaningful.</p>
      </div>
     </div>
-
     <div class="story-item reveal">
      <div class="story-card">
-      <small>CHAPTER 03</small>
-      <h3>LEARNING & GROWING</h3>
-      <p>
-       Not everything goes perfectly. Every challenge becomes an opportunity to learn, improve, and move forward.
-      </p>
+      <small>CHAPTER 03</small><h3>LEARNING & GROWING</h3>
+      <p>Not everything goes perfectly. Every challenge becomes an opportunity to learn, improve, and move forward.</p>
      </div>
     </div>
-
     <div class="story-item reveal">
      <div class="story-card">
-      <small>CHAPTER 04</small>
-      <h3>THE NEXT CHAPTER</h3>
-      <p>
-       The story is still being written. There are more things to discover, more goals to achieve, and more memories to create.
-      </p>
+      <small>CHAPTER 04</small><h3>THE NEXT CHAPTER</h3>
+      <p>The story is still being written. There are more things to discover, more goals to achieve, and more memories to create.</p>
      </div>
     </div>
-
    </div>
   </div>
  </section>
-
 </div>
 
 <!-- SCREEN 2 -->
-
 <div data-screen="2" id="screenTwo" class="screen-hidden">
-
  <section class="archive-section" id="memories">
   <div class="container">
-
    <div class="archive-heading reveal">
     <div class="section-label">02.5 / MEMORY ARCHIVE</div>
-
-    <h2 class="section-title">
-     MOMENTS
-     <span class="glow-text">TO REMEMBER.</span>
-    </h2>
-
-    <p class="section-desc">
-     A small collection of memories from my personal journey.
-    </p>
+    <h2 class="section-title">MOMENTS <span class="glow-text">TO REMEMBER.</span></h2>
+    <p class="section-desc">A small collection of memories from my personal journey.</p>
    </div>
 
    <div class="archive-grid">
-
     <div class="archive-card reveal" data-image="IMG-20261104-WA0006.jpg">
      <img src="IMG-20261104-WA0006.jpg" alt="Memory Archive 01" loading="lazy">
-
      <div class="archive-caption">
       <small>MEMORY ARCHIVE 01</small>
       <h3>A MOMENT IN TIME</h3>
       <p class="archive-hint">Tap to explore this memory ↗</p>
      </div>
     </div>
-
     <div class="archive-card reveal" data-image="IMG-20261104-WA0011.jpg">
      <img src="IMG-20261104-WA0011.jpg" alt="Memory Archive 02" loading="lazy">
-
      <div class="archive-caption">
       <small>MEMORY ARCHIVE 02</small>
       <h3>ANOTHER CHAPTER</h3>
       <p class="archive-hint">Tap to explore this memory ↗</p>
      </div>
     </div>
-
    </div>
   </div>
  </section>
 
  <section id="interests">
   <div class="container">
-
    <div class="reveal">
     <div class="section-label">03 / MY INTERESTS</div>
-
-    <h2 class="section-title">
-     THINGS THAT
-     <span class="glow-text">INSPIRE ME.</span>
-    </h2>
-
+    <h2 class="section-title">THINGS THAT <span class="glow-text">INSPIRE ME.</span></h2>
     <p class="section-desc">
      A collection of interests that keep my curiosity alive and inspire me to explore more.
     </p>
    </div>
 
    <div class="interest-grid">
-
-    <div class="interest-card reveal">
-     <span class="interest-icon">✦</span>
-     <h3>TECHNOLOGY</h3>
-     <p>Exploring digital innovation, websites, and how technology changes the world.</p>
-    </div>
-
-    <div class="interest-card reveal">
-     <span class="interest-icon">◈</span>
-     <h3>CREATIVITY</h3>
-     <p>Turning ideas into visual experiences through design and digital media.</p>
-    </div>
-
-    <div class="interest-card reveal">
-     <span class="interest-icon">⌘</span>
-     <h3>MULTIMEDIA</h3>
-     <p>Discovering the combination of visuals, stories, and interactive experiences.</p>
-    </div>
-
-    <div class="interest-card reveal">
-     <span class="interest-icon">⚽</span>
-     <h3>FOOTBALL</h3>
-     <p>A passion for the game, legendary players, unforgettable moments, and stories.</p>
-    </div>
-
-    <div class="interest-card reveal">
-     <span class="interest-icon">◎</span>
-     <h3>EXPLORATION</h3>
-     <p>Discovering new places, experiences, and perspectives along the way.</p>
-    </div>
-
-    <div class="interest-card reveal">
-     <span class="interest-icon">∞</span>
-     <h3>PERSONAL GROWTH</h3>
-     <p>Learning from experiences and continuing to become a better version of myself.</p>
-    </div>
-
+    <div class="interest-card reveal"><span class="interest-icon">✦</span><h3>TECHNOLOGY</h3><p>Exploring digital innovation, websites, and how technology changes the world.</p></div>
+    <div class="interest-card reveal"><span class="interest-icon">◈</span><h3>CREATIVITY</h3><p>Turning ideas into visual experiences through design and digital media.</p></div>
+    <div class="interest-card reveal"><span class="interest-icon">⌘</span><h3>MULTIMEDIA</h3><p>Discovering the combination of visuals, stories, and interactive experiences.</p></div>
+    <div class="interest-card reveal"><span class="interest-icon">⚽</span><h3>FOOTBALL</h3><p>A passion for the game, legendary players, unforgettable moments, and stories.</p></div>
+    <div class="interest-card reveal"><span class="interest-icon">◎</span><h3>EXPLORATION</h3><p>Discovering new places, experiences, and perspectives along the way.</p></div>
+    <div class="interest-card reveal"><span class="interest-icon">∞</span><h3>PERSONAL GROWTH</h3><p>Learning from experiences and continuing to become a better version of myself.</p></div>
    </div>
   </div>
  </section>
 
- <!-- JARVIS VISUAL INTERFACE -->
-
+ <!-- JARVIS -->
  <section class="core-section" id="universe">
   <div class="container">
-
    <div class="core-heading reveal">
     <div class="section-label">04 / F.A ADVANCED SYSTEM</div>
-
-    <h2 class="section-title">
-     J.A.R.V.I.S.
-     <span class="glow-text">INTERFACE.</span>
-    </h2>
-
+    <h2 class="section-title">J.A.R.V.I.S. <span class="glow-text">INTERFACE.</span></h2>
     <p class="section-desc">
      A futuristic holographic interface with an animated digital core, visual system monitor, and J.A.R.V.I.S voice assistant.
     </p>
    </div>
 
    <div class="jarvis-shell reveal">
-
     <div class="jarvis-topbar">
      <div class="jarvis-brand">F.A // J.A.R.V.I.S CONTROL CENTER</div>
      <div class="jarvis-live" id="systemLive">SYSTEM ONLINE</div>
     </div>
 
     <div class="jarvis-grid">
-
      <div class="holo-display" id="holoDisplay">
-
-      <div class="holo-coordinates">
-       HOLO CORE<br>
-       AXIS: X / Y / Z
-      </div>
-
-      <div class="holo-coordinates right">
-       CORE STATUS<br>
-       <span id="trackingText">ONLINE</span>
-      </div>
-
-      <div class="holo-radar">
-       <div class="holo-sweep"></div>
-      </div>
-
+      <div class="holo-coordinates">HOLO CORE<br>AXIS: X / Y / Z</div>
+      <div class="holo-coordinates right">CORE STATUS<br><span id="trackingText">ONLINE</span></div>
+      <div class="holo-radar"><div class="holo-sweep"></div></div>
       <div class="holo-crosshair"></div>
-
       <div class="holo-object" id="holoObject"></div>
-
-      <div class="holo-label" id="holoLabel">
-       F.A DIGITAL CORE
-      </div>
-
+      <div class="holo-label" id="holoLabel">F.A DIGITAL CORE</div>
      </div>
 
      <div class="jarvis-side">
-
-      <div class="system-card">
-       <small>DETECTED SYSTEM</small>
-       <strong id="gestureName">VISUAL CORE ONLINE</strong>
-      </div>
-
-      <div class="system-card">
-       <small>INTERFACE RESPONSE</small>
-       <strong id="responseText">ALL SYSTEMS NORMAL</strong>
-      </div>
-
-      <div class="system-card">
-       <small>HOLOGRAM MODE</small>
-       <strong id="holoMode">AUTONOMOUS ANIMATION</strong>
-      </div>
+      <div class="system-card"><small>DETECTED SYSTEM</small><strong id="gestureName">VISUAL CORE ONLINE</strong></div>
+      <div class="system-card"><small>INTERFACE RESPONSE</small><strong id="responseText">ALL SYSTEMS NORMAL</strong></div>
+      <div class="system-card"><small>HOLOGRAM MODE</small><strong id="holoMode">AUTONOMOUS ANIMATION</strong></div>
 
       <div class="jarvis-actions">
        <button class="jarvis-btn" id="resetHolo">RESET HOLOGRAM</button>
@@ -2106,67 +977,47 @@ footer{
        <button class="jarvis-btn" id="hudToggle">TOGGLE HUD</button>
        <button class="jarvis-btn" id="systemInfo">SYSTEM INFO</button>
       </div>
-
      </div>
     </div>
 
     <div class="log-panel">
      <div class="log-title">◈ J.A.R.V.I.S // LOCAL SYSTEM LOG</div>
-
      <div id="jarvisLog">
-      <div class="log-entry">
-       <span>[SYSTEM]</span> Visual interface initialized.
-      </div>
+      <div class="log-entry"><span>[SYSTEM]</span> Visual interface initialized.</div>
      </div>
     </div>
-
    </div>
 
-   <div class="core-status">
-    ● JARVIS CORE // VISUAL SYSTEM ONLINE // AUTONOMOUS MODE
-   </div>
-
+   <div class="core-status">● JARVIS CORE // VISUAL SYSTEM ONLINE // AUTONOMOUS MODE</div>
   </div>
  </section>
 
  <section id="contact">
   <div class="container">
-
    <div class="contact-box reveal">
     <div class="section-label">05 / CONTACT</div>
-
     <h2 class="section-title">LET'S CONNECT.</h2>
-
     <p class="section-desc">
      Every connection can lead to a new story. Feel free to reach out and say hello.
     </p>
-
     <div class="contact-links">
      <a href="#" class="btn btn-primary">INSTAGRAM ↗</a>
      <a href="mailto:hello@example.com" class="btn btn-outline">EMAIL ME ↗</a>
     </div>
    </div>
-
   </div>
  </section>
 
  <footer>
-  <div class="container">
-   © <span id="year"></span> F.A PERSONAL UNIVERSE — DESIGNED TO EVOLVE.
-  </div>
+  <div class="container">© <span id="year"></span> F.A PERSONAL UNIVERSE — DESIGNED TO EVOLVE.</div>
  </footer>
-
 </div>
 </main>
 </div>
 
 <script>
-/* =========================================
-   BASIC CONFIGURATION
-========================================= */
-
+/* BASIC CONFIGURATION */
 const CORRECT_PIN="414141";
-
 let enteredPin="";
 let audioContext=null;
 let isProcessing=false;
@@ -2185,21 +1036,13 @@ const terminalProgress=$("terminalProgress");
 const terminalPercent=$("terminalPercent");
 const mainWebsite=$("mainWebsite");
 
-/* =========================================
-   AUDIO EFFECTS
-========================================= */
-
+/* AUDIO EFFECTS */
 function playTone(freq,duration,type="sine",volume=.08,delay=0){
  try{
   const AudioClass=window.AudioContext||window.webkitAudioContext;
-
   if(!AudioClass)return;
-
   if(!audioContext)audioContext=new AudioClass();
-
-  if(audioContext.state==="suspended"){
-   audioContext.resume();
-  }
+  if(audioContext.state==="suspended")audioContext.resume();
 
   const start=audioContext.currentTime+delay;
   const osc=audioContext.createOscillator();
@@ -2207,27 +1050,20 @@ function playTone(freq,duration,type="sine",volume=.08,delay=0){
 
   osc.type=type;
   osc.frequency.setValueAtTime(freq,start);
-
   gain.gain.setValueAtTime(.001,start);
   gain.gain.exponentialRampToValueAtTime(volume,start+.04);
   gain.gain.exponentialRampToValueAtTime(.001,start+duration);
-
   osc.connect(gain);
   gain.connect(audioContext.destination);
-
   osc.start(start);
   osc.stop(start+duration+.03);
-
- }catch(e){
-  console.log(e);
- }
+ }catch(e){console.log(e)}
 }
 
 function playSuccessSound(){
  [440,554,659,880,1108].forEach((f,i)=>{
   playTone(f,.75,"sine",.07,i*.11);
  });
-
  playTone(110,.9,"triangle",.12);
 }
 
@@ -2240,40 +1076,34 @@ function wait(ms){
  return new Promise(resolve=>setTimeout(resolve,ms));
 }
 
-/* =========================================
-   PIN SYSTEM
-========================================= */
-
+/* PIN SYSTEM */
 function updatePinDisplay(){
  pinDots.forEach((dot,i)=>{
   dot.classList.toggle("filled",i<enteredPin.length);
  });
 }
 
+/* PIN langsung diproses setelah angka keenam ditekan */
 function pressNumber(n){
  if(isProcessing||enteredPin.length>=6)return;
-
  enteredPin+=n;
  updatePinDisplay();
 
  if(enteredPin.length===6){
-  setTimeout(submitPin,180);
+  submitPin();
  }
 }
 
 $("keypad").addEventListener("click",e=>{
  const b=e.target.closest("button");
-
  if(!b||isProcessing)return;
 
  if(b.dataset.num!==undefined){
   pressNumber(b.dataset.num);
-
  }else if(b.dataset.action==="clear"){
   enteredPin="";
   updatePinDisplay();
   gateStatus.textContent="PASSCODE CLEARED";
-
  }else if(b.dataset.action==="delete"){
   enteredPin=enteredPin.slice(0,-1);
   updatePinDisplay();
@@ -2285,26 +1115,20 @@ document.addEventListener("keydown",e=>{
 
  if(/^[0-9]$/.test(e.key)){
   pressNumber(e.key);
-
  }else if(e.key==="Backspace"){
   enteredPin=enteredPin.slice(0,-1);
   updatePinDisplay();
-
  }else if(e.key==="Escape"){
   enteredPin="";
   updatePinDisplay();
  }
 });
 
-/* =========================================
-   JARVIS WELCOME VOICE
-========================================= */
-
+/* JARVIS WELCOME VOICE */
 function getEnglishVoice(){
  if(!("speechSynthesis" in window))return null;
 
  const voices=speechSynthesis.getVoices();
-
  if(!voices.length)return null;
 
  const englishVoices=voices.filter(voice=>
@@ -2322,71 +1146,47 @@ function getEnglishVoice(){
  )||englishVoices[0];
 }
 
-async function speakWelcome(){
+/* Dipanggil langsung ketika PIN benar agar browser mengenali interaksi pengguna */
+function speakWelcome(){
  if(jarvisHasSpoken)return;
 
- jarvisHasSpoken=true;
-
  if(!("speechSynthesis" in window)){
-  logEvent("Speech synthesis is not supported by this browser.");
+  console.log("Speech synthesis is not supported by this browser.");
   return;
  }
 
  try{
   speechSynthesis.cancel();
 
-  let voice=getEnglishVoice();
-
-  /*
-   * Beberapa browser baru memuat daftar suara
-   * setelah halaman mulai berjalan.
-   */
-  if(!voice){
-   await new Promise(resolve=>{
-    let finished=false;
-
-    const finish=()=>{
-     if(finished)return;
-     finished=true;
-     speechSynthesis.removeEventListener("voiceschanged",finish);
-     resolve();
-    };
-
-    speechSynthesis.addEventListener("voiceschanged",finish);
-    setTimeout(finish,900);
-   });
-
-   voice=getEnglishVoice();
-  }
-
   const message=
    "Welcome back. Identity verification completed. " +
    "Personal universe is now online. " +
    "All systems are operational. " +
-   "It's good to have you back.";
+   "It's good to have you back, Fachriansyah.";
 
   const utterance=new SpeechSynthesisUtterance(message);
+  const voice=getEnglishVoice();
 
   utterance.lang="en-US";
   utterance.rate=.88;
   utterance.pitch=.85;
   utterance.volume=1;
 
-  if(voice){
-   utterance.voice=voice;
-  }
+  if(voice)utterance.voice=voice;
 
   speechSynthesis.speak(utterance);
+  jarvisHasSpoken=true;
 
+  utterance.onerror=()=>{
+   console.log("Welcome voice playback error.");
+  };
  }catch(e){
+  jarvisHasSpoken=false;
   console.log("Welcome voice error:",e);
  }
 }
 
-/* =========================================
-   TERMINAL ANIMATION
-========================================= */
-
+/* TERMINAL ANIMATION */
 const terminalMessages=[
  ["Authentication confirmed.","ok"],
  ["Initializing J.A.R.V.I.S interface...","normal"],
@@ -2403,7 +1203,6 @@ async function runTerminal(){
  terminalLines.innerHTML="";
  terminalProgress.style.width="0%";
  terminalPercent.textContent="0%";
-
  terminalScreen.classList.add("show");
 
  for(let i=0;i<terminalMessages.length;i++){
@@ -2426,32 +1225,20 @@ async function runTerminal(){
   terminalLines.appendChild(line);
 
   const percent=Math.round((i+1)/terminalMessages.length*100);
-
   terminalProgress.style.width=percent+"%";
   terminalPercent.textContent=percent+"%";
 
   playTone(700,.045,"sine",.018);
-
   await wait(420);
  }
 
- await wait(400);
-
- await speakWelcome();
-
  await wait(1800);
-
  terminalScreen.classList.remove("show");
-
  await wait(500);
-
  openWebsite();
 }
 
-/* =========================================
-   ACCESS VERIFICATION
-========================================= */
-
+/* ACCESS VERIFICATION */
 async function submitPin(){
  if(enteredPin.length!==6||isProcessing)return;
 
@@ -2459,36 +1246,31 @@ async function submitPin(){
 
  if(enteredPin===CORRECT_PIN){
 
+  /* WELCOME VOICE DIPANGGIL SEGERA SETELAH PIN BENAR */
+  speakWelcome();
+
   gateStatus.textContent="VERIFYING IDENTITY...";
   gateStatus.className="gate-status success";
-
   gate.classList.add("verifying");
 
   playSuccessSound();
 
   await wait(650);
-
   accessGranted.classList.add("show");
 
   await wait(1100);
-
   accessGranted.classList.remove("show");
-
   gateContent.style.display="none";
-
   gate.classList.remove("verifying");
 
   await runTerminal();
 
  }else{
-
   gateStatus.textContent="ACCESS DENIED — INVALID PASSCODE";
   gateStatus.className="gate-status error";
 
   gateContent.classList.remove("shake");
-
   void gateContent.offsetWidth;
-
   gateContent.classList.add("shake");
 
   playDeniedSound();
@@ -2497,7 +1279,6 @@ async function submitPin(){
 
   enteredPin="";
   updatePinDisplay();
-
   gateStatus.textContent="AWAITING AUTHENTICATION...";
   gateStatus.className="gate-status";
 
@@ -2505,12 +1286,8 @@ async function submitPin(){
  }
 }
 
-/* =========================================
-   SCREEN SYSTEM
-========================================= */
-
+/* SCREEN SYSTEM */
 let activeScreen=1;
-
 const screenOne=$("screenOne");
 const screenTwo=$("screenTwo");
 const screenSwitch=$("screenSwitch");
@@ -2518,17 +1295,13 @@ const screenSwitchText=$("screenSwitchText");
 
 function refreshRevealElements(){
  const activeContainer=activeScreen===1?screenOne:screenTwo;
-
  activeContainer.querySelectorAll(".reveal").forEach(el=>{
-  if(!el.classList.contains("visible")){
-   observer.observe(el);
-  }
+  if(!el.classList.contains("visible"))observer.observe(el);
  });
 }
 
 function setActiveScreen(screen,animate=true){
  activeScreen=screen===2?2:1;
-
  const showOne=activeScreen===1;
 
  screenOne.classList.toggle("screen-hidden",!showOne);
@@ -2536,27 +1309,18 @@ function setActiveScreen(screen,animate=true){
 
  if(animate){
   const activeContainer=showOne?screenOne:screenTwo;
-
   activeContainer.classList.remove("screen-transition");
-
   void activeContainer.offsetWidth;
-
   activeContainer.classList.add("screen-transition");
  }
 
- screenSwitchText.textContent=
-  activeScreen===1?"SCREEN 1 / 2":"SCREEN 2 / 2";
-
+ screenSwitchText.textContent=activeScreen===1?"SCREEN 1 / 2":"SCREEN 2 / 2";
  screenSwitch.setAttribute(
   "aria-label",
   activeScreen===1?"Switch to screen 2":"Switch to screen 1"
  );
 
- window.scrollTo({
-  top:0,
-  behavior:animate?"smooth":"auto"
- });
-
+ window.scrollTo({top:0,behavior:animate?"smooth":"auto"});
  refreshRevealElements();
 
  logEvent(
@@ -2572,10 +1336,7 @@ screenSwitch.addEventListener("click",()=>{
  setActiveScreen(activeScreen===1?2:1);
 });
 
-/* =========================================
-   NAVIGATION
-========================================= */
-
+/* NAVIGATION */
 $("menuBtn").addEventListener("click",()=>{
  $("navLinks").classList.toggle("open");
 });
@@ -2583,68 +1344,46 @@ $("menuBtn").addEventListener("click",()=>{
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
  a.addEventListener("click",e=>{
   const targetId=a.getAttribute("href").substring(1);
-
   if(!targetId)return;
 
   const target=document.getElementById(targetId);
-
   if(!target)return;
 
   e.preventDefault();
 
   const targetScreen=target.closest("[data-screen]");
-
   if(targetScreen){
    const number=Number(targetScreen.dataset.screen);
-
-   if(number!==activeScreen){
-    setActiveScreen(number);
-   }
+   if(number!==activeScreen)setActiveScreen(number);
   }
 
   $("navLinks").classList.remove("open");
 
   setTimeout(()=>{
-   target.scrollIntoView({
-    behavior:"smooth",
-    block:"start"
-   });
-
+   target.scrollIntoView({behavior:"smooth",block:"start"});
    history.replaceState(null,"","#"+targetId);
-
   },activeScreen===1?80:120);
  });
 });
 
-/* =========================================
-   OPEN WEBSITE
-========================================= */
-
+/* OPEN WEBSITE */
 function openWebsite(){
  setActiveScreen(1,false);
-
  gate.classList.add("leaving");
-
  mainWebsite.classList.remove("hidden");
 
  setTimeout(()=>{
   gate.style.display="none";
-
   refreshRevealElements();
-
  },850);
 }
 
-/* =========================================
-   PROFILE 3D TILT
-========================================= */
-
+/* PROFILE 3D TILT */
 const profile=$("profile3d");
 const heroVisual=$("heroVisual");
 
 function moveProfile(x,y){
  const r=heroVisual.getBoundingClientRect();
-
  const px=(x-r.left)/r.width;
  const py=(y-r.top)/r.height;
 
@@ -2669,10 +1408,7 @@ heroVisual.addEventListener("touchend",()=>{
  profile.style.transform="rotateX(0) rotateY(0)";
 });
 
-/* =========================================
-   SCROLL REVEAL
-========================================= */
-
+/* SCROLL REVEAL */
 const observer=new IntersectionObserver(entries=>{
  entries.forEach(entry=>{
   if(entry.isIntersecting){
@@ -2686,23 +1422,16 @@ document.querySelectorAll(".reveal").forEach(el=>{
  observer.observe(el);
 });
 
-/* =========================================
-   3D MEMORY GALLERY
-========================================= */
-
+/* 3D MEMORY GALLERY */
 const archiveCards=document.querySelectorAll(".archive-card");
 
 archiveCards.forEach(card=>{
-
  card.addEventListener("mousemove",e=>{
   const rect=card.getBoundingClientRect();
-
   const x=e.clientX-rect.left;
   const y=e.clientY-rect.top;
-
   const centerX=rect.width/2;
   const centerY=rect.height/2;
-
   const rotateY=((x-centerX)/centerX)*9;
   const rotateX=((centerY-y)/centerY)*9;
 
@@ -2714,13 +1443,9 @@ archiveCards.forEach(card=>{
   card.style.transform=
    "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)";
  });
-
 });
 
-/* =========================================
-   PHOTO VIEWER
-========================================= */
-
+/* PHOTO VIEWER */
 const photoViewer=$("photoViewer");
 const viewerImage=$("viewerImage");
 
@@ -2738,21 +1463,14 @@ function closePhoto(){
 $("photoClose").addEventListener("click",closePhoto);
 
 photoViewer.addEventListener("click",e=>{
- if(e.target===photoViewer){
-  closePhoto();
- }
+ if(e.target===photoViewer)closePhoto();
 });
 
 document.addEventListener("keydown",e=>{
- if(e.key==="Escape"){
-  closePhoto();
- }
+ if(e.key==="Escape")closePhoto();
 });
 
-/* =========================================
-   PARTICLE BACKGROUND
-========================================= */
-
+/* PARTICLE BACKGROUND */
 const canvas=$("particles");
 const ctx=canvas.getContext("2d");
 
@@ -2762,7 +1480,6 @@ let width,height;
 function resizeCanvas(){
  width=canvas.width=innerWidth;
  height=canvas.height=innerHeight;
-
  particles=[];
 
  const count=Math.min(75,Math.floor(width/9));
@@ -2790,13 +1507,10 @@ function drawParticles(){
   }
 
   ctx.beginPath();
-
   ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-
   ctx.fillStyle=`rgba(83,210,255,${p.alpha})`;
   ctx.shadowBlur=10;
   ctx.shadowColor="#25c8ff";
-
   ctx.fill();
  });
 
@@ -2804,16 +1518,12 @@ function drawParticles(){
 }
 
 addEventListener("resize",resizeCanvas);
-
 resizeCanvas();
 drawParticles();
 
 $("year").textContent=new Date().getFullYear();
 
-/* =========================================
-   J.A.R.V.I.S VISUAL SYSTEM
-========================================= */
-
+/* J.A.R.V.I.S VISUAL SYSTEM */
 const holo=$("holoObject");
 const display=$("holoDisplay");
 
@@ -2822,16 +1532,13 @@ let hudEnabled=false;
 
 function logEvent(message){
  const entry=document.createElement("div");
-
  entry.className="log-entry";
 
  const stamp=new Date().toLocaleTimeString("id-ID");
-
  const time=document.createElement("span");
  time.textContent=`[${stamp}] `;
 
  entry.append(time,document.createTextNode(message));
-
  $("jarvisLog").prepend(entry);
 
  while($("jarvisLog").children.length>12){
@@ -2844,63 +1551,42 @@ function setSystemStatus(name,response){
  $("responseText").textContent=response;
 }
 
-/* =========================================
-   JARVIS VOICE FUNCTION
-========================================= */
-
+/* JARVIS VOICE FUNCTION */
 function speak(text){
  if(!("speechSynthesis" in window))return;
 
  speechSynthesis.cancel();
 
  const utterance=new SpeechSynthesisUtterance(text);
-
  utterance.lang="en-US";
  utterance.rate=.92;
  utterance.pitch=.85;
  utterance.volume=1;
 
  const voice=getEnglishVoice();
-
- if(voice){
-  utterance.voice=voice;
- }
+ if(voice)utterance.voice=voice;
 
  speechSynthesis.speak(utterance);
 }
 
-/* =========================================
-   HUD CONTROL
-========================================= */
-
+/* HUD CONTROL */
 function toggleHUD(){
  hudEnabled=!hudEnabled;
-
  display.classList.toggle("hud-active",hudEnabled);
 
  $("holoLabel").textContent=
-  hudEnabled
-   ?"HOLOGRAPHIC HUD ACTIVE"
-   :"F.A DIGITAL CORE";
+  hudEnabled?"HOLOGRAPHIC HUD ACTIVE":"F.A DIGITAL CORE";
 
  setSystemStatus(
   "VISUAL HUD",
   hudEnabled?"HUD ACTIVATED":"HUD STANDBY"
  );
 
- logEvent(
-  hudEnabled
-   ?"Visual HUD activated"
-   :"Visual HUD deactivated"
- );
-
+ logEvent(hudEnabled?"Visual HUD activated":"Visual HUD deactivated");
  playTone(680,.12,"sine",.035);
 }
 
-/* =========================================
-   RESET HOLOGRAM
-========================================= */
-
+/* RESET HOLOGRAM */
 $("resetHolo").addEventListener("click",()=>{
  holoLocked=false;
  hudEnabled=false;
@@ -2912,26 +1598,15 @@ $("resetHolo").addEventListener("click",()=>{
  $("holoMode").textContent="AUTONOMOUS ANIMATION";
  $("trackingText").textContent="ONLINE";
 
- setSystemStatus(
-  "SYSTEM RESET",
-  "HOLOGRAM RESTORED"
- );
-
+ setSystemStatus("SYSTEM RESET","HOLOGRAM RESTORED");
  logEvent("Hologram visual system reset.");
-
  playTone(680,.15,"sine",.05);
 });
 
-/* =========================================
-   HUD BUTTON
-========================================= */
-
+/* HUD BUTTON */
 $("hudToggle").addEventListener("click",toggleHUD);
 
-/* =========================================
-   VOICE ASSISTANT BUTTON
-========================================= */
-
+/* VOICE ASSISTANT BUTTON */
 $("voiceTest").addEventListener("click",()=>{
  speak(
   "JARVIS interface online. " +
@@ -2939,44 +1614,28 @@ $("voiceTest").addEventListener("click",()=>{
   "How can I assist you?"
  );
 
- setSystemStatus(
-  "JARVIS VOICE",
-  "VOICE ASSISTANT ACTIVATED"
- );
-
+ setSystemStatus("JARVIS VOICE","VOICE ASSISTANT ACTIVATED");
  logEvent("J.A.R.V.I.S voice assistant activated.");
 });
 
-/* =========================================
-   SYSTEM INFORMATION
-========================================= */
-
+/* SYSTEM INFORMATION */
 $("systemInfo").addEventListener("click",()=>{
  const message=
   "Personal universe visual interface is online. " +
   "Holographic core, radar, and visual systems are operational.";
 
  speak(message);
-
- setSystemStatus(
-  "SYSTEM INFORMATION",
-  "ALL MODULES ONLINE"
- );
-
+ setSystemStatus("SYSTEM INFORMATION","ALL MODULES ONLINE");
  logEvent("System information requested.");
-
  playTone(760,.12,"sine",.04);
 });
 
-/* =========================================
-   INITIAL SYSTEM LOG
-========================================= */
-
+/* INITIAL SYSTEM LOG */
 logEvent("J.A.R.V.I.S visual core initialized.");
 logEvent("Autonomous hologram animation active.");
 logEvent("Radar and HUD modules ready.");
 logEvent("Camera and gesture modules are not installed.");
-
 </script>
+
 </body>
 </html>
