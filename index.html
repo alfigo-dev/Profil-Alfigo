@@ -40,7 +40,6 @@ section{position:relative;padding:90px 0;z-index:1;scroll-margin-top:80px}
 @keyframes scan{to{top:100%}}
 @keyframes enter{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 @keyframes portal{50%{transform:scale(1.07);filter:brightness(1.5)}}
-@keyframes blink{to{opacity:0}}
 @keyframes shine{0%,20%{left:-70%}75%,100%{left:140%}}
 @keyframes cubeRotate{to{transform:rotateX(342deg) rotateY(360deg)}}
 
@@ -246,7 +245,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:16px 0;background
 .omega-top strong{font:12px Orbitron;color:var(--cyan)}
 .omega-online{font:8px Orbitron;color:var(--green)}
 .omega-chat{padding:18px;flex:1;min-height:220px;max-height:300px;overflow:auto;display:flex;flex-direction:column;gap:12px}
-.omega-message{max-width:90%;padding:12px 14px;border:1px solid #25c8ff38;border-radius:10px;background:#0a2943;font-size:11px;line-height:1.7;color:#c9eaf6;overflow-wrap:anywhere}
+.omega-message{max-width:90%;padding:12px 14px;border:1px solid #25c8ff38;border-radius:10px;background:#0a2943;font-size:11px;line-height:1.7;color:#c9eaf6;overflow-wrap:anywhere;white-space:pre-line}
 .omega-message.user{align-self:flex-end;background:#0b3854;border-color:#25c8ff80}
 .omega-message.system{align-self:flex-start}
 .omega-message small{display:block;color:#58b4d2;font:8px Orbitron;margin-bottom:6px}
@@ -263,8 +262,27 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:100;padding:16px 0;background
 .omega-command{padding:8px 10px;border:1px solid #25c8ff40;background:#071a2e;border-radius:6px;color:#8cecff;font:8px Orbitron}
 .omega-memory{margin-top:20px;padding:17px;border:1px solid var(--line);border-radius:10px;background:#06182b}
 .omega-memory h3{font:10px Orbitron;color:var(--cyan);margin-bottom:10px}
-.omega-memory p{font-size:10px;line-height:1.7;color:#91adbf}
+.omega-memory p{font-size:10px;line-height:1.7;color:#91adbf;overflow-wrap:anywhere}
 .omega-memory button{margin-top:12px}
+.omega-evolution{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:20px}
+.omega-evolution-card{padding:19px;border:1px solid var(--line);border-radius:12px;background:#06182b}
+.omega-evolution-card h3{font:10px Orbitron;color:var(--cyan);margin-bottom:13px}
+.omega-level-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.omega-level{font:700 23px Orbitron;color:var(--cyan)}
+.omega-xp{font:9px Orbitron;color:#83b4c9}
+.omega-progress{height:7px;border-radius:20px;background:#16334b;overflow:hidden}
+.omega-progress span{height:100%;width:0;display:block;background:linear-gradient(90deg,#168fc9,#8cecff);box-shadow:0 0 15px #25c8ff;transition:width .5s}
+.omega-progress-label{font-size:9px;color:#83a9bd;margin-top:9px}
+.omega-diagnostic-list{display:grid;gap:9px}
+.omega-diagnostic-item{display:flex;justify-content:space-between;gap:10px;font-size:10px;color:#9bb9ca}
+.omega-diagnostic-item strong{font:9px Orbitron;color:var(--green)}
+.omega-insight{margin-top:20px;padding:18px;border:1px solid #25c8ff55;border-radius:12px;background:linear-gradient(110deg,#092b46,#06182b)}
+.omega-insight-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px}
+.omega-insight h3{font:10px Orbitron;color:var(--cyan)}
+.omega-insight p{font-size:11px;line-height:1.8;color:#a7c7d7}
+.omega-insight button{margin-top:12px}
+.omega-memory-actions{display:flex;gap:8px;flex-wrap:wrap}
+.omega-memory-actions button{margin-top:12px}
 
 /* CONTACT / FOOTER */
 .contact-box{text-align:center;padding:50px 25px}
@@ -305,6 +323,7 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
 .omega-modules{grid-template-columns:1fr 1fr}
 .omega-reactor{min-height:300px}
 .omega-input{font-size:10px}.omega-send{padding:0 12px}
+.omega-evolution{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 </style>
@@ -540,7 +559,7 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
 <div class="omega-core-wrap">
 <div class="omega-reactor reveal">
 <div class="reactor-rings"></div><div class="reactor-center">Ω</div>
-<div class="reactor-readout">OMEGA CORE // HYBRID MODE</div>
+<div class="reactor-readout" id="omegaCoreStatus">OMEGA CORE // HYBRID MODE</div>
 </div>
 
 <div class="omega-console reveal">
@@ -566,6 +585,8 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
 
 <div class="omega-command-list reveal">
 <button class="omega-command" data-command="status">SYSTEM STATUS</button>
+<button class="omega-command" data-command="diagnostics">RUN DIAGNOSTICS</button>
+<button class="omega-command" data-command="insight">PREDICTIVE INSIGHT</button>
 <button class="omega-command" data-command="open memories">OPEN MEMORY ARCHIVE</button>
 <button class="omega-command" data-command="open identity">OPEN IDENTITY CARD</button>
 <button class="omega-command" data-command="open blueprint">OPEN BLUEPRINT</button>
@@ -573,10 +594,39 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
 <button class="omega-command" data-command="open home">RETURN HOME</button>
 </div>
 
+<div class="omega-evolution reveal">
+<div class="omega-evolution-card">
+<h3>OMEGA EVOLUTION ENGINE</h3>
+<div class="omega-level-row">
+<div class="omega-level" id="omegaLevel">LEVEL 01</div>
+<div class="omega-xp" id="omegaXP">0 XP</div>
+</div>
+<div class="omega-progress"><span id="omegaProgressBar"></span></div>
+<div class="omega-progress-label" id="omegaProgressText">0 / 100 XP TO NEXT LEVEL</div>
+</div>
+<div class="omega-evolution-card">
+<h3>LIVE SYSTEM DIAGNOSTICS</h3>
+<div class="omega-diagnostic-list" id="omegaDiagnosticList">
+<div class="omega-diagnostic-item"><span>COMMAND ENGINE</span><strong>READY</strong></div>
+<div class="omega-diagnostic-item"><span>LOCAL MEMORY</span><strong>READY</strong></div>
+<div class="omega-diagnostic-item"><span>WEBSITE CONTROL</span><strong>READY</strong></div>
+</div>
+</div>
+</div>
+
+<div class="omega-insight reveal">
+<div class="omega-insight-head"><h3>OMEGA PREDICTIVE INSIGHT</h3><span class="omega-online">● CONTEXT ENGINE</span></div>
+<p id="omegaInsightText">OMEGA will generate suggestions based on the website modules and activity you explore.</p>
+<button class="id-action" id="refreshOmegaInsight">GENERATE NEW INSIGHT</button>
+</div>
+
 <div class="omega-memory reveal">
 <h3>OMEGA MEMORY STORAGE // LOCAL BROWSER</h3>
 <p id="omegaMemoryStatus">No saved notes yet. Ask OMEGA to remember something using: "remember: your note".</p>
+<div class="omega-memory-actions">
+<button class="id-action" id="showOmegaMemory">VIEW MEMORY</button>
 <button class="id-action" id="clearOmegaMemory">CLEAR LOCAL MEMORY</button>
+</div>
 </div>
 </div>
 </section>
@@ -609,12 +659,20 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
 
 <script>
 /* =========================================
-   F.A PERSONAL UNIVERSE // PROJECT OMEGA
+   F.A PERSONAL UNIVERSE // PROJECT OMEGA 2.0
+   Hybrid local intelligence prototype
 ========================================= */
 const $=id=>document.getElementById(id);
 const CORRECT_PIN="414141";
+const OMEGA_MEMORY_KEY="fa_omega_memory_v2";
+const OMEGA_STATE_KEY="fa_omega_state_v2";
+
 let enteredPin="",isProcessing=false,jarvisHasSpoken=false,audioContext=null;
 let activeScreen=1;
+let omegaXP=0,omegaLevel=1,omegaActions=0;
+let omegaHistory=[];
+let currentInsight=0;
+
 const gate=$("gate"),gateContent=$("gateContent"),gateStatus=$("gateStatus");
 const pinDots=document.querySelectorAll(".pin-dot");
 const accessGranted=$("accessGranted"),terminalScreen=$("terminalScreen");
@@ -686,11 +744,11 @@ const terminalMessages=[
 "Authentication confirmed.",
 "Initializing J.A.R.V.I.S interface...",
 "Loading personal universe modules...",
-"Connecting OMEGA CORE...",
+"Connecting OMEGA CORE 2.0...",
 "Profile database connected.",
 "Memory archive synchronized.",
-"Visual interface calibrated.",
-"Security protocols verified.",
+"Adaptive intelligence calibrated.",
+"Local command engine ready.",
 "OMEGA HYBRID SYSTEM READY."
 ];
 async function runTerminal(){
@@ -746,7 +804,9 @@ function setActiveScreen(screen,animate=true){
  screenSwitchText.textContent=first?"SCREEN 1 / 2":"SCREEN 2 / 2";
  $("portalDestination").textContent=first?"SCREEN 1 / 2":"SCREEN 2 / 2";
  window.scrollTo({top:0,behavior:animate?"smooth":"auto"});
- refreshRevealElements();playTone(620,.12,"sine",.035);
+ refreshRevealElements();
+ if(animate)recordOmegaActivity("screen-travel",false);
+ playTone(620,.12,"sine",.035);
 }
 screenSwitch.addEventListener("click",()=>setActiveScreen(activeScreen===1?2:1));
 $("portalTravel").addEventListener("click",()=>{
@@ -789,7 +849,7 @@ document.querySelectorAll(".archive-card").forEach(card=>{
  card.style.transform=`perspective(1000px) rotateX(${((r.height/2-y)/(r.height/2))*7}deg) rotateY(${((x-r.width/2)/(r.width/2))*7}deg)`;
  });
  card.addEventListener("mouseleave",()=>card.style.transform="");
- card.addEventListener("click",()=>{viewerImage.src=card.dataset.image;photoViewer.classList.add("show");playTone(650,.1)});
+ card.addEventListener("click",()=>{viewerImage.src=card.dataset.image;photoViewer.classList.add("show");playTone(650,.1);recordOmegaActivity("memory-view")});
 });
 function closePhoto(){photoViewer.classList.remove("show")}
 $("photoClose").addEventListener("click",closePhoto);
@@ -808,10 +868,12 @@ document.querySelectorAll(".cube-select").forEach((b,i)=>b.addEventListener("cli
  document.querySelectorAll(".cube-select").forEach(x=>x.classList.remove("active"));b.classList.add("active");
  $("cubeTitle").textContent=d.title;$("cubeDescription").textContent=d.description;
  $("cubeIndex").textContent=`${String(i+1).padStart(2,"0")} / 04`;playTone(760,.1);
+ recordOmegaActivity("cube-explore");
 }));
 $("holoCube").addEventListener("click",e=>{
  e.currentTarget.style.animationPlayState=e.currentTarget.style.animationPlayState==="paused"?"running":"paused";
  toast(e.currentTarget.style.animationPlayState==="paused"?"DATA CUBE PAUSED":"DATA CUBE RESUMED");
+ recordOmegaActivity("cube-interaction");
 });
 
 /* DIGITAL ID CARD */
@@ -820,6 +882,7 @@ $("scanIdentity").addEventListener("click",()=>{
  identityCard.classList.remove("scanning");void identityCard.offsetWidth;identityCard.classList.add("scanning");
  playTone(650,.12);playTone(900,.16,"sine",.035,.2);
  setTimeout(()=>identityCard.classList.remove("scanning"),2500);toast("IDENTITY SCAN COMPLETE");
+ recordOmegaActivity("identity-scan");
 });
 $("rotateIdentity").addEventListener("click",()=>{identityCard.style.transform="rotateY(0) rotateX(0)";toast("CARD VIEW RESET")});
 identityCard.addEventListener("mousemove",e=>{
@@ -832,7 +895,7 @@ identityCard.addEventListener("mouseleave",()=>identityCard.style.transform="rot
 const board=$("spatialBoard");let dragPanel=null,dragOffsetX=0,dragOffsetY=0;
 document.querySelectorAll(".spatial-panel").forEach(panel=>{
  panel.addEventListener("pointerdown",e=>{
- dragPanel=panel;const r=panel.getBoundingClientRect(),b=board.getBoundingClientRect();
+ dragPanel=panel;const r=panel.getBoundingClientRect();
  dragOffsetX=e.clientX-r.left;dragOffsetY=e.clientY-r.top;
  panel.setPointerCapture(e.pointerId);panel.style.zIndex=10;
  });
@@ -844,7 +907,7 @@ document.querySelectorAll(".spatial-panel").forEach(panel=>{
  y=Math.max(35,Math.min(b.height-panel.offsetHeight,y));
  panel.style.left=x+"px";panel.style.top=y+"px";panel.style.right="auto";panel.style.bottom="auto";
  });
- const end=()=>{if(dragPanel===panel){dragPanel=null;panel.style.zIndex=2;playTone(520,.06)}};
+ const end=()=>{if(dragPanel===panel){dragPanel=null;panel.style.zIndex=2;playTone(520,.06);recordOmegaActivity("spatial-arrange")}};
  panel.addEventListener("pointerup",end);panel.addEventListener("pointercancel",end);
 });
 $("resetPanels").addEventListener("click",()=>{
@@ -852,13 +915,13 @@ $("resetPanels").addEventListener("click",()=>{
  ["panelA","panelB","panelC"].forEach((id,i)=>{
  const p=$(id),v=positions[i];p.style.left=v[0];p.style.top=v[1];p.style.right=v[2];p.style.bottom=v[3];
  });
- toast("SPATIAL LAYOUT RESET");
+ toast("SPATIAL LAYOUT RESET");recordOmegaActivity("spatial-reset");
 });
 $("scatterPanels").addEventListener("click",()=>{
  [["panelA",.04,.2],["panelB",.53,.36],["panelC",.25,.68]].forEach(([id,x,y])=>{
  const p=$(id);p.style.left=(x*board.clientWidth)+"px";p.style.top=(y*board.clientHeight)+"px";p.style.right="auto";p.style.bottom="auto";
  });
- toast("PANELS REARRANGED");
+ toast("PANELS REARRANGED");recordOmegaActivity("spatial-scatter");
 });
 
 /* MULTIVERSE */
@@ -874,26 +937,80 @@ document.querySelectorAll(".universe-tab").forEach(btn=>btn.addEventListener("cl
  $("universeTitle").textContent=d.title;$("universeDescription").textContent=d.description;
  $("universeSymbol").textContent=d.symbol;$("universeIndex").textContent=d.index;
  $("universeVisual").animate([{opacity:.2,transform:"scale(.96)"},{opacity:1,transform:"scale(1)"}],{duration:450});
- playTone(580,.12);toast(d.title+" LOADED");
+ playTone(580,.12);toast(d.title+" LOADED");recordOmegaActivity("universe-switch");
 }));
 
 /* INTERACTIVE CARDS */
 document.querySelectorAll(".interest-card,.blueprint-card,.story-card").forEach(card=>{
- card.addEventListener("click",()=>{card.classList.toggle("selected");playTone(540,.07)});
+ card.addEventListener("click",()=>{card.classList.toggle("selected");playTone(540,.07);recordOmegaActivity("content-interaction")});
 });
 
-/* OMEGA MEMORY ENGINE */
-const OMEGA_MEMORY_KEY="fa_omega_memory_v1";
+/* =========================================
+   OMEGA CORE 2.0 — MEMORY + EVOLUTION
+========================================= */
 function readOmegaMemory(){
- try{return JSON.parse(localStorage.getItem(OMEGA_MEMORY_KEY)||"[]")}catch(e){return []}
+ try{
+ const data=JSON.parse(localStorage.getItem(OMEGA_MEMORY_KEY)||"[]");
+ return Array.isArray(data)?data:[];
+ }catch(e){return []}
 }
 function saveOmegaMemory(items){
- try{localStorage.setItem(OMEGA_MEMORY_KEY,JSON.stringify(items));updateOmegaMemoryStatus();return true}catch(e){return false}
+ try{
+ localStorage.setItem(OMEGA_MEMORY_KEY,JSON.stringify(items));
+ updateOmegaMemoryStatus();
+ return true;
+ }catch(e){return false}
+}
+function readOmegaState(){
+ try{return JSON.parse(localStorage.getItem(OMEGA_STATE_KEY)||"{}")}catch(e){return {}}
+}
+function saveOmegaState(){
+ try{
+ localStorage.setItem(OMEGA_STATE_KEY,JSON.stringify({
+ xp:omegaXP,level:omegaLevel,actions:omegaActions,
+ lastUpdated:new Date().toISOString()
+ }));
+ }catch(e){}
+}
+function loadOmegaState(){
+ const s=readOmegaState();
+ omegaXP=Number(s.xp)||0;
+ omegaLevel=Math.max(1,Number(s.level)||1);
+ omegaActions=Number(s.actions)||0;
+ const calculatedLevel=Math.floor(omegaXP/100)+1;
+ omegaLevel=Math.max(omegaLevel,calculatedLevel);
+ updateOmegaEvolution();
+}
+function updateOmegaEvolution(){
+ const currentLevelXP=omegaXP%100;
+ $("omegaLevel").textContent="LEVEL "+String(omegaLevel).padStart(2,"0");
+ $("omegaXP").textContent=omegaXP+" XP";
+ $("omegaProgressBar").style.width=currentLevelXP+"%";
+ $("omegaProgressText").textContent=currentLevelXP+" / 100 XP TO NEXT LEVEL";
+}
+function recordOmegaActivity(activity,award=true){
+ omegaActions++;
+ if(award){
+ const points={
+ "screen-travel":5,"memory-view":4,"cube-explore":5,
+ "cube-interaction":3,"identity-scan":6,"spatial-arrange":5,
+ "spatial-reset":3,"spatial-scatter":3,"universe-switch":5,
+ "content-interaction":2,"omega-command":3,"omega-insight":5
+ };
+ omegaXP+=points[activity]||2;
+ const newLevel=Math.floor(omegaXP/100)+1;
+ if(newLevel>omegaLevel){
+ omegaLevel=newLevel;
+ toast("OMEGA EVOLVED // LEVEL "+omegaLevel);
+ playSuccessSound();
+ }
+ }
+ saveOmegaState();updateOmegaEvolution();
 }
 function updateOmegaMemoryStatus(){
  const items=readOmegaMemory();
  $("omegaMemoryStatus").textContent=items.length
- ?items.map((x,i)=>`${i+1}. ${x}`).join(" | ")
+ ?items.map((x,i)=>`${i+1}. ${x.text||x}`).join("  |  ")
  :"No saved notes yet. Ask OMEGA to remember something using: remember: your note";
 }
 function addOmegaMessage(message,type="system"){
@@ -903,58 +1020,206 @@ function addOmegaMessage(message,type="system"){
  el.append(label,body);$("omegaChat").appendChild(el);
  $("omegaChat").scrollTop=$("omegaChat").scrollHeight;
 }
+function saveOmegaNote(note){
+ if(!note)return false;
+ const items=readOmegaMemory();
+ items.push({text:note,date:new Date().toLocaleString("id-ID")});
+ if(items.length>50)items.shift();
+ const ok=saveOmegaMemory(items);
+ if(ok)recordOmegaActivity("memory-save");
+ return ok;
+}
+function showOmegaMemory(){
+ const items=readOmegaMemory();
+ if(!items.length)return "OMEGA MEMORY ARCHIVE is empty.";
+ return "LOCAL MEMORY ARCHIVE:\n"+items.map((x,i)=>{
+ const value=typeof x==="string"?x:x.text;
+ const date=typeof x==="string"?"":` (${x.date||"saved"})`;
+ return `${i+1}. ${value}${date}`;
+ }).join("\n");
+}
+
+/* PROFILE CONTEXT ENGINE */
+function getProfileContext(){
+ return {
+ name:"Fachriansyah Alfigo",
+ field:"Manajemen Multimedia dan Digital",
+ education:"HSPG Yogyakarta",
+ background:"BMX journey",
+ interests:["technology","creativity","multimedia","BMX","exploration","personal growth"],
+ platform:"F.A Personal Universe",
+ features:["JARVIS Welcome","Holographic Data Cube","Digital Identity Card","Project Blueprint","Digital Twin","Spatial Computing","Multiverse","Universe Portal","OMEGA Core"],
+ direction:"hybrid intelligence, futuristic communication, limited autonomy"
+ };
+}
+function getCurrentSection(){
+ const sections=[...document.querySelectorAll("main section[id]")];
+ let current="home";
+ const marker=window.scrollY+window.innerHeight*.35;
+ sections.forEach(s=>{if(s.offsetTop<=marker)current=s.id});
+ return current;
+}
+function runOmegaDiagnostics(){
+ const checks=[
+ ["COMMAND ENGINE",typeof omegaReply==="function"],
+ ["LOCAL MEMORY",typeof localStorage!=="undefined"],
+ ["WEBSITE CONTROL",!!$("mainWebsite")&&!!$("screenOne")&&!!$("screenTwo")],
+ ["DATA CUBE",!!$("holoCube")],
+ ["DIGITAL IDENTITY",!!$("identityCard")],
+ ["SPATIAL INTERFACE",!!$("spatialBoard")],
+ ["VOICE SUPPORT","speechSynthesis"in window],
+ ["AI CLOUD CONNECTION",false]
+ ];
+ const passed=checks.filter(x=>x[1]).length;
+ $("omegaDiagnosticList").innerHTML="";
+ checks.forEach(([name,ok])=>{
+ const row=document.createElement("div");row.className="omega-diagnostic-item";
+ const label=document.createElement("span");label.textContent=name;
+ const status=document.createElement("strong");
+ status.textContent=ok?"READY":name==="AI CLOUD CONNECTION"?"NOT CONNECTED":"UNAVAILABLE";
+ if(!ok&&name!=="AI CLOUD CONNECTION")status.style.color="#ffbd75";
+ if(name==="AI CLOUD CONNECTION")status.style.color="#91adbf";
+ row.append(label,status);$("omegaDiagnosticList").appendChild(row);
+ });
+ $("omegaCoreStatus").textContent="DIAGNOSTICS // "+passed+"/"+checks.length+" MODULES";
+ return `DIAGNOSTIC REPORT:\n${checks.map(([name,ok])=>name+": "+(ok?"READY":name==="AI CLOUD CONNECTION"?"NOT CONNECTED":"UNAVAILABLE")).join("\n")}\n\n${passed} of ${checks.length} local checks passed. This is a browser-side feature check, not a security audit.`;
+}
+
+/* PREDICTIVE INSIGHT ENGINE */
+const omegaInsights=[
+{
+title:"PROFILE DEVELOPMENT",
+text:"Your Personal Universe already connects your identity, BMX background, multimedia studies, and creative interests. A useful next step is to document one real project in the Project Blueprint so the website becomes a portfolio of completed work, not only a visual experience."
+},
+{
+title:"KNOWLEDGE CONNECTION",
+text:"Your interests create a useful connection between technology, multimedia, and creativity. Consider building a small interactive project that combines those three areas, then record its concept and progress in the Blueprint."
+},
+{
+title:"MEMORY INTELLIGENCE",
+text:"OMEGA can store short notes in this browser. Use it to save project ideas, future improvements, or important decisions. Keep sensitive information such as passwords and private access codes out of local memory."
+},
+{
+title:"INTERFACE EVOLUTION",
+text:"The website has multiple interactive systems. A strong next improvement would be to connect each module to a clear purpose: the Data Cube for profile data, the Twin for identity, and OMEGA for commands and local memory."
+},
+{
+title:"CREATIVE DIRECTION",
+text:"Your BMX journey gives your portfolio a distinctive personal story. You could add a dedicated BMX milestone or competition record to make the personal timeline more concrete."
+}
+];
+function generateOmegaInsight(){
+ const item=omegaInsights[currentInsight%omegaInsights.length];
+ currentInsight++;
+ $("omegaInsightText").textContent=item.title+" — "+item.text;
+ recordOmegaActivity("omega-insight");
+ return item.title+": "+item.text;
+}
+$("refreshOmegaInsight").addEventListener("click",()=>{
+ const insight=generateOmegaInsight();
+ addOmegaMessage("PREDICTIVE INSIGHT:\n"+insight,"system");
+ playTone(740,.12);
+});
+
+/* OMEGA COMMAND ENGINE */
 function omegaReply(input){
  const q=input.trim(),low=q.toLowerCase();
  if(!q)return "Please enter a message or command.";
 
- if(low.startsWith("remember:")||low.startsWith("ingat:")){
+ if(low.startsWith("remember:")||low.startsWith("ingat:")||low.startsWith("simpan:")){
  const note=q.substring(q.indexOf(":")+1).trim();
  if(!note)return "Memory request is empty. Add a note after the colon.";
- const items=readOmegaMemory();items.push(note);
- if(saveOmegaMemory(items))return "Memory stored in this browser. I can recall this note while this browser keeps its local storage.";
+ if(saveOmegaNote(note))return "Memory stored successfully in this browser. I can recall it while this browser keeps its local storage.";
  return "I couldn't save that note. Browser storage may be unavailable.";
  }
- if(low.includes("what do you remember")||low.includes("show memory")||low.includes("lihat memori")){
- const items=readOmegaMemory();
- return items.length?"Here is the local memory archive:\n"+items.map((x,i)=>`${i+1}. ${x}`).join("\n"):"The local memory archive is currently empty.";
+
+ if(low.includes("what do you remember")||low.includes("show memory")||low.includes("lihat memori")||low.includes("tampilkan memori")||low.includes("buka memori")){
+ return showOmegaMemory();
  }
- if(low.includes("status")||low.includes("diagnostic")||low.includes("sistem")){
- return "OMEGA CORE: ONLINE\nJARVIS INTERFACE: READY\nLOCAL MEMORY: "+readOmegaMemory().length+" NOTE(S)\nCOMMAND ENGINE: ACTIVE\nWEBSITE CONTROL: AUTHORIZED LOCAL ACTIONS ONLY\nAI CLOUD CONNECTION: NOT CONFIGURED.";
+
+ if(low.includes("clear memory")||low.includes("hapus memori")||low.includes("bersihkan memori")){
+ return "For safety, use the CLEAR LOCAL MEMORY button in the memory panel. The action requires your confirmation.";
  }
- if(low.includes("analyze")||low.includes("analysis")||low.includes("analisis")||low.includes("analisis")){
- return "PROFILE ANALYSIS:\nIdentity: Fachriansyah Alfigo.\nEducation: Manajemen Multimedia dan Digital; HSPG Yogyakarta.\nPersonal background: BMX journey.\nCore traits: curious, creative, open to learning.\nCurrent platform: F.A Personal Universe.\nDevelopment direction: hybrid intelligence, futuristic interface, and limited autonomy.\nThis analysis uses the profile information already written into this website.";
+
+ if(low.includes("diagnostic")||low.includes("diagnostik")||low.includes("cek sistem")||low.includes("periksa sistem")){
+ return runOmegaDiagnostics();
  }
- if(low.includes("help")||low.includes("bantuan")||low.includes("command")){
- return "AVAILABLE COMMANDS:\n• status — system diagnostics\n• open home — return to screen one\n• open memories — open Memory Archive\n• open identity — open Digital Identity Card\n• open blueprint — open Project Blueprint\n• open portal — open Universe Portal\n• remember: [note] — save a local note\n• show memory — recall saved notes\n• analyze profile — analyze the profile data.";
+
+ if(low==="status"||low.includes("system status")||low.includes("status sistem")){
+ return "OMEGA CORE 2.0: ONLINE\nJARVIS INTERFACE: READY\nLOCAL MEMORY: "+readOmegaMemory().length+" NOTE(S)\nEVOLUTION: LEVEL "+omegaLevel+" // "+omegaXP+" XP\nRECORDED ACTIVITIES: "+omegaActions+"\nCOMMAND ENGINE: ACTIVE\nWEBSITE CONTROL: AUTHORIZED LOCAL ACTIONS ONLY\nAI CLOUD CONNECTION: NOT CONFIGURED.";
  }
- if(low.includes("hello")||low.includes("halo")||low.includes("hai")||low.includes("hi ")){
- return "Hello, Alfigo. OMEGA CORE is online. What would you like to explore?";
+
+ if(low.includes("insight")||low.includes("prediksi")||low.includes("rekomendasi")||low.includes("saran")||low.includes("what should i do")){
+ const item=omegaInsights[currentInsight%omegaInsights.length];currentInsight++;
+ recordOmegaActivity("omega-insight");
+ return "OMEGA PREDICTIVE INSIGHT:\n"+item.title+"\n"+item.text;
  }
+
+ if(low.includes("analyze")||low.includes("analysis")||low.includes("analisis")||low.includes("profil")||low.includes("profile")){
+ const p=getProfileContext();
+ recordOmegaActivity("omega-command");
+ return "PROFILE ANALYSIS // ADAPTIVE PROFILE\nName: "+p.name+"\nEducation: "+p.education+"\nField: "+p.field+"\nBackground: "+p.background+"\nInterests: "+p.interests.join(", ")+"\nPlatform: "+p.platform+"\nDevelopment direction: "+p.direction+"\n\nThis analysis is generated from profile information already written into this website.";
+ }
+
+ if(low.includes("help")||low.includes("bantuan")||low.includes("command")||low.includes("perintah")){
+ return "OMEGA COMMAND DIRECTORY:\n• status — system status\n• diagnostics — run module diagnostics\n• insight — generate a recommendation\n• analyze profile — profile analysis\n• open home — return to screen one\n• open memories — open Memory Archive\n• open identity — open Digital Identity Card\n• open blueprint — open Project Blueprint\n• open portal — open Universe Portal\n• open omega — open OMEGA Core\n• remember: [note] — save a local note\n• show memory — recall saved notes\n• level — view OMEGA evolution level\n• current section — identify current website section.";
+ }
+
+ if(low.includes("level")||low.includes("xp")||low.includes("evolution")||low.includes("evolusi")){
+ return "OMEGA EVOLUTION STATUS:\nLEVEL: "+omegaLevel+"\nTOTAL XP: "+omegaXP+"\nACTIVITIES RECORDED: "+omegaActions+"\nXP TO NEXT LEVEL: "+(100-(omegaXP%100))+"\n\nXP is a local gamification indicator. It does not measure actual intelligence.";
+ }
+
+ if(low.includes("current section")||low.includes("bagian sekarang")||low.includes("posisi saya")){
+ return "CURRENT WEBSITE SECTION: "+getCurrentSection().toUpperCase()+"\nACTIVE SCREEN: "+activeScreen+"/2";
+ }
+
+ if(low.includes("hello")||low.includes("halo")||low.includes("hai")||low==="hi"||low.startsWith("hi ")){
+ return "Hello, Alfigo. OMEGA CORE 2.0 is online. I can analyze your profile, inspect local modules, recall saved notes, and navigate supported areas of your Personal Universe.";
+ }
+
  if(low.includes("who are you")||low.includes("siapa kamu")){
- return "I am OMEGA, the hybrid intelligence interface inside F.A Personal Universe. I can respond to built-in commands, recall browser-stored notes, and control supported parts of this website.";
+ return "I am OMEGA, the hybrid intelligence interface inside F.A Personal Universe. My current capabilities include local command processing, profile analysis, browser memory, predictive suggestions, evolution tracking, diagnostics, and authorized website navigation.";
  }
- if(low.includes("project omega")||low.includes("omega")){
- return "PROJECT OMEGA is the intelligence layer of this website. Its current prototype combines a local command engine, browser memory, profile analysis, and authorized interface controls. A connected AI backend would be needed for open-ended AI conversations.";
+
+ if(low.includes("project omega")||low.includes("omega core")||low==="omega"){
+ return "PROJECT OMEGA 2.0 is the intelligence layer of this website. Its hybrid architecture combines a local command engine, profile context, browser memory, diagnostics, predictive insights, activity tracking, and limited website control. Open-ended AI conversation requires a connected AI model through a secure backend.";
  }
- if(low.startsWith("open ")||low.startsWith("buka ")){
- const target=low.replace(/^open |^buka /,"").trim();
- const map={home:"home",beranda:"home",memories:"memories",memory:"memories",archive:"memories",identity:"identity",identitas:"identity",blueprint:"blueprint",portal:"portal",omega:"omega",interests:"interests"};
+
+ if(low.startsWith("open ")||low.startsWith("buka ")||low.startsWith("go to ")||low.startsWith("menuju ")){
+ const target=low.replace(/^open |^buka |^go to |^menuju /,"").trim();
+ const map={
+ home:"home",beranda:"home",about:"about",tentang:"about",
+ story:"story",journey:"story",memories:"memories",memory:"memories",archive:"memories",
+ cube:"dataCube","data cube":"dataCube",identity:"identity",identitas:"identity",
+ blueprint:"blueprint",project:"blueprint","digital twin":"digitalTwin",twin:"digitalTwin",
+ spatial:"spatial","spatial computing":"spatial",multiverse:"parallel",universe:"parallel",
+ portal:"portal",omega:"omega",interests:"interests",minat:"interests",contact:"contact"
+ };
  const id=map[target];
- if(id){navigateTo(id);return "Navigation command accepted. Opening "+target.toUpperCase()+".";}
- return "I don't recognize that destination. Try: open home, open memories, open identity, open blueprint, or open portal.";
+ if(id){navigateTo(id);recordOmegaActivity("omega-command");return "Navigation command accepted. Opening "+target.toUpperCase()+".";}
+ return "Destination not recognized. Try: open home, open memories, open identity, open blueprint, open portal, or open omega.";
  }
+
  if(low.includes("bmx"))return "BMX is a key chapter of your personal story. It represents competition, discipline, determination, and experiences at regional, national, and international levels.";
  if(low.includes("education")||low.includes("kuliah")||low.includes("pendidikan"))return "Your profile records HSPG Yogyakarta as your educational background and Manajemen Multimedia dan Digital as your field of study.";
- return "I received your message. My local intelligence engine currently supports website commands, profile information, memory storage, and basic analysis. For unrestricted AI answers, OMEGA needs an AI service connected through a secure backend.";
+ if(low.includes("website")||low.includes("fitur")||low.includes("feature")){
+ return "F.A PERSONAL UNIVERSE MODULES:\n1. Personal identity and story\n2. Memory Archive\n3. Holographic Data Cube\n4. Digital Identity Card\n5. Project Blueprint\n6. Digital Twin\n7. Spatial Computing\n8. Multiverse Simulation\n9. Universe Portal\n10. OMEGA Core 2.0.";
+ }
+ if(low.includes("thank")||low.includes("makasih")||low.includes("terima kasih"))return "You're welcome, Alfigo. OMEGA remains ready for your next command.";
+
+ return "I received your message. My current local intelligence can process website commands, profile information, memory, diagnostics, and recommendations. For unrestricted AI conversation, OMEGA needs an AI model connected through a secure backend. Try typing HELP to see available commands.";
 }
+
 function sendOmegaMessage(){
  const input=$("omegaInput"),message=input.value.trim();if(!message)return;
  addOmegaMessage(message,"user");input.value="";
+ recordOmegaActivity("omega-command");
  const reply=omegaReply(message);
  setTimeout(()=>addOmegaMessage(reply,"system"),180);
 }
 $("omegaSend").addEventListener("click",sendOmegaMessage);
 $("omegaInput").addEventListener("keydown",e=>{if(e.key==="Enter")sendOmegaMessage()});
+
 document.querySelectorAll("[data-omega]").forEach(el=>el.addEventListener("click",()=>{
  const key=el.dataset.omega;
  const commands={
@@ -963,21 +1228,25 @@ document.querySelectorAll("[data-omega]").forEach(el=>el.addEventListener("click
  analysis:"analyze profile",
  command:"help",
  interface:"hello",
- autonomy:"status"
+ autonomy:"diagnostics"
  };
  $("omegaInput").value=commands[key]||"help";sendOmegaMessage();
 }));
 document.querySelectorAll("[data-command]").forEach(el=>el.addEventListener("click",()=>{
  $("omegaInput").value=el.dataset.command;sendOmegaMessage();
 }));
+$("showOmegaMemory").addEventListener("click",()=>{
+ addOmegaMessage(showOmegaMemory(),"system");
+ recordOmegaActivity("omega-command");
+});
 $("clearOmegaMemory").addEventListener("click",()=>{
  if(confirm("Clear all OMEGA notes saved in this browser?")){
  localStorage.removeItem(OMEGA_MEMORY_KEY);updateOmegaMemoryStatus();toast("LOCAL MEMORY CLEARED");
+ addOmegaMessage("Local memory archive cleared after your confirmation.","system");
  }
 });
-updateOmegaMemoryStatus();
 
-/* OMEGA NAVIGATION COMMANDS */
+/* OMEGA NAVIGATION */
 function navigateTo(id){
  const target=$(id);if(!target)return;
  const parent=target.closest("[data-screen]");
@@ -985,9 +1254,17 @@ function navigateTo(id){
  $("navLinks").classList.remove("open");
  setTimeout(()=>target.scrollIntoView({behavior:"smooth",block:"start"}),120);
 }
+
+/* INSTAGRAM PLACEHOLDER */
 $("instagramLink").addEventListener("click",e=>{
  e.preventDefault();toast("Tambahkan link Instagram milikmu di bagian HTML ini.");
 });
+
+/* OMEGA INITIALIZATION */
+loadOmegaState();
+updateOmegaMemoryStatus();
+runOmegaDiagnostics();
+generateOmegaInsight();
 
 /* PARTICLE SYSTEM */
 const canvas=$("particles"),ctx=canvas.getContext("2d");
