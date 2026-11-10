@@ -43,11 +43,35 @@ section{position:relative;padding:90px 0;z-index:1;scroll-margin-top:80px}
 @keyframes shine{0%,20%{left:-70%}75%,100%{left:140%}}
 @keyframes cubeRotate{to{transform:rotateX(342deg) rotateY(360deg)}}
 
-/* ACCESS GATE */
-#gate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at center,#0c3153,#030914 70%);transition:.8s}
-#gate:before{content:"";position:absolute;inset:0;background-image:linear-gradient(#42c5ff12 1px,transparent 1px),linear-gradient(90deg,#42c5ff12 1px,transparent 1px);background-size:38px 38px}
-.gate-scan{position:absolute;top:0;left:0;right:0;height:2px;background:var(--cyan);box-shadow:0 0 20px var(--blue);animation:scan 5s linear infinite}
-.gate-content{position:relative;width:min(420px,100%);padding:32px 24px;text-align:center;border:1px solid #45cfff55;border-radius:17px;background:#06192beF;box-shadow:0 0 55px #0096ff25}
+/* ACCESS GATE + BMX OPENING VIDEO */
+#gate{
+position:fixed;inset:0;z-index:9999;
+display:flex;align-items:center;justify-content:center;
+padding:20px;background:#030914;
+transition:.8s;overflow:hidden
+}
+.gate-video{
+position:absolute;inset:0;width:100%;height:100%;
+object-fit:cover;z-index:0;
+}
+.gate-video-overlay{
+position:absolute;inset:0;z-index:1;
+background:linear-gradient(180deg,rgba(2,9,20,.62),rgba(2,12,25,.76) 55%,rgba(2,9,20,.88));
+}
+#gate:before{
+content:"";position:absolute;inset:0;z-index:2;
+background-image:linear-gradient(#42c5ff12 1px,transparent 1px),linear-gradient(90deg,#42c5ff12 1px,transparent 1px);
+background-size:38px 38px;pointer-events:none
+}
+.gate-scan{position:absolute;top:0;left:0;right:0;height:2px;background:var(--cyan);box-shadow:0 0 20px var(--blue);animation:scan 5s linear infinite;z-index:4}
+.gate-content{
+position:relative;z-index:3;width:min(420px,100%);
+padding:32px 24px;text-align:center;
+border:1px solid #45cfff75;border-radius:17px;
+background:rgba(3,17,33,.82);
+backdrop-filter:blur(12px);
+box-shadow:0 0 55px #0096ff35
+}
 .gate-emblem{width:80px;height:80px;border:1px solid var(--cyan);border-radius:50%;display:grid;place-items:center;margin:0 auto 22px;font:800 26px Orbitron;color:var(--cyan);box-shadow:0 0 30px #25c8ff40;position:relative}
 .gate-emblem:after{content:"";position:absolute;inset:-9px;border:1px dashed #5bdcff80;border-radius:50%;animation:spin 15s linear infinite}
 .gate-kicker,.gate-subtitle,.pin-label{font:10px Orbitron;letter-spacing:3px;color:var(--blue)}
@@ -58,11 +82,11 @@ section{position:relative;padding:90px 0;z-index:1;scroll-margin-top:80px}
 .pin-dot{width:12px;height:12px;border:1px solid var(--cyan);border-radius:50%}
 .pin-dot.filled{background:var(--cyan);box-shadow:0 0 12px var(--blue)}
 .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;max-width:270px;margin:auto}
-.key{min-height:50px;border:1px solid #50c5ff40;background:#10426440;color:white;border-radius:8px;font:600 17px Orbitron}
+.key{min-height:50px;border:1px solid #50c5ff40;background:#10426470;color:white;border-radius:8px;font:600 17px Orbitron}
 .key.utility{font-size:10px;color:var(--cyan)}
 .gate-status{min-height:20px;margin-top:18px;color:#79cde9;font:10px Orbitron;letter-spacing:2px}
 .gate-status.error{color:#ff737d}.gate-status.success{color:var(--green)}
-.gate-footer{margin-top:22px;color:#547e99;font-size:9px;letter-spacing:2px}
+.gate-footer{margin-top:22px;color:#8ab4ca;font-size:9px;letter-spacing:2px}
 #gate.leaving{opacity:0;visibility:hidden}
 .access-granted,.terminal-screen{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:15px;background:#030f1cf7;opacity:0;visibility:hidden;transition:.5s}
 .access-granted.show,.terminal-screen.show{opacity:1;visibility:visible}
@@ -334,6 +358,13 @@ footer{border-top:1px solid var(--line);padding:25px 0;text-align:center;color:#
 
 <!-- ACCESS GATE -->
 <div id="gate">
+
+<!-- BMX VIDEO BACKGROUND -->
+<video class="gate-video" autoplay muted loop playsinline preload="auto">
+<source src="bmx-opening.mp4" type="video/mp4">
+</video>
+<div class="gate-video-overlay"></div>
+
 <div class="gate-scan"></div>
 <div class="gate-content" id="gateContent">
 <div class="gate-emblem">F.A</div>
@@ -945,9 +976,7 @@ document.querySelectorAll(".interest-card,.blueprint-card,.story-card").forEach(
  card.addEventListener("click",()=>{card.classList.toggle("selected");playTone(540,.07);recordOmegaActivity("content-interaction")});
 });
 
-/* =========================================
-   OMEGA CORE 2.0 — MEMORY + EVOLUTION
-========================================= */
+/* OMEGA CORE 2.0 — MEMORY + EVOLUTION */
 function readOmegaMemory(){
  try{
  const data=JSON.parse(localStorage.getItem(OMEGA_MEMORY_KEY)||"[]");
